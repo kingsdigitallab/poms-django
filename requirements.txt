@@ -6,12 +6,9 @@ django-grappelli
 django-libsass
 django-model-utils
 django-redis
-psycopg2
+mysqlclient
 redis
-elasticsearch>=5.0.0,<6.0.0
-
-
-
+pysolr==3.6.0
 django-kdl-ldap
 wagtail
 django-haystack

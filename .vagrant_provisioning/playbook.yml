@@ -24,21 +24,6 @@
     tags:
       -system
 
-  - name: apt | add elasticsearch key
-    become: yes
-    apt_key:
-      url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
-      state: present
-    tags:
-      - system
-
-  - name: apt | add elasticsearch sources
-    apt_repository:
-      repo: 'deb https://artifacts.elastic.co/packages/5.x/apt stable main'
-      state: present
-    tags:
-      - system
-
   - name: apt | install required system packages
     apt:
       pkg: '{{ item }}'
@@ -255,6 +240,16 @@
     tags:
       - system
       - solr
+
+  handlers:
+  - name: solr | restart solr
+    become: yes
+    service:
+      name: solr
+      state: started
+    tags:
+      - db
+
 
 - hosts: all
   vars_files:

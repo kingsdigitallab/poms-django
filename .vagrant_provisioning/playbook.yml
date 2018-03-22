@@ -173,151 +173,88 @@
 - hosts: all
   vars_files:
     - vars.yml
-  # gather_facts: false
+  # gather_facts: false 
+
   tasks:
-  - name: postgresql | setup gb locale
-    become: yes
-    locale_gen:
-      name: "{{ postgresql.locale }}"
-      state: present
-    tags:
-      - db
-
-  - name: postgresql | get installed version
-    become: yes
-    shell: 'ls /etc/postgresql/*/main/pg_hba.conf | cut -d / -f4'
-    register: postgresql_version
-    tags:
-      - db
-
-  - name: postgresql | ensure postgresql user can authenticate
-    become: yes
-    lineinfile:
-      path: /etc/postgresql/{{ postgresql_version.stdout }}/main/pg_hba.conf
-      backup: yes
-      regexp: "^local\\s+all\\s+{{ postgresql.admin_user }}\\s+peer$"
-      line: "local    all    {{ postgresql.admin_user }}    {{ postgresql.default_auth_method }}"
-    tags:
-      - db
-
-  - name: postgresql | ensure all users can authenticate
-    become: yes
-    lineinfile:
-      path: /etc/postgresql/{{ postgresql_version.stdout }}/main/pg_hba.conf
-      backup: yes
-      regexp: "^local\\s+all\\s+all\\s+peer$"
-      line: "local    all    all    {{ postgresql.default_auth_method }}"
-    notify:
-      - postgresql | restart postgres
-    tags:
-      - db
-
-  - name: elasticsearch | change JVM Heap To start at 256M
-    become: yes
-    lineinfile:
-      path: /etc/elasticsearch/jvm.options
-      backup: yes
-      regexp: "^-Xms2g$"
-      line: "-Xms256m"
-    notify:
-      - elasticsearch | restart elasticsearch
-    tags:
-      - db
-
-  handlers:
-  - name: postgresql | restart postgres
-    become: yes
-    service:
-      name: postgresql
-      state: restarted
-    tags:
-      - db
-
-  - name: elasticsearch | restart elasticsearch
-    become: yes
-    service:
-      name: elasticsearch
-      state: started
-    tags:
-      - db
-
-- hosts: all
-  vars_files:
-    - vars.yml
-  tasks:
-  - name: postgresql | create user
-    become_user: "{{ postgresql.admin_user }}"
-    postgresql_user:
-      user: "{{ postgresql.user }}"
+  - name: mysql | create user
+    mysql_user:
+      login_user: "{{ mysql.admin_user }}"
+      login_password: ""
+      user: "{{ mysql.user }}"
       password: "{{ app.name }}"
-      role_attr_flags: CREATEDB # NOSUPERUSER NOCREATEROLE
-    tags:
-      - db
-
-  - name: postgresql | create db
-    become_user: "{{ postgresql.admin_user }}"
-    postgresql_db:
-      name: "{{ app.name }}"
-      encoding: "{{postgresql.encoding}}"
-      lc_collate: "{{postgresql.locale}}"
-      lc_ctype: "{{postgresql.locale}}"
-      template: "template0"
-      state: present
-      owner: "{{ postgresql.user }}"
-    notify:
-      - postgresql | apply privileges
+      priv: "*.*:ALL"
     tags:
       - db
 
   - name: check if initial data file exists
     stat:
-      path: "{{ project_root }}/.vagrant_provisioning/{{ postgresql.initial_data_file }}"
+      path: "{{ project_root }}/.vagrant_provisioning/{{ mysql.initial_data_file }}"
     register: idf
     tags:
       - db
       - data
 
-  - name: posgresql | load initial data file
-    command: psql -U {{ postgresql.user }} -d {{ app.name }} -f {{ project_root }}/.vagrant_provisioning/{{ postgresql.initial_data_file }}
+  - name: mysql | create db
     when: idf.stat.exists
-    notify:
-      - postgresql | apply privileges after data import
+    mysql_db:
+      name: "{{ app.name }}"
+      encoding: "{{mysql.encoding}}"
+      login_user: "{{ mysql.admin_user }}"
+      login_password: ""
+
+    tags:
+      - db
+
+  - name: mysql | load initial data file
+    mysql_db: login_user={{ mysql.admin_user }} login_password= state=import encoding={{mysql.encoding}}  name={{ app.name }} target={{ project_root }}/.vagrant_provisioning/{{ mysql.initial_data_file }}
     tags:
       - db
       - data
 
-  - name: posgresql | create postgis extension if available
-    become_user: "{{ postgresql.admin_user }}"
-    command: psql -U {{ postgresql.admin_user }} -d {{ app.name }} -c "CREATE EXTENSION IF NOT EXISTS postgis;"
-    tags:
-      - db
-      - data
 
-  handlers:
-  - name: postgresql | apply privileges
-    become_user: "{{ postgresql.admin_user }}"
-    postgresql_privs:
-      db: "{{ app.name }}"
-      privs: ALL
-      roles: "{{ postgresql.user }}"
-      state: present
-      type: database
-    tags:
-      - db
-      - data
+- hosts: all
+  vars_files:
+    - vars.yml
+  
 
-  - name: postgresql | apply privileges after data import
-    become_user: "{{ postgresql.admin_user }}"
-    postgresql_privs:
-      db: "{{ app.name }}"
-      objs: ALL_IN_SCHEMA
-      privs: ALL
-      roles: "{{ postgresql.user }}"
-      state: present
-      type: table
+  tasks:
+  - name: solr | download
+    become: yes
+    get_url:
+      url: '{{ solr.url }}'
+      dest: /tmp
     tags:
-      - db
-      - data
+      - system
+      - solr
+
+  - name: solr | unarchive
+    become: yes
+    unarchive:
+      src: /tmp/solr-{{ solr.version}}.tgz
+      dest: /tmp
+      remote_src: yes
+    tags:
+      - system
+      - solr
+
+
+  - name: solr | install
+    become: yes
+    command: /tmp/solr-{{ solr.version }}/bin/install_solr_service.sh /tmp/solr-{{ solr.version}}.tgz -f
+    tags:
+      - system
+      - solr
+
+  - name: solr | set up
+    become: yes
+    become_user: solr
+    command: /opt/solr/bin/solr create -c dev
+    # ignoring errors because this fails if the core already exists
+    ignore_errors: yes
+    notify: solr | restart solr
+    tags:
+      - system
+      - solr
 
 - hosts: all
   vars_files:

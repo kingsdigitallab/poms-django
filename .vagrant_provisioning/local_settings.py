@@ -9,8 +9,8 @@ DATABASES = {
     'default': {
         'ENGINE': db_engine,
         'NAME': 'poms',
-        'USER': 'poms',
-        'PASSWORD': 'poms',
+        'USER': 'app_poms',
+        'PASSWORD': 'app_poms',
         'ADMINUSER': 'postgres',
         'HOST': 'localhost'
     },

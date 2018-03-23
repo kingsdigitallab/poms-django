@@ -303,9 +303,7 @@ GA_ID = ''
 # -----------------------------------------------------------------------------
 
 # Check which db engine to use:
-db_engine = 'django.db.backends.postgresql_psycopg2'
-if 'django.contrib.gis' in INSTALLED_APPS:
-    db_engine = 'django.contrib.gis.db.backends.postgis'
+db_engine = 'django.db.backends.mysql'
 
 
 AUTH_LDAP_REQUIRE_GROUP = 'cn=poms,' + LDAP_BASE_OU
@@ -314,7 +312,8 @@ ITEMS_PER_PAGE = 10
 # Change as required
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'ENGINE':
+        'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
         'URL': 'http://127.0.0.1:9200/',
         'INDEX_NAME': 'poms_haystack',
     },

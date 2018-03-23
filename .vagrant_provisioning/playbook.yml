@@ -161,13 +161,22 @@
   # gather_facts: false 
 
   tasks:
+
+  - name: locale | setup gb locale
+    locale_gen:
+      name: "{{ mysql.locale }}"
+      state: present
+    become: yes
+    tags:
+      - db
+
   - name: mysql | create user
+    become: yes
     mysql_user:
-      login_user: "{{ mysql.admin_user }}"
-      login_password: ""
-      user: "{{ mysql.user }}"
-      password: "{{ app.name }}"
-      priv: "*.*:ALL"
+      name: '{{ mysql.user }}'
+      password: '{{ mysql.password }}'
+      priv: '*.*:ALL'
+      state: present
     tags:
       - db
 
@@ -184,14 +193,14 @@
     mysql_db:
       name: "{{ app.name }}"
       encoding: "{{mysql.encoding}}"
-      login_user: "{{ mysql.admin_user }}"
-      login_password: ""
+      login_user: '{{ mysql.user }}'
+      login_password: '{{ mysql.password }}'
 
     tags:
       - db
 
   - name: mysql | load initial data file
-    mysql_db: login_user={{ mysql.admin_user }} login_password= state=import encoding={{mysql.encoding}}  name={{ app.name }} target={{ project_root }}/.vagrant_provisioning/{{ mysql.initial_data_file }}
+    mysql_db: login_user={{ mysql.user }} login_password={{ mysql.password }} state=import encoding={{mysql.encoding}}  name={{ app.name }} target={{ project_root }}/.vagrant_provisioning/{{ mysql.initial_data_file }}
     tags:
       - db
       - data

@@ -330,7 +330,7 @@ class TreeEditor(admin.ModelAdmin):
             # Construct html snippets to send back to client for status update
             data = self._ajax_editable_booleans[attr](self, obj)
 
-        except Exception, e:
+        except Exception as e:
             logging.exception("Unhandled exception while toggling %s on %s", attr, obj)
             return HttpResponseServerError("Unable to toggle %s on %s" % (attr, obj))
 
@@ -413,7 +413,7 @@ class TreeEditor(admin.ModelAdmin):
         if position in ('last-child', 'left'):
             try:
                 self.model._tree_manager.move_node(cut_item, pasted_on, position)
-            except InvalidMove, e:
+            except InvalidMove as e:
                 self.message_user(request, unicode(e))
                 return HttpResponse('FAIL')
 

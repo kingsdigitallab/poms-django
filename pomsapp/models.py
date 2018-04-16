@@ -138,7 +138,6 @@ class Person(mymodels.PomsModel):
 
     ponelink = models.URLField(
         blank=True,
-        verify_exists=True,
         verbose_name="Link to PoNE")
 
     ponelink_sureness = models.CharField(

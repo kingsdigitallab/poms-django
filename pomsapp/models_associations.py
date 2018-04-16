@@ -8,7 +8,7 @@ from utils.myutils import blank_or_string, preview_string
 import utils.modelextra.mymodels as mymodels
 # from django_extensions.admin.inline_autocomplete import *
 from utils.adminextra.autocomplete_tree_admin import InlineAutocompleteAdmin
-from settings import printdebug
+
 
 from pomsapp.models_authlists import TitleType
 
@@ -90,7 +90,7 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
         existing_obj = AssocHelperPerson.objects.filter(
             helper_oldid=self.id, helper_type=self.__class__.__name__)
         if existing_obj:
-            printdebug("AssocHelperPerson: deleting object........")
+            print("AssocHelperPerson: deleting object........")
             obj = existing_obj[0]
             obj.delete()
         super(AssocFactoidPerson, self).delete()
@@ -127,7 +127,7 @@ class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
         existing_obj = AssocHelperPerson.objects.filter(
             helper_oldid=self.id, helper_type=self.__class__.__name__)
         if existing_obj:
-            printdebug("AssocHelperPerson: deleting object........")
+            print("AssocHelperPerson: deleting object........")
             obj = existing_obj[0]
             obj.delete()
         super(AssocFactoidWitness, self).delete()
@@ -167,7 +167,7 @@ class AssocFactoidProanima(mymodels.TimeStampedHiddenModel):
         existing_obj = AssocHelperPerson.objects.filter(
             helper_oldid=self.id, helper_type=self.__class__.__name__)
         if existing_obj:
-            printdebug("AssocHelperPerson: deleting object........")
+            print("AssocHelperPerson: deleting object........")
             obj = existing_obj[0]
             obj.delete()
         super(AssocFactoidProanima, self).delete()
@@ -191,7 +191,7 @@ def save_helperAssociation(assoc):
         existing_obj = AssocHelperPerson.objects.filter(
             helper_oldid=assoc.id, helper_type=assoc.__class__.__name__)
         if existing_obj:  # try to see if we already have this obj saved
-            printdebug(
+            print(
                 "AssocHelperPerson: found existing object ... just updating.........")
             obj = existing_obj[0]
             if assoc.__class__ == AssocFactoidProanima:
@@ -206,7 +206,7 @@ def save_helperAssociation(assoc):
             obj.orderno = assoc.orderno
 
         else:  # in this case, create a new obj
-            printdebug("AssocHelperPerson: creating NEW object ...........")
+            print("AssocHelperPerson: creating NEW object ...........")
             if assoc.__class__ == AssocFactoidProanima:
                 obj = AssocHelperPerson(factoid=assoc.factoidtrans, person=assoc.person, role=assoc.role, nameoriglang=assoc.nameoriglang,
                                         nametranslation=assoc.nametranslation, standardmedievalform=assoc.standardmedievalform, orderno=assoc.orderno,
@@ -216,10 +216,10 @@ def save_helperAssociation(assoc):
                                         nametranslation=assoc.nametranslation, standardmedievalform=assoc.standardmedievalform, orderno=assoc.orderno,
                                         helper_oldid=assoc.id, helper_type=assoc.__class__.__name__)
         obj.save()
-        printdebug("Saved AssocHelperPerson [%d] Original ID: [%d]" % (
+        print("Saved AssocHelperPerson [%d] Original ID: [%d]" % (
             obj.id, assoc.id))
     except:
-        printdebug("Error: could not save AssocHelperPerson")
+        print("Error: could not save AssocHelperPerson")
 
 
 class AssocHelperPerson(mymodels.TimeStampedHiddenModel):

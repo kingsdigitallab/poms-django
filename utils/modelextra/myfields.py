@@ -145,7 +145,7 @@ class AutoSlugField(SlugField):
         return slug
 
     def pre_save(self, model_instance, add):
-        valu e = self.create_slug(model_instance, add)
+        value = self.create_slug(model_instance, add)
         setattr(model_instance, self.attname, value)
         return value
 

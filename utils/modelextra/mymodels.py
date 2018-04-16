@@ -8,8 +8,6 @@ from django.utils.translation import ugettext_lazy as _
 
 import utils.modelextra.myfields as myfields
 
-from pomsapp.filters import StaffUsersSpec
-
 
 # the hierarchy: 
 

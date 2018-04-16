@@ -83,7 +83,7 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS += [    # your project apps here
-
+    'pomsapp',
     'django.contrib.gis',
     'kdl_ldap',
     'rest_framework',

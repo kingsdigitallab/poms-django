@@ -4,6 +4,9 @@ DEBUG = True
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
+# todo added temporarily
+LOCAL_SERVER = True
+
 
 DATABASES = {
     'default': {
@@ -22,6 +25,15 @@ INTERNAL_IPS = ['0.0.0.0', '127.0.0.1', '::1', '10.0.2.2']
 SECRET_KEY = '12345'
 
 FABRIC_USER = ''
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr'
+    },
+}
+
 
 # -----------------------------------------------------------------------------
 # Django Debug Toolbar

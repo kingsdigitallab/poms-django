@@ -9,7 +9,7 @@
 
 def best_encoding(x_to_encode):
 	out = None
-	if type(x_to_encode) == type(1) or type(x_to_encode) == type(1L):  # type int or long
+	if type(x_to_encode) == type(1) or type(x_to_encode):
 		out = str(x_to_encode)
 	else:
 		try:
@@ -34,9 +34,9 @@ def preview_string(s, length):
 	"""If we have a value, returns the first [length] chars of the string.."""
 	if s:
 		if	len(s) < length:
-			result = unicode(s) 
+			result = s
 		else:
-			result = unicode(s)[0:length] + "..."
+			result = s[0:length] + "..."
 		return result
 
 def isint(s):
@@ -125,10 +125,10 @@ def get_or_new(model, somename):
 	try:
 		# if there's an object with same name, we keep that one!
 		obj = model.objects.get(name= somename)
-		print "++++++++++++++++++++++++++ found existing obj:	%s"	 % (obj)
+		print("++++++++++++++++++++++++++ found existing obj:	%s"	 % (obj))
 	except:
 		obj = model(name = somename)
 		obj.save()
-		print "======= created new obj:	  %s"  % (obj)
+		print("======= created new obj:	  %s"  % (obj))
 	return obj
 

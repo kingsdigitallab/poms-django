@@ -2,14 +2,15 @@ from django.db import models
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings as django_settings
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 
 import datetime
 
 import utils.modelextra.mymodels as mymodels
 from utils.myutils import blank_or_string, preview_string
+from django.conf import settings
 
-from settings import printdebug, LOCAL_SERVER
+
 
 from pomsapp.models_authlists import GrantorCategory, Proanimagenerictypes, DocTickboxes, TransTickboxes
 
@@ -18,7 +19,7 @@ from pomsapp.models_authlists import GrantorCategory, Proanimagenerictypes, DocT
 # MODELS UTILS
 ######################
 
-if LOCAL_SERVER:
+if settings.LOCAL_SERVER:
     EXTRA_SAVING_ACTIONS = False
 else:
     EXTRA_SAVING_ACTIONS = True
@@ -43,7 +44,7 @@ def create_helperDateRange(obj):
         return None
 
     if obj.__class__.__name__ == 'Person':
-        printdebug(
+        print(
             "Creating create_helperDateRange text for person id[%d] " % obj.id)
         string = ""
         try:
@@ -51,46 +52,48 @@ def create_helperDateRange(obj):
                 obj.floruitstartyr, obj.floruitendyr)
             if test:
                 obj.helper_daterange = test
-                printdebug("helperDateRange	 = [%s]" % smart_unicode(test))
+                print("helperDateRange	 = [%s]" % smart_unicode(test))
         except:
-            printdebug(
+            print(
                 "************\nProblem with person id[%d]\n************" % (obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ in ('Source', 'Charter'):
 
-        printdebug(
+        print(
             "Saving create_helperDateRange text for source id[%d]" % obj.id)
         string = ""
         try:
             test = assignRangeFromSelection(obj.from_year, obj.to_year)
             if test:
                 obj.helper_daterange = test
-                printdebug("helperDateRange	 = [%s]" % smart_unicode(test))
+                print("helperDateRange	 = [%s]" % smart_unicode(test))
         except:
-            printdebug(
+            print(
                 "************\nProblem with source id[%d]\n************" % (obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ in ('FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship', 'FactReference'):
-        printdebug("Saving create_helperDateRange text for %s id[%d]" % (
+        print("Saving create_helperDateRange text for %s id[%d]" % (
             obj.__class__.__name__, obj.id))
         string = ""
         try:
             test = assignRangeFromSelection(obj.from_year, obj.to_year)
             if test:
                 obj.helper_daterange = test
-                printdebug("helperDateRange	 = [%s]" % smart_unicode(test))
+                print("helperDateRange	 = [%s]" % smart_unicode(test))
         except:
-            printdebug(
+            print(
                 "************\nProblem with factoid id[%d]\n************" % (obj.id))
             pass
         return obj
 
     else:
-        raise TypeError, "create_helperDateRange error: you didn't pass the right object! (I accept only Person, Source or Factoid-s- instances...)"
+        raise TypeError(
+            "create_helperDateRange error: you didn't pass the right object! (I accept only Person, Source or "
+            "Factoid-s- instances...)")
     return obj
 
 
@@ -135,7 +138,7 @@ def create_firmdate(obj):
     if not all_dates_blank(obj):
         if obj.undated:
             return "undated"
-        printdebug(".....creating firmdate for %s" % obj)
+        print(".....creating firmdate for %s" % obj)
         datefrom = ""
         dateto = ""
 
@@ -209,7 +212,7 @@ def fix_spiritualBenefits(transaction_instance):
             if transaction_instance.spiritualbenefits.all():
                 transaction_instance.spiritualbenefits.add(generic_benefit)
         except:
-            print "Error with <fix_spiritualBenefits>!!"
+            print("Error with <fix_spiritualBenefits>!!")
     return transaction_instance
 
 
@@ -223,7 +226,7 @@ def fix_inferredType(factoid_instance):
                 factoid_instance.inferred_type = factoid_instance.get_right_subclass()[
                     0]
         except:
-            print "Error!!!!"
+            print("Error!!!!")
     return factoid_instance
 
 
@@ -234,11 +237,11 @@ def copy_charter_dates2factoids(charter):
             if transaction.isprimary:
                 copy_dates_over(charter, transaction)
                 transaction.save()
-                printdebug("====copied to transaction dates =====")
+                print("====copied to transaction dates =====")
         else:
             copy_dates_over(charter, factoid)
             factoid.save()
-            printdebug("====copied to factoid dates =====")
+            print("====copied to factoid dates =====")
 
 
 def updateFloruitsFromTransaction(trans):
@@ -248,7 +251,7 @@ def updateFloruitsFromTransaction(trans):
     # if trans.helper_floruits:
     if False:  # 2012-08-20: disabled because of an 'operational error' cropping up - needs to be debugged properly
                 # might have to do with several users working on same model instance with multiple related rows..
-        printdebug("++ transaction requested to SAVE FLORUITS")
+        print("++ transaction requested to SAVE FLORUITS")
         person_candidates = []
         # 2012-06-22: updated
         valid_roles = ['Grantor', 'Beneficiary', 'Addressor', 'Addressee', 'Party 1',
@@ -268,7 +271,7 @@ def updateFloruitsFromTransaction(trans):
                 person.helper_floruits = True  # otherwise it won't save the floruits
                 person.save()
     else:
-        printdebug(
+        print(
             "++ transaction requested to save FLORUITS - DENIED cause trans.helper_floruits = False..")
 
 
@@ -286,7 +289,7 @@ def build_floruits(person_instance):
     candidates_from = []
     candidates_to = []
 
-    printdebug("====FLORUITS: ===== [person %d]" % person_instance.id)
+    print("====FLORUITS: ===== [person %d]" % person_instance.id)
 
     # load all candidates:
     #  witnesses are in there through a dedicated M2M
@@ -295,7 +298,7 @@ def build_floruits(person_instance):
             if x.factoid.get_right_subclass()[0] == "transaction":
                 transaction = x.factoid.get_right_subclass()[1]
                 if transaction.isprimary == True and transaction.eitheror == False and transaction.undated == False:
-                    printdebug("FLORUITS: witness in transaction %s" %
+                    print("FLORUITS: witness in transaction %s" %
                                transaction)
                     candidates_from.append(transaction.from_year)
                     if transaction.has_firmdate:
@@ -310,7 +313,7 @@ def build_floruits(person_instance):
                     if x.role.name in valid_roles:
                         transaction = x.factoid.get_right_subclass()[1]
                         if transaction.isprimary == True and transaction.eitheror == False and transaction.undated == False:
-                            printdebug("FLORUITS: %s in transaction %s" %
+                            print("FLORUITS: %s in transaction %s" %
                                        (x.role.name, transaction))
                             candidates_from.append(transaction.from_year)
                             if transaction.has_firmdate:
@@ -329,13 +332,13 @@ def build_floruits(person_instance):
         candidates_from.append(0)
     if not candidates_to:
         candidates_to.append(0)
-    printdebug("====fromCandidates: = %s =	... highest is *%d*" %
+    print("====fromCandidates: = %s =	... highest is *%d*" %
                (candidates_from, max(candidates_from)))
-    printdebug("====toCandidates: = %s = ... lowest is *%d*" %
+    print("====toCandidates: = %s = ... lowest is *%d*" %
                (candidates_to, min(candidates_to)))
 
     if max(candidates_from) > min(candidates_to):
-        printdebug("FLORUITS: swapping values!")
+        print("FLORUITS: swapping values!")
         person_instance.floruitstartyr = min(candidates_to)
         person_instance.floruitendyr = max(candidates_from)
     else:
@@ -382,7 +385,7 @@ def merge_persons_inner(main_person, person_list):
 def create_helper_surnames(obj):
     """ updates all the helper_surnames fields; returns an updated (not saved yet) object """
 
-    printdebug("....updating Surname info for [%s]" % obj)
+    print("....updating Surname info for [%s]" % obj)
     sur = obj.surname
 
     def trimsurname(surname):
@@ -432,8 +435,8 @@ def create_helper_surnames(obj):
     #  new searchsurnames fr FB
     obj.helper_bigsurname = combine_surname_fields(obj)
     obj.helper_searchbigsur = trimsurname(obj.helper_bigsurname)
-    printdebug("....bigsurname = [%s]" % obj.helper_bigsurname)
-    printdebug("....searchbigsurname = [%s]" % obj.helper_searchbigsur)
+    print("....bigsurname = [%s]" % obj.helper_bigsurname)
+    print("....searchbigsurname = [%s]" % obj.helper_searchbigsur)
     return obj
 
 
@@ -584,12 +587,12 @@ def createPersonSurface_name(obj):
             composed_name += ", " + ofstr + " " + place
         composed_name += " " + dates
         obj.persondisplayname = composed_name.strip()
-        printdebug("*********Creating  surface name")
+        print("*********Creating  surface name")
 
     # procedure for creating the medieval gaelic name
     field1 = getattr(obj, 'standardmedievalname', None)
     if field1 == None or field1.strip() == "" or field1.strip() == u"":
-        printdebug("*********Creating  standardmedievalname")
+        print("*********Creating  standardmedievalname")
         composed_name = ""
         medievalfore = getattr(obj, 'medievalgaelicforename', "")
         medievalsur = getattr(obj, 'medievalgaelicsurname', "")
@@ -602,7 +605,7 @@ def createPersonSurface_name(obj):
     # procedure for creating the modern gaelic name
     field2 = getattr(obj, 'moderngaelicname', None)
     if field2 == None or field2.strip() == "" or field2.strip() == u"":
-        printdebug("*********Creating moderngaelicname")
+        print("*********Creating moderngaelicname")
         composed_name = ""
         modernfore = getattr(obj, 'moderngaelicforename', "")
         modernsur = getattr(obj, 'moderngaelicsurname', "")
@@ -641,7 +644,7 @@ def assign_grantorCategory(sourceInstance):
                             flag = 1
                             break
         if flag == 0:
-            printdebug("Assign_Grantorcategory:	 source[%d]	 h1[%s] h2[%s] h3[%s] ===>	%s" % (sourceInstance.id,
+            print("Assign_Grantorcategory:	 source[%d]	 h1[%s] h2[%s] h3[%s] ===>	%s" % (sourceInstance.id,
                                                                                               str(sourceInstance.hammondnumber), str(sourceInstance.hammondnumb2), str(sourceInstance.hammondnumb3), constraint))
             # we have a match: save the item and stop iterating through the GRANTOR_CATEGORIES
             cat = GrantorCategory.objects.filter(name=constraint)
@@ -653,7 +656,7 @@ def assign_grantorCategory(sourceInstance):
             sourceInstance.grantor_category = category
             break
     if flag == 1:
-        printdebug("Assign_Grantorcategory: source[%d] h1[%s] h2[%s] h3[%s] ===> FAILED (no adequate mapping found)" % (sourceInstance.id,
+        print("Assign_Grantorcategory: source[%d] h1[%s] h2[%s] h3[%s] ===> FAILED (no adequate mapping found)" % (sourceInstance.id,
                                                                                                                         str(sourceInstance.hammondnumber), str(sourceInstance.hammondnumb2), str(sourceInstance.hammondnumb3)))
     return sourceInstance
 
@@ -687,7 +690,7 @@ def create_helperKeywordsearch(obj):
     """
     #  now do the actions:
     if obj.__class__.__name__ == 'Person':
-        printdebug(
+        print(
             "Creating helperKeywordsearch text for person id[%d] " % obj.id)
         string = ""
         try:
@@ -697,17 +700,17 @@ def create_helperKeywordsearch(obj):
             string += str(obj.id) + " "
             # string += obj.persondescription + " "
             obj.helper_keywordsearch = string
-            printdebug("Saved!")
-            printdebug("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
+            print("Saved!")
+            print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
         except:
-            printdebug(
+            print(
                 "************\nProblem with person id[%d]\n************" % (obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ in ('Source', 'Charter'):
 
-        printdebug(
+        print(
             "Saving helperKeywordsearch text for source id[%d]" % obj.id)
         string = ""
         try:
@@ -717,16 +720,16 @@ def create_helperKeywordsearch(obj):
             string += str(obj.id) + " "
             string = string.replace("_", "")  # delete the italics placeholders
             obj.helper_keywordsearch = string
-            printdebug("Saved!")
-            printdebug("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
+            print("Saved!")
+            print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
         except:
-            printdebug(
+            print(
                 "************\nProblem with source id[%d]\n************" % (obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ in ('FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship', 'FactReference'):
-        printdebug("Saving helperKeywordsearch text for %s id[%d]" % (
+        print("Saving helperKeywordsearch text for %s id[%d]" % (
             obj.__class__.__name__, obj.id))
         string = ""
         try:
@@ -736,16 +739,16 @@ def create_helperKeywordsearch(obj):
             # string += x.standardmedievalname + " "
             string = string.replace("_", "")  # delete the italics placeholders
             obj.helper_keywordsearch = string
-            printdebug("Saved!")
-            printdebug("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
+            print("Saved!")
+            print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
         except:
-            printdebug(
+            print(
                 "************\nProblem with factoid id[%d]\n************" % (obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ == 'Place':
-        printdebug(
+        print(
             "Creating helperKeywordsearch text for place id[%d] " % obj.id)
         string = ""
         try:
@@ -756,16 +759,20 @@ def create_helperKeywordsearch(obj):
                 pass
             string += str(obj.id) + " "
             obj.helper_keywordsearch = string
-            printdebug("Saved!")
-            printdebug("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
+            print("Saved!")
+            print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
         except:
-            printdebug(
+            print(
                 "************\nProblem with place id[%d]\n************" % (obj.id))
             pass
         return obj
 
     else:
-        raise TypeError, "create_helperKeywordsearch error: you didn't pass the right object! (I accept only Person, Source or Factoid-s- instances...)"
+        raise TypeError(
+            "create_helperKeywordsearch error: you didn't"
+            "pass the right object! (I accept only Person, "
+            "Source or Factoid-s- instances...)"
+        )
 
 
 def handle_tickboxes(obj_instance):
@@ -776,7 +783,7 @@ def handle_tickboxes(obj_instance):
     """
     if obj_instance._meta.verbose_name == 'Document':
         # it's a charter
-        printdebug(
+        print(
             "Adding m2m reference to DocTickboxes table for Charter [%d]" % obj_instance.id)
         # first clear existing rels
         obj_instance.helper_tickboxes.clear()
@@ -805,7 +812,7 @@ def handle_tickboxes(obj_instance):
                 name="Duplicate Original (non-contemporary)",)
             obj_instance.helper_tickboxes.add(duporignoncontemp)
     elif obj_instance._meta.verbose_name == 'fact transaction':
-        printdebug(
+        print(
             "Adding m2m reference to TransTickboxes table for Transaction [%d]" % obj_instance.id)
         # first clear existing rels
         obj_instance.helper_tickboxes.clear()

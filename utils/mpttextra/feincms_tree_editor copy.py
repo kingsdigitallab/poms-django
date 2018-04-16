@@ -8,14 +8,14 @@
 #  MPTT is required, and MPTTMEDIA folder in /media too
 
 
-
+import functools
 from django.conf import settings as django_settings
 from django.contrib import admin
 from django.contrib.admin.views import main
 from django.db.models import Q
 from django.db.models.query import QuerySet
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseServerError
-from django.utils import simplejson
+import json
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, ugettext
 
@@ -100,7 +100,7 @@ def ajax_editable_boolean_cell(item, attr, text='', override=None):
     (useful for "disabled and you can't change it" situations).
     """
     if text:
-        text = '&nbsp;(%s)' % unicode(text)
+        text = '&nbsp;(%s)' % text
 
     if override is not None:
         a = [ django_boolean_icon(override, text), text ]
@@ -117,7 +117,7 @@ def ajax_editable_boolean_cell(item, attr, text='', override=None):
     a.insert(0, '<div id="wrap_%s_%d">' % ( attr, item.id ))
     a.append('</div>')
     #print a
-    return unicode(''.join(a))
+    return ''.join(a)
 
 # ------------------------------------------------------------------------
 def ajax_editable_boolean(attr, short_description):
@@ -164,7 +164,7 @@ class ChangeList(main.ChangeList):
                 ) for lft, rght, tree_id in \
                     self.query_set.values_list('lft', 'rght', 'tree_id')]
             if clauses:
-                self.query_set = self.model._default_manager.filter(reduce(lambda p, q: p|q, clauses))
+                self.query_set = self.model._default_manager.filter(functools.reduce(lambda p, q: p|q, clauses))
 
         super(ChangeList, self).get_results(request)
 
@@ -238,7 +238,7 @@ class TreeEditor(admin.ModelAdmin):
         if hasattr(item, 'short_title'):
             r += item.short_title()
         else:
-            r += unicode(item)
+            r += item
 #        r += '</span>'
         return mark_safe(r)
     indented_short_title.short_description = _('title')
@@ -260,7 +260,7 @@ class TreeEditor(admin.ModelAdmin):
             # to the ModelAdmin class
             try:
                 item = getattr(self.__class__, field)
-            except (AttributeError, TypeError), e:
+            except (AttributeError, TypeError) as e:
                 continue
 
             attr = getattr(item, 'editable_boolean_field', None)
@@ -343,7 +343,7 @@ class TreeEditor(admin.ModelAdmin):
                 d.append(b)
 
         # TODO: Shorter: [ y for x,y in zip(a,b) if x!=y ]
-        return HttpResponse(simplejson.dumps(d), mimetype="application/json")
+        return HttpResponse(json.dumps(d), mimetype="application/json")
 
     def get_changelist(self, request, **kwargs):
         return ChangeList
@@ -372,7 +372,7 @@ class TreeEditor(admin.ModelAdmin):
         extra_context = extra_context or {}
         extra_context['FEINCMS_ADMIN_MEDIA'] = FEINCMS_ADMIN_MEDIA
         extra_context['FEINCMS_ADMIN_MEDIA_HOTLINKING'] = FEINCMS_ADMIN_MEDIA_HOTLINKING
-        extra_context['tree_structure'] = mark_safe(simplejson.dumps(
+        extra_context['tree_structure'] = mark_safe(json.dumps(
                                                     _build_tree_structure(self.model)))
 
         return super(TreeEditor, self).changelist_view(request, extra_context, *args, **kwargs)
@@ -414,7 +414,7 @@ class TreeEditor(admin.ModelAdmin):
             try:
                 self.model._tree_manager.move_node(cut_item, pasted_on, position)
             except InvalidMove as e:
-                self.message_user(request, unicode(e))
+                self.message_user(request, e)
                 return HttpResponse('FAIL')
 
             # Ensure that model save has been run

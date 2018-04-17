@@ -1,0 +1,72 @@
+<form id="search_form" action="search" class="fms">
+
+
+
+   <fieldset class="i2">
+      <h4>Search for:</h4>
+      <ul>
+        <li>
+          <input id="bs_f" type="radio" name="basic_search_type" value="factoid" />
+          <label for="bs_f" id="bs_f_h">Factoids (<a href="?basic_search_type=factoid&show_all=true">show all</a>)<span class="infoTip tip" title="Searching on fields: short description, source for data entry, ID number."></span></label>
+        </li>
+        <li>
+          <input id="bs_s" type="radio" name="basic_search_type" value="source" />
+          <label for="bs_s" id="bs_s_h">Sources (<a href="?basic_search_type=source&show_all=true">show all</a>)<span class="infoTip tip" title="Searching in fields: H-number, trad.ID, description, ID number."></span></label>
+        </li>
+        <li>
+          <input id="bs_pl" type="radio" name="basic_search_type" value="place" />
+          <label for="bs_pl" id="bs_pl_h">Places (<a href="?basic_search_type=place&show_all=true">show all</a>) <span class="infoTip tip" title="Searching in fields: name, ID number."></span></label>
+        </li>
+        <li>
+          <input id="bs_p" type="radio" name="basic_search_type" value="people" CHECKED />
+          <label for="bs_p" id="bs_p_h">People and Institutions (<a href="?basic_search_type=people&show_all=true">show all</a>) <span class="infoTip tip" title="Searching in fields: full modern name, standard medieval name, modern gaelic name, ID number."></span></label>
+        </li>
+      </ul>
+   </fieldset>
+
+
+	<br /><br />
+	
+   <fieldset class="i1">
+      <label for="bs_input">
+	{% if query %}
+		{{query}}
+	{% else %}
+		Enter search terms
+    {% endif %}
+	  </label>
+	
+      <input id="bs_input" type="text" name='query'  {% if query %}value='{{query}}'{% endif %}/>
+      <button>Go</button>
+      <button type='reset' id='reset_search'>Reset</button>
+   </fieldset>
+
+
+
+{# 2010-10-20: added two hidden fields for ordering and years #}
+
+   <fieldset>
+	<input type="hidden" name="ordering" id="active_ordering" value="{{active_ordering}}" />
+   </fieldset>
+
+   <fieldset>
+	<input type="hidden" name="years" id="active_years" value="{{active_years}}" />
+   </fieldset>
+
+   <fieldset>
+	<input type="hidden" name="show_all" id="show_all" value="{{show_all}}" />
+   </fieldset>
+
+   <br /><br />
+
+	<p> 
+	<label for="daterange">Date range (start date):</label> 
+	<br /><br />
+	<div id="slider_range"></div>
+	<br />
+	<input type="text" id="daterange" style="color:black; font-weight:bold;" /> 
+	</p>
+	
+	<br /><br /><br />
+
+</form>

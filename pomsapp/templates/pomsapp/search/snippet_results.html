@@ -1,0 +1,208 @@
+{% load extrafilters %}
+
+
+
+
+<!-- hidden fields with useful data -->
+
+{# e.g. a db field to do the ordering on: 'shortdesc', or an annotation command: 'annotate=factoid' #}
+<input type="hidden" id="active_result_type" value="{{active_result_type}}" />
+
+<!-- end of hidden fields -->
+
+{% if items.object_list or query %}
+
+	<div class="hds">
+	  <h3>{% if query %}Matching Records{% else %}Showing All Records{% endif %} <dfn>(<span id="rec_num">{{totitems|default:'None'}}</span>)</dfn></h3>
+	
+	  <ul class="utl m2">
+	    {# <li class="i1"><a href="#" title="Download these Results"><b>Download these Results</b></a></li> #}
+		{% if user.is_superuser %}
+	    	<li class="i1"><a href="javascript:showLogs();" title="Hi there superuser!"><b>Log Query</b></a></li>
+		{% endif %}
+	  </ul>
+	</div>
+			
+{% endif %}
+		
+		
+		
+		
+<div class="tsb">
+
+	{% if items.object_list or query %}
+		  <ul class="tsn">
+			{% for result_type in result_types %}
+				<li id={{result_type.uniquename}}><a href="search?query={{query}}&amp;years={{active_years}}&amp;basic_search_type={{result_type.uniquename}}&amp;page=1">{{result_type.label|capfirst}}</a></li>
+			{% endfor %}
+		  </ul>
+	{% endif %}
+
+
+
+
+ 	<div id="results_factoids" class="tsp">  {# old name, but really it's just a div, not tabber #}
+
+
+
+
+	{% block inner_results %}
+
+
+
+		{# TIP : if we have items, we display them, otherwise we include the noresults_snippet.html (see below) #}
+		{% if items.object_list %}
+
+
+
+			{% include "pomsapp/search/snippet_paginator.html" %}
+
+
+
+		   <table>
+
+
+			{# ******** #}
+			{# FACTOIDS #}
+			{# ******** #}
+			
+			{% ifequal active_result_type 'factoid' %}
+
+			      <tr>
+			        <th><a class="{{active_ordering|infer_class:'factoiddesc'}} arrowUp" href="javascript:change_ordering('factoiddesc');"><b>Description</b></a></th>
+				    <th><a class="{{active_ordering|infer_class:'factoidtype'}} arrowUp" href="javascript:change_ordering('factoidtype');"><b>Type</b></a></th>
+			        <th><a class="{{active_ordering|infer_class:'factoidsource'}} arrowUp" href="javascript:change_ordering('factoidsource');"><b>Source</b></a></th>
+			        <th><a class="{{active_ordering|infer_class:'factoiddate'}} arrowUp" href="javascript:change_ordering('factoiddate');"><b>Date</b></a></th>
+			      </tr>
+
+				{% for record in items.object_list %}			
+
+			      <tr>
+			        <td><a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
+						{{record|capfirst|default:"<i>item empty (check DB for deletion)</i>"}}
+				    	</a></td>
+					<td>{{record.inferred_type}}</td>
+			        <td><a class="no_extlink" href="{% url source_detail record.sourcekey.id %}" title="show details" target="_self">{{record.sourcekey|poms_italic|safe}}</a></td>
+					<td>{{record.firmdate|format_dates}}</td>
+			      </tr>
+
+				{% endfor %}
+
+			{% endifequal %}
+
+
+			{# ******** #}
+			{# SOURCES #}
+			{# ******** #}
+
+			{% ifequal active_result_type 'source' %}
+
+			      <tr>
+			        <th><a class="{{active_ordering|infer_class:'sourcehammond'}} arrowUp" href="javascript:change_ordering('sourcehammond');"><b>Calendar number</b></a></th>
+			        <th><a class="{{active_ordering|infer_class:'sourcedesc'}} arrowUp" href="javascript:change_ordering('sourcedesc');"><b>Description</b></a></th>
+			        <th><a class="{{active_ordering|infer_class:'sourcedate'}} arrowUp" href="javascript:change_ordering('sourcedate');"><b>Date</b></a></th>
+			        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('annotate=factoid')"><b>Associated factoids</b></a></th>  #}
+			      </tr>
+
+				{% for record in items.object_list %}			
+
+			      <tr>
+			        <td><a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
+							{{record|poms_italic|safe|default:"<i>item empty (check DB for deletion)</i>"}}
+					</a></td>
+			        <td>{{record.description|truncatewords:15 }}</td>
+			        <td>{{ record.firmdate|format_dates}}</td>
+			      </tr>
+
+				{% endfor %}
+
+			{% endifequal %}
+
+
+
+			{# ******** #}
+			{# PLACES #}
+			{# ******** #}
+
+			{% ifequal active_result_type 'place' %}
+
+			      <tr>
+			        <th><a class="{{active_ordering|infer_class:'placename'}} arrowUp" href="javascript:change_ordering('placename');"><b>Place name</b></a></th>
+			        <th><a class="{{active_ordering|infer_class:'placeparent'}} arrowUp" href="javascript:change_ordering('placeparent');"><b>Parent</b></a></th>
+			      </tr>
+
+				{% for record in items.object_list %}			
+
+			      <tr>
+			        <td><a class="no_extlink" href="{% url place_detail record.id %}" target="_self" title="show details">{{record.name}}</a></td>
+			        <td>{% if record.parent %}
+			        	<a class="no_extlink" href="{% url place_detail record.parent.id %}" target="_self" title="show details">{{record.parent.name}}</a>
+			        {% endif %}</td>
+			      </tr>
+
+				{% endfor %}
+
+			{% endifequal %}
+			
+			
+
+			{# ******** #}
+			{# PEOPLE #}
+			{# ******** #}
+			
+			
+			{% ifequal active_result_type 'people' %}
+
+			      <tr>
+			        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('personfull');"><b>Full Name</b></a></th> #}
+			        <th>Full Name <span style="text-transform: none; font-size: 9px;">(order by: <a class="{{active_ordering|infer_class:'personfore'}} arrowUp" href="javascript:change_ordering('personfore');"><b>Forename</b></a> | <a class="{{active_ordering|infer_class:'personsur'}} arrowUp" href="javascript:change_ordering('personsur');"><b>Surname</b></a> | <a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('personfull');"><b>Full Name</b></a> )</span></th>
+					<th>Description</th>
+			        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('personmedieval');"><b>Medieval Name</b></a></th> #}
+			        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('persongaelic');"><b>Modern Gaelic Name</b></a></th> #}
+			        <th><a class="{{active_ordering|infer_class:'persondate'}} arrowUp" href="javascript:change_ordering('persondate');"><b>Floruits</b></a></th>
+			      </tr>
+
+				{% for record in items.object_list %}			
+
+				  
+			      <tr>
+			        <td>
+				{% if record.matrix_set.all %}
+				{% for m in record.matrix_set.all %}
+					<a href="{% url matrix_detail m.id %}" class="seal" title="Show Matrix/Seal info">MATRIXICON</a>				
+				{% endfor %}
+				{% endif %}
+				<a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
+				          {{record|capfirst|default:""}}
+					</a></td>
+			        <td>{{record.persondescription|truncatewords:15|poms_italic|safe}}</td>
+			        {# <td>{{record.standardmedievalname|default:""}}</td> #}
+			        {# <td>{{record.moderngaelicname|default:""}}</td> #}
+			        <td>{{record.nice_floruits|safe}}</td>
+			      </tr>
+
+				{% endfor %}
+
+			{% endifequal %}
+
+		</table>
+
+
+		{% include "pomsapp/search/snippet_paginator.html" %}
+		
+		
+
+		{% else %}
+
+
+			{% include "pomsapp/search/snippet_noresults.html" %}
+
+
+		{% endif %}
+
+
+	 {% endblock inner_results %}
+
+	</div>    {# results_factoids #}
+				
+</div>   {# tsb #}

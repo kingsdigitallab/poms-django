@@ -1,0 +1,136 @@
+{% extends "pomsapp/skeleton.html" %}
+
+
+{% block titlepage  %}
+	<title>POMS: record</title>
+{% endblock %}
+
+
+{% block load_css  %}
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}paul/c/a.css"/>
+	<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}paul/c/s.css"/>
+	<link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}paul/c/p.css"/>
+
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/jquery.qtip.min.css" />	
+	{# eventually this must be put in its own file! #}	
+	<style type="text/css" media="screen">
+
+	.ui-tooltip{
+		min-width: 550px;
+		overflow: auto;
+		max-height: 400px;
+		margin-top: 150px;
+	}
+	
+	.ui-tooltip-bootstrap .ui-tooltip-titlebar {
+		font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
+	}
+	
+	#ui-tooltip-modal{
+		max-width: 420px;
+
+		-moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+		-webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+		box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+	}
+
+	#ui-tooltip-modal .ui-tooltip-content{
+		padding: 10px;
+	}
+	
+	
+	</style>
+	
+{% endblock %}
+
+
+{% block load_js  %}
+
+
+<script>
+	L_PREFER_CANVAS = true
+</script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.5.1.min.js"></script>
+{# <script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery-1.3.2.min.js"></script> #}
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery.overlabel.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/cufon.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/f/agaramondpro.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/functions_record.js"></script>
+
+<script type="text/javascript" src="/media/static/mapbox.js-bower-2.2.1/mapbox.js"></script>
+<link rel="stylesheet" type="text/css" href="/media/static/mapbox.js-bower-2.2.1/mapbox.css"></link>
+
+<script type="text/javascript" src="/media/static/js/leaflet-image.js"></script>
+<!--
+<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-src.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.css"></link>
+-->
+<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-overlap.js"></script>
+
+<script> 
+$(document).ready(function() {
+
+
+	var maskWidth = $(window).width();   // returns height of browser viewport
+	var maskHeight = $(window).height();   // returns height of browser viewport
+
+	qtip_history();
+	qtip_citation();
+	qtip_previews("{{STATIC_URL}}");
+
+	// qtip_labs();  // disabled for now		
+	// tips for splash page :: add again once the qTip class is fixed
+	// $('span.x6[title]').qtip();
+	
+// 	final parenthesis
+});
+</script>
+{% endblock %}
+
+
+{% block tabs_titles  %}
+   <ul class="nvl">
+     <li class="i1"><a href="/search">Search</a></li>
+     <li class="i1"><a href="/browse">Browse</a></li>
+     <li class="s1"><a href="/record/">Record</a></li>
+       <li class="i1"><a href="/sna/all/">Social Network Analysis</a></li>
+
+     <li class="i1"><a href="/map/browse/">Map</a></li>	 
+     <li class="i1"><a href="/familytrees">Family Trees</a></li>
+     <li class="i1"><a href="/labs">Labs</a></li>
+   </ul>		
+{% endblock %}
+
+{% block small_links %}
+   {# <ul class="utl"> #}
+     {# <li class="i1"><a href="#"><b>Help</b></a></li> #}
+     {# <li class="i2"><a href="#"><b>Register</b></a></li> #}
+     {# <li class="ix"><a href="#"><b>Login</b></a></li> #}
+   {# </ul>		 #}
+{% endblock %}
+
+
+
+{% block permalink %}
+
+{% endblock %}
+
+
+{% block contents %}
+
+	{% block preview_contents %}
+		
+	{% endblock %}
+	
+	
+{% endblock %}
+	
+	
+	
+{% block body_closing %}
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+	{% include "pomsapp/snippet_history.html" %}
+	{% include "pomsapp/record/snippet_citation.html" %}
+{% endblock %}	

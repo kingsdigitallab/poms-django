@@ -1,0 +1,879 @@
+{% extends "pomsapp/record/record_base.html" %}
+
+{% load extrafilters %}
+
+{% block permalink %}
+<ul class="utl m1 experimental">
+  <li><b>Experimental: </b></li>
+  <li class="labslink borderRight"><a href="/labs/connectionscloud/go?id={{record.id}}" title="Warning: this tool does not work correctly in all browsers. Please check the Labs section for more details." target="_blank">Connections Cloud</a></li>
+  <li class="labslink"><a href="/labs/relationships/go?id={{record.id}}" title="Warning: this tool does not work correctly in all browsers. Please check the Labs section for more details." target="_blank">Relationships Browser</a></li>
+</ul>
+{% endblock %}
+
+
+
+{% block contents %}
+
+
+{% block preview_contents %}
+
+    <!-- ######################### -->
+   <div class="recordSummary">
+    <div class="hdp">
+
+        {% include "pomsapp/record/snippet_buttons.html" %}
+
+      <h1 class="record" {% if not preview %}{% if record.relatedplace.geom.y > 0 %}style="min-height:auto;"{% endif %}{% endif %}" ><span class="{{record|determinePersonIcon}}">[{{record|determinePersonIcon}}] </span>
+        {% if user.is_staff %}
+            <a href="{{record.get_admin_url}}" target="_blank" title="Welcome administrator! Click to edit this item in the data entry section." style="color: red;">{{record.persondisplayname}}</a>
+        {% else   %}
+            {{record}}
+        {% endif %}
+
+        {# &nbsp;&nbsp;&nbsp;<small class="labslink" alt="{{record|generate_labslinks}}">&rarr; labs</small> #}
+    </h1>
+
+    </div>
+			{% if not preview %}{% if record.relatedplace.geom.y > 0 or witnessFact.object_list  %}
+	                <div id="map" style="border-style:solid;border-width:1px;width:auto;height:250px;margin-right:100px;margin-right:20px;margin-left:20px;">
+                        		
+					</div>{% endif %}
+                    
+                    <div id='map-image'>
+                    </div>                    
+                    
+			{% endif %}
+			{% if preview %}{% if record.relatedplace.geom.y > 0 %}
+	                <div id="map-{{ record.id }}" style="border-style:solid;border-width:1px;width:auto;height:150px;margin-right:100px;margin-right:20px;">
+                        		
+					</div>{% endif %}
+                    
+                    
+			{% endif %}					
+    <div class="ct">
+        <dl class="m1">
+            {% if record.standardmedievalname %}
+                <dt>Medieval Name</dt>
+                <dd>{{record.standardmedievalname|default:"&nbsp;"}}</dd>
+            {% endif %}
+            {% if record.moderngaelicname %}
+                <dt>Modern Gaelic Name</dt>
+                <dd>{{record.moderngaelicname|default:"&nbsp;"}}</dd>
+            {% endif %}
+                {# gender only for M, F, M/F #}
+            {% if record.genderkey.id == "4" or record.genderkey.id == "3" or record.genderkey.id == "6" %}
+                <dt>Gender</dt>
+                <dd>{{record.genderkey|default:"&nbsp;"}}</dd>
+            {% endif %}
+            {% if record.persondescription %}
+                <dt>Biography</dt>
+                <dd>{{record.persondescription|poms_italic|safe|default:"&nbsp;"}}</dd>
+            {% endif %}
+            <dt>Floruits</dt>
+            <dd> {{record.nice_floruits|safe}}</dd>
+            {% if record.relatedplace %}
+                <dt>Related Place</dt>
+                <dd><a class="no_extlink" href="{% url place_detail record.relatedplace.id  %}" title="Show details">{{record.relatedplace.name}}</a></dd>
+            {% endif %}
+            {% if record.matrix_set.all %}
+            {% for m in record.matrix_set.all %}
+                <dt>Matrix</dt>
+                <dd><a href="{% url matrix_detail m.id %}" class="seal" title="Show Matrix/Seal info">{{m.identifier}}</a></dd>
+
+            {% endfor %}
+            {% endif %}
+
+            {% if record.ponelink %}
+                <dt>PoNE</dt>
+                <dd>{{record.ponelink|urlize}}</dd>
+            {% endif %}
+
+            {% if record.has_family %}
+                <dt>Family connections</dt>
+                <dd><a href="/sna/{{ record.id }}"> &raquo; Gephi Visualisation</a></dd>
+            {% endif %}
+
+            {% if record.has_grantor %}
+                <dt>Grantor Beneficiary relationships </dt>
+                <dd><a href="/sna/grantor/{{ record.id }}"> &raquo; Gephi Visualisation</a></dd>
+            {% endif %}
+			 
+			{% if preview %}
+			<script>
+			{% if record.relatedplace.geom.y > 0 %}
+				var currLocation =	[ {{ record.relatedplace.geom.y }},{{ record.relatedplace.geom.x}}];
+			{% else %}	
+				var currLocation = null;
+			{% endif %}
+			
+			var layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',{attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'});
+			
+			$(document).ready( function (){
+				if (currLocation){
+							map{{ record.id }} =  new L.map('map-{{ record.id }}',{maxZoom:12,zoomControl:false});
+							map{{ record.id }}.addLayer(layer);
+							map{{ record.id }}.setView(currLocation,14);
+							marker{{ record.id }} = new L.marker(currLocation).addTo(map{{ record.id }});
+				}
+			})
+			
+			
+			
+			</script>
+			{% endif %}
+
+        </dl>
+
+{% endblock preview_contents %}
+
+
+
+
+    </div><!-- ends content ct -->
+    </div><!-- ends record summary -->
+
+        <div id="tabs" class="tsb recordTabs">
+
+        <h2>Total number of associated factoids: {{ record.how_many_factoids}}</h2>
+
+        <!-- <section class="tabsContent"> -->
+
+            <ul class="tsn">
+
+
+                {% if transactionFact.object_list  %}
+                <li><a href="#{{transactionFact.type}}"><span>Transaction factoids ({{ transactionFact.tot}}):</span></a></li>
+                {% endif %}
+
+                {% if relationshipFact.object_list  %}
+                    <li><a href="#{{relationshipFact.type}}"><span>Relationship factoids ({{ relationshipFact.tot }}):</span></a></li>
+                {% endif %}
+
+                {% if titleFact.object_list  %}
+                    <li><a href="#{{titleFact.type}}"><span>Title factoids ({{ titleFact.tot }}):</span></a></li>
+                {% endif %}
+
+                {% if possessionFact.object_list  %}
+                <li><a href="#{{possessionFact.type}}"><span>Possession factoids ({{ possessionFact.tot }}):</span></a></li>
+                {% endif %}
+
+                {% if proanimaFact.object_list  %}
+                    <li><a href="#{{proanimaFact.type}}"><span>Pro-Anima factoids ({{ proanimaFact.tot }}):</span></a></li>
+                {% endif %}
+
+                {% if witnessFact.object_list  %}
+                    <li><a href="#{{witnessFact.type}}"><span>Witnesses factoids ({{ witnessFact.tot }}):</span></a></li>
+                {% endif %}
+
+           </ul>
+
+
+        {# ----------- #}
+        {# TRANSACTION #}
+        {# ----------- #}
+
+        {% if transactionFact.object_list %}
+
+            <div id="{{transactionFact.type}}">
+
+
+                {% block transactionFact %}
+
+                {% with transactionFact as items %}
+                    {% include "pomsapp/record/paginator_record.html" %}
+                {% endwith %}
+
+                <input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+
+                <br />
+
+                <table>
+                  <tr>
+                    <th><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{transactionFact.type}}')">Date</a></th>
+                    <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{transactionFact.type}}')">Short Summary</a></th>
+                    <th><a class=" {{ active_ordering|infer_class:'role'}} " onClick="update_related_factoids('1', 'role', '{{transactionFact.type}}')">Role</a></th>
+                    <th>Witnesses</th>
+                    <th><a class="{{ active_ordering|infer_class:'source'}} " onClick="update_related_factoids('1', 'source', '{{transactionFact.type}}')">Source</a></th>
+                  </tr>
+
+                {% for a in transactionFact.object_list  %}
+
+                  <tr>
+                    <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
+                    <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td>{{a.role}}</td>
+                    <td>{{a.factoid.witnesses.all|printmany_withabsoluteurl|safe}}</td>
+                    <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                  </tr>
+
+                {% endfor %}
+
+
+                </table>
+
+
+                <br /><br />
+
+
+                {% endblock transactionFact %}
+
+
+            </div>
+            {# end of fragment1 #}
+
+        {% endif %}
+
+
+
+
+        {# ----------- #}
+        {# RELATIONSHIP #}
+        {# ----------- #}
+
+        {% if relationshipFact.object_list %}
+
+            <div id="{{relationshipFact.type}}">
+
+
+                {% block relationshipFact %}
+
+                {% with relationshipFact as items %}
+                    {% include "pomsapp/record/paginator_record.html" %}
+                {% endwith %}
+
+                <input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+
+                <br />
+
+                <table>
+                  <tr>
+                    <th><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{relationshipFact.type}}')">Date</a></th>
+                    <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{relationshipFact.type}}')">Short Summary</a></th>
+                    <th><a class="{{active_ordering|infer_class:'role'}}" onClick="update_related_factoids('1', 'role', '{{relationshipFact.type}}')">Role</a></th>
+                    <th><a class="{{active_ordering|infer_class:'source'}}" onClick="update_related_factoids('1', 'source', '{{relationshipFact.type}}')">Source</a></th>
+                  </tr>
+
+                {% for a in relationshipFact.object_list  %}
+
+                  <tr>
+                    <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
+                    <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td>{{a.role}}</td>
+                    <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                  </tr>
+
+                {% endfor %}
+
+
+                </table>
+
+
+                <br /><br />
+
+
+                {% endblock relationshipFact %}
+
+
+            </div>
+            {# end of fragment1 #}
+
+        {% endif %}
+
+
+
+
+        {# ----------- #}
+        {# TITLE FACTOID #}
+        {# ----------- #}
+
+        {% if titleFact.object_list %}
+
+            <div id="{{titleFact.type}}">
+
+
+                {% block titleFact %}
+
+                {% with titleFact as items %}
+                    {% include "pomsapp/record/paginator_record.html" %}
+                {% endwith %}
+
+                <input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+
+                <br />
+
+                <table>
+                    <tr>
+                    <th id="test1"><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{titleFact.type}}')">Date</a></th>
+                    <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{titleFact.type}}')">Short Summary</a></th>
+                    <th><a class="{{active_ordering|infer_class:'source'}}" onClick="update_related_factoids('1', 'source', '{{titleFact.type}}')">Source</a></th>
+                  </tr>
+
+
+                {% for a in titleFact.object_list  %}
+
+                  <tr>
+                    <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
+                    <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                  </tr>
+
+                {% endfor %}
+
+
+                </table>
+
+
+                <br /><br />
+
+
+                {% endblock titleFact %}
+
+
+            </div>
+            {# end of fragment1 #}
+
+        {% endif %}
+
+
+
+
+
+        {# ----------- #}
+        {# POSSESSION FACTOID #}
+        {# ----------- #}
+
+        {% if possessionFact.object_list %}
+
+            <div id="{{possessionFact.type}}">
+
+
+                {% block possessionFact %}
+
+                {% with possessionFact as items %}
+                    {% include "pomsapp/record/paginator_record.html" %}
+                {% endwith %}
+
+                <input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+
+                <br />
+
+                <table>
+                    <tr>
+                    <th><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{possessionFact.type}}')">Date</a></th>
+                    <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{possessionFact.type}}')">Short Summary</a></th>
+                    <th><a class="{{active_ordering|infer_class:'role'}}" onClick="update_related_factoids('1', 'role', '{{possessionFact.type}}')">Role</a></th>
+                    <th><a class="{{active_ordering|infer_class:'source'}}" onClick="update_related_factoids('1', 'source', '{{possessionFact.type}}')">Source</a></th>
+                  </tr>
+
+
+                {% for a in possessionFact.object_list  %}
+
+                  <tr>
+                    <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
+                    <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td>{{a.role}}</td>
+                    <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                  </tr>
+
+                {% endfor %}
+
+
+                </table>
+
+
+                <br /><br />
+
+
+                {% endblock possessionFact %}
+
+
+            </div>
+            {# end of fragment1 #}
+
+        {% endif %}
+
+
+
+        {# ----------- #}
+        {# PRO-ANIMA FACTOID #}
+        {# ----------- #}
+
+
+        {% if proanimaFact.object_list  %}
+
+            <div id="{{proanimaFact.type}}">
+
+                {% block proanimaFact %}
+
+                {% with proanimaFact as items %}
+                    {% include "pomsapp/record/paginator_record.html" %}
+                {% endwith %}
+
+                <input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+
+                <br />
+                    <table>
+
+                <tr>
+                    <th><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{proanimaFact.type}}')">Date</a></th>
+                    <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{proanimaFact.type}}')">Short Summary</a></th>
+                    <th><a class="{{active_ordering|infer_class:'role'}}" onClick="update_related_factoids('1', 'role', '{{proanimaFact.type}}')">Role</a></th>
+                    <th><a class="{{active_ordering|infer_class:'source'}}" onClick="update_related_factoids('1', 'source', '{{proanimaFact.type}}')">Source</a></th>
+                  </tr>
+
+                    {% for a in proanimaFact.object_list %}
+
+                      <tr>
+                        <td>{{a.factoidtrans.firmdate|default:"unavailable"}}</td>
+                        <td><a class="no_extlink" href="{% url factoid_detail a.factoidtrans.id %}" title="click to show">{{a.factoidtrans}}</a></td>
+                        <td>{{a.role}}</td>
+                        <td><a class="no_extlink" href="{% url source_detail a.factoidtrans.sourcekey.id %}" title="click to show">{{a.factoidtrans.sourcekey|poms_italic|safe}}</a></td>
+                      </tr>
+
+                    {% endfor %}
+
+                    </table>
+                <br />
+
+                {% endblock proanimaFact %}
+
+            </div>
+
+        {% endif %}
+
+
+
+
+
+        {# ----------- #}
+        {# WITNESSES FACTOID #}
+        {# ----------- #}
+
+
+        {% if witnessFact.object_list  %}
+
+            <div id="{{witnessFact.type}}">
+
+            {% block witnessFact %}
+
+            {% with witnessFact as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+
+                <br />
+                    <table>
+
+                    <tr>
+                        <th><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{witnessFact.type}}')">Date</a></th>
+                        <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{witnessFact.type}}')">Short Summary</a></th>
+                        <th><a class="{{active_ordering|infer_class:'source'}}" onClick="update_related_factoids('1', 'source', '{{witnessFact.type}}')">Source</a></th>
+                      </tr>
+
+                    {% for a in witnessFact.object_list %}
+
+                      <tr>
+                        <td>{{a.factoid.firmdate|default:"unavailable"}}</td>
+                        <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                        {# <td>{{a.role}}</td> #}
+                        <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                      </tr>
+
+                    {% endfor %}
+
+                    </table>
+                <br />
+                {% endblock witnessFact %}
+            </div>
+
+
+
+
+        </div>
+
+
+
+        {% endif %}
+
+
+
+
+<!-- </section> -->
+
+
+<!-- final div ######################### -->
+</div>
+
+
+<script>
+
+
+geoArray = [ 
+ {% if record.relatedplace.geom.y > 0 %}
+ {"name":"{{ record.persondisplayname|safe }}",
+  "desc":"{{ record.persondescription|safe|strip_empty_lines }}",
+  "source":"",  
+  "db_id":"{{ record.id }}",
+  "type":"{{ record.genderkey }}",
+  "record_type":"{{ result_typeObj.label }}",  
+  "factoid_count":"{{ record.how_many_factoids }}",
+  "places":[{"name":"{{ record.relatedplace.name|safe }}","coordinates":"{{ record.relatedplace.geom.y}},{{record.relatedplace.geom.x}}"}],
+  "people":[{"name":"{{ record.persondisplayname|safe }}"}]  
+ },  
+ {% endif %}
+]
+
+
+
+
+	L.newCircleMarker = L.CircleMarker.extend({
+		setZIndexOffset: function (offset) {
+			this.options.zIndexOffset = offset;
+			this.update();
+			return this;
+		},
+		update: function () {
+			if (this._icon) {
+				var pos = this._map.latLngToLayerPoint(this._latlng).round();
+				this._setPos(pos);
+			}
+		return this;
+		}
+	});
+
+
+var minX,minY,maxX,maxY;
+
+
+	function getPeopleRows(peeps){
+		var str = "";
+		for (ps in peeps){
+			str += '<tr><td>'+ peeps[ps].name +'</td><td>'+ peeps[ps].role + '</td></tr>'
+		}
+		return str;
+	};
+
+var map;
+
+markerStyles = {'transaction': {'color':'blue','start':1,'stop':179},
+				'possession':{'color':'red','start':181,'stop':359},
+				'title/occupation':{'color':'red'},
+				'other':{'color':'yellow'},
+				'M':{'color':'blue','start':1,'stop':89},
+				'F':{'color':'pink','start':91,'stop':179},
+				'Institution':{'color':'green','start':181,'stop':269},
+                'M/F':{'color':'purple','start':271,'stop':359}
+				}
+
+markerCentreArray = []			
+
+var personMarker;
+
+$(document).ready(function(){
+	if (geoArray.length > 0 ){
+		map =  new L.map('map',{maxZoom:12,zoomControl:true});
+		layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+		        {attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
+		
+        modern  = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
+
+        switcher = new L.control.layers({'Modern':modern,'Topography':layer},{},{collapsed:false}).addTo(map);
+        
+        $(".leaflet-control-layers-separator").css("display","block");
+        
+        $(".leaflet-control-layers-separator").after("<br>"+
+        
+                "<table>" +
+                "<tr>" +
+                    "<td>Person</td>" +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="blue" /></svg></td>' +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Transaction</td>"  +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="red" /></svg></td>' +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Source</td>" +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="green" /></svg></td>' +
+                "</tr>" +                
+                "</table>"
+        );
+                
+                
+		for (r in geoArray){
+
+			// deal with each type of record - Factoids first
+
+				for (p in geoArray[r].places){
+					if ( markerCentreArray.indexOf(String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+								))==-1)
+						{	
+							markerCentreArray.push(
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+								)
+							);
+						}				
+					var m = new L.newCircleMarker( 
+							[ parseFloat(geoArray[r].places[p].coordinates.split(',')[0]),
+							parseFloat(geoArray[r].places[p].coordinates.split(',')[1])]
+							,{	fillColor:markerStyles[geoArray[r].type].color  ,
+								radius:7,
+								fillOpacity:1,
+								color:'black',//markerStyles[geoArray[r].type].color,
+								weight:1,
+								opacity:0.9,
+								'name':geoArray[r].places[p].name,
+								'type':geoArray[r].type,
+								'db_id':geoArray[r].db_id,
+								startAngle:markerStyles[geoArray[r].type].start,
+								stopAngle:markerStyles[geoArray[r].type].stop
+							});
+                            
+                    personMarker = m;
+                    
+					m.bindPopup(
+					'<table class="simple headersX"><tbody>' +
+					'<tr><th colspan="2">'+ m.options.name +'</th></tr>' +
+                    			'<tr><th colspan="2">' + geoArray[r].type + '</th></tr>' +
+					'<tr><th colspan="2">' + geoArray[r].source + '</th></tr>' +
+					'<tr><td colspan="2">' + geoArray[r].desc + '</td></tr>' +				
+					'<tr><th>Name</th><th>Role</th></tr>'
+					+ getPeopleRows(geoArray[r].people) + 
+					'</tbody></table>'
+					);
+					map.addLayer(m);
+
+		// Use markerCentreArray values to create centre markers:
+		for (cms in markerCentreArray){
+			var cm = new L.CircleMarker(
+				[parseFloat(markerCentreArray[cms].split(',')[0]),
+				 parseFloat(markerCentreArray[cms].split(',')[1])],
+				{	fillColor:'gray',
+					radius:9,
+					fillOpacity:0,
+					color:'black',
+					weight:1,
+					opacity:0.85,
+					clickable:false,
+				})
+			.addTo(map);
+		};		
+
+
+					if (p==0){
+						minX = m.getLatLng().lng;
+						minY = m.getLatLng().lat;
+						maxX = m.getLatLng().lng;
+						maxY = m.getLatLng().lat;
+					};
+					if (m.getLatLng().lng <=  minX ){
+						minX = m.getLatLng().lng;
+					}
+					else {
+						maxX = m.getLatLng().lng;
+					}
+                    if (m.getLatLng().lat <=  minY ){
+                        minY = m.getLatLng().lat;
+                    }
+                    else {
+                        maxY = m.getLatLng().lat;
+                    }
+				};
+			
+		}
+
+        
+		var ll = new L.LatLng(minY,minX);
+        var ur = new L.LatLng(maxY,maxX);
+		var b = new L.LatLngBounds(ll,ur);
+		map.fitBounds(b);	        
+		
+			
+	}
+	
+    witnessMarkerStyle = {'placedate':'green','transaction':'red'}
+    
+	if (witnessFactoids.length > 0 ){
+        if (typeof map === 'undefined'){
+            map =  new L.map('map',{maxZoom:12,zoomControl:true});
+            layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+		        {attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
+		 
+            modern  = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
+
+            switcher = new L.control.layers({'Modern':modern,'Topography':layer},{},{collapsed:false}).addTo(map);
+            
+        $(".leaflet-control-layers-separator").css("display","block");
+        
+        $(".leaflet-control-layers-separator").after("<br>"+
+        
+                "<table>" +
+                "<tr>" +
+                    "<td>Person</td>" +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="blue" /></svg></td>' +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Transaction</td>"  +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="red" /></svg></td>' +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Source</td>" +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="green" /></svg></td>' +
+                "</tr>" +                
+                "</table>"
+        );            
+            
+            
+        };
+        
+		for (r in witnessFactoids){
+            try {
+			// deal with each type of record - Factoids first
+                        if ( markerCentreArray.indexOf(String(
+								parseFloat(witnessFactoids[r].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(witnessFactoids[r].coordinates.split(',')[1])
+								))==-1)
+						{	
+							markerCentreArray.push(
+								String(
+								parseFloat(witnessFactoids[r].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(witnessFactoids[r].coordinates.split(',')[1])
+								)
+							);
+						}				
+					var m = new L.newCircleMarker( 
+							[ parseFloat(witnessFactoids[r].coordinates.split(',')[0]),
+							parseFloat(witnessFactoids[r].coordinates.split(',')[1])]
+							,{	fillColor: witnessMarkerStyle[witnessFactoids[r]['type']], //'red'  ,
+								radius:7,
+								fillOpacity:1, 
+								color:'black',
+								weight:1,
+								opacity:0.9,
+								'name':witnessFactoids[r].name,
+                                'source':witnessFactoids[r].source,
+							});
+					m.bindPopup(
+					'<table class="simple headersX"><tbody>' +
+					'<tr><th colspan="2">'+ m.options.name +'</th></tr>' +
+					'<tr><td colspan="2">'+ m.options.source +'</td></tr>' +                    
+					'</tbody></table>'
+					);
+					map.addLayer(m);
+
+                    if (r==0 ){
+                        if (typeof minX === 'undefined'){
+						minX = m.getLatLng().lng;
+						minY = m.getLatLng().lat;
+						maxX = m.getLatLng().lng;
+						maxY = m.getLatLng().lat;
+                        }
+					};
+					if (m.getLatLng().lng <=  minX ){
+						minX = m.getLatLng().lng;
+					}
+					else {
+						maxX = m.getLatLng().lng;
+					}
+                    if (m.getLatLng().lat <=  minY ){
+                        minY = m.getLatLng().lat;
+                    }
+                    else {
+                        maxY = m.getLatLng().lat;
+                    };
+            }
+            catch (err){
+            // noithing!!
+            }
+			
+		}
+
+        
+		var ll = new L.LatLng(minY,minX);
+        var ur = new L.LatLng(maxY,maxX);
+		var b = new L.LatLngBounds(ll,ur);
+		map.fitBounds(b);
+        if (geoArray.length > 0){
+            map.setView(personMarker.getLatLng(),6)
+        }
+        else{
+            map.setView(b.getCenter(),6)
+        }
+	}
+    else {
+        console.log('hiding map!');
+        if (geoArray.length == 0){
+            $('#map').hide();
+        }
+    };    
+	
+})
+
+// Not currently used ----
+
+function printMap() {
+	leafletImage(map, function(err, canvas) {
+		var img = document.createElement('img');
+		var dimensions = map.getSize();
+        img.width = (dimensions.x);
+        img.height = (dimensions.y);
+		img.src = canvas.toDataURL();
+        
+		//document.getElementById('map-image').innerHTML = '';
+		//document.getElementById('map-image').appendChild(img);
+        
+    // TO DO - Open this on another page?        
+        $.ajax({
+            type: "POST",
+            url: '/map/map-image/',
+            data: { 
+                    "image" : img.src,
+                    "csrfmiddlewaretoken": '{{ csrf_token }}'
+                  },
+            success: openMapImageInWindow
+        });          
+	});
+};
+
+function openMapImageInWindow(data){
+        //window.open(data,'_blank');
+        var myWindow = window.open("", "Map Image");
+        myWindow.document.write(data);                    
+};
+
+{% if witnessFact.object_list  %}
+    witnessFactoids = [
+    {% for a in witnessFact.object_list %}
+            {% if a.factoid.poss_lands.all.count > 0 %}
+                {% for land in a.factoid.poss_lands.all %}
+                    {% if land.place.geom %} {"source":"{{ a.factoid.sourcekey}}","type":"transaction","name":"{{land.place.name}}","coordinates":"{{land.place.geom.y}},{{land.place.geom.x}}"}  ,
+                    {% endif %}
+                {% endfor %}
+                {% if a.factoid.sourcekey.charter.placefk %}
+                    {"source":"{{ a.factoid.sourcekey}}","type":"placedate","name":"{{a.factoid.sourcekey.charter.placefk.name}}","coordinates":"{{a.factoid.sourcekey.charter.placefk.geom.y}},{{a.factoid.sourcekey.charter.placefk.geom.x}}"},  
+                {% endif %}
+            {% endif %}
+    {% endfor %}
+    ]
+{% endif %}
+
+</script>
+
+{% endblock %}
+
+
+
+

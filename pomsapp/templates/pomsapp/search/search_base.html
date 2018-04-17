@@ -1,0 +1,220 @@
+{% extends "pomsapp/skeleton.html" %}
+
+
+{% block titlepage  %}
+	<title>POMS: search</title>
+{% endblock %}
+
+
+{% block load_css  %}
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}paul/c/a.css"/>
+	<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}paul/c/s.css"/>
+	<link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}paul/c/p.css"/>
+	
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/ui/ui.all.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/ui/ui.slider.css"/>
+
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/jquery.qtip.min.css" />	
+	
+	
+	<style type="text/css" media="screen">
+
+	.ui-tooltip{
+		min-width: 550px;
+		overflow: auto;
+		max-height: 400px;
+		margin-top: 150px;
+	}
+	
+	.ui-tooltip-bootstrap .ui-tooltip-titlebar {
+		font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
+	}
+	
+	#ui-tooltip-modal{
+		max-width: 420px;
+
+		-moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+		-webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+		box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+	}
+
+	#ui-tooltip-modal .ui-tooltip-content{
+		padding: 10px;
+	}
+	
+	
+	</style>
+	
+	
+	{# eventually this must be put in its own file! #}	
+	<style type="text/css" media="screen">
+
+
+	</style>
+	
+{% endblock %}
+
+
+
+{% block load_js  %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.5.1.min.js"></script>
+{# <script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery-1.3.2.min.js"></script> #}
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery.overlabel.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/cufon.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery.cluetip.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/f/agaramondpro.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.tipsy.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/functions_search.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/ui/ui.core.js"></script> 
+<script type="text/javascript" src="{{ STATIC_URL }}js/ui/ui.slider.js"></script>
+
+
+<script> 
+$(document).ready(function() {
+
+	
+	
+	
+	// overlay for history
+	
+	$('#historyHandle').qtip(
+	{
+		id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
+		content: {
+			text: $('#historyContent'),
+			title: {
+				text: 'History',
+				button: true
+			}
+		},
+		position: {
+			my: 'center', // ...at the center of the viewport
+			at: 'center',
+			target: $(window)
+		},
+		show: {
+			event: 'click', // Show it on click...
+			solo: true, // ...and hide all other tooltips...
+			modal: true // ...and make it modal
+		},
+		hide: false,
+		style: 'ui-tooltip-light ui-tooltip-rounded'
+	});
+	
+	
+	
+	// map ajax previews:
+
+	// ....
+	$('#preview-map').each(function(){
+		$(this).qtip({
+			content: {
+				text: '<img height="20" src="{{ STATIC_URL }}labs/img/loading.gif" alt="Loading..." />',
+				ajax: {
+					url: $(this).attr('href') // Use the rel attribute of each element for the url to load
+				},
+				title: {
+					// Give the tooltip box a title 
+					// text: $(this).attr('title'), 
+					text: "Map Preview - <a href='" + $(this).attr('href') + "#'>click to show the full map</a>"+ 
+						"<small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>", 
+					button: true
+				}
+			},
+			style: {
+				classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map'  
+			},
+			show: {
+				event: 'click',
+				delay: 10,
+				solo: true // Only show one tooltip at a time
+			},
+			position: {
+				my: 'center', // ...at the center of the viewport
+				at: 'center',
+				target: $(window),
+			},
+			hide: 'unfocus',
+			})
+		})			
+	// Make sure it doesn't follow the link when we click it
+	.click(function(event) { event.preventDefault(); });	
+	
+	// ajax previews:
+
+	// ....
+	
+	$('a.no_extlink').each(function(){
+		$(this).qtip({
+			content: {
+				text: '<img height="20" src="{{ STATIC_URL }}labs/img/loading.gif" alt="Loading..." />',
+				ajax: {
+					url: $(this).attr('href') + "?preview=true" // Use the rel attribute of each element for the url to load
+				},
+				title: {
+					// Give the tooltip box a title 
+					// text: $(this).attr('title'), 
+					text: "Record Preview - <a href='" + $(this).attr('href') + "#'>click to show the full record</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>", 
+					button: true
+				}
+			},
+			style: {
+				classes: 'ui-tooltip-bootstrap ui-tooltip-shadow'  
+			},
+			show: {
+				event: 'click',
+				delay: 10,
+				solo: true // Only show one tooltip at a time
+			},
+			position: {
+				my: 'center', // ...at the center of the viewport
+				at: 'center',
+				target: $(window),
+			},
+			hide: 'unfocus',
+			})
+		})			
+	// Make sure it doesn't follow the link when we click it
+	.click(function(event) { event.preventDefault(); });
+
+	
+	
+
+// 	final parenthesis
+});
+
+
+
+</script>
+
+{% endblock %}
+
+
+	{% block tabs_titles  %}
+		
+	{% endblock %}
+
+	{% block small_links %}
+		
+	{% endblock %}
+
+
+	{% block permalink %}
+
+	{% endblock %}
+
+
+	{% block contents %}
+  
+
+	{% endblock %}
+
+
+
+	{% block body_closing %}
+		<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+		{% include "pomsapp/snippet_history.html" %}
+	{% endblock %}

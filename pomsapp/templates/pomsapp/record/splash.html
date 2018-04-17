@@ -1,0 +1,49 @@
+{% extends "pomsapp/record/record_base.html" %}
+{% load extrafilters %}
+	
+	{% block contents %}
+		
+		<div class="tsp">
+						
+
+			<br /><br /><br />
+			<h4 class="s3">Most <span>popular</span> people and institutions:</h4>	
+			<br />
+			
+			
+			
+			<div class="fancyview">
+
+			
+				{% for p in people_for_cloud  %}
+					<span class="x6" style="font-size: {{p.1}}px;" title="{{p.0.persondescription|poms_italic|truncatewords:25}}&#13;&#13;[{{p.0.helper_totfactoids}} Factoids]">{{p.0|make_absolute_url|safe}}</span>&nbsp;&nbsp;
+				{% endfor %}<br /><br /><br />
+	
+
+				
+			</div>
+	
+	
+	
+			<br /><br /><br />
+			<h4 class="s3">Most <span>popular</span> Charters:</h4>	
+			<br />
+			
+			
+			
+			<div class="fancyview">
+			
+			
+				{% for p in charters_for_cloud  %}
+					<span class="x6" style="font-size: {{p.1}}px;" title="{{p.0.description|poms_italic|truncatewords:25}}&#13;&#13;{{p.0.helper_totfactoids}} Factoids">{{p.0|make_absolute_url|poms_italic|safe}}</span>&nbsp;&nbsp;
+				{% endfor %}<br /><br /><br />
+
+				
+			</div>
+	
+								
+		</div>
+
+	{% endblock %}
+	
+	

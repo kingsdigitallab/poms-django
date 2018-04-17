@@ -1,0 +1,641 @@
+{% extends "pomsapp/record/record_base.html" %}
+
+{% load extrafilters %}
+
+{% block permalink %}
+<ul class="utl m1">
+  <li class="i1"><a href="#" title="Permanent URL for this page, which will allow you to save a bookmark"><b>Permalink: {{permalink}}</b></a></li>
+</ul>
+{% endblock %}
+
+
+{% block contents %}
+
+
+{% block preview_contents %}
+<div class="recordSummary">
+    <div class="hdp">
+		{% include "pomsapp/record/snippet_buttons.html" %}
+      <h1>Place: 
+		{% if record.get_ancestors %}
+			{% for p in record.get_ancestors %}
+				<a href="{% url place_detail p.id  %}" title="Show details">{{p.name}}</a>
+					>>
+			{% endfor %}
+        {% endif %}
+
+		{% if user.is_staff %}
+			<a href="{{record.get_admin_url}}" target="_blank" title="Welcome administrator! Click to edit this item in the data entry section." style="color: red;">{{record.name}}</a>
+		{% else   %}
+			{{record.name}}
+		{% endif %}
+	</h1>
+    </div>
+	
+					{% if not preview %}{% if record.geom.y > 0 %}
+					<!--<h2>{{ preview }} Preview </h2>-->
+ 	                <div id="map" style="border-style:solid;border-width:1px;width:auto;height:250px;margin-right:100px;margin-right:20px;margin-left:20px;">
+					</div>{% endif %}
+					{% endif %}	
+
+    <div class="ct">
+      <dl class="m1">
+		{% if record.genericname %}
+        <dt>Generic Name</dt>
+        	<dd>{{record.genericname}}</dd>
+		{% endif %}
+		{% if record.articletext %}
+        <dt>Article Text</dt>
+        	<dd>{{record.articletext}}</dd>
+		{% endif %}
+		{% if record.specificname %}
+        <dt>Specific Name</dt>
+  		  	<dd>{{record.specificname}}</dd>
+		{% endif %}
+		{% if record.notes %}
+        <dt>Notes</dt>
+        	<dd>{{record.notes}}</dd>
+		{% endif %}
+        {% if record.get_descendants %}
+        	<dt>Contains</dt>
+			<dd>
+			{% for p in record.get_children_by_name %}
+				<a class="no_extlink" href="{% url place_detail p.id  %}" title="Show details">{{p.name}}</a>{% if not forloop.last %},&nbsp;{% endif %}
+			{% endfor %}
+	        </dd>
+        {% endif %}
+
+
+      </dl>
+
+{% endblock %}
+
+
+
+{% if someRelatedValues %}
+
+
+    </div><!-- ends content ct -->
+	</div><!-- ends record summary -->
+	
+
+<div id="tabs" class="tsb recordTabs">
+    <ul class="tsn">
+	
+
+		{% if peopleAssoc.object_list  %}
+        <li><a href="#{{peopleAssoc.type}}"><span>Associated People ({{ peopleAssoc.tot}}):</span></a></li>
+ 		{% endif %}
+
+		{% if documentAssoc.object_list  %}
+        <li><a href="#{{documentAssoc.type}}"><span>Associated Documents ({{ documentAssoc.tot}}):</span></a></li>
+ 		{% endif %}
+
+		{% if transactionFact.object_list  %}
+        <li><a href="#{{transactionFact.type}}"><span>Transaction factoids ({{ transactionFact.tot}}):</span></a></li>
+ 		{% endif %}
+
+		{% if relationshipFact.object_list  %}
+        	<li><a href="#{{relationshipFact.type}}"><span>Relationship factoids ({{ relationshipFact.tot }}):</span></a></li>
+ 		{% endif %}
+
+		{% if possessionFact.object_list  %}
+        <li><a href="#{{possessionFact.type}}"><span>Possession factoids ({{ possessionFact.tot }}):</span></a></li>
+ 		{% endif %}
+
+   </ul>
+
+
+
+	{# ----------- #}
+	{# ASSOC PEOPLE #}
+	{# ----------- #}
+
+	{% if peopleAssoc.object_list %}
+		
+	    <div id="{{peopleAssoc.type}}">
+		
+
+			{% block peopleAssoc %}
+
+			{% with peopleAssoc as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+											
+			<br />				
+			
+			<table>
+			  <tr>
+			    <th>Name</th>
+			    <th>Floruits</th>
+			    <th>Related place</th>
+			  </tr>
+		
+
+			{% for a in peopleAssoc.object_list  %}
+			
+			  <tr>
+			    <td><a class="no_extlink" href="{% url person_detail a.id %}" title="click to show">{{a}}</a></td>
+			    <td>{{a.nice_floruits|safe}}</td>
+			    <td>{{a.relatedplace.name}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock peopleAssoc %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	
+	{% endif %}
+
+
+
+
+
+
+	{# ----------- #}
+	{# ASSOC CHARTERS #}
+	{# ----------- #}
+
+	{% if documentAssoc.object_list %}
+		
+	    <div id="{{documentAssoc.type}}">
+		
+
+			{% block documentAssoc %}
+
+			{% with documentAssoc as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+											
+			<br />				
+			
+			<table>
+				<tr>
+				    <th>Title</th>
+				    <th>Related place</th>
+			  </tr>
+		
+
+			{% for a in documentAssoc.object_list  %}
+			
+			  <tr>
+			    <td><a class="no_extlink" href="{% url source_detail a.id %}" title="click to show">{{a|poms_italic|safe|default:"&nbsp;"}}</a></td>
+			    <td>{{a.placefk.name}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock documentAssoc %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	
+	{% endif %}
+
+
+
+
+
+
+
+	{# ----------- #}
+	{# TRANSACTION #}
+	{# ----------- #}
+	
+	{% if transactionFact.object_list %}
+		
+	    <div id="{{transactionFact.type}}">
+		
+
+			{% block transactionFact %}
+
+			{% with transactionFact as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+											
+			<br />				
+			
+			<table>
+			  <tr>
+			    <th><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{transactionFact.type}}')">Date</a></th>
+			    <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{transactionFact.type}}')">Short Summary</a></th>
+			    <th><a class="{{active_ordering|infer_class:'primary'}}" onClick="update_related_factoids('1', 'primary', '{{transactionFact.type}}')">Primary</a></th>
+			    <th>Witnesses</th>
+			  </tr>
+
+			{% for a in transactionFact.object_list  %}
+			
+			  <tr>
+			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
+			    <td><a class="no_extlink" href="{% url factoid_detail a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+			    <td>{{a.isprimary|yesno:"yes,no"}}</td>
+				<td>{{a.witnesses.all|printmany_withabsoluteurl|safe}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock transactionFact %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	
+	{% endif %}
+	
+	
+	
+	
+	{# ----------- #}
+	{# RELATIONSHIP #}
+	{# ----------- #}
+
+	{% if relationshipFact.object_list %}
+		
+	    <div id="{{relationshipFact.type}}">
+		
+
+			{% block relationshipFact %}
+
+			{% with relationshipFact as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+											
+			<br />				
+			
+			<table>
+			  <tr>
+			    <th><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{relationshipFact.type}}')">Date</a></th>
+			    <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{relationshipFact.type}}')">Short Summary</a></th>
+				<th>Subject</th>
+				<th>Object</th>
+			  </tr>
+
+			{% for a in relationshipFact.object_list  %}
+			
+			  <tr>
+			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
+			    <td><a class="no_extlink" href="{% url factoid_detail a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+			    <td>{{a.get_secondaryPersons|printmany_withabsoluteurl|safe}}</td>
+				<td>{{a.get_primaryPersons|printmany_withabsoluteurl|safe}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock relationshipFact %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	
+	{% endif %}
+
+
+
+
+
+
+	{# ----------- #}
+	{# POSSESSION FACTOID #}
+	{# ----------- #}
+
+	{% if possessionFact.object_list %}
+		
+	    <div id="{{possessionFact.type}}">
+		
+
+			{% block possessionFact %}
+
+			{% with possessionFact as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />								
+			
+			<br />				
+			
+			<table>
+				<tr>
+			    <th><a class="{{active_ordering|infer_class:'date1'}}" onClick="update_related_factoids('1', 'date1', '{{possessionFact.type}}')">Date</a></th>
+			    <th><a class="{{active_ordering|infer_class:'summary'}}" onClick="update_related_factoids('1', 'summary', '{{possessionFact.type}}')">Short Summary</a></th>
+				<th>Holder</th>
+				<th>Lord</th>
+			  </tr>
+			
+
+			{% for a in possessionFact.object_list  %}
+			
+			  <tr>
+			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
+			    <td><a class="no_extlink" href="{% url factoid_detail a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+				<td>{{a.get_primaryPersons|printmany_withabsoluteurl|safe}}</td>
+			    <td>{{a.get_secondaryPersons|printmany_withabsoluteurl|safe}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock possessionFact %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	
+	{% endif %}
+
+
+
+
+
+</div>
+
+{% endif %}  {# someRelatedValues #}
+
+
+
+
+<script>
+
+
+geoArray = [ 
+ {% if record.geom.y > 0 %}
+ {"name":"{{ record.name|safe }}",
+  "source":"",  
+  "db_id":"{{ record.id }}",
+  "type":"Place",
+  "place_types":{% if record.place_types.all %}"{% for t in record.place_types.all %}{{ t }},{% endfor %}",{% else %}"",{% endif %}
+  "record_type":"Places",  
+  "factoid_count":"{{ record.how_many_factoids }}",
+  "places":[{"name":"{{ record.name|safe }}","coordinates":"{{ record.geom.y}},{{record.geom.x}}"}]
+ },  
+ {% endif %}
+]
+
+
+	L.newCircleMarker = L.CircleMarker.extend({
+		setZIndexOffset: function (offset) {
+			this.options.zIndexOffset = offset;
+			this.update();
+			return this;
+		},
+		update: function () {
+			if (this._icon) {
+				var pos = this._map.latLngToLayerPoint(this._latlng).round();
+				this._setPos(pos);
+			}
+		return this;
+		}
+	});
+
+
+var minX,minY,maxX,maxY;
+
+
+	function getPeopleRows(peeps){
+		var str = "";
+		for (p in peeps){
+			str += '<tr><td>'+ peeps[p].name +'</td><td>'+ peeps[p].role + '</td></tr>'
+		}
+		return str;
+	};
+
+
+markerStyles = {'transaction': {'color':'blue','start':1,'stop':179},
+				'possession':{'color':'red','start':181,'stop':359},
+				'title/occupation':{'color':'red'},
+				'other':{'color':'yellow'},
+				'M':{'color':'blue','start':1,'stop':89},
+				'F':{'color':'pink','start':91,'stop':179},
+				'Institution':{'color':'green','start':181,'stop':269},
+                'M/F':{'color':'purple','start':271,'stop':359},
+                'Place':{'color':'blue','start':1,'stop':359},						
+				}
+
+markerCentreArray = []						
+
+$(document).ready(function(){
+	if (geoArray.length > 0 ){
+		map =  new L.map('map',{maxZoom:12,zoomControl:true});
+		layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+		        {attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
+		
+        modern  = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
+
+        switcher = new L.control.layers({'Modern':modern,'Topography':layer},{}).addTo(map);
+		for (r in geoArray){
+
+			// deal with each type of record - Factoids first
+			//if (geoArray[r].record_type=="factoid") {
+				for (p in geoArray[r].places){
+					if ( markerCentreArray.indexOf(String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+								))==-1)
+						{	
+							markerCentreArray.push(
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+								)
+							);
+						}				
+					var m = new L.newCircleMarker( 
+							[ parseFloat(geoArray[r].places[p].coordinates.split(',')[0]),
+							parseFloat(geoArray[r].places[p].coordinates.split(',')[1])]
+							,{	fillColor:markerStyles[geoArray[r].type].color  ,
+								radius:7,
+								fillOpacity:1,
+								color:'black',//markerStyles[geoArray[r].type].color,
+								weight:1,
+								opacity:0.9,
+								'name':geoArray[r].places[p].name,
+								'type':geoArray[r].type,
+								'db_id':geoArray[r].db_id,
+								startAngle:markerStyles[geoArray[r].type].start,
+								stopAngle:markerStyles[geoArray[r].type].stop
+							});
+					m.bindPopup(
+					'<table class="simple headersX"><tbody>' +
+					'<tr><th colspan="2">'+ m.options.name +'</th></tr>' +
+                                        '<tr><th colspan="2">' + geoArray[r].type + '</th></tr>' +
+                                        '<tr><td colspan="2">test' + geoArray[r].place_types + '</td></tr>' +
+					'<tr><th colspan="2">' + geoArray[r].source + '</th></tr>' +
+					'<tr><th>Name</th><th>Role</th></tr>'
+					+ getPeopleRows(geoArray[r].people) + 
+					'</tbody></table>'
+					);
+					map.addLayer(m);
+
+		// Use markerCentreArray values to create centre markers:
+		for (cms in markerCentreArray){
+			var cm = new L.CircleMarker(
+				[parseFloat(markerCentreArray[cms].split(',')[0]),
+				 parseFloat(markerCentreArray[cms].split(',')[1])],
+				{	fillColor:'gray',
+					radius:9,
+					fillOpacity:0,
+					color:'black',
+					weight:1,
+					opacity:0.85,
+					clickable:false,
+				})
+			.addTo(map);
+		};		
+
+
+					if (r==0){
+						minX = m.getLatLng().lng;
+						minY = m.getLatLng().lat;
+						maxX = m.getLatLng().lng;
+						maxY = m.getLatLng().lat;
+					};
+					if (m.getLatLng().lng <=  minX ){
+						minX = m.getLatLng().lng;
+					}
+					else {
+						maxX = m.getLatLng().lng;
+					}
+                    if (m.getLatLng().lat <=  minY ){
+                        minY = m.getLatLng().lat;
+                    }
+                    else {
+                        maxY = m.getLatLng().lat;
+                    }
+				};
+			//} // End if Factoids type 
+			
+			
+			if (geoArray[r].record_type=="Places") {
+				for (p in geoArray[r].places){
+					if ( markerCentreArray.indexOf(String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+								))==-1)
+						{	
+							markerCentreArray.push(
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+								)
+							);
+						}
+							
+					var m = new L.newCircleMarker( 
+							[ parseFloat(geoArray[r].places[p].coordinates.split(',')[0]),
+							  parseFloat(geoArray[r].places[p].coordinates.split(',')[1])]
+							,{	fillColor:markerStyles[geoArray[r].type].color  ,
+								radius:7,
+								fillOpacity:1,
+								color:'black',
+								weight:1,
+								opacity:0.9,
+								'name':geoArray[r].places[p].name,
+								'type':geoArray[r].type,
+								'db_id':geoArray[r].db_id,
+							});
+					m.bindPopup(
+					'<table class="simple headersX"><tbody>' +
+					'<tr><th colspan="2">'+ m.options.name +'</th></tr>' +
+                    '<tr><th colspan="2">' + geoArray[r].type + '</th></tr>' +
+					'<tr><th colspan="2">' + geoArray[r].source + '</th></tr>' +
+                       '<tr><td colspan="2">' + geoArray[r].place_types + '</td></tr>' 
+					);
+					map.addLayer(m);
+					//oms.addMarker(m);
+					
+					if (p==0){
+
+						minX = m.getLatLng().lng;
+						minY = m.getLatLng().lat;
+						maxX = m.getLatLng().lng;
+						maxY = m.getLatLng().lat;
+					};
+					if (m.getLatLng().lng <=  minX ){
+						minX = m.getLatLng().lng;
+					}
+					else {
+						maxX = m.getLatLng().lng;
+					}
+                    if (m.getLatLng().lat <=  minY ){
+                        minY = m.getLatLng().lat;
+                    }
+                    else {
+                        maxY = m.getLatLng().lat;
+                    }
+				};
+			} // End if places type				
+			
+		}
+
+		
+			
+	}
+	
+		var ll = new L.LatLng(minY,minX);
+        var ur = new L.LatLng(maxY,maxX);
+		var b = new L.LatLngBounds(ll,ur);
+		map.fitBounds(b);	
+	
+	
+})
+
+
+</script>
+
+
+
+{% endblock %}
+

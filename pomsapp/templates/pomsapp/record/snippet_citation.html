@@ -1,0 +1,16 @@
+{# snippet being used in all templates for the history-page opened via a modal window #}
+
+
+{% load extrafilters %}
+
+
+ <div id="citationContent" class="fancyview" style="display: none;">
+
+	<p>You can cite this record using this snippet:</p> 
+	
+	<div class="citationBorder">
+		<p>PoMS{{record|citation_format}} (<a href="{{permalink}}">http://{{permalink}}</a>; accessed {% now "d F Y" %})</p>
+	</div> 
+
+
+</div>

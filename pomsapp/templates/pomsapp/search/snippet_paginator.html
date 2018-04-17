@@ -1,0 +1,37 @@
+{# PAGINATOR #}
+
+    <div class="itp">
+      <h4>Listing items <strong>{{ items.start_index }}</strong> to <strong>{{ items.end_index }}</strong>, page <strong>{{ items.number }}</strong> of <strong>{{ items.paginator.num_pages }}</strong></h4>
+      <ul>
+
+		{% if items.has_previous %}
+			{# <li><a onClick="reload_results('1')">&#8249;&#8249; First</a></li> #}
+			<li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page=1">&#8249;&#8249; First</a></li>
+            <li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ items.previous_page_number }}">&#8249; Previous</a></li>
+		{% else %}
+			<li class="s5">&#8249;&#8249; First</li>
+			<li class="s5">&#8249; Previous</li>
+        {% endif %}
+
+		{% for el in items.extrastuff %}
+
+			{% ifequal el items.number %}
+				<li class="s1">{{ el }}</li>
+			{% else %}
+				<li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ el }}">{{ el }}</a></li>
+			{% endifequal %}
+
+		{% endfor %}
+
+		{% if items.has_next %}
+			<li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ items.next_page_number }}" >Next &#8250;</a></li>
+			<li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ items.paginator.num_pages }}">Last &#8250;&#8250;</a></li>
+		{% else %}
+			<li class="s5">Next &#8250;</li>
+			<li class="s5">Last &#8250;&#8250;</li>
+        {% endif %}
+
+      </ul>
+    </div>	
+
+{# END PAGINATOR #}

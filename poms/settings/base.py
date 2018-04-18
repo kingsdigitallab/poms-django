@@ -10,11 +10,9 @@ https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 import getpass
 import logging
+
 import os
-
-
 from kdl_ldap.settings import *  # noqa
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -49,7 +47,6 @@ CACHES = {
     }
 }
 
-
 CSRF_COOKIE_SECURE = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -79,14 +76,20 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'compressor',
-]
-
-INSTALLED_APPS += [    # your project apps here
-    'pomsapp',
     'django.contrib.gis',
+    'compressor',
     'kdl_ldap',
     'rest_framework',
+
+    'modelcluster',
+    'haystack',
+]
+
+"""
+temp removed to get clean django
+INSTALLED_APPS += [  # your project apps here
+    'pomsapp',
+
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
     'wagtail.wagtaildocs',
@@ -101,9 +104,7 @@ INSTALLED_APPS += [    # your project apps here
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.table_block',
     'taggit',
-    'modelcluster',
-    'haystack',
-]
+]"""
 
 INTERNAL_IPS = ['127.0.0.1']
 
@@ -178,8 +179,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-
-
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 
@@ -203,10 +202,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
-
-
-
-
 
             ],
         },
@@ -302,9 +297,7 @@ GA_ID = ''
 # Automatically generated settings
 # -----------------------------------------------------------------------------
 
-# Check which db engine to use:
-db_engine = 'django.db.backends.mysql'
-
+db_engine = 'django.contrib.gis.db.backends.mysql'
 
 AUTH_LDAP_REQUIRE_GROUP = 'cn=poms,' + LDAP_BASE_OU
 WAGTAIL_SITE_NAME = PROJECT_TITLE
@@ -313,7 +306,7 @@ ITEMS_PER_PAGE = 10
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE':
-        'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
         'URL': 'http://127.0.0.1:9200/',
         'INDEX_NAME': 'poms_haystack',
     },

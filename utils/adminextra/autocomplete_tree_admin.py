@@ -58,6 +58,7 @@
 import operator
 import functools
 from django import forms
+from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
@@ -336,8 +337,8 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(FkAutocompleteAdmin, self).get_urls()
-        search_url = ['',
-                              (r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
+        search_url = [
+                              url(r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
                       ]
         return search_url + urls
 
@@ -448,8 +449,8 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(NoLookupsForeignKeyAutocompleteAdmin, self).get_urls()
-        search_url = ['',
-                              (r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
+        search_url = [
+                              url(r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
                               ]
         return search_url + urls
 
@@ -564,8 +565,8 @@ class InlineAutocompleteAdmin(admin.TabularInline):
 
     def get_urls(self):
         urls = super(InlineAutocompleteAdmin, self).get_urls()
-        search_url = ['',
-                              (r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
+        search_url = [
+                              url(r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
                               ]
         return search_url + urls
 

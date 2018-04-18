@@ -3,6 +3,7 @@ from django.conf.urls import *  # for the ajax autocomplete
 from django.contrib.gis.db.models import *
 from django.utils.translation import ugettext_lazy as _
 # from settings import print
+from django.contrib.admin.sites import site
 
 from pomsapp.actions_models import *
 #
@@ -512,7 +513,7 @@ class Source(mymodels.PomsModel):
         blank=True, max_length=3, choices=DATE_MODIFIERS,
         verbose_name="date of charter  - FROM", help_text="modifier")  # exa
     from_weekday = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=WEEKDAY_CHOICES, verbose_name="",
+        blank=True, null=True, choices=WEEKDAY_CHOICES, verbose_name="",
         help_text="weekday")
     from_day = models.IntegerField(
         blank=True, null=True, choices=DAY_CHOICES, verbose_name="", help_text="day", )
@@ -521,22 +522,22 @@ class Source(mymodels.PomsModel):
     from_month = models.IntegerField(
         blank=True, null=True, choices=MON_CHOICES, verbose_name="", help_text="month")
     from_season = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
+        blank=True, null=True, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
     from_year = models.IntegerField(
         blank=True, null=True, verbose_name="", help_text="enter a year in numbers")
     to_modifier = models.CharField(
         blank=True, max_length=3, choices=DATE_MODIFIERS,
         verbose_name="date of charter  - TO", help_text="modifier")
     to_weekday = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=WEEKDAY_CHOICES, help_text="weekday", verbose_name="", )
+        blank=True, null=True, choices=WEEKDAY_CHOICES, help_text="weekday", verbose_name="", )
     to_day = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=DAY_CHOICES, help_text="day", verbose_name="", )
+        blank=True, null=True, choices=DAY_CHOICES, help_text="day", verbose_name="", )
     to_modifier2 = models.CharField(
         blank=True, max_length=3, choices=DATE_MODIFIERS2, help_text="modifier2", verbose_name="", )
     to_month = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=MON_CHOICES, help_text="month", verbose_name="", )
+        blank=True, null=True, choices=MON_CHOICES, help_text="month", verbose_name="", )
     to_season = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
+        blank=True, null=True, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
     to_year = models.IntegerField(
         blank=True, null=True, verbose_name="", help_text="enter a year in numbers")
     # end ======== new dates 15/1/10
@@ -664,7 +665,7 @@ class Charter(Source):
         help_text="(excluding non-primary transactions)")
 
     helper_tickboxes = models.ManyToManyField(
-        'DocTickboxes', null=True, blank=True, verbose_name="normalization of tickboxes",
+        'DocTickboxes', blank=True, verbose_name="normalization of tickboxes",
         help_text="Helper field used for the faceted search - see actionsmodels", )
 
     def get_admin_url(self):
@@ -869,9 +870,9 @@ class Matrix(Source):
 
 class Seal(Source):
     """(Seal description)"""
-    charter = models.ForeignKey(
+    charter_field = models.ForeignKey(
         'Charter', verbose_name="charter", blank=True, null=True, )
-    matrix = models.ForeignKey('Matrix', verbose_name="matrix")
+    matrix_field = models.ForeignKey('Matrix', verbose_name="matrix")
     color = models.ForeignKey(
         'SealColor', verbose_name="seal color", blank=True, null=True, )
     att_type_surv = models.ForeignKey(
@@ -907,7 +908,7 @@ class Seal(Source):
     get_databrowse_url.allow_tags = True
 
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
-        related_search_fields = {'charter': (
+        related_search_fields = {'charter_field': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
 
         def save_model(self, request, obj, form, change):
@@ -917,10 +918,10 @@ class Seal(Source):
             obj.updated_by = request.user
             obj.save()
 
-        list_display = ('matrix', 'color', 'countersealed',
+        list_display = ('matrix_field', 'color', 'countersealed',
                         'editedrecord', 'review', 'updated_by', 'updated_at',)
         search_fields = ('id',)
-        list_filter = ('matrix', 'color', 'created_at', 'updated_at',
+        list_filter = ('matrix_field', 'color', 'created_at', 'updated_at',
                        'created_by__username', 'editedrecord', 'review',)
         fieldsets = [
             ('Administration',
@@ -932,11 +933,11 @@ class Seal(Source):
               }),
             ('',
              {'fields':
-              ['charter', ]
+              ['charter_field', ]
               }),
             ('Seal info',
              {'fields':
-              ['matrix', 'color', 'att_type_surv', 'countersealed',
+              ['matrix_field', 'color', 'att_type_surv', 'countersealed',
                'archive', 'archiverefnumber', 'conditionnote']
               }),
             ('Links',
@@ -966,10 +967,11 @@ class ExtraTitleCreationFrom(forms.ModelForm):
     # ManyToOneRel class and a model/model_field combination. The resulting
     # title object (selected by the user) is then extracted directly from the
     # request object in the TransactionFactoid code (as it used to be)
+    # todo ehall rawid widget broken by upgrade, this may not work
     title = forms.ModelChoiceField(
         required=False, queryset=TitleType.objects.all(), empty_label="(Nothing)",
         label="title [warning: creates a new title-factoid]",
-        widget=widgets.ForeignKeyRawIdWidget(ManyToOneRel(TitleType, 'id')))
+        widget=widgets.ForeignKeyRawIdWidget(ManyToOneRel(TitleType, 'id','id'),site))
     bygraceofgod = forms.BooleanField(required=False, label="by grace of..")
     byanotherdivineinvocation = forms.BooleanField(
         required=False, label="by another divine..")
@@ -1095,7 +1097,7 @@ class Factoid(mymodels.PomsModel):
         blank=True, max_length=3, choices=DATE_MODIFIERS,
         verbose_name="date of factoid  - FROM", help_text="modifier")  # exa
     from_weekday = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=WEEKDAY_CHOICES, verbose_name="",
+        blank=True, null=True, choices=WEEKDAY_CHOICES, verbose_name="",
         help_text="weekday")
     from_day = models.IntegerField(
         blank=True, null=True, choices=DAY_CHOICES, verbose_name="", help_text="day", )
@@ -1104,22 +1106,22 @@ class Factoid(mymodels.PomsModel):
     from_month = models.IntegerField(
         blank=True, null=True, choices=MON_CHOICES, verbose_name="", help_text="month")
     from_season = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
+        blank=True, null=True, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
     from_year = models.IntegerField(
         blank=True, null=True, verbose_name="", help_text="enter a year in numbers")
     to_modifier = models.CharField(
         blank=True, max_length=3, choices=DATE_MODIFIERS,
         verbose_name="date of factoid  - TO", help_text="modifier")
     to_weekday = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=WEEKDAY_CHOICES, help_text="weekday", verbose_name="", )
+        blank=True, null=True, choices=WEEKDAY_CHOICES, help_text="weekday", verbose_name="", )
     to_day = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=DAY_CHOICES, help_text="day", verbose_name="", )
+        blank=True, null=True, choices=DAY_CHOICES, help_text="day", verbose_name="", )
     to_modifier2 = models.CharField(
         blank=True, max_length=3, choices=DATE_MODIFIERS2, help_text="modifier2", verbose_name="", )
     to_month = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=MON_CHOICES, help_text="month", verbose_name="", )
+        blank=True, null=True, choices=MON_CHOICES, help_text="month", verbose_name="", )
     to_season = models.IntegerField(
-        blank=True, null=True, max_length=2, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
+        blank=True, null=True, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
     to_year = models.IntegerField(
         blank=True, null=True, verbose_name="", help_text="enter a year in numbers")
     # end ======== new dates 15/1/10
@@ -1738,7 +1740,7 @@ class FactTransaction(Factoid):
         blank=True)
 
     helper_tickboxes = models.ManyToManyField(
-        'TransTickboxes', null=True, blank=True, verbose_name="normalization of tickboxes",
+        'TransTickboxes', blank=True, verbose_name="normalization of tickboxes",
         help_text="Helper field used for the faceted search - see actionsmodels", )
 
     def save(self, force_insert=False, force_update=False):
@@ -1968,7 +1970,7 @@ class Place(mymodels.PomsModel):
     parent = models.ForeignKey(
         'Place', null=True, blank=True, verbose_name="parent place", related_name="children", )
     # NJ new field for place tpyes derived from possession names
-    place_types = models.ManyToManyField('PlaceType', null=True, blank=True)
+    place_types = models.ManyToManyField('PlaceType', blank=True)
     # orderno = models.IntegerField(null=True, blank=True, verbose_name="ordering",)
     # lft = models.IntegerField(null=True, blank=True, verbose_name="lft?",)
     # rgt = models.IntegerField(null=True, blank=True, verbose_name="rgt?",)

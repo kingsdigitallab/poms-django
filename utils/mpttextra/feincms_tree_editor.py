@@ -76,7 +76,7 @@ def _build_tree_structure(cls):
         all_nodes[p_id] = []
 
         if parent_id:
-            if not all_nodes.has_key(parent_id):
+            if parent_id not in all_nodes:
                 # This happens very rarely, but protect against parents that
                 # we have yet to iteratove over.
                 all_nodes[parent_id] = []
@@ -153,7 +153,7 @@ class ChangeList(main.ChangeList):
         super(ChangeList, self).__init__(request, *args, **kwargs)
 
     def get_query_set(self):
-        return super(ChangeList, self).get_query_set().order_by('tree_id', 'lft')
+        return super(ChangeList, self).get_queryset().order_by('tree_id', 'lft')
 
     def get_results(self, request):
         # if settings.FEINCMS_TREE_EDITOR_INCLUDE_ANCESTORS:
@@ -163,9 +163,9 @@ class ChangeList(main.ChangeList):
                 lft__lte=lft,
                 rght__gte=rght,
                 ) for lft, rght, tree_id in \
-                    self.query_set.values_list('lft', 'rght', 'tree_id')]
+                    self.queryset.values_list('lft', 'rght', 'tree_id')]
             if clauses:
-                self.query_set = self.model._default_manager.filter(functools.reduce(lambda p, q: p|q, clauses))
+                self.queryset = self.model._default_manager.filter(functools.reduce(lambda p, q: p|q, clauses))
 
         super(ChangeList, self).get_results(request)
 

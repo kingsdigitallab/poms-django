@@ -871,8 +871,8 @@ class Matrix(Source):
 class Seal(Source):
     """(Seal description)"""
     charter_field = models.ForeignKey(
-        'Charter', verbose_name="charter", blank=True, null=True, )
-    matrix_field = models.ForeignKey('Matrix', verbose_name="matrix")
+        'Charter', verbose_name="charter", blank=True, null=True, db_column='charter_id')
+    matrix_field = models.ForeignKey('Matrix', verbose_name="matrix", db_column='matrix_id')
     color = models.ForeignKey(
         'SealColor', verbose_name="seal color", blank=True, null=True, )
     att_type_surv = models.ForeignKey(

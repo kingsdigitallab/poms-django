@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include, url
-from django.contrib import admin
+from django.contrib import admin, admindocs
 
 
 from kdl_ldap.signal_handlers import \
@@ -19,8 +19,8 @@ admin.autodiscover()
 
 urlpatterns = [
     url(r'^grappelli/', include('grappelli.urls')),
+    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
-
     url(r'^search/', include('haystack.urls')),
 
 ]

@@ -12,4 +12,5 @@ redis
 pysolr==3.6.0
 django-kdl-ldap
 wagtail==1.13
+docutils
 django-haystack

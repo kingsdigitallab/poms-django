@@ -70,6 +70,7 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 INSTALLED_APPS = [
     'grappelli',
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -293,6 +294,10 @@ FABRIC_USER = getpass.getuser()
 
 # Google Analytics ID
 GA_ID = ''
+
+# extra settings for FEINCMS media used by the admin-mptt tree visualizer...
+MPTTEXTRA_ADMIN_MEDIA = '/media/static/feincms/'
+
 
 # -----------------------------------------------------------------------------
 # Automatically generated settings

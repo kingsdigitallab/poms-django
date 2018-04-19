@@ -1,0 +1,75 @@
+{% load extrafilters %}
+
+
+
+
+<!-- hidden fields useful to store data -->
+<input type="hidden" id="active_ordering" value="default" />
+<!-- end of hidden fields -->
+	
+
+
+<h1>Preview of: {{single_item}} 
+	<span id="rec_num" style="display:none;">1</span>
+	<small class="smalllinks">
+		{% if single_item.prev %}<a href="?resulttype={{result_typeObj.uniquename}}&amp;item={{single_item.prev}}{{newurl_stub}}">prev</a> |{% endif %}
+		{% if single_item.next %}<a href="?resulttype={{result_typeObj.uniquename}}&amp;item={{single_item.next}}{{newurl_stub}}">next</a> |{% endif %} 
+		{% if single_item.fullrecord %}<a href="{{single_item.get_absolute_url}}">full record</a> |{% endif %}
+		{% if request.user.is_authenticated %}<a href="{{single_item.get_admin_url}}">admin record</a> |{% endif %}	
+		<a title="Back to the results page" href="?resulttype={{result_typeObj.uniquename}}{{newurl_stub}}">search results</a>
+	</small>
+</h1>
+
+
+<table class="simple headersX">
+    <tbody>
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+
+        <tr>
+			<td>Name</td>
+			<td>{{single_item.persondisplayname|default:"&nbsp;"}}</td>
+		</tr>
+        <tr>
+			<td>Medieval Name</td>
+			<td>{{single_item.standardmedievalname|default:"&nbsp;"}}</td>
+		</tr>
+        <tr>
+			<td>Modern Gaelic Name</td>
+        	<td>{{single_item.moderngaelicname|default:"&nbsp;"}}</td>
+        </tr>
+		<tr>
+			<td>Gender</td>
+        	<td>{{single_item.genderkey|default:"&nbsp;"}}</td>
+        </tr>
+		<tr>
+			<td>Biography</td>
+        	<td>{{single_item.persondescription|poms_italic|safe|default:"&nbsp;"}}</td>
+        </tr>
+		<tr>
+			<td>Floruit (start date)</td>
+	        <td> {% if  single_item.floruitstartyr %}
+					{{single_item.floruitstartyr}}      
+				{% else %}&nbsp;	
+	        	{% endif %}		
+			</td>
+        </tr>
+		<tr>
+			<td>Floruit (end date)</td>
+	        <td> {% if  single_item.floruitendyr %}
+					{{single_item.floruitendyr}}    
+				{% else %}&nbsp;	  	
+	        	{% endif %}		
+			</td>
+		</tr>
+		<tr>
+			<td>Associated Factoids</td>
+        	<td>{{ single_item.get_all_associations|length }}</td>
+        </tr>		
+    </tbody>
+
+
+</table>
+

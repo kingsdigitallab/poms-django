@@ -1,0 +1,72 @@
+{% load extrafilters %}
+
+
+
+<table class="simple headersX">
+    <tbody>
+ 
+
+	      <tr>
+	        <th><!--<a class="{{active_ordering|infer_class:'sourcehammond'}}" href="javascript:change_ordering('sourcehammond');">--><b>Calendar number</b><!--</a>--></th>
+	        <th><!--<a class="{{active_ordering|infer_class:'sourcedesc'}}" href="javascript:change_ordering('sourcedesc');">--><b>Description</b><!--</a>--></th>
+	        <th><!--<a class="{{active_ordering|infer_class:'sourcedate'}}" href="javascript:change_ordering('sourcedate');">--><b>Date</b><!--</a>--></th>
+	        {# <th><!--<a class="{{active_ordering|infer_class:'personfull'}}" href="javascript:change_ordering('annotate=factoid')">--><b>Associated factoids</b><!--</a>--></th>  #}
+	      </tr>
+
+		{% for record in items.object_list %}			
+
+	      <tr>
+	        {# <td><a class="no_extlink" href="?resulttype={{result_typeObj.uniquename}}&amp;item={{record.id}}{{newurl_stub}}" title="show preview" target="_self"> #}
+	        <td><a class="no_extlink" href="{{record.get_absolute_url}}" title="show preview" target="_self">
+					{{record|poms_italic|safe|default:"<i>item empty (check DB for deletion)</i>"}}
+			</a></td>
+	        <td>{{record.description|truncatewords:15 }}</td>
+	        <td>{{ record.firmdate|format_dates}}</td>
+	      </tr>
+
+		{% endfor %}
+
+<script>
+
+/*
+geoArray = [
+{% for rec in all_items.object_list %}{% if rec.get_factoids.count > 0 %}{% for f in rec.get_factoids %}{% if f.poss_lands.all %}
+ {"db_id":"{{ rec.id }}",
+  "source":"{{ rec.source_tradid }}",
+  "type":"Sources", 
+  "desc":"",
+  "record_type":"{{ result_typeObj.label }}",  
+  "places":[ {% for land in f.poss_lands.all %}{% if land.place.geom %} {"name":"{{land.place.name}}, {{ land.place.parent}}","coordinates":"{{land.place.geom.y}},{{land.place.geom.x}}"}  ,{% endif %}  {% endfor %}   ],
+  },
+ {% endif %}{% endfor %}{% endif %}{% endfor %}
+]
+*/
+
+geoArray = [
+{% for rec in all_items.object_list %}{% if rec.charter.placefk  %}
+ {% if rec.charter.placefk.geom %}
+ {"db_id":"{{ rec.id }}",
+  "source":"{{ rec.source_tradid }}",
+  "source_id":"{{ rec.id }}",  
+  "type":"Sources",
+  "record_type":"Source",
+  "places":[ {"name":"{{rec.charter.placefk.name}}",
+              "coordinates":"{{ rec.charter.placefk.geom.y}},{{rec.charter.placefk.geom.x }}",
+              "id": "{{ rec.charter.placefk.id }}"
+             }]
+  },
+  {% endif %}
+ {% endif %}
+{% endfor %}
+]
+
+
+
+
+</script>
+
+</tbody>
+
+
+</table>
+

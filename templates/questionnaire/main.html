@@ -1,0 +1,25 @@
+{% extends "questionnaire/index.html" %}
+
+{% block content %}
+
+<div class='container'>
+
+	<div class='top_bar'>
+
+		<div class='title'><a href="{{vars.url}}">{{vars.title}}</a></div>
+
+		<div class='quick_bar'> {{ user.email }} | <a class='link' href='{{vars.url}}logout'>Logout</a></div> </div>
+
+		<div class='main'>
+
+			{% block main %}
+
+			{% endblock %}
+
+		</div>
+
+		<div class='footer' align='center'>{{vars.title}}</div>
+
+	</div>
+
+{% endblock %}

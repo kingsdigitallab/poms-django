@@ -1,0 +1,56 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+
+
+
+
+<link href="{{ STATIC_URL }}css/homepage.css" rel="stylesheet" type="text/css" media="screen">
+<link href="{{ STATIC_URL }}css/tabber.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.pack.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/tabber.js"></script>
+
+
+<title>testing</title>
+  </head>
+  
+  <body>
+  <div class="header">
+    <div class="title"><span>Project</span><span style="color: red;">_TESTING</span></div>
+	<div class="navigation">
+		{# <span><a href="http://ltb-dev.cch.kcl.ac.uk/">Home</a></span> #}
+		{# <span ><a href="/info">Info</a></span> #}
+		{# <span><a href="/team">Team</a></span> #}
+		{# <span><a href="http://www.kcl.ac.uk/schools/humanities/depts/cch">CCH</a></span> #}
+	</div>
+  </div>
+
+  <div class="largecolumn" style="background: white; color:red; ">
+ 	 <p>
+		
+		{% if varname %}
+		
+		<h2>Array length: {{ varname|length }}
+					    <ul>
+					    {% for var in varname %}
+					        <li>{{ var }}</li>
+					    {% endfor %}
+					    </ul>
+					
+					{% else %}
+					
+					    <p>No data are available.</p>
+		{% endif %}
+		
+	  </p>
+  </div>
+  
+  <div class="main">
+  
+  </div>
+
+  </body>
+</html>
+

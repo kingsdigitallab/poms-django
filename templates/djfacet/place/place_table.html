@@ -1,0 +1,63 @@
+{% load extrafilters %}
+
+
+
+<table class="simple headersX">
+    <tbody>
+	  <tr>
+	    <th>Place<span style="text-transform: none; font-size: 9px;"><!--(order by: <a class="{{active_ordering|infer_class:'personfore'}} arrowUp" href="javascript:change_ordering('personfore');"><b>Forename</b></a> | <a class="{{active_ordering|infer_class:'personsur'}} arrowUp" href="javascript:change_ordering('personsur');"><b>Surname</b></a> | <a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('personfull');"><b>Full Name</b></a> )--></span></th>
+		<th>Description</th>
+	    <th><!--<a class="{{active_ordering|infer_class:'persondate'}} arrowUp" href="javascript:change_ordering('persondate');">--><b>Floruits</b><!--</a>--></th>
+	  </tr>
+	
+	 
+	
+
+	{% for record in items.object_list %}			
+
+
+	  <tr>
+        <td>
+		{% if record.matrix_set.all %}
+		{% for m in record.matrix_set.all %}
+			<a href="{% url matrix_detail m.id %}" class="seal" title="Show Matrix/Seal info">MATRIXICON</a>				
+		{% endfor %}
+		{% endif %}
+		{# <a class="no_extlink" href="?resulttype={{result_typeObj.uniquename}}&amp;item={{record.id}}{{newurl_stub}}" title="show preview" target="_self">{{record|capfirst|default:""}}</a> #}
+		<a class="no_extlink" href="{{record.get_absolute_url}}" title="show preview" target="_self">{{record|capfirst|default:""}}</a>
+		</td>
+		
+	    <td>{{record.persondescription|truncatewords:15|poms_italic|safe}}</td>
+	    <td>{{record.nice_floruits|safe}}</td>
+	  </tr>
+
+	{% endfor %}
+	
+	
+ 
+    </tbody>
+
+
+
+<script>
+
+
+
+geoArray = [ 
+{% for rec in all_items.object_list %}
+ {% if rec.geom.y > 0 %}
+ {"name":"{{ rec.name|safe }}",
+  "source":"",  
+  "db_id":"{{ rec.id }}",
+  "type":"Place",
+  "record_type":"Place",  
+  "factoid_count":"{{ rec.how_many_factoids }}",
+  "places":[{"name":"{{ rec.name|safe }}","coordinates":"{{ rec.geom.y}},{{rec.geom.x}}","id":"{{ rec.id }}"}]
+ },  
+ {% endif %}
+{% endfor %}
+]
+
+</script>
+
+</table>

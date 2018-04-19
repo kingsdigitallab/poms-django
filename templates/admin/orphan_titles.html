@@ -1,0 +1,64 @@
+{% extends "admin/base_site.html" %} 
+
+{% load extrafilters %}
+
+
+
+{% block title %}List of 'orphan' titles{% endblock %} 
+
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="/db/admin/pomsapp/">Back to the admin</a></div>{% endblock %}
+
+{# I disabled this block cause it was giving bad paths for the login/out URLs #}
+{% block userlinks %}From here you can see all the orphan Title records{% endblock %}
+
+
+{% block content %} 
+<div id="content-main"> 
+	<h1>List of Title records that are not attached to any person/factoid</h1> 
+	
+	<div class="module">
+
+	{% if list %}
+	
+	{# {% regroup list by user as user_list %} #}
+		
+	
+	<ul>
+		
+		<table id="change-history">
+	        <thead>
+		        <tr>
+		            <th scope="col">Title id</th>
+		            <th scope="col">Title name</th>
+		        </tr>
+	        </thead>
+	        
+			<tbody>
+				
+				
+				{% for t in list %}
+	
+	    {# <br /><p><h2>{{ usr.grouper }}</h2></p><br /> #}
+	    
+		        <tr class="{% cycle 'row1' 'row2' %}">
+		            <td>{{ t.id }}</td>
+		            <td><a href="/db/admin/pomsapp/titletype/{{t.id}}/" target="_blank" title="edit">{{ t.name }}</a></td>
+		        </tr>
+		
+	        	{% endfor %}
+	
+	        </tbody>
+	
+	    </table>
+
+	</ul>
+	
+	
+	
+	{% else %}
+	    <p>There is no Place record to display</p>
+	{% endif %}
+	</div>	
+	
+</div> 
+{% endblock %}

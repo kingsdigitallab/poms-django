@@ -1,0 +1,19 @@
+{% extends "questionnaire/main.html" %}
+
+{% block main %}
+
+<div class='window'>
+
+	<form name='question' method='post'>
+
+		<div class='window_title'>...</div>
+
+		<div class='window_body'> Your answers have been stored. Thank you for your time! <p />
+
+			<a class='button' href='{{vars.url}}logout'>Logout</a>
+
+		</div> <!-- window body -->
+
+	</div> <!-- window -->
+
+{% endblock %}

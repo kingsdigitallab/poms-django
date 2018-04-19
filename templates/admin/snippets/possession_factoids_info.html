@@ -1,0 +1,21 @@
+{% if possession.factoid_set.all  %}
+
+	<h2>Related factoids :</h2>
+	<br />
+	<table>
+	  <tr>
+	    <th>Record ID</th>
+	    <th>Short Summary</th>
+		<th>Type</th>
+	  </tr>
+	
+	{% for f in possession.factoid_set.all %}
+	  <tr>
+	    <td>{{f.id}}</td>
+	    <td><a href="{% url factoid_detail f.id %}" title="click to show">{{f}}</a></td>
+		<td>{{f.get_right_subclass.0}}</td>
+	  </tr>
+	{% endfor %}
+	</table>
+	
+{% endif %}

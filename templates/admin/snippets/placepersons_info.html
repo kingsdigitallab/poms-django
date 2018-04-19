@@ -1,0 +1,25 @@
+
+{% if place.person_set.all %}
+
+<b>Associated People:</b><hr></br />
+
+	<table>
+	  <tr>
+	    <th>Record ID</th>
+		<th>Surface name</th>
+	    <th>Place/institutional</th>
+	  </tr>
+
+	{% for p in place.person_set.all %}
+	  <tr>
+	    <td>{{p.id}}</td>
+		<td><a href="{% url person_detail p.id %}" title="click to show">{{p.persondisplayname}}</a></td>
+	    {# <td></td> #}
+	    <td>{{p.placeandinst}}</td>
+	  </tr>
+	{% endfor %}
+
+	</table>
+	
+	<br /><hr><hr><br />
+{% endif %}

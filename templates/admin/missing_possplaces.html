@@ -1,0 +1,65 @@
+{% extends "admin/base_site.html" %} 
+
+{% load extrafilters %}
+
+
+
+{% block title %}List of Possession_lands that have no reference to Place table{% endblock %} 
+
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="/db/admin/pomsapp/">Back to the admin</a></div>{% endblock %}
+
+{# I disabled this block cause it was giving bad paths for the login/out URLs #}
+{% block userlinks %}List of Possession_lands that have no reference to Place table{% endblock %}
+
+
+{% block content %} 
+<div id="content-main"> 
+	<h1>List of Possession_lands that have no reference to Place table ({{list|length}})</h1>
+	<h3>ps: this report is dynamically generated</h3> 
+	
+	<div class="module">
+
+	{% if list %}
+	
+	{# {% regroup list by user as user_list %} #}
+		
+	
+	<ul>
+		
+		<table id="change-history">
+	        <thead>
+		        <tr>
+		            <th scope="col">Possession-Land id</th>
+		            <th scope="col">Possession name</th>
+		            <th scope="col">Parent</th>
+		        </tr>
+	        </thead>
+	        
+			<tbody>
+				
+				
+				{% for place in list %}
+		    
+		        <tr class="{% cycle 'row1' 'row2' %}">
+		            <td>{{ place.id }}</td>
+		            <td><a href="{{place.get_admin_url}}" target="_blank" title="edit">{{ place.name }}</a></td>
+					<td>{{ place.parent }}</td>
+		        </tr>
+		
+	        	{% endfor %}
+	
+	        </tbody>
+	
+	    </table>
+
+	</ul>
+	
+	
+	
+	{% else %}
+	    <p>There is no Place record to display</p>
+	{% endif %}
+	</div>	
+	
+</div> 
+{% endblock %}

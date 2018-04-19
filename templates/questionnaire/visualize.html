@@ -1,0 +1,71 @@
+{% extends "questionnaire/index.html" %}
+
+
+{% block content %}
+
+<h3>POMS Questionnaire, Glasgow 16/12/2009 </h3>
+<h4>Total n of respondents: {{userstot}}</h4>
+
+&gt;&gt;&gt;
+
+	{% for c  in cats %}
+		<br />
+		<h3>Category: {{c.name}}</h3>
+		<hr>
+	
+		
+		{% for q in c.questions.all  %}
+		
+		
+		{% ifequal q.type 4 %}   
+		{# if it is an open-text question #}
+
+			<p style="background: Khaki;">{# [{{q.get_type_display}}]  #}Question: {{q.text}}            </p>
+		
+			{% for a in q.answer_set.all  %}
+				{% if a.answer %}
+					<p style="background: white;">Answer: <i>{{a.answer|default:"nothing"}}</i></p>
+				{% endif %}
+
+			{% empty %}
+			    <p>Sorry, no answers in this list!</p>
+			{% endfor %}		
+		
+		
+		
+		{% else %} 
+		{#  it is one of the multiple-choices questions #}
+
+			<p style="background: Khaki;">{# [{{q.get_type_display}}] #} Question: {{q.text}}            </p>
+
+			<p style="font-size: 11px;">Available choices: 
+				{% for c in q.choice_set.all  %}
+					<b>{{c}}, </b>
+				{% endfor %}
+			</p>
+
+		
+			{% regroup q.answer_set.all|dictsort:"answer" by answer as answer_list %}
+
+			{% for answer in answer_list  %}		
+			
+			    <li><b>{{answer.list|length}}</b> person{{ answer.list|length|pluralize}} answered:  {{ answer.grouper }}</li>
+			{% endfor %}
+
+
+			
+		{% endifequal %}
+		
+
+			
+
+			
+			
+		{% endfor %}
+		
+	{% endfor %}
+
+
+
+{% endblock %}
+

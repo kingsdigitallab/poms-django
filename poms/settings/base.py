@@ -80,15 +80,15 @@ INSTALLED_APPS = [
     'compressor',
     'kdl_ldap',
     'rest_framework',
-
     'modelcluster',
     'haystack',
+    'pomsapp',
 ]
 
 """
 temp removed to get clean django
 INSTALLED_APPS += [  # your project apps here
-    'pomsapp',
+    
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',

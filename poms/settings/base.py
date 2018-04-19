@@ -169,6 +169,9 @@ LOGGING = {
     }
 }
 
+#'wagtail.wagtailcore.middleware.SiteMiddleware',
+#'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -179,8 +182,6 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 
 ]
 
@@ -215,10 +216,10 @@ WSGI_APPLICATION = PROJECT_NAME + '.wsgi.application'
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth
 # -----------------------------------------------------------------------------
 
-if 'wagtail.wagtailcore' in INSTALLED_APPS:
-    LOGIN_URL = '/wagtail/login/'
-else:
-    LOGIN_URL = '/admin/login/'
+# if 'wagtail.wagtailcore' in INSTALLED_APPS:
+#     LOGIN_URL = '/wagtail/login/'
+# else:
+#     LOGIN_URL = '/admin/login/'
 
 # -----------------------------------------------------------------------------
 # Sessions

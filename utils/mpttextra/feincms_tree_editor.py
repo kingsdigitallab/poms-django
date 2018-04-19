@@ -18,6 +18,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbid
 import json
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, ugettext
+from django.contrib.auth import get_permission_codename
 
 from mptt.exceptions import InvalidMove
 
@@ -169,7 +170,7 @@ class ChangeList(main.ChangeList):
         super(ChangeList, self).get_results(request)
 
         opts = self.model_admin.opts
-        label = opts.app_label + '.' + opts.get_change_permission()
+        label = opts.app_label + '.' + get_permission_codename('change', self.model._meta)
         for item in self.result_list:
             # if settings.FEINCMS_TREE_EDITOR_OBJECT_PERMISSIONS:
             if False:
@@ -385,7 +386,7 @@ class TreeEditor(admin.ModelAdmin):
         # if settings.FEINCMS_TREE_EDITOR_OBJECT_PERMISSIONS:
         if True:
             opts = self.opts
-            r = request.user.has_perm(opts.app_label + '.' + opts.get_change_permission(), obj)
+            r = request.user.has_perm(opts.app_label + '.' + get_permission_codename('change', self.model._meta), obj)
         else:
             r = True
 
@@ -399,7 +400,7 @@ class TreeEditor(admin.ModelAdmin):
         # if settings.FEINCMS_TREE_EDITOR_OBJECT_PERMISSIONS:
         if True:
             opts = self.opts
-            r = request.user.has_perm(opts.app_label + '.' + opts.get_delete_permission(), obj)
+            r = request.user.has_perm(opts.app_label + '.' + get_permission_codename('delete',  self.model._meta), obj)
         else:
             r = True
 

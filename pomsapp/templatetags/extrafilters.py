@@ -14,7 +14,6 @@ MONTHS_ABBREVIATIONS = {'January': 'Jan.', 'February' : 'Feb.', 'March': 'Mar.',
 import re
 
 from django.utils.functional import allow_lazy
-from django.utils.encoding import force_unicode
 from django.template import Node, Library
 
 register = Library()
@@ -22,7 +21,7 @@ register = Library()
 @register.filter(name='strip_empty_lines')
 def strip_empty_lines(value):
     """Return the given HTML with empty and all-whitespace lines removed."""
-    return re.sub(r'\r\n','',force_unicode(value))
+    return re.sub(r'\r\n','',value)
 
 
 @register.filter(name='citation_format')

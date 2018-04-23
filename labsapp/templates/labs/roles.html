@@ -1,0 +1,425 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>{{experiment_title}}</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/jqeasypanel.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/navbar.css"/>
+	
+	<style type="text/css">
+		html,body{margin:0;padding:0}
+		body{font: 76% arial,sans-serif}
+		p{margin:0 10px 10px}
+		a{display:block;color: #981793;padding:10px}
+		div#header h1{height:60px;line-height:60px;margin:0;
+		  padding-left:10px;background: #EEE;color: #79B30B}
+		div#content p{line-height:1.4}
+		div#navigation{background:#B9CAFF}
+		div#extra{background:#FF8539}
+		div#footer{background: #333;color: #FFF}
+		div#footer p{margin:0;padding:5px 10px}
+
+/*		div#wrapper{float:left;width:100%;margin-left:-33%}
+		div#content{margin-left:33%}*/
+		div#wrapper{float:left;width:100%;}
+		div#content{overflow: hidden; text-align: center; margin-top: 50px; margin-bottom: 50px;}
+		
+		div#navigation{float:right;width:32.9%}
+		div#extra{float:right;clear:right;width:32.9%}
+		div#footer{clear:both;width:100%}
+		div#subfooter{
+			clear:both;width:95%; 
+			margin: 20px 10px 10px 30px;
+			color: grey; font-size: 25px;}
+		.tnum {color: #660033; margin-bottom: 10px; font-size: 21px;}
+		span.smalllinks {font-size: 9px; display: inline-block;}
+		.smalllinks a { margin-left: 10px; margin-right: 1px; display: inline;}
+		
+		#jqeasytrigger.top  {background: darkorange; padding-bottom: 18px;}
+		#googleTab {margin-bottom: -10px;}
+		
+		.infobox {font-size: 15px;}
+		.infobox a {color: #981793;padding:0px; display: inline;}
+		.infobox dd { color: black;}
+		
+		.graphlink {color: darkslateblue;}
+		.graphlink:hover {background: darkslateblue; color: white;}
+		
+		.graph_action {background: darkgreen; color: white; padding: 4px;}
+		.graph_action:hover {color: yellow;}
+		
+		.graph_focus {background: #603; color: white; display: inline; padding: 4px;}
+		.graph_focus:hover {color: yellow;}
+	
+	
+	
+		#chart {
+		  height: 500px;
+		}
+
+		.node rect {
+		  cursor: move;
+		  fill-opacity: .9;
+		  shape-rendering: crispEdges;
+		}
+
+		.node text {
+		  pointer-events: none;
+		  text-shadow: 0 1px 0 #fff;
+		}
+
+		.link {
+		  fill: none;
+		  stroke: #000;
+		  stroke-opacity: .2;
+		}
+
+		.link:hover {
+		  stroke-opacity: .5;
+		}
+	
+	
+		.personname {
+			font-size: 15px;
+			color: black;
+			text-transform: uppercase;
+		}
+		
+		#personsnames_row {
+			margin-bottom: 50px;
+		}
+		#personsnames_row a {
+			text-decoration: none;
+			color: darkred;
+			padding: 1px;
+		}
+		#personsnames_row a:hover {
+			text-decoration: underline;
+		}
+		
+		
+		#p2_opts {
+			padding-top: 30px;
+			overflow: auto;
+			height: 400px;
+			border: 1px dashed black;
+			margin-top: 35px; color: darkgray; font-size: 14px;
+		}
+		
+		#p2_opts a {
+			color: darkslateblue;
+			display: inline;
+			line-height: 1;
+		}
+		#p2_opts a:hover {
+			color: white;
+			background: darkslateblue;
+		}	
+	
+		
+	</style>
+
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}labs/css/jquery.qtip.min.css" />
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery1.6/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.jqEasyPanel.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+	{# autocomplete stuff #}
+	<script type="text/javascript" src="{{ STATIC_URL }}autocomplete2/js/jquery-ui-1.8.17.custom.min.js"></script>
+	<link href="{{ STATIC_URL }}autocomplete2/css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" media="screen">
+
+	
+</head>
+
+<script type="text/javascript" charset="utf-8">
+	
+	$(document).ready(function() {
+
+		$('#jqeasypanel').jqEasyPanel({height: '150px'});
+		
+		{% if not p1 or not p2 %}
+		
+		// autocomplete
+		
+		$( "#searchval1" ).autocomplete({
+			source: "{% url autocomplete_people %}",
+			minLength: 2,
+			select: function( event, ui ) {
+				$("#searchval1_name").text(ui.item.label);
+				$("#rols_form").submit();
+				},
+		});
+
+		// 2012-08-16: commented cause item2 is always selected from a list
+		
+		// $( "#searchval2" ).autocomplete({
+		// 	source: "{% url autocomplete_people %}",
+		// 	minLength: 2,
+		// 	select: function( event, ui ) {
+		// 		$("#searchval2_name").text(ui.item.label);
+		// 		},
+		// });
+		
+		{% endif %}
+		
+	});
+	
+</script>
+
+
+<body>
+	
+{% include "labs/components/snippet_jqeasypanel.html" %}
+	
+	
+<div id="container">
+	
+	<span id="vis_main_id" style="display:none;" name="{{None}}">{{None}}</span>
+		
+	<div id="wrapper">
+		<div id="content">
+
+
+
+
+			{% if p1 and p2 %}
+
+
+			{# LAUNCH THE VISUALIZATION #}
+
+			
+			<div id="personsnames_row">
+				<span class="personname" style="text-align: left; margin-left: 19%; float: left;"><a href="/labs/roles/go?id={{p1.id}}" title="Browse connections of {{p1}}">{{p1}}</a><a style="font-size:10px;text-transform: none;" href="{{p1.get_absolute_url}}" title="Open record in PoMS">&rarr; PoMS</a></span>
+
+				<span class="personname" style="text-align: right; margin-right: 20%; float: right;"><a href="/labs/roles/go?id={{p2.id}}" title="Browse connections of {{p2}}">{{p2}}</a><a style="font-size:10px;text-transform: none;" href="{{p2.get_absolute_url}}" title="Open record in PoMS">&rarr; PoMS</a></span>
+			</div>
+			
+			
+				{% if not json %}
+					<p style="margin-top: 100px; font-size: 20px; color: grey;"><em>These two agents have no common relationships!</em> <a href="/labs/roles/go">Try again</a></p>
+				{% endif %}
+			
+			<div id="infovis">
+			
+			</div>
+
+
+
+
+
+			{% else %}    
+	
+	
+			
+			{# IF NOT PERSONS, PRESENT THE SEARCH BOX SO TO SELECT A PERSON #}
+
+
+
+
+			<div id="central_column" style="margin-left: 10%; margin-right: 10%; min-height: 300px; font-size: 17px;">
+				
+
+				<h3 style="color: grey; margin-bottom: 50px;">Select two Persons/Institutions:</h3>
+				<form id="rols_form" action="?search" method="get" style="padding: 0px;">
+
+				<div id="c1" style="float: left;">
+					Agent 1: <input type="text" name="id"  id="searchval1"  value="{{p1.id|default:"start typing for suggestions"}}" style="width: 200px; border: red solid 2px; padding: 5px; color: grey;" />
+					<p id="searchval1_name" style="color: red;">{{p1|default:""}}</p>	
+					
+					<div id="p1_opts" style="margin-top: 35px; color: darkgray; font-size: 14px;">
+					{% for x in p1_opts  %}
+						<p><a href="{{x.id}}">{{x}}</a></p>
+					{% endfor %}	
+					</div>				
+				</div>
+
+
+				  	
+				<div id="c2" style="float: right;">
+					Agent 2: <input type="text" id="searchval2" name="id"  value="{% if p2_opts %}Select one of the options below{% else %}Please fill in agent 1 first{% endif %}" style="width: 200px; border: blue solid 2px; padding: 5px; color: grey;" />
+					<p id="searchval2_name" style="color: blue;">{{p2|default:""}}</p>
+
+					<div id="p2_opts">
+
+						{#  VERSION FOR NO-COUNTS RELATIONSHIPS #}
+					{# {% for x in p2_opts  %} #}
+					{# 	<p><a href="?id={{p1.id}}&amp;id={{x.id}}" title="Click to visualize relationship with {{p1}}">{{x}}</a></p> #}
+					{# {% endfor %} #}	
+	
+						{#  VERSION FOR RELATIONSHIPS WITH COUNTS #}
+					{% for x, number in p2_opts.items  %}
+						<p><a href="?id={{p1.id}}&amp;id={{x.id}}" title="Click to visualize relationship with {{p1}}">{{x}}</a>{{number}}</p>
+					{% endfor %}
+					
+					</div>
+					
+					
+					
+				</div>
+
+				  <input type="submit" value="Go" style="height: 1.5em; width: 10em; font-size: 18px; "/>	  
+				</form>
+
+			</div>
+
+			{% endif %}
+
+
+			
+
+		</div>
+	</div>
+
+
+	
+	<div id="footer"><p id="footertext" style="color: lightgray; font-size: 14px;">
+		{% if p1 and p2 %}
+		This chart displays all existing common relationships between {{p1}} and {{p2}}. 
+		<br /><br />
+		You can move around the boxes so to achieve a different visual rendering.
+		Double click on the central event boxes to obtain more information about them.
+
+		{% else %}
+		Select one of the two persons/institutions for the visualization by starting typing in their names. 
+		<br /><br />
+		The page will then reload and show you what are the options available. 
+
+		{% endif %}
+	</p></div>
+	
+	
+	<div id="subfooter">
+
+	</div>
+	
+	
+	
+	
+</div>  {# end of container #}
+
+<!-- D3 and SANKEY Library File -->	
+<script language="javascript" type="text/javascript" src="{{STATIC_URL}}labs/js/d3/d3.v2.min.js"></script>
+<script language="javascript" type="text/javascript" src="{{STATIC_URL}}labs/js/d3/sankey.js"></script>
+
+<script language="javascript" type="text/javascript">
+
+
+// UTILS
+function trim_and_preview(theString, numWords) {
+	if (theString.split(/\s+/).length > numWords) {
+		expString = theString.split(/\s+/,numWords);
+	    theNewString=expString.join(" ");
+	    return theNewString + "...";
+	} else {
+		return theString;
+	}
+
+}
+
+function getNodeInfo(name) {
+	$("#footertext").text(name);
+}
+
+
+// function update_infobox(node){
+// 	$.get("ajax/iteminfo", { item: node.id, main_id: $("#vis_main_id").text() }, function(data){		
+// 		$jit.id('subfooter').innerHTML =  data;
+// 	});
+// }
+
+
+// MAIN SANKEI CODE
+
+{% if json %}
+
+	var energy = {{json|safe}};
+
+	var margin = {top: 1, right: 1, bottom: 6, left: 1},
+	    width = 960 - margin.left - margin.right,
+	    height = 600 - margin.top - margin.bottom;
+
+	// I'm not calling this anymore
+	var formatNumber = d3.format(",.0f"),
+	    format = function(d) { return formatNumber(d) + " TWh"; },
+	    color = d3.scale.category20();
+
+
+	var svg = d3.select("#infovis").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	var sankey = d3.sankey()
+	    .nodeWidth(15)
+	    .nodePadding(10)
+	    .size([width, height]);
+
+	var path = sankey.link();
+
+	// originally the json was called via the server like this
+
+	// d3.json("energy.json", function(energy) {   
+		// });
+
+	sankey
+	    .nodes(energy.nodes)
+	    .links(energy.links)
+	    .layout(32);
+
+	var link = svg.append("g").selectAll(".link")
+	    .data(energy.links)
+	    .enter().append("path")
+	    .attr("class", "link")
+	    .attr("d", path)
+	    .style("stroke-width", function(d) { return Math.max(1, d.dy); })
+	    .sort(function(a, b) { return b.dy - a.dy; });
+
+	link.append("title")
+	    .text(function(d) { return d.source.name + " → " + d.target.name; });
+	    // .text(function(d) { return d.source.name + " → " + d.target.name + "\n" + format(d.value); });
+
+	var node = svg.append("g").selectAll(".node")
+	    .data(energy.nodes)
+	  	.enter().append("g")
+	    .attr("class", "node")
+	    .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+	  .call(d3.behavior.drag()
+	    .origin(function(d) { return d; })
+	    .on("dragstart", function() { this.parentNode.appendChild(this); })
+	    .on("drag", dragmove))
+		.on("click", function(d,i) { getNodeInfo(d.name); });   // MIKELE: refine this so that it updates stuff at the bottom
+
+	node.append("rect")
+	    .attr("height", function(d) { return d.dy; })
+	    .attr("width", sankey.nodeWidth())
+	    .style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
+	    .style("stroke", function(d) { return d3.rgb(d.color).darker(2); })
+	  .append("title")
+	    .text(function(d) { return d.name; });
+	    // .text(function(d) { return d.name + "\n" + format(d.value); });  ORIGINAL
+
+	node.append("text")
+	    .attr("x", -6)
+	    .attr("y", function(d) { return d.dy / 2; })
+	    .attr("dy", ".35em")
+	    .attr("text-anchor", "end")
+	    .attr("transform", null)
+	    .text(function(d) { return trim_and_preview(d.name, 5); })
+	  .filter(function(d) { return d.x < width / 2; })
+	    .attr("x", 6 + sankey.nodeWidth())
+	    .attr("text-anchor", "start");
+
+	function dragmove(d) {
+	  d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
+	  sankey.relayout();
+	  link.attr("d", path);
+	}
+
+{% endif %}
+
+	
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "labs/mainsite/indexLabs.html" %}
+
+
+
+{% block labs_contents %}
+	
+<dl>
+	<h3>Transactions and Witnesses</h3>	
+	
+	<p>In PoMS witnesses are persons who have witnessed a charter and are given in the witness list. Charters are usually describing some form of transaction, which is the most important type of event ('factoid') represented in the database. These experiments aim at providing new approaches to the visualisation and exploration of the network of relationships that link witnesses via transactions</p>
+	
+	
+	<h4>Visual exploration of transactions and witnesses <a href="witnesses/go" class="horizontal" title="horizontal layout" target="_blank">horizontal-layout</a> | <a href="witnesses/go-halfsize" class="vertical" target="_blank" title="vertical layout">vertical-layout</a></h4>
+	<p>This interactive application lets you browse recursively transactions and the witnesses associated to them.
+		
+		<br /><br />
+		Each graph starts from a transaction of choice (the 'focus point'), and displays two levels of information: (1) all the witnesses of the transaction (normally persons or institutions), and (2) for each of these agents, all the other transactions they have witnessed.
+	<br /><br />
+		The transactions emerging from this network can be selected and brought to the center of the visualization (which is thus recalculated), thus facilitating a process of interactive exploration of the interconnections and commonalities among PoMS's recorded transactions.</p>
+		
+	<p>The visualization has been created thanks to the freely available <a href="http://thejit.org/">JavaScript InfoVis Toolkit</a>.</p>
+			
+			
+	{# <a href="{{ STATIC_URL }}labs/img/screenshots/witnesses1.png"  title="click to view the image in full size"><img src="{{ STATIC_URL }}labs/img/screenshots/witnesses1.png" alt="screenshot" height="250" /></a> #}
+	{# <a href="{{ STATIC_URL }}labs/img/screenshots/witnesses2.png"  title="click to view the image in full size"><img src="{{ STATIC_URL }}labs/img/screenshots/witnesses2.png" alt="screenshot" height="250" /></a> #}
+
+	<a href="{{ STATIC_URL }}labs/img/screenshots/Labs_witnessesNetworks.jpg"  title="click to view the image in full size"><img src="{{ STATIC_URL }}labs/img/screenshots/Labs_witnessesNetworks.jpg" alt="screenshot" width="550" /></a>	
+	
+	
+	
+		
+	<br />
+	
+	
+{% endblock %}		
+
+
+

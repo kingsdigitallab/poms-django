@@ -1,0 +1,64 @@
+{% load extrafilters %}
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<head>
+
+
+	
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/mootools-core-1.4.1-full-compat-yc.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/moochart-0.1b1.js"></script>
+
+	{# <link href="{{ STATIC_URL }}css/ui/demos.css" rel="stylesheet" type="text/css"> #}
+
+
+
+	<script> 
+	function init() {
+	
+		var myChart = new Chart.Bubble('myChartContainer', {
+			width: 600,
+			height: 400,
+			bubbleSize: 5
+		});
+
+		// myChart.addBubble(400, 20, 30, '#fff', 'Bubble 1');
+				
+		{% for x in  nums %}
+			myChart.addBubble({{x|multiply:12}}, {{x|randomnumber}}, {{x|multiply:1}}, '#000', 'Bubble {{x}}');
+		{% endfor %}
+		
+		// myChart.addBubble(0, 40, 10, '#000', 'Bubble 2');
+		// myChart.addBubble(40, 40, 10, '#000', 'Bubble 2');
+		// myChart.addBubble(120, 50, 10, '#000', 'Bubble 2');
+
+		myChart.redraw();
+		
+	};
+	</script>
+
+
+
+
+	<title>Bubbles</title>
+
+</head>
+
+<body onload="init()">
+
+<h1>Test: {{nums|length}} bubbles</h1>
+
+<div id="myChartContainer">
+</div>
+
+
+<h1>The vis works fine, but there's no event management unfortunately.</h1>		
+
+	
+</body>
+
+
+</html>

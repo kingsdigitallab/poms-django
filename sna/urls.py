@@ -1,4 +1,3 @@
-from django.conf.urls.defaults import *
 from django.conf.urls import url
 import sna.views as sna_views
 

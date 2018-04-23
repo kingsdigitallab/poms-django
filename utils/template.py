@@ -2,7 +2,7 @@
 # allows using blocks from templates django views (for ajax)
 
 from django.template.loader_tags import BlockNode, ExtendsNode
-from django.template import loader, Context, RequestContext, TextNode
+from django.template import loader, Context, RequestContext
 
 def get_template(template):
     if isinstance(template, (tuple, list)):
@@ -50,20 +50,21 @@ def render_block_to_string(template_name, block, dictionary=None, context_instan
     t.render(context_instance)
     return render_template_block(t, block, context_instance)
 
-def direct_block_to_template(request, template, block, extra_context=None, mimetype=None, **kwargs):
-    """
-    Render a given block in a given template with any extra URL parameters in the context as
-    ``{{ params }}``.
-    """
-    if extra_context is None:
-    	extra_context = {}
-    dictionary = {'params': kwargs}
-    for key, value in extra_context.items():
-        if callable(value):
-            dictionary[key] = value()
-        else:
-            dictionary[key] = value
-    c = RequestContext(request, dictionary)
-    t = get_template(template)
-    t.render(c)
-    return HttpResponse(render_template_block(t, block, c), mimetype=mimetype)
+# todo remove if not used
+# def direct_block_to_template(request, template, block, extra_context=None, mimetype=None, **kwargs):
+#     """
+#     Render a given block in a given template with any extra URL parameters in the context as
+#     ``{{ params }}``.
+#     """
+#     if extra_context is None:
+#     	extra_context = {}
+#     dictionary = {'params': kwargs}
+#     for key, value in extra_context.items():
+#         if callable(value):
+#             dictionary[key] = value()
+#         else:
+#             dictionary[key] = value
+#     c = RequestContext(request, dictionary)
+#     t = get_template(template)
+#     t.render(c)
+#     return HttpResponse(render_template_block(t, block, c), mimetype=mimetype)

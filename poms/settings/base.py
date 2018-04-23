@@ -52,7 +52,6 @@ CSRF_COOKIE_SECURE = True
 # Django registration
 ACCOUNT_ACTIVATION_DAYS = 7
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -89,6 +88,8 @@ INSTALLED_APPS = [
     'modelcluster',
     'haystack',
     'pomsapp',
+    'sna',
+    'labsapp',
 ]
 
 """
@@ -175,8 +176,8 @@ LOGGING = {
     }
 }
 
-#'wagtail.wagtailcore.middleware.SiteMiddleware',
-#'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+# 'wagtail.wagtailcore.middleware.SiteMiddleware',
+# 'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -187,7 +188,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 
 ]
 
@@ -302,7 +302,6 @@ GA_ID = ''
 
 # extra settings for FEINCMS media used by the admin-mptt tree visualizer...
 MPTTEXTRA_ADMIN_MEDIA = '/media/static/feincms/'
-
 
 # -----------------------------------------------------------------------------
 # Automatically generated settings

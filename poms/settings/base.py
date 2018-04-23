@@ -70,6 +70,8 @@ EMAIL_USE_TLS = False
 # Sender of error messages to ADMINS and MANAGERS
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+# labsapp currently not avtice as per SOW.
+# 'labsapp',
 INSTALLED_APPS = [
     'grappelli',
     'registration',
@@ -89,7 +91,7 @@ INSTALLED_APPS = [
     'haystack',
     'pomsapp',
     'sna',
-    'labsapp',
+
 ]
 
 """

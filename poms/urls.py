@@ -198,7 +198,8 @@ urlpatterns = [
     url(r'^' + prefix + 'familytrees/', include('pomsapp.urls_family')),
     url(r'^' + prefix + 'map/', include('pomsapp.urls_map')),
     url(r'^' + prefix + 'sna/', include('sna.urls')),
-    url(r'^' + prefix + 'labs/', include('labsapp.urls')),
+    # todo removed for now
+    # url(r'^' + prefix + 'labs/', include('labsapp.urls')),
     # This replace djfacet with haystack
     url(r'^search/', include('haystack.urls')),
 

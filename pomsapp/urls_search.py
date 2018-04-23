@@ -1,11 +1,11 @@
-from django.conf.urls.defaults import *
+from django.conf.urls import url
 
 
 
-urlpatterns = patterns('pomsapp.views_search',
+urlpatterns = [
 	# root url:
 	url(r'^$', 'basic_search', name='basic_search'),
 	url(r'^', 'basic_search', name='basic_search'),
 
-)
+]
 

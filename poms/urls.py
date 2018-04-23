@@ -154,13 +154,6 @@ if settings.LOCAL_SERVER:     # ===> static files on local machine
 
 
 
-
-
-
-
-
-
-
 """
 
 admin.autodiscover()
@@ -177,6 +170,7 @@ except:
     prefix = ""
 
 urlpatterns = [
+    url(r'^accounts/', include('registration.backends.model_activation.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     # a customized view for the application admin home
@@ -198,7 +192,6 @@ urlpatterns = [
 
     # REGISTRATION:  TESTING
     url(r'^' + prefix + 'accounts/', include('registration.urls')),
-
     url(r'^' + prefix + 'overview/', admin_overview),
     url(r'^' + prefix + 'record/', include('pomsapp.urls_record')),
     url(r'^' + prefix + 'search/', include('pomsapp.urls_search')),

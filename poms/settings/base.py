@@ -49,6 +49,10 @@ CACHES = {
 
 CSRF_COOKIE_SECURE = True
 
+# Django registration
+ACCOUNT_ACTIVATION_DAYS = 7
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
@@ -69,6 +73,7 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 INSTALLED_APPS = [
     'grappelli',
+    'registration',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',

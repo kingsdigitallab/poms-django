@@ -8,8 +8,6 @@ from django.contrib import admin
 from django.utils.text import capfirst
 from django.utils.translation import ugettext_lazy, ugettext as _ 
 
-from settings import printdebug
-
 # #####
 # HOME VIEW
 # #####
@@ -116,7 +114,7 @@ def contributions(request,):
 	for d in sorted(temp, reverse=True):
 		my_data.append((d, LogEntry.objects.filter(action_time__year=d.year, action_time__month=d.month, action_time__day=d.day).order_by('user', 'action_time')))
 		
-	# printdebug(my_data)	
+	# print((my_data)	
 	
 	return render_to_response( 
 		"admin/contributions.html", 

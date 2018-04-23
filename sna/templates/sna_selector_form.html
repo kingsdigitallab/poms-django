@@ -1,0 +1,21 @@
+
+<td id="sna-recherche" align="left">
+
+<label for="sna-selector">Choose graph: </label>
+<select id="sna-selector">
+  <option>---</option>
+  <option id="family-selection" value="/sna/family/" >Family relationships</option>
+  <option id="grantor-selection" value="/sna/grantor/" >Grantor and beneficiaries</option>
+</select>
+</td>
+<script>
+
+$('#sna-selector').on('change',function(){
+	window.location = ( $(this).val() )
+})
+
+$('#{{ type }}-selection').attr('selected','selected');
+
+
+
+</script>

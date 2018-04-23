@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html class="cufon-active j cufon-ready" xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>POMS SNA: {{ viz.description }}</title>
+
+<link rel="stylesheet" type="text/css" media="all" href="/media/static/sna_assets/a.css">
+<link rel="stylesheet" type="text/css" media="screen, projection" href="/media/static/sna_assets/s.css">
+<!-- link rel="stylesheet" type="text/css" media="print" href="/media/static/sna_assets/p.css" -->
+
+<link type="text/css" rel="stylesheet" href="/media/static/sna_assets/jquery.css">
+
+<style type="text/css" media="screen">
+.ui-tooltip{
+min-width: 550px;
+overflow: auto;
+max-height: 400px;
+margin-top: 150px;
+}
+
+.ui-tooltip-bootstrap .ui-tooltip-titlebar {
+font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
+}
+
+#ui-tooltip-modal{
+max-width: 420px;
+
+-moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+-webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+}
+
+#ui-tooltip-modal .ui-tooltip-content{
+padding: 10px;
+}
+</style>
+
+<script src="/media/static/sna_assets/analytics.js" async=""></script>
+
+<script type="text/javascript" src="/media/static/sna_assets/jquery-1.js"></script>
+
+<script type="text/javascript" src="/media/static/sna_assets/jquery.js"></script>
+<script type="text/javascript" src="/media/static/sna_assets/jquery-ui.js"></script>
+<script type="text/javascript" src="/media/static/sna_assets/cufon.js"></script><style type="text/css">cufon{text-indent:0!important;}@media screen,projection{cufon{display:inline!important;display:inline-block!important;position:relative!important;vertical-align:middle!important;font-size:1px!important;line-height:1px!important;}cufon cufontext{display:-moz-inline-box!important;display:inline-block!important;width:0!important;height:0!important;overflow:hidden!important;text-indent:-10000in!important;}cufon canvas{position:relative!important;}}@media print{cufon{padding:0!important;}cufon canvas{display:none!important;}}</style>
+<script type="text/javascript" src="/media/static/sna_assets/agaramondpro.js"></script>
+<script type="text/javascript" src="/media/static/sna_assets/functions_record.js"></script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+
+<!-- ###materials from gexfjs  (JB) ##### -->
+
+<link rel="stylesheet" type="text/css" href="/media/static/sna_assets/styles/gexfjs.css" />
+<link rel="stylesheet" type="text/css" href="/media/static/sna_assets/styles/jquery-ui-1.10.3.custom.min.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script type="text/javascript">
+   // Fallback in case JQuery CDN isn't available
+   if (typeof jQuery == 'undefined') {
+      document.write(unescape("%3Cscript type='text/javascript' src='/media/static/sna_assets/js/jquery-2.0.2.min.js'%3E%3C/script%3E"));
+   }
+</script>
+<script type="text/javascript" src="/media/static/sna_assets/js/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="/media/static/sna_assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="/media/static/sna_assets/js/gexfjs.js"></script>
+
+
+<script type="text/javascript" src="/sna/js/{{ viz.id }}/{{ viz.get_style_display }}.js"></script>
+
+
+</head>
+
+<body>
+<div id="gw">
+     <div id="hs">
+          <div id="bs">
+               <h3 title="Paradox of Medieval Scotland 1093 - 1314">Paradox of Medieval Scotland 1093 - 1314</h3>
+          <div class="gx gx1" title="[Image: Seal Palimpsest]">[Image: Seal Palimpsest]</div> <!-- div id="bs" -->
+          </div> <!-- div class="gx gx1" title="[Image: Seal Palimpsest]" -->
+          <div id="ns">
+               <ul class="nvg">
+                  <li class="i1">
+                    <a href="http://www.poms.ac.uk/"><b><cufon style="width: 42px; height: 16px;" alt="Home" class="cufon cufon-canvas"><canvas style="width: 53px; height: 17px; top: 0px; left: -1px;" height="17" width="53"></canvas><cufontext>Home</cufontext></cufon></b></a>
+                  </li>
+                  <li>
+                    <a href="http://www.poms.ac.uk/about"><b><cufon style="width: 38px; height: 16px;" alt="About" class="cufon cufon-canvas"><canvas style="width: 50px; height: 17px; top: 0px; left: -1px;" height="17" width="50"></canvas><cufontext>About</cufontext></cufon></b></a>
+                  </li>
+                  <li class="i1">
+                    <a href="http://db.poms.ac.uk/"><b><cufon style="width: 59px; height: 16px;" alt="Database" class="cufon cufon-canvas"><canvas style="width: 70px; height: 17px; top: 0px; left: -1px;" height="17" width="70"></canvas><cufontext>Database</cufontext></cufon></b></a>
+                  </li>
+                  <li>
+                    <a href="http://www.poms.ac.uk/information"><b><cufon style="width: 79px; height: 16px;" alt="Information" class="cufon cufon-canvas"><canvas style="width: 87px; height: 17px; top: 0px; left: -1px;" height="17" width="87"></canvas><cufontext>Information</cufontext></cufon></b></a>
+                  </li>
+                  <li>
+                    <a href="http://www.poms.ac.uk/schools"><b><cufon style="width: 49px; height: 16px;" alt="Schools" class="cufon cufon-canvas"><canvas style="width: 62px; height: 17px; top: 0px; left: -1px;" height="17" width="62"></canvas><cufontext>Schools</cufontext></cufon></b></a>
+                  </li>
+                  <li>
+                    <a href="http://www.poms.ac.uk/news"><b><cufon style="width: 36px; height: 16px;" alt="News" class="cufon cufon-canvas"><canvas style="width: 49px; height: 17px; top: 0px; left: -1px;" height="17" width="49"></canvas><cufontext>News</cufontext></cufon></b></a>
+                  </li>
+                  <li>
+                    <a href="http://www.poms.ac.uk/contact"><b><cufon style="width: 52px; height: 16px;" alt="Contact" class="cufon cufon-canvas"><canvas style="width: 65px; height: 17px; top: 0px; left: -1px;" height="17" width="65"></canvas><cufontext>Contact</cufontext></cufon></b></a>
+                  </li>
+                  <li class="s1">
+                    <a href="/social-network-analysis/""><b><cufon style="width: 52px; height: 16px;" alt="Social Network Analysis" class="cufon cufon-canvas"><canvas style="width: 65px; height: 17px; top: 0px; left: -1px;" height="17" width="65"></canvas><cufontext>SNA Views</cufontext></cufon></b></a>
+                  </li>
+                  <li class="ix">
+                    <a href="http://www.poms.ac.uk/help"><b><cufon style="width: 33px; height: 16px;" alt="Help" class="cufon cufon-canvas"><canvas style="width: 42px; height: 17px; top: 0px; left: -1px;" height="17" width="42"></canvas><cufontext>Help</cufontext></cufon></b></a>
+                  </li>
+               </ul>
+          </div> <!-- div id="ns" -->
+     </div> <!-- div id="hs" -->
+
+      <div id="ss">
+     
+     <ul class="nvl">
+     <li class="i1"><a href="http://db.poms.ac.uk/search"><cufon style="width: 57px; height: 14px;" alt="Search" class="cufon cufon-canvas"><canvas style="width: 60px; height: 15px; top: 0px; left: -1px;" height="15" width="60"></canvas><cufontext>Search</cufontext></cufon></a></li>
+     <li class="i1"><a href="http://db.poms.ac.uk/browse"><cufon style="width: 60px; height: 14px;" alt="Browse" class="cufon cufon-canvas"><canvas style="width: 67px; height: 15px; top: 0px; left: -1px;" height="15" width="67"></canvas><cufontext>Browse</cufontext></cufon></a></li>
+     <li class="i1"><a href="http://db.poms.ac.uk/record/"><cufon style="width: 61px; height: 14px;" alt="Record" class="cufon cufon-canvas"><canvas style="width: 66px; height: 15px; top: 0px; left: -1px;" height="15" width="66"></canvas><cufontext>Record</cufontext></cufon></a></li>
+     <li class="s1"><a href="http://db.poms.ac.uk/sna/all/"><cufon style="width: 61px; height: 14px;" alt="Social Network Analysis" class="cufon cufon-canvas"><canvas style="width: 66px; height: 15px; top: 0px; left: -1px;" height="15" width="66"></canvas><cufontext>Social Network Analysis</cufontext></cufon></a></li>
+     <li class="i1"><a href="http://db.poms.ac.uk/map/browse/"><cufon style="width: 31px; height: 14px;" alt="Map" class="cufon cufon-canvas"><canvas style="width: 39px; height: 15px; top: 0px; left: -1px;" height="15" width="39"></canvas><cufontext>Map</cufontext></cufon></a></li>
+     <li class="i1"><a href="http://db.poms.ac.uk/familytrees"><cufon style="width: 56px; height: 14px;" alt="Family " class="cufon cufon-canvas"><canvas style="width: 68px; height: 15px; top: 0px; left: -1px;" height="15" width="68"></canvas><cufontext>Family </cufontext></cufon><cufon style="width: 44px; height: 14px;" alt="Trees" class="cufon cufon-canvas"><canvas style="width: 52px; height: 15px; top: 0px; left: -1px;" height="15" width="52"></canvas><cufontext>Trees</cufontext></cufon></a></li>
+     <li class="i1"><a href="http://db.poms.ac.uk/labs"><cufon style="width: 33px; height: 14px;" alt="Labs" class="cufon cufon-canvas"><canvas style="width: 41px; height: 15px; top: 0px; left: -1px;" height="15" width="41"></canvas><cufontext>Labs</cufontext></cufon></a></li>
+     </ul>
+     
+     </div>
+
+     <div id="cs">
+          <!-- ######################### -->
+          <div class="hdp">
+            <table width="100%">
+                 <tr>
+			{# include "sna_selector_form.html" #}
+            <td id="sna-recherche" align="left">
+
+            <label for="sna-selector">Choose graph: </label>
+            <select id="sna-selector">
+              <option>---</option>
+              {% for v in visualisations %}
+                <option id="selection-{{ v.id }}" value="/sna/all/{{ v.id }}" >{{ v.description }}</option>
+              {% endfor %}
+            </select>
+            </td>
+            <td align="middle">
+                Currently viewing: <strong>{{ viz.description }}</strong>
+            </td>
+            {% if viz.legenditem_set.all %}
+            <td align="middle">
+                <table>
+                {% for l in viz.legenditem_set.all %}
+                <tr>
+                    <td>{{ l.category_description }}</td>
+                    <td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="rgb({{ l.red}},{{l.green}},{{l.blue}})" /></svg></td>
+                </tr>
+                {% endfor %}
+                </table>
+            </td>            
+            {% endif %}
+{# end include #}
+
+             <td align="right">
+              <form id="recherche" align="right">Locate an individual:
+                <input id="searchinput" class="inputgris" autocomplete="off">
+                <input id="searchsubmit" type="submit">
+              </form>
+             </td>
+          </tr>
+            
+            <tr>
+              
+             <td colspan="{% if viz.legenditem_set.all %}4{% else %}3{% endif %}" align="right">(Powered by Raphael Velt's <a href="https://github.com/raphv/gexf-js">gexf-js</a> software.)</td>
+             </tr>
+            
+           </table>
+               
+               
+            <script>
+
+            $('#sna-selector').on('change',function(){
+                window.location = ( $(this).val() )
+            })
+
+            $('#{{ type }}-selection').attr('selected','selected');
+
+
+
+            </script>                 
+               
+          </div> <!-- div class="hdp" -->
+     </div> <!-- div id="cs" -->
+     
+</div> <!-- div id="gw" -->
+
+<div id="gexfjsContent">
+     <!-- from gexf-js  -->
+     <div id="zonecentre" class="gradient">
+          <canvas id="carte" width="0" height="0"></canvas>
+          <ul id="ctlzoom">
+            <li><a href="#" id="zoomPlusButton" title="S'approcher"> </a></li>
+            <li id="zoomSliderzone">
+               <div id="zoomSlider"></div> <!-- div id="zoomSlider" -->
+            </li>
+            <li><a href="#" id="zoomMinusButton" title="S'éloigner"> </a></li>
+            <li><a href="#" id="lensButton"> </a></li>
+             <li><a href="#" id="edgesButton"> </a></li>
+          </ul>
+     </div> <!-- div id="zonecentre" -->
+     <div id="overviewzone" class="gradient">
+          <canvas id="overview" width="0" height="0"></canvas>
+     </div> <!-- div id="overviewzone" class="gradient" -->
+     <div id="leftcolumn">
+          <div id="unfold">
+               <a href="#" id="aUnfold" class="rightarrow"> </a>
+          </div> <!-- div id="unfold" -->
+          <div id="leftcontent"></div> <!-- div id="leftcontent" -->
+     </div> <!-- div id="leftcontent" -->
+     <!-- end from gexf-js -->
+</div> <!-- div id="gexfjsContent" -->
+<div id="autocomplete"></div>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-68207578-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+	<script type="text/javascript" src="/media/static/sna_assets/jquery_002.js"></script>
+
+</body></html>

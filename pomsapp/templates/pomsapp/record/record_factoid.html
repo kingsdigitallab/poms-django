@@ -74,7 +74,7 @@
 	
 		
 			    <dt>From Source</dt>
-		        	<dd><a class="no_extlink" href="{% url source_detail record.sourcekey.id %}" title="click to show">{{record.sourcekey|poms_italic|safe|default:"&nbsp;"}}</a></dd>
+		        	<dd><a class="no_extlink" href="{% url 'source_detail' record.sourcekey.id %}" title="click to show">{{record.sourcekey|poms_italic|safe|default:"&nbsp;"}}</a></dd>
 		        {% if record.firmdate %}
 		        	<dt>Firm date</dt>
 			        	<dd>{{record.firmdate|default:"&nbsp;"}}</dd>
@@ -115,7 +115,7 @@
 				{% if  record.placefielty %}
 				<dl class="m1">
 					<dt>Related Place (fealty)</dt>
-				      	<dd><a class="no_extlink" href="{% url place_detail record.placefielty.id  %}" title="Show details">{{record.placefielty.name}}</a></dd>
+				      	<dd><a class="no_extlink" href="{% url 'place_detail' record.placefielty.id  %}" title="Show details">{{record.placefielty.name}}</a></dd>
 				</dl>
 				{% endif %}		
 			{% endif %}
@@ -350,7 +350,7 @@
 
 				  <tr>
 					<td>{{a.role}}</a></td>
-				    <td><a class="no_extlink" href="{% url person_detail a.person.id %}" title="click to show">{{a.person}}</a></td>
+				    <td><a class="no_extlink" href="{% url 'person_detail' a.person.id %}" title="click to show">{{a.person}}</a></td>
 					<td>{{a.nameoriglang}}</a></td>
 				    <td>{{a.nametranslation}}</a></td>			        
 				<td>{{a.person.nice_floruits|safe}}</td>
@@ -409,7 +409,7 @@
 				{% for a in assocfactoidwitness_set.object_list  %}
 
 				  <tr>
-				    <td><a class="no_extlink" href="{% url person_detail a.person.id %}" title="click to show">{{a.person}}</a></td>
+				    <td><a class="no_extlink" href="{% url 'person_detail' a.person.id %}" title="click to show">{{a.person}}</a></td>
 					<td>{{a.nameoriglang}}</a></td>
 				    <td>{{a.nametranslation}}</a></td>
 				    <td>{{a.person.nice_floruits|safe}}</td>
@@ -470,7 +470,7 @@
 
 				  <tr>
 					<td>{{a.role}}</a></td>
-				    <td><a class="no_extlink" href="{% url person_detail a.person.id %}" title="click to show">{{a.person}}</a></td>
+				    <td><a class="no_extlink" href="{% url 'person_detail' a.person.id %}" title="click to show">{{a.person}}</a></td>
 					<td>{{a.nameoriglang}}</a></td>
 				    <td>{{a.nametranslation}}</a></td>
 			        <td>{{a.person.nice_floruits|safe}}</td>
@@ -532,7 +532,7 @@
 				    <td>{{a.poss_land.util_topancestor}}</td>
 				    <td>{{a.poss_land.name}}</td>
 				    <td>{{a.originaltext}}</a></td>				
-				    <td>{% if a.poss_land.place %}<a class="no_extlink" href="{% url place_detail a.poss_land.place.id  %}" title="Show details">{{a.poss_land.place.name}}</a>{% endif %}</td>				
+				    <td>{% if a.poss_land.place %}<a class="no_extlink" href="{% url 'place_detail' a.poss_land.place.id  %}" title="Show details">{{a.poss_land.place.name}}</a>{% endif %}</td>
 				  </tr>
 				
 
@@ -591,7 +591,7 @@
 				    <td>{{a.poss_alms.util_topancestor}}</td>
 				    <td>{{a.poss_alms.name}}</td>
 				    <td>{{a.originaltext}}</a></td>	
-				    <td>{% if a.poss_alms.place %}<a class="no_extlink" href="{% url place_detail a.poss_alms.place.id  %}" title="Show details">{{a.poss_alms.place.name}}</a>{% endif %}</td>								
+				    <td>{% if a.poss_alms.place %}<a class="no_extlink" href="{% url 'place_detail' a.poss_alms.place.id  %}" title="Show details">{{a.poss_alms.place.name}}</a>{% endif %}</td>
 				  </tr>
 				
 
@@ -649,7 +649,7 @@
 				    <td>{{a.poss_object.util_topancestor}}</td>
 				    <td>{{a.poss_object.name}}</td>
 				    <td>{{a.originaltext}}</a></td>		
-				    <td>{% if a.poss_object.place %}<a class="no_extlink" href="{% url place_detail a.poss_object.place.id  %}" title="Show details">{{a.poss_object.place.name}}</a>{% endif %}</td>			
+				    <td>{% if a.poss_object.place %}<a class="no_extlink" href="{% url 'place_detail' a.poss_object.place.id  %}" title="Show details">{{a.poss_object.place.name}}</a>{% endif %}</td>
 					
 				  </tr>
 				
@@ -708,7 +708,7 @@
 				    <td>{{a.poss_office.util_topancestor}}</td>
 				    <td>{{a.poss_office.name}}</td>
 				    <td>{{a.originaltext}}</a></td>	
-				    <td>{% if a.poss_office.place %}<a class="no_extlink" href="{% url place_detail a.poss_office.place.id  %}" title="Show details">{{a.poss_office.place.name}}</a>{% endif %}</td>							
+				    <td>{% if a.poss_office.place %}<a class="no_extlink" href="{% url 'place_detail' a.poss_office.place.id  %}" title="Show details">{{a.poss_office.place.name}}</a>{% endif %}</td>
 				  </tr>
 				
 
@@ -766,7 +766,7 @@
 				    <td>{{a.poss_pgeneral.util_topancestor}}</td>
 				    <td>{{a.poss_pgeneral.name}}</td>
 				    <td>{{a.originaltext}}</a></td>	
-				    <td>{% if a.poss_pgeneral.place %}<a class="no_extlink" href="{% url place_detail a.poss_pgeneral.place.id  %}" title="Show details">{{a.poss_pgeneral.place.name}}</a>{% endif %}</td>					
+				    <td>{% if a.poss_pgeneral.place %}<a class="no_extlink" href="{% url 'place_detail' a.poss_pgeneral.place.id  %}" title="Show details">{{a.poss_pgeneral.place.name}}</a>{% endif %}</td>
 				  </tr>
 				
 
@@ -823,7 +823,7 @@
 				    <td>{{a.poss_revkind.util_topancestor}}</td>
 				    <td>{{a.poss_revkind.name}}</td>
 				    <td>{{a.originaltext}}</a></td>		
-				    <td>{% if a.poss_revkind.place %}<a class="no_extlink" href="{% url place_detail a.poss_revkind.place.id  %}" title="Show details">{{a.poss_revkind.place.name}}</a>{% endif %}</td>			
+				    <td>{% if a.poss_revkind.place %}<a class="no_extlink" href="{% url 'place_detail' a.poss_revkind.place.id  %}" title="Show details">{{a.poss_revkind.place.name}}</a>{% endif %}</td>
 		
 				  </tr>
 				
@@ -881,7 +881,7 @@
 				    <td>{{a.poss_revsilver.util_topancestor}}</td>
 				    <td>{{a.poss_revsilver.name}}</td>
 				    <td>{{a.originaltext}}</a></td>	
-				    <td>{% if a.poss_revsilver.place %}<a class="no_extlink" href="{% url place_detail a.poss_revsilver.place.id  %}" title="Show details">{{a.poss_revsilver.place.name}}</a>{% endif %}</td>	
+				    <td>{% if a.poss_revsilver.place %}<a class="no_extlink" href="{% url 'place_detail' a.poss_revsilver.place.id  %}" title="Show details">{{a.poss_revsilver.place.name}}</a>{% endif %}</td>
 														
 				  </tr>
 				
@@ -939,7 +939,7 @@
 				    <td>{{a.poss_unfree_persons.util_topancestor}}</td>
 				    <td>{{a.poss_unfree_persons.name}}</td>
 				    <td>{{a.originaltext}}</a></td>						
-				    <td>{% if a.poss_unfree_persons.place %}<a class="no_extlink" href="{% url place_detail a.poss_unfree_persons.place.id  %}" title="Show details">{{a.poss_unfree_persons.place.name}}</a>{% endif %}</td>
+				    <td>{% if a.poss_unfree_persons.place %}<a class="no_extlink" href="{% url 'place_detail' a.poss_unfree_persons.place.id  %}" title="Show details">{{a.poss_unfree_persons.place.name}}</a>{% endif %}</td>
 									
 				  </tr>
 				
@@ -999,7 +999,7 @@
 				    <td>{{a.privilege.util_topancestor}}</td>
 				    <td>{{a.privilege.name}}</td>
 				    <td>{{a.originaltext}}</a></td>	
-				    <td>{% if a.privilege.place %}<a class="no_extlink" href="{% url place_detail a.privilege.place.id  %}" title="Show details">{{a.privilege.place.name}}</a>{% endif %}</td>
+				    <td>{% if a.privilege.place %}<a class="no_extlink" href="{% url 'place_detail' a.privilege.place.id  %}" title="Show details">{{a.privilege.place.name}}</a>{% endif %}</td>
 														
 				  </tr>
 				

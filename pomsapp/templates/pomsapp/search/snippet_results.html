@@ -82,7 +82,7 @@
 						{{record|capfirst|default:"<i>item empty (check DB for deletion)</i>"}}
 				    	</a></td>
 					<td>{{record.inferred_type}}</td>
-			        <td><a class="no_extlink" href="{% url source_detail record.sourcekey.id %}" title="show details" target="_self">{{record.sourcekey|poms_italic|safe}}</a></td>
+			        <td><a class="no_extlink" href="{% url 'source_detail' record.sourcekey.id %}" title="show details" target="_self">{{record.sourcekey|poms_italic|safe}}</a></td>
 					<td>{{record.firmdate|format_dates}}</td>
 			      </tr>
 
@@ -134,9 +134,9 @@
 				{% for record in items.object_list %}			
 
 			      <tr>
-			        <td><a class="no_extlink" href="{% url place_detail record.id %}" target="_self" title="show details">{{record.name}}</a></td>
+			        <td><a class="no_extlink" href="{% url 'place_detail' record.id %}" target="_self" title="show details">{{record.name}}</a></td>
 			        <td>{% if record.parent %}
-			        	<a class="no_extlink" href="{% url place_detail record.parent.id %}" target="_self" title="show details">{{record.parent.name}}</a>
+			        	<a class="no_extlink" href="{% url 'place_detail' record.parent.id %}" target="_self" title="show details">{{record.parent.name}}</a>
 			        {% endif %}</td>
 			      </tr>
 
@@ -169,7 +169,7 @@
 			        <td>
 				{% if record.matrix_set.all %}
 				{% for m in record.matrix_set.all %}
-					<a href="{% url matrix_detail m.id %}" class="seal" title="Show Matrix/Seal info">MATRIXICON</a>				
+					<a href="{% url 'matrix_detail' m.id %}" class="seal" title="Show Matrix/Seal info">MATRIXICON</a>
 				{% endfor %}
 				{% endif %}
 				<a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">

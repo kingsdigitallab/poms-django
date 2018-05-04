@@ -36,20 +36,20 @@
     </div>
 			{% if not preview %}{% if record.relatedplace.geom.y > 0 or witnessFact.object_list  %}
 	                <div id="map" style="border-style:solid;border-width:1px;width:auto;height:250px;margin-right:100px;margin-right:20px;margin-left:20px;">
-                        		
+
 					</div>{% endif %}
-                    
+
                     <div id='map-image'>
-                    </div>                    
-                    
+                    </div>
+
 			{% endif %}
 			{% if preview %}{% if record.relatedplace.geom.y > 0 %}
 	                <div id="map-{{ record.id }}" style="border-style:solid;border-width:1px;width:auto;height:150px;margin-right:100px;margin-right:20px;">
-                        		
+
 					</div>{% endif %}
-                    
-                    
-			{% endif %}					
+
+
+			{% endif %}
     <div class="ct">
         <dl class="m1">
             {% if record.standardmedievalname %}
@@ -73,12 +73,12 @@
             <dd> {{record.nice_floruits|safe}}</dd>
             {% if record.relatedplace %}
                 <dt>Related Place</dt>
-                <dd><a class="no_extlink" href="{% url place_detail record.relatedplace.id  %}" title="Show details">{{record.relatedplace.name}}</a></dd>
+                <dd><a class="no_extlink" href="{% url 'place_detail' record.relatedplace.id  %}" title="Show details">{{record.relatedplace.name}}</a></dd>
             {% endif %}
             {% if record.matrix_set.all %}
             {% for m in record.matrix_set.all %}
                 <dt>Matrix</dt>
-                <dd><a href="{% url matrix_detail m.id %}" class="seal" title="Show Matrix/Seal info">{{m.identifier}}</a></dd>
+                <dd><a href="{% url 'matrix_detail' m.id %}" class="seal" title="Show Matrix/Seal info">{{m.identifier}}</a></dd>
 
             {% endfor %}
             {% endif %}
@@ -97,17 +97,17 @@
                 <dt>Grantor Beneficiary relationships </dt>
                 <dd><a href="/sna/grantor/{{ record.id }}"> &raquo; Gephi Visualisation</a></dd>
             {% endif %}
-			 
+
 			{% if preview %}
 			<script>
 			{% if record.relatedplace.geom.y > 0 %}
 				var currLocation =	[ {{ record.relatedplace.geom.y }},{{ record.relatedplace.geom.x}}];
-			{% else %}	
+			{% else %}
 				var currLocation = null;
 			{% endif %}
-			
+
 			var layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',{attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'});
-			
+
 			$(document).ready( function (){
 				if (currLocation){
 							map{{ record.id }} =  new L.map('map-{{ record.id }}',{maxZoom:12,zoomControl:false});
@@ -116,9 +116,9 @@
 							marker{{ record.id }} = new L.marker(currLocation).addTo(map{{ record.id }});
 				}
 			})
-			
-			
-			
+
+
+
 			</script>
 			{% endif %}
 
@@ -200,10 +200,10 @@
 
                   <tr>
                     <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
-                    <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
                     <td>{{a.role}}</td>
                     <td>{{a.factoid.witnesses.all|printmany_withabsoluteurl|safe}}</td>
-                    <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                    <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                   </tr>
 
                 {% endfor %}
@@ -257,9 +257,9 @@
 
                   <tr>
                     <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
-                    <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
                     <td>{{a.role}}</td>
-                    <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                    <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                   </tr>
 
                 {% endfor %}
@@ -313,8 +313,8 @@
 
                   <tr>
                     <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
-                    <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
-                    <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                   </tr>
 
                 {% endfor %}
@@ -370,9 +370,9 @@
 
                   <tr>
                     <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
-                    <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
                     <td>{{a.role}}</td>
-                    <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                    <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                   </tr>
 
                 {% endfor %}
@@ -425,9 +425,9 @@
 
                       <tr>
                         <td>{{a.factoidtrans.firmdate|default:"unavailable"}}</td>
-                        <td><a class="no_extlink" href="{% url factoid_detail a.factoidtrans.id %}" title="click to show">{{a.factoidtrans}}</a></td>
+                        <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoidtrans.id %}" title="click to show">{{a.factoidtrans}}</a></td>
                         <td>{{a.role}}</td>
-                        <td><a class="no_extlink" href="{% url source_detail a.factoidtrans.sourcekey.id %}" title="click to show">{{a.factoidtrans.sourcekey|poms_italic|safe}}</a></td>
+                        <td><a class="no_extlink" href="{% url 'source_detail' a.factoidtrans.sourcekey.id %}" title="click to show">{{a.factoidtrans.sourcekey|poms_italic|safe}}</a></td>
                       </tr>
 
                     {% endfor %}
@@ -475,9 +475,9 @@
 
                       <tr>
                         <td>{{a.factoid.firmdate|default:"unavailable"}}</td>
-                        <td><a class="no_extlink" href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                        <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
                         {# <td>{{a.role}}</td> #}
-                        <td><a class="no_extlink" href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                        <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                       </tr>
 
                     {% endfor %}
@@ -509,18 +509,18 @@
 <script>
 
 
-geoArray = [ 
+geoArray = [
  {% if record.relatedplace.geom.y > 0 %}
  {"name":"{{ record.persondisplayname|safe }}",
   "desc":"{{ record.persondescription|safe|strip_empty_lines }}",
-  "source":"",  
+  "source":"",
   "db_id":"{{ record.id }}",
   "type":"{{ record.genderkey }}",
-  "record_type":"{{ result_typeObj.label }}",  
+  "record_type":"{{ result_typeObj.label }}",
   "factoid_count":"{{ record.how_many_factoids }}",
   "places":[{"name":"{{ record.relatedplace.name|safe }}","coordinates":"{{ record.relatedplace.geom.y}},{{record.relatedplace.geom.x}}"}],
-  "people":[{"name":"{{ record.persondisplayname|safe }}"}]  
- },  
+  "people":[{"name":"{{ record.persondisplayname|safe }}"}]
+ },
  {% endif %}
 ]
 
@@ -566,7 +566,7 @@ markerStyles = {'transaction': {'color':'blue','start':1,'stop':179},
                 'M/F':{'color':'purple','start':271,'stop':359}
 				}
 
-markerCentreArray = []			
+markerCentreArray = []
 
 var personMarker;
 
@@ -575,15 +575,15 @@ $(document).ready(function(){
 		map =  new L.map('map',{maxZoom:12,zoomControl:true});
 		layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
 		        {attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
-		
+
         modern  = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
 
         switcher = new L.control.layers({'Modern':modern,'Topography':layer},{},{collapsed:false}).addTo(map);
-        
+
         $(".leaflet-control-layers-separator").css("display","block");
-        
+
         $(".leaflet-control-layers-separator").after("<br>"+
-        
+
                 "<table>" +
                 "<tr>" +
                     "<td>Person</td>" +
@@ -596,11 +596,11 @@ $(document).ready(function(){
                 "<tr>" +
                     "<td>Source</td>" +
                     '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="green" /></svg></td>' +
-                "</tr>" +                
+                "</tr>" +
                 "</table>"
         );
-                
-                
+
+
 		for (r in geoArray){
 
 			// deal with each type of record - Factoids first
@@ -612,7 +612,7 @@ $(document).ready(function(){
 								String(
 								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
 								))==-1)
-						{	
+						{
 							markerCentreArray.push(
 								String(
 								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
@@ -621,8 +621,8 @@ $(document).ready(function(){
 								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
 								)
 							);
-						}				
-					var m = new L.newCircleMarker( 
+						}
+					var m = new L.newCircleMarker(
 							[ parseFloat(geoArray[r].places[p].coordinates.split(',')[0]),
 							parseFloat(geoArray[r].places[p].coordinates.split(',')[1])]
 							,{	fillColor:markerStyles[geoArray[r].type].color  ,
@@ -637,17 +637,17 @@ $(document).ready(function(){
 								startAngle:markerStyles[geoArray[r].type].start,
 								stopAngle:markerStyles[geoArray[r].type].stop
 							});
-                            
+
                     personMarker = m;
-                    
+
 					m.bindPopup(
 					'<table class="simple headersX"><tbody>' +
 					'<tr><th colspan="2">'+ m.options.name +'</th></tr>' +
                     			'<tr><th colspan="2">' + geoArray[r].type + '</th></tr>' +
 					'<tr><th colspan="2">' + geoArray[r].source + '</th></tr>' +
-					'<tr><td colspan="2">' + geoArray[r].desc + '</td></tr>' +				
+					'<tr><td colspan="2">' + geoArray[r].desc + '</td></tr>' +
 					'<tr><th>Name</th><th>Role</th></tr>'
-					+ getPeopleRows(geoArray[r].people) + 
+					+ getPeopleRows(geoArray[r].people) +
 					'</tbody></table>'
 					);
 					map.addLayer(m);
@@ -666,7 +666,7 @@ $(document).ready(function(){
 					clickable:false,
 				})
 			.addTo(map);
-		};		
+		};
 
 
 					if (p==0){
@@ -688,34 +688,34 @@ $(document).ready(function(){
                         maxY = m.getLatLng().lat;
                     }
 				};
-			
+
 		}
 
-        
+
 		var ll = new L.LatLng(minY,minX);
         var ur = new L.LatLng(maxY,maxX);
 		var b = new L.LatLngBounds(ll,ur);
-		map.fitBounds(b);	        
-		
-			
+		map.fitBounds(b);
+
+
 	}
-	
+
     witnessMarkerStyle = {'placedate':'green','transaction':'red'}
-    
+
 	if (witnessFactoids.length > 0 ){
         if (typeof map === 'undefined'){
             map =  new L.map('map',{maxZoom:12,zoomControl:true});
             layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
 		        {attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
-		 
+
             modern  = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
 
             switcher = new L.control.layers({'Modern':modern,'Topography':layer},{},{collapsed:false}).addTo(map);
-            
+
         $(".leaflet-control-layers-separator").css("display","block");
-        
+
         $(".leaflet-control-layers-separator").after("<br>"+
-        
+
                 "<table>" +
                 "<tr>" +
                     "<td>Person</td>" +
@@ -728,13 +728,13 @@ $(document).ready(function(){
                 "<tr>" +
                     "<td>Source</td>" +
                     '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="green" /></svg></td>' +
-                "</tr>" +                
+                "</tr>" +
                 "</table>"
-        );            
-            
-            
+        );
+
+
         };
-        
+
 		for (r in witnessFactoids){
             try {
 			// deal with each type of record - Factoids first
@@ -744,7 +744,7 @@ $(document).ready(function(){
 								String(
 								parseFloat(witnessFactoids[r].coordinates.split(',')[1])
 								))==-1)
-						{	
+						{
 							markerCentreArray.push(
 								String(
 								parseFloat(witnessFactoids[r].coordinates.split(',')[0]) )
@@ -753,13 +753,13 @@ $(document).ready(function(){
 								parseFloat(witnessFactoids[r].coordinates.split(',')[1])
 								)
 							);
-						}				
-					var m = new L.newCircleMarker( 
+						}
+					var m = new L.newCircleMarker(
 							[ parseFloat(witnessFactoids[r].coordinates.split(',')[0]),
 							parseFloat(witnessFactoids[r].coordinates.split(',')[1])]
 							,{	fillColor: witnessMarkerStyle[witnessFactoids[r]['type']], //'red'  ,
 								radius:7,
-								fillOpacity:1, 
+								fillOpacity:1,
 								color:'black',
 								weight:1,
 								opacity:0.9,
@@ -769,7 +769,7 @@ $(document).ready(function(){
 					m.bindPopup(
 					'<table class="simple headersX"><tbody>' +
 					'<tr><th colspan="2">'+ m.options.name +'</th></tr>' +
-					'<tr><td colspan="2">'+ m.options.source +'</td></tr>' +                    
+					'<tr><td colspan="2">'+ m.options.source +'</td></tr>' +
 					'</tbody></table>'
 					);
 					map.addLayer(m);
@@ -798,10 +798,10 @@ $(document).ready(function(){
             catch (err){
             // noithing!!
             }
-			
+
 		}
 
-        
+
 		var ll = new L.LatLng(minY,minX);
         var ur = new L.LatLng(maxY,maxX);
 		var b = new L.LatLngBounds(ll,ur);
@@ -818,8 +818,8 @@ $(document).ready(function(){
         if (geoArray.length == 0){
             $('#map').hide();
         }
-    };    
-	
+    };
+
 })
 
 // Not currently used ----
@@ -831,27 +831,27 @@ function printMap() {
         img.width = (dimensions.x);
         img.height = (dimensions.y);
 		img.src = canvas.toDataURL();
-        
+
 		//document.getElementById('map-image').innerHTML = '';
 		//document.getElementById('map-image').appendChild(img);
-        
-    // TO DO - Open this on another page?        
+
+    // TO DO - Open this on another page?
         $.ajax({
             type: "POST",
             url: '/map/map-image/',
-            data: { 
+            data: {
                     "image" : img.src,
                     "csrfmiddlewaretoken": '{{ csrf_token }}'
                   },
             success: openMapImageInWindow
-        });          
+        });
 	});
 };
 
 function openMapImageInWindow(data){
         //window.open(data,'_blank');
         var myWindow = window.open("", "Map Image");
-        myWindow.document.write(data);                    
+        myWindow.document.write(data);
 };
 
 {% if witnessFact.object_list  %}
@@ -863,7 +863,7 @@ function openMapImageInWindow(data){
                     {% endif %}
                 {% endfor %}
                 {% if a.factoid.sourcekey.charter.placefk %}
-                    {"source":"{{ a.factoid.sourcekey}}","type":"placedate","name":"{{a.factoid.sourcekey.charter.placefk.name}}","coordinates":"{{a.factoid.sourcekey.charter.placefk.geom.y}},{{a.factoid.sourcekey.charter.placefk.geom.x}}"},  
+                    {"source":"{{ a.factoid.sourcekey}}","type":"placedate","name":"{{a.factoid.sourcekey.charter.placefk.name}}","coordinates":"{{a.factoid.sourcekey.charter.placefk.geom.y}},{{a.factoid.sourcekey.charter.placefk.geom.x}}"},
                 {% endif %}
             {% endif %}
     {% endfor %}

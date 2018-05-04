@@ -35,7 +35,7 @@
       <dl class="m1">
 
         <dt>Owner</dt>
-        	<dd><a class="no_extlink" href="{% url person_detail record.owner.id %}"> {{record.owner}}</a></dd>
+        	<dd><a class="no_extlink" href="{% url 'person_detail' record.owner.id %}"> {{record.owner}}</a></dd>
         <dt>Matrix Shape</dt>
         	<dd>{{record.shape}}</dd>
         <dt>Image description (obverse)</dt>

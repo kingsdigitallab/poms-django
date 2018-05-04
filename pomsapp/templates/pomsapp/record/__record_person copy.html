@@ -46,12 +46,12 @@
 	        <dd> {{person.nice_floruits|safe}}</dd>	
 	        {% if person.relatedplace %}
 	        	<dt>Related Place</dt>
-		        <dd><a href="{% url place_detail person.relatedplace.id  %}" title="Show details">{{person.relatedplace.name}}</a></dd>
+		        <dd><a href="{% url 'place_detail' person.relatedplace.id  %}" title="Show details">{{person.relatedplace.name}}</a></dd>
 	        {% endif %}		
 			{% if person.matrix_set.all %}
 			{% for m in person.matrix_set.all %}
 				<dt>Matrix</dt>
-		        <dd><a href="{% url matrix_detail m.id %}" class="seal" title="Show Matrix/Seal info">{{m.identifier}}</a></dd>
+		        <dd><a href="{% url 'matrix_detail' m.id %}" class="seal" title="Show Matrix/Seal info">{{m.identifier}}</a></dd>
 								
 			{% endfor %}
 			{% endif %}
@@ -150,9 +150,9 @@
 				
 				  <tr>
 				    <td>{{a.factoid.firmdate|default:"unavailable"}}</td>
-				    <td><a href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+				    <td><a href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
 				    <td>{{a.role}}</td>
-				    <td><a href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+				    <td><a href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
 					<td>{{a.factoid.get_right_subclass.0}}&#160;&#160;&#160;&#160;</td>
 				  </tr>
 				
@@ -234,9 +234,9 @@
 					
 					  <tr>
 					    <td>{{a.factoidtrans.firmdate|default:"unavailable"}}</td>
-					    <td><a href="{% url factoid_detail a.factoidtrans.id %}" title="click to show">{{a.factoidtrans}}</a></td>
+					    <td><a href="{% url 'factoid_detail' a.factoidtrans.id %}" title="click to show">{{a.factoidtrans}}</a></td>
 					    <td>{{a.role}}</td>
-					    <td><a href="{% url source_detail a.factoidtrans.sourcekey.id %}" title="click to show">{{a.factoidtrans.sourcekey|poms_italic|safe}}</a></td>
+					    <td><a href="{% url 'source_detail' a.factoidtrans.sourcekey.id %}" title="click to show">{{a.factoidtrans.sourcekey|poms_italic|safe}}</a></td>
 						<td>{{a.factoidtrans.get_right_subclass.0}}&#160;&#160;&#160;&#160;</td>
 					  </tr>
 					
@@ -312,9 +312,9 @@
 					
 					  <tr>
 					    <td>{{a.factoid.firmdate|default:"unavailable"}}</td>
-					    <td><a href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+					    <td><a href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
 					    {# <td>{{a.role}}</td> #}
-					    <td><a href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+					    <td><a href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
 						<td>{{a.factoid.get_right_subclass.0}}&#160;&#160;&#160;&#160;</td>
 					  </tr>
 					

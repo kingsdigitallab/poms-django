@@ -47,7 +47,7 @@ class PersonIndex(indexes.SearchIndex, indexes.Indexable):
                                            faceted=True,
                                            null=True)
     titles = indexes.MultiValueField(
-        model_attr='factoids__facttitle__titletypekey__name',
+        # model_attr='factoids__facttitle__titletypekey__name',
         faceted=True,
         null=True
     )
@@ -55,11 +55,11 @@ class PersonIndex(indexes.SearchIndex, indexes.Indexable):
         model_attr='medievalgaelicforename__name',
         faceted=True,
         null=True)
-    personstartdate = indexes.CharField(
+    startdate = indexes.CharField(
         model_attr='floruitstartyr',
         faceted=True,
         null=True)
-    persondaterange = indexes.CharField(
+    daterange = indexes.CharField(
         model_attr='helper_daterange',
         faceted=True,
         null=True)
@@ -91,51 +91,54 @@ class PersonIndex(indexes.SearchIndex, indexes.Indexable):
         faceted=True,
         null=True
     )
-    sourcesstartdate = indexes.IntegerField(
-        model_attr='factoids__sourcekey__from_year',
-        faceted=True,
-    )
-    sourcesdaterange = indexes.CharField(
-        model_attr='factoids__sourcekey__helper_daterange',
-        faceted=True,
-        null=True
-    )
+    # REMOVED
+    # sourcesstartdate = indexes.IntegerField(
+    #     model_attr='factoids__sourcekey__from_year',
+    #     faceted=True,
+    # )
+    # sourcesdaterange = indexes.CharField(
+    #     model_attr='factoids__sourcekey__helper_daterange',
+    #     faceted=True,
+    #     null=True
+    # )
     relationshiptypes = indexes.MultiValueField(
-        model_attr='factoids__factrelationship__relationship__name',
+        # model_attr='assoc_factoid_person__factrelationship__relationship__name',
         faceted=True,
         null=True
     )
     roles = indexes.MultiValueField(
-        model_attr='assochelperperson__role__name',
+        # model_attr='assochelperperson__role__name',
         faceted=True,
         null=True
     )
     spiritualbenefits = indexes.MultiValueField(
-        model_attr='factoids__facttransaction__spiritualbenefits__name',
+        #model_attr='assoc_factoid_person__facttransaction__spiritualbenefits__name',
         faceted=True,
         null=True
     )
-    factrelstartdate = indexes.IntegerField(
-        model_attr='factoids__factrelationship__from_year',
-        faceted=True,
-    )
-    factreldaterange = indexes.CharField(
-        model_attr='factoids__factrelationship__helper_daterange',
-        faceted=True,
-        null=True
-    )
+    # REMOVED
+    # factrelstartdate = indexes.IntegerField(
+    #     #model_attr='assoc_factoid_person__factrelationship__from_year',
+    #     faceted=True,
+    #     null=True
+    # )
+    # factreldaterange = indexes.CharField(
+    #     #model_attr='assoc_factoid_person__factrelationship__helper_daterange',
+    #     faceted=True,
+    #     null=True
+    # )
     transactiontypes = indexes.MultiValueField(
-        model_attr='factoids__facttransaction__transactiontype__name',
+        #model_attr='assoc_factoid_person__facttransaction__transactiontype__name',
         faceted=True,
         null=True
     )
     transfeatures = indexes.MultiValueField(
-        model_attr='factoids__facttransaction__helper_tickboxes__name',
+        #model_attr='fassoc_factoid_person__facttransaction__helper_tickboxes__name',
         faceted=True,
         null=True
     )
     possoffice = indexes.MultiValueField(
-        model_attr='factoids__poss_office__name',
+        #model_attr='assoc_factoid_person__poss_office__name',
         faceted=True,
         null=True
     )
@@ -171,66 +174,156 @@ class PersonIndex(indexes.SearchIndex, indexes.Indexable):
         faceted=True,
         null=True
     )
-    facttrastartdate = indexes.IntegerField(
-        model_attr='factoids__facttransaction__from_year',
-        faceted=True
-    )
-    factposstartdate = indexes.IntegerField(
-        model_attr='factoids__factpossession__from_year',
-        faceted=True
-    )
-    facttradaterange = indexes.CharField(
-        model_attr='factoids__facttransaction__helper_daterange',
-        faceted=True
-    )
-    factposdaterange = indexes.CharField(
-        model_attr='factoids__factpossession__helper_daterange',
-        faceted=True
-    )
+    # REMOVED
+    # facttrastartdate = indexes.IntegerField(
+    #     model_attr='assoc_factoid_person__facttransaction__from_year',
+    #     faceted=True,
+    #     null=True
+    # )
+    # factposstartdate = indexes.IntegerField(
+    #     #model_attr='assoc_factoid_person__factpossession__from_year',
+    #     faceted=True,
+    #     null=True
+    # )
+    # facttradaterange = indexes.CharField(
+    #     #model_attr='assoc_factoid_person__facttransaction__helper_daterange',
+    #     faceted=True,
+    #     null=True
+    # )
+    # factposdaterange = indexes.CharField(
+    #     #model_attr='factoids__factpossession__helper_daterange',
+    #     faceted=True,
+    #     null=True
+    # )
+
+    # model_attr='facttransaction__tenendas__name',
     tenendasoptions = indexes.CharField(
-        model_attr='factoids__facttransaction__tenendas__name',
-        faceted=True
+        faceted=True,
+        null=True
     )
+
+    # model_attr='assoc_factoid_person__facttransaction__exemptions__name',
     exemptionoptions = indexes.CharField(
-        model_attr='factoids__facttransaction__exemptions__name',
-        faceted=True
+        faceted=True,
+        null=True
     )
     sicutclause = indexes.CharField(
-        model_attr='factoids__facttransaction__sicutclauses__name',
-        faceted=True
+        #model_attr='assoc_factoid_person__facttransaction__sicutclauses__name',
+        faceted=True,
+        null=True
     )
     returnsrenders = indexes.CharField(
-        model_attr='factoids__facttransaction__returnsrenders__name',
-        faceted=True
+        #model_attr='assoc_factoid_person__facttransaction__returnsrenders__name',
+        faceted=True,
+        null=True
     )
     nominalrenders = indexes.CharField(
-        model_attr='factoids__facttransaction__rendernominal__name',
+        #model_attr='assoc_factoid_person__facttransaction__rendernominal__name',
         faceted=True
     )
     renderdates = indexes.MultiValueField(
-        model_attr='factoids__facttransaction__renderdates__name',
+       # model_attr='assoc_factoid_person__facttransaction__renderdates__name',
         faceted=True,
         null=True
     )
     returnsmilitary = indexes.CharField(
-        model_attr='factoids__facttransaction__returnsmilitary__name',
-        faceted=True
+       # model_attr='assoc_factoid_person__facttransaction__returnsmilitary__name',
+        faceted=True,
+        null=True
     )
     commonburdens = indexes.MultiValueField(
-        model_attr='factoids__facttransaction__commonburdens__name',
+       # model_attr='assoc_factoid_person__facttransaction__commonburdens__name',
         faceted=True,
         null=True
     )
     legalpertinents = indexes.MultiValueField(
-        model_attr='factoids__facttransaction__legalpertinents__name',
+       # model_attr='assoc_factoid_person__facttransaction__legalpertinents__name',
         faceted=True,
         null=True
     )
 
+    def prepare_roles(self, obj):
+        return poms_models.Role.objects.filter(
+            assochelperperson__person=obj
+        ).values_list('name', flat=True)
 
+
+    def prepare_relationshiptypes(self, obj):
+        return poms_models.Relationshiptype.objects.filter(
+            factrelationship__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_spiritualbenefits(self, obj):
+        return poms_models.Proanimagenerictypes.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_transactiontypes(self, obj):
+        return poms_models.Transactiontype.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_transfeatures(self, obj):
+        return poms_models.TransTickboxes.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_possoffice(self, obj):
+        return poms_models.Poss_Office.objects.filter(
+            assocfactoidposs_office__factoid__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_tenendasoptions(self, obj):
+        return poms_models.Tenendasclauseoptions.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_exemptionoptions(self, obj):
+        return poms_models.Exemptiontype.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_sicutclause(self, obj):
+        return poms_models.Sicutclausetype.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_returnsrenders(self, obj):
+        return poms_models.Returns_renders.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_nominalrenders(self, obj):
+        return poms_models.Nominalrendertype.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_renderdates(self, obj):
+        return poms_models.Renderdate.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_returnsmilitary(self, obj):
+        return poms_models.Returns_military.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_commonburdens(self, obj):
+        return poms_models.CommonBurdens.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+    def prepare_legalpertinents(self, obj):
+        return poms_models.LegalPertinents.objects.filter(
+            facttransaction__people=obj
+        ).values_list('name', flat=True)
+
+
+    
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
-        return self.get_model().objects.all()
+        return self.get_model().objects.filter(id__lt=200)
 
     def get_model(self):
         return poms_models.Person
+

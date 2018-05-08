@@ -23,7 +23,8 @@ from pomsapp.models_authlists import TitleType
 class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
     #factoidpersonkey = models.IntegerField()
     factoid = models.ForeignKey('Factoid')
-    person = models.ForeignKey('Person')
+    person = models.ForeignKey('Person',
+                               related_name='assoc_factoid_person')
     # person = AjaxForeignKeyField('Person', (('name', {})))
     role = models.ForeignKey(
         'Role', null=True, blank=True, verbose_name="role",)
@@ -225,7 +226,7 @@ def save_helperAssociation(assoc):
 class AssocHelperPerson(mymodels.TimeStampedHiddenModel):
     #factoidpersonkey = models.IntegerField()
     factoid = models.ForeignKey('Factoid')
-    person = models.ForeignKey('Person')
+    person = models.ForeignKey('Person', related_name='helperperson')
     role = models.ForeignKey(
         'Role', null=True, blank=True, verbose_name="role", )
     nameoriglang = models.CharField(
@@ -406,7 +407,10 @@ class AssocFactoidPoss_pgeneralInline(InlineAutocompleteAdmin):
 # ++++
 class AssocFactoidPoss_office(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
+    factoid = models.ForeignKey(
+        'Factoid',
+        related_name='assocfactoidpossoffice'
+    )
     poss_office = models.ForeignKey('Poss_Office', verbose_name="office",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)

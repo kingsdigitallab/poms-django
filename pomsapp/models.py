@@ -1042,7 +1042,8 @@ class AssocProanimaInline(InlineAutocompleteAdmin):
 class Factoid(mymodels.PomsModel):
     inferred_type = models.CharField(
         max_length=100, null=True, blank=True, verbose_name="inferred type", )
-    sourcekey = models.ForeignKey('Source', verbose_name="Document")
+    sourcekey = models.ForeignKey('Source', verbose_name="Document",
+                                  related_name='factoid')
     people = models.ManyToManyField(
         Person, through='AssocFactoidPerson', related_name='factoids',
         verbose_name="associated people", )

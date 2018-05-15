@@ -32,6 +32,7 @@ class PomsIndex(indexes.SearchIndex):
     """
     #
     object_id = indexes.IntegerField(model_attr='id')
+    index_type = indexes.CharField()
     text = indexes.CharField(document=True, use_template=True)
     surname = indexes.MultiValueField(
         faceted=True,
@@ -240,11 +241,12 @@ class PomsIndex(indexes.SearchIndex):
     )
 
 
-class PersonIndex(PomsIndex):
+class PersonIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
         self.prepared_data = super(PersonIndex, self).prepare(obj)
+        index_type = 'person'
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
@@ -433,11 +435,12 @@ class PersonIndex(PomsIndex):
         return poms_models.Person
 
 
-class FactoidIndex(PomsIndex):
+class FactoidIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
         self.prepared_data = super(FactoidIndex, self).prepare(obj)
+        index_type = 'factoid'
 
         self.prepared_data[
             'surname'
@@ -654,12 +657,12 @@ class FactoidIndex(PomsIndex):
         return poms_models.Factoid
 
 
-class SourceIndex(PomsIndex):
+class SourceIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
         self.prepared_data = super(SourceIndex, self).prepare(obj)
-
+        index_type = 'source'
         self.prepared_data[
             'surname'
         ] = list(poms_models.Person.objects.filter(
@@ -866,36 +869,38 @@ class SourceIndex(PomsIndex):
 
     def get_model(self):
         return poms_models.Source
-    
+
 
 class PlaceIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
         self.prepared_data = super(PlaceIndex, self).prepare(obj)
-
+        index_type = 'place'
         self.prepared_data[
             'surname'
         ] = list(poms_models.Person.objects.filter(
-            helper_place=obj
+            helper_places=obj
         ).distinct().values_list('helper_searchbigsur', flat=True))
 
         self.prepared_data[
             'forename'
         ] = list(poms_models.Person.objects.filter(
-            helper_place=obj
+            helper_places=obj
         ).distinct().values_list('forename', flat=True))
+
 
         self.prepared_data[
             'gender'
         ] = list(poms_models.Gender.objects.filter(
-            helper_place=obj
+            person__helper_places=obj
         ).distinct().values_list('name', flat=True))
+
 
         self.prepared_data[
             'medievalgaelicforename'
         ] = list(poms_models.MedievalGaelicForename.objects.filter(
-            helper_place=obj
+            person__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         # todo what are dates for place?
@@ -905,14 +910,15 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         # self.prepared_data[
         #     'daterange'] = obj.helper_daterange
 
+
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
-            facttitle__helper_place=obj
+            facttitle__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
-            factoid__helper_place=obj
+            factoid__helper_places=obj
         ).distinct()
 
         if charters.count() > 0:
@@ -945,48 +951,48 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
-                factoid__helper_place=obj
+                factoid__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['posslands'] = list(
             poms_models.Poss_Lands.objects.filter(
-                factoid__helper_place=obj
+                factoid__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['possrevkind'] = list(
             poms_models.Poss_Revenues_kind.objects.filter(
-                factoid__helper_place=obj
+                factoid__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['possrevsilver'] = list(
             poms_models.Poss_Revenues_kind.objects.filter(
-                factoid__helper_place=obj
+                factoid__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['privileges'] = list(
             poms_models.Privileges.objects.filter(
-                factoid__helper_place=obj
+                factoid__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['places'] = list(
             poms_models.Place.objects.filter(
-                helper_factoids__helper_place=obj
+                helper_factoids__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['roles'] = list(
             poms_models.Role.objects.filter(
-                assochelperperson__person__helper_place=obj
+                assochelperperson__person__helper_places=obj
             ).distinct().values_list('name', flat=True))
 
         self.prepared_data['relationshiptypes'] = list(
             poms_models.Relationshiptype.objects.filter(
-                factrelationship__helper_place=obj
+                factrelationship__helper_places=obj
             ).distinct().values_list('name', flat=True))
 
         # todo is this right? assochelperperson__person__id
@@ -994,83 +1000,83 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         self.prepared_data[
             'institutions'] = list(
             poms_models.Institution.objects.filter(
-                factoids__helper_place=obj
+                factoids__helper_places=obj
             ).distinct().values_list('persondisplayname', flat=True))
 
         self.prepared_data[
             'spiritualbenefits'] = list(
             poms_models.Proanimagenerictypes.objects.filter(
-                facttransaction__helper_place=obj
+                facttransaction__helper_places=obj
             ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'spiritualbenefits'] = list(poms_models.Transactiontype.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'transactiontypes'] = list(poms_models.Transactiontype.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'transfeatures'] = list(poms_models.TransTickboxes.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'possoffice'] = list(
             poms_models.Poss_Office.objects.filter(
-                assocfactoidposs_office__factoid__helper_place=obj
+                assocfactoidposs_office__factoid__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data[
             'tenendasoptions'] = list(
             poms_models.Tenendasclauseoptions.objects.filter(
-                facttransaction__helper_place=obj
+                facttransaction__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data[
             'exemptionoptions'] = list(poms_models.Exemptiontype.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True)
                                        )
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'returnsrenders'] = list(poms_models.Returns_renders.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'nominalrenders'] = list(poms_models.Nominalrendertype.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'renderdates'] = list(poms_models.Renderdate.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'returnsmilitary'] = list(poms_models.Returns_military.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'legalpertinents'] = list(poms_models.LegalPertinents.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'commonburdens'] = list(poms_models.CommonBurdens.objects.filter(
-            facttransaction__helper_place=obj
+            facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
 

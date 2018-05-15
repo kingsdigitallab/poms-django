@@ -1,0 +1,4 @@
+{{obj.id}}
+{{obj.persondisplayname}}
+{{obj.standardmedievalname}}
+{{obj.moderngaelicname}}

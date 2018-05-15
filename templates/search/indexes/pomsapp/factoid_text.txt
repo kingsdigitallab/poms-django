@@ -1,0 +1,4 @@
+{{obj.id}}
+{{obj.shortdesc}}
+{{obj.helper_keywordsearch}}
+{{obj.sourcekey.sourcefordataentry}}

@@ -1,5 +1,6 @@
 from django import forms
 from haystack.forms import FacetedSearchForm
+from haystack.query import SearchQuerySet
 
 RESULT_TYPES = [
     ('factoid', 'Factoid'),
@@ -10,8 +11,10 @@ RESULT_TYPES = [
 
 
 class PomsFacetedSearchForm(FacetedSearchForm):
-    #todo make this dynamic
-    INITIAL_DATE_DISPLAY = '1000-1300'
+    DATE_MINIMUM = 1000
+    DATE_MAXIMUM = 1300
+
+
 
     index_type = forms.ChoiceField(
         required=True,
@@ -19,8 +22,17 @@ class PomsFacetedSearchForm(FacetedSearchForm):
         choices=RESULT_TYPES
     )
 
+    def __init__(self, *args, **kwargs):
+        super(PomsFacetedSearchForm, self).__init__(*args, **kwargs)
+        # get the earliest and latest dates in the whole record set
+        min = SearchQuerySet().all().order_by('startdate')[0]
+        max = SearchQuerySet().all().order_by('-startdate')[0]
+        self.DATE_MINIMUM = min.startdate
+        self.DATE_MAXIMUM = max.startdate
+
+
     date_range = forms.CharField(
-        required=True, initial=INITIAL_DATE_DISPLAY
+        required=True
     )
 
     def no_query_found(self):
@@ -37,6 +49,12 @@ class PomsFacetedSearchForm(FacetedSearchForm):
 
         if self.is_bound:
             data = self.cleaned_data
+            if data['index_type']:
+                sqs = sqs.narrow(
+                    'index_type:{}'.format(
+                        data['index_type']
+                    )
+                )
             # split the character date range into two integers
             # apply to start date
             if data['date_range']:
@@ -47,5 +65,6 @@ class PomsFacetedSearchForm(FacetedSearchForm):
                     #     start_date,
                     #     end_date
                     # ))
+
 
         return sqs

@@ -2,6 +2,7 @@
 from haystack import indexes
 
 import pomsapp.models as poms_models
+from django.db.models import Max, Min
 
 """
 Replacing the result types with four indexes:
@@ -34,10 +35,26 @@ class PomsIndex(indexes.SearchIndex):
     object_id = indexes.IntegerField(model_attr='id')
     index_type = indexes.CharField(faceted=True,)
     text = indexes.CharField(document=True, use_template=True)
-    surname = indexes.MultiValueField(
+    # these are single fields used in different result types
+    # so that they can be sorted
+    # Person
+    surname = indexes.CharField(null=True, default='')
+    forename = indexes.CharField(null=True, default='')
+    persondisplayname = indexes.CharField(null=True, default='')
+    # Factoid
+    description = indexes.CharField(null=True, default='')
+    inferred_type = indexes.CharField(null=True, default='')
+    source = indexes.CharField(null=True, default='')
+    # source
+    calendar_number = indexes.CharField(null=True, default='')
+    # place
+    place_name = indexes.CharField(null=True, default='')
+    place_parent = indexes.CharField(null=True, default='')
+    
+    surnames = indexes.MultiValueField(
         faceted=True,
         null=True)
-    forename = indexes.MultiValueField(
+    forenames = indexes.MultiValueField(
         faceted=True,
         null=True)
     gender = indexes.MultiValueField(
@@ -55,6 +72,7 @@ class PomsIndex(indexes.SearchIndex):
         faceted=True,
         null=True)
     startdate = indexes.IntegerField(
+        faceted=True,
         null=True)
     daterange = indexes.CharField(
         null=True)
@@ -251,8 +269,18 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
+            'surnames'
+        ] = obj.helper_searchbigsur
+        self.prepared_data[
+            'forenames'
+        ] = obj.forename
+        self.prepared_data[
             'surname'
         ] = obj.helper_searchbigsur
+        self.prepared_data[
+            'persondisplayname'
+        ] = obj.persondisplayname
+
         self.prepared_data[
             'forename'
         ] = obj.forename
@@ -438,15 +466,19 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
     def prepare(self, obj):
         self.prepared_data = super(FactoidIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'factoid'
+        self.prepared_data[
+            'description'] = obj.shortdesc
+        self.prepared_data['inferred_type'] = obj.inferred_type
+        self.prepared_data['source'] = obj.sourcekey
 
         self.prepared_data[
-            'surname'
+            'surnames'
         ] = list(poms_models.Person.objects.filter(
             factoids=obj
         ).distinct().values_list('helper_searchbigsur', flat=True))
 
         self.prepared_data[
-            'forename'
+            'forenames'
         ] = list(poms_models.Person.objects.filter(
             factoids=obj
         ).distinct().values_list('forename', flat=True))
@@ -660,14 +692,17 @@ class SourceIndex(PomsIndex, indexes.Indexable):
     def prepare(self, obj):
         self.prepared_data = super(SourceIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'source'
+        self.prepared_data['calendar_number'] = obj.hammondnumber
+        self.prepared_data['description'] = obj.description
+
         self.prepared_data[
-            'surname'
+            'surnames'
         ] = list(poms_models.Person.objects.filter(
             factoids__sourcekey=obj
         ).distinct().values_list('helper_searchbigsur', flat=True))
 
         self.prepared_data[
-            'forename'
+            'forenames'
         ] = list(poms_models.Person.objects.filter(
             factoids__sourcekey=obj
         ).distinct().values_list('forename', flat=True))
@@ -869,22 +904,41 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
 
 class PlaceIndex(PomsIndex, indexes.Indexable):
-    """Index to replace DJFacet person result type    """
+    """Index to replace DJFacet place result type    """
 
     def prepare(self, obj):
         self.prepared_data = super(PlaceIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'place'
         self.prepared_data[
-            'surname'
+            'place_name'] = obj.name
+        if obj.parent:
+            self.prepared_data[
+                'place_parent'] = obj.parent.name
+        self.prepared_data[
+            'surnames'
         ] = list(poms_models.Person.objects.filter(
             helper_places=obj
         ).distinct().values_list('helper_searchbigsur', flat=True))
 
         self.prepared_data[
-            'forename'
+            'forenames'
         ] = list(poms_models.Person.objects.filter(
             helper_places=obj
         ).distinct().values_list('forename', flat=True))
+
+        # todo find the earliest date for all data related to this place
+        startdates = []
+        early_person = poms_models.Person.objects.filter(
+            helper_places=obj
+        ).aggregate(Min('floruitstartyr'))
+        startdates.append(early_person['floruitstartyr__min'])
+
+        # todo latest as well for range
+        # self.prepared_data[
+        #     'startdate'] = obj.from_year
+        #
+        # self.prepared_data[
+        #     'daterange'] = obj.helper_daterange
 
 
         self.prepared_data[
@@ -900,12 +954,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             person__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
-        # todo what are dates for place?
-        # self.prepared_data[
-        #     'startdate'] = obj.from_year
-        #
-        # self.prepared_data[
-        #     'daterange'] = obj.helper_daterange
+
 
 
         self.prepared_data[

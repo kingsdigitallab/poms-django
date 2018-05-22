@@ -45,26 +45,14 @@
 
 {# 2010-10-20: added two hidden fields for ordering and years #}
 
-   <fieldset>
-	<input type="hidden" name="ordering" id="active_ordering" value="{{active_ordering}}" />
-   </fieldset>
 
-   <fieldset>
-	<input type="hidden" name="years" id="active_years" value="{{active_years}}" />
-   </fieldset>
-
-   <fieldset>
-	<input type="hidden" name="show_all" id="show_all" value="{{show_all}}" />
-   </fieldset>
-
-   <br /><br />
 
 	<p> 
 	<label for="date_range">Date range (start date):</label>
 	<br /><br />
 	<div id="slider_range"></div>
 	<br />
-	<input type="text" id="date_range" name="date_range" style="color:black; font-weight:bold;" {% if 'date_range' in form.data %}value="{{ form.data.date_range }}"{% else %}value=""{% endif %} />
+	<input type="text" id="date_range" name="date_range" style="color:black; font-weight:bold;" value="{{ date_range }}" />
 	</p>
 	
 	<br /><br /><br />

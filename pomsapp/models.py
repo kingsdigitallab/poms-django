@@ -441,8 +441,9 @@ class Person(mymodels.PomsModel):
               }),
         ]
 
-    def __unicode__(self):
+    def __str__(self):
         return self.persondisplayname
+
 
     table_order = 5
 
@@ -623,10 +624,13 @@ class Source(mymodels.PomsModel):
     class Meta:
         pass
 
-    def __unicode__(self):
+    def __str__(self):
         out = "%s/%s/%s %s (%s)" % (self.hammondnumber or '0', self.hammondnumb2 or '0',
                                     self.hammondnumb3 or '0', self.hammondext, self.source_tradid)
         return out
+
+    def __unicode__(self):
+        return self.__str__()
 
     table_order = 4
 
@@ -770,7 +774,7 @@ class Charter(Source):
         class Media:
             js = ("js/admin_fixes/admin_fixes.js",)
 
-    def __unicode__(self):
+    def __str__(self):
         #     if self.source_tradid:
         # italic_name = self.source_tradid.replace("_", "<i>", 1)
         # italic_name = italic_name.replace("_", "</i>", 1)
@@ -861,7 +865,7 @@ class Matrix(Source):
     class Meta:
         verbose_name_plural = "Matrixes"
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s %s" % ("Matrix", self.identifier)
 
 
@@ -949,7 +953,7 @@ class Seal(Source):
     class Meta:
         verbose_name_plural = "Seals"
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s %s" % ("Seal", self.id)
 
 
@@ -1194,7 +1198,7 @@ class Factoid(mymodels.PomsModel):
         # ordering = ('id',)
         ordering = ('from_year', 'from_month', 'from_day', 'to_year')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.shortdesc or "no description"
 
 
@@ -1307,7 +1311,7 @@ class FactTitle(Factoid):
     class Meta:
         verbose_name_plural = "Factoid Title/Occupation"
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s %s %s" % ("id:", self.id, self.shortdesc)
 
     table_order = 11
@@ -1430,7 +1434,7 @@ class FactRelationship(Factoid):
     class Meta:
         verbose_name_plural = "Factoid Relationship"
 
-    def __unicode__(self):
+    def __str__(self):
         return "id[%s], from source [%s], desc: %s" % (self.id, self.sourcekey, self.shortdesc)
 
     table_order = 12
@@ -1527,7 +1531,7 @@ class FactReference(Factoid):
     class Meta:
         verbose_name_plural = "Factoid Reference"
 
-    def __unicode__(self):
+    def __str__(self):
         return "id[%s], from source [%s], desc: %s" % (self.id, self.sourcekey, self.shortdesc)
 
     table_order = 12
@@ -1653,7 +1657,7 @@ class FactPossession(Factoid):
     class Meta:
         verbose_name_plural = "Factoid Possession"
 
-    def __unicode__(self):
+    def __str__(self):
         return "id[%s], from source [%s]" % (self.id, self.sourcekey)
         # ", ".join(["%s" % p for p in self.possessions.all()]))
 
@@ -1938,7 +1942,7 @@ class FactTransaction(Factoid):
     class Meta:
         verbose_name_plural = "Factoid Transaction"
 
-    def __unicode__(self):
+    def __str__(self):
         return "id[%s], from source [%s] " % (self.id, self.sourcekey)
 
     table_order = 15
@@ -1950,7 +1954,7 @@ class PlaceType(mymodels.PomsModel):
     class Admin(admin.ModelAdmin):
         pass
 
-    def __unicode__(self):
+    def __str__(self):
         return u'%s' % self.description
 
     class Meta:
@@ -2121,7 +2125,7 @@ class Place(mymodels.PomsModel):
         exit += blank_or_string(self.name)
         return exit
 
-    def __unicode__(self):
+    def __str__(self):
         return self.__nameandparent__()
 
     class Meta:

@@ -1,4 +1,4 @@
-{{obj.id}}
-{{obj.shortdesc}}
-{{obj.helper_keywordsearch}}
-{{obj.sourcekey.sourcefordataentry}}
+{{object.id}}
+{{object.shortdesc}}
+{{object.helper_keywordsearch}}
+{{object.sourcekey.sourcefordataentry}}

@@ -164,10 +164,10 @@ admin.autodiscover()
 
 # todo assuming this is because of /db/ prefix, will remove
 # when wagtail rationalises site
-try:
-    prefix = settings.URL_PREFIX
-except:
-    prefix = ""
+# try:
+#     prefix = settings.URL_PREFIX
+# except:
+prefix = ""
 
 urlpatterns = [
     url(r'^accounts/', include('registration.backends.model_activation.urls')),

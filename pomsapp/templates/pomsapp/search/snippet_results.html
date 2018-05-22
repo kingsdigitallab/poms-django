@@ -10,7 +10,7 @@
 
 <!-- end of hidden fields -->
 
-{% if items.object_list or query %}
+{% if object_list %}
 
 	<div class="hds">
 	  <h3>{% if query %}Matching Records{% else %}Showing All Records{% endif %} <dfn>(<span id="rec_num">{{totitems|default:'None'}}</span>)</dfn></h3>
@@ -30,7 +30,7 @@
 		
 <div class="tsb">
 
-	{% if items.object_list or query %}
+	{% if object_list %}
 		  <ul class="tsn">
 			{% for result_type in result_types %}
 				<li id={{result_type.uniquename}}><a href="search?query={{query}}&amp;years={{active_years}}&amp;basic_search_type={{result_type.uniquename}}&amp;page=1">{{result_type.label|capfirst}}</a></li>
@@ -66,7 +66,7 @@
 			{# FACTOIDS #}
 			{# ******** #}
 			
-			{% ifequal active_result_type 'factoid' %}
+			{% ifequal index_type 'factoid' %}
 
 			      <tr>
 			        <th><a class="{{active_ordering|infer_class:'factoiddesc'}} arrowUp" href="javascript:change_ordering('factoiddesc');"><b>Description</b></a></th>
@@ -95,7 +95,7 @@
 			{# SOURCES #}
 			{# ******** #}
 
-			{% ifequal active_result_type 'source' %}
+			{% ifequal index_type 'source' %}
 
 			      <tr>
 			        <th><a class="{{active_ordering|infer_class:'sourcehammond'}} arrowUp" href="javascript:change_ordering('sourcehammond');"><b>Calendar number</b></a></th>
@@ -124,7 +124,7 @@
 			{# PLACES #}
 			{# ******** #}
 
-			{% ifequal active_result_type 'place' %}
+			{% ifequal index_type 'place' %}
 
 			      <tr>
 			        <th><a class="{{active_ordering|infer_class:'placename'}} arrowUp" href="javascript:change_ordering('placename');"><b>Place name</b></a></th>
@@ -151,7 +151,7 @@
 			{# ******** #}
 			
 			
-			{% ifequal active_result_type 'people' %}
+			{% ifequal index_type 'people' %}
 
 			      <tr>
 			        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('personfull');"><b>Full Name</b></a></th> #}

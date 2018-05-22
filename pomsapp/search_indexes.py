@@ -32,7 +32,7 @@ class PomsIndex(indexes.SearchIndex):
     """
     #
     object_id = indexes.IntegerField(model_attr='id')
-    index_type = indexes.CharField()
+    index_type = indexes.CharField(faceted=True,)
     text = indexes.CharField(document=True, use_template=True)
     surname = indexes.MultiValueField(
         faceted=True,
@@ -55,11 +55,8 @@ class PomsIndex(indexes.SearchIndex):
         faceted=True,
         null=True)
     startdate = indexes.IntegerField(
-        faceted=True,
         null=True)
     daterange = indexes.CharField(
-
-        faceted=True,
         null=True)
     documenttype = indexes.MultiValueField(
 
@@ -246,7 +243,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
 
     def prepare(self, obj):
         self.prepared_data = super(PersonIndex, self).prepare(obj)
-        index_type = 'person'
+        self.prepared_data['index_type'] = 'person'
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
@@ -440,7 +437,7 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
     def prepare(self, obj):
         self.prepared_data = super(FactoidIndex, self).prepare(obj)
-        index_type = 'factoid'
+        self.prepared_data['index_type'] = 'factoid'
 
         self.prepared_data[
             'surname'
@@ -662,7 +659,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
     def prepare(self, obj):
         self.prepared_data = super(SourceIndex, self).prepare(obj)
-        index_type = 'source'
+        self.prepared_data['index_type'] = 'source'
         self.prepared_data[
             'surname'
         ] = list(poms_models.Person.objects.filter(
@@ -876,7 +873,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
     def prepare(self, obj):
         self.prepared_data = super(PlaceIndex, self).prepare(obj)
-        index_type = 'place'
+        self.prepared_data['index_type'] = 'place'
         self.prepared_data[
             'surname'
         ] = list(poms_models.Person.objects.filter(

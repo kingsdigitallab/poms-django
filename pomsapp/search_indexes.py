@@ -304,7 +304,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
-            factoid__people=obj
+            factoids__people=obj
         ).distinct()
         if charters.count() > 0:
             documenttype = list()
@@ -335,31 +335,31 @@ class PersonIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
-                factoid__people=obj
+                factoids__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['posslands'] = list(
             poms_models.Poss_Lands.objects.filter(
-                factoid__people=obj
+                factoids__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['possrevkind'] = list(
             poms_models.Poss_Revenues_kind.objects.filter(
-                factoid__people=obj
+                factoids__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['possrevsilver'] = list(
             poms_models.Poss_Revenues_kind.objects.filter(
-                factoid__people=obj
+                factoids__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['privileges'] = list(
             poms_models.Privileges.objects.filter(
-                factoid__people=obj
+                factoids__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
@@ -400,7 +400,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
     def prepare_possoffice(self, obj):
         return list(
             poms_models.Poss_Office.objects.filter(
-                assocfactoidposs_office__factoid__people=obj
+                assocfactoidposs_office__factoids__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
@@ -926,19 +926,45 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             helper_places=obj
         ).distinct().values_list('forename', flat=True))
 
-        # todo find the earliest date for all data related to this place
+        # find the earliest date for all data related to this place
+        # and the latest for startdate and range
         startdates = []
         early_person = poms_models.Person.objects.filter(
             helper_places=obj
-        ).aggregate(Min('floruitstartyr'))
-        startdates.append(early_person['floruitstartyr__min'])
+        ).order_by('floruitstartyr')
+        if early_person.count() > 0:
+            startdates.append(early_person[0].floruitstartyr)
+        early_factoid = poms_models.Factoid.objects.filter(
+            helper_places=obj
+        ).order_by('from_year')
+        if early_factoid.count() > 0:
+            startdates.append(early_factoid[0].from_year)
+        if len(startdates) > 0:
+            startdates.sort()
 
-        # todo latest as well for range
-        # self.prepared_data[
-        #     'startdate'] = obj.from_year
-        #
-        # self.prepared_data[
-        #     'daterange'] = obj.helper_daterange
+            self.prepared_data[
+                'startdate'] = startdates[0]
+
+        enddates = []
+        end_person = poms_models.Person.objects.filter(
+            helper_places=obj
+        ).order_by('-floruitstartyr')
+        if end_person.count() > 0:
+            enddates.append(end_person[0].floruitstartyr)
+        end_factoid = poms_models.Factoid.objects.filter(
+            helper_places=obj
+        ).order_by('-from_year')
+        if end_factoid.count() > 0:
+            enddates.append(end_factoid[0].from_year)
+        if len(enddates) > 0:
+            enddates.sort(reverse=True)
+            if len(startdates) > 0:
+                self.prepared_data[
+                    'daterange'
+                ] = '{}-{}'.format(
+                    startdates[0],
+                    enddates[-1]
+                )
 
 
         self.prepared_data[

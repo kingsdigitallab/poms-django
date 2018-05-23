@@ -1,0 +1,144 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 7 ]>    <html class="no-js ie7" lang="en"> <![endif]--> 
+<!--[if IE 8 ]>    <html class="no-js ie8" lang="en"> <![endif]--> 
+<!--[if gte IE 9]><script type="text/javascript">Cufon.set('engine', 'canvas');</script><![endif]-->
+
+    <head>
+        <title>POMS: browse</title>
+        <!-- jquery from Google CDN -->
+        <script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/jquery-1.7.2.min.js"></script>
+         <script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/jquery.tools.min.js"></script>
+       
+        
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/css/base.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/css/site.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/css/mod.css" />
+        <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/css/typography.css" />
+   
+		<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/jquery.qtip.min.css" />
+		<style type="text/css" media="screen">
+
+		.ui-tooltip{
+			min-width: 550px;
+			overflow: auto;
+			max-height: 400px;
+			margin-top: 150px;
+		}
+
+		.ui-tooltip-bootstrap .ui-tooltip-titlebar {
+			font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
+		}
+
+		#ui-tooltip-modal{
+			max-width: 420px;
+
+			-moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+			-webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+			box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+		}
+
+		#ui-tooltip-modal .ui-tooltip-content{
+			padding: 10px;
+		}
+
+
+		</style> 
+        
+
+
+        <!-- Modernizr: this should be called AFTER CSS to avoid FOUC
+            For dev purposes use /_a/s/libs/modernizr-dev.js
+        -->
+      
+		{# // <script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/jquery-1.3.2.min.js"></script> #}
+		 
+		<script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/cufon.min.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/jquery.blockUI2.31.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/jquery.tipsy.js"></script>
+		<script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/font/agaramondpro.js"></script>
+
+		<script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/djfacet.js"></script>
+	
+	<script type="text/javascript" src="{{ STATIC_URL }}{{DJF_STATIC_PATH}}/js/modernizr-dev.js"></script>
+
+    <script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-src.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.css"></link> 
+
+	<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-overlap.js"></script>
+
+	
+
+		
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />		  
+    </head>
+
+	<body>
+		
+		<div class="hidden">
+            <ul>
+                <li><a href="#contentSection">Skip to content</a></li>
+                <li><a href="#localNavigation">Skip to local navigation</a></li>                
+                <li><a href="#mainNavigation">Skip to main navigation</a></li>
+            </ul>
+       
+		{# a couple of useful fields #}
+		<input type="hidden" id="active_restype" name="" value="{{result_typeObj.uniquename}}" />
+		<input type="hidden" id="active_urlstub" name="" value="{{newurl_stub}}" />
+		<input type="hidden" id="blockUImessage1" name="" value="" />
+		
+
+
+		</div>
+
+        <!-- WRAPPER STARTS -->
+        <div class="wrapper" id="djfacet_maindiv">
+            
+
+		
+			{% block header %}
+		
+			{% endblock %}
+
+
+			{% block contents %}
+
+
+ 
+
+			{% endblock %}
+			
+ 
+          
+
+			{% include "djfacet/components/footer.html" %}
+            
+            
+           
+            
+            
+        </div>
+        
+        <!-- WRAPPER ENDS -->
+		{#         <div class="feedback"> #}
+		{# 	<a id="un-button" href="#" class="un-right css3" style="background-color: rgb(64, 64, 64); color: rgb(255, 255, 255); margin-top: -32px; right: 38px; opacity: 0.96;">Feedback</a> #}
+		{# </div> #}
+		
+		 
+		{% block body_closing %}
+			<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+			{% include "pomsapp/snippet_history.html" %}
+		{% endblock %}
+
+
+
+
+	</body>
+</html>
+
+
+

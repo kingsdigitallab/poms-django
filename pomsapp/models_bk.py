@@ -972,7 +972,7 @@ class AssocWitnessInline(admin.TabularInline):
 
 class AssocFactoidProanima(mymodels.TimeStampedHiddenModel):
 	#factoidpersonkey = models.IntegerField()
-	factoidtrans = models.ForeignKey('Factoid')
+	factoidtrans = models.ForeignKey('Factoid', related_name='assocfactoidproanima')
 	person = models.ForeignKey('Person')
 	role = models.ForeignKey('Role', null=True, blank=True, verbose_name="role",  
 		limit_choices_to = {'id__in' : [14, 22, 23, 30]}, default=14 )	#the ProAnima roles: not sure about default

@@ -357,9 +357,9 @@ def factoid_detail(request, factoid_id):
     if ajax_flag:
         items = None
         if tab == 'assocfactoidperson_set':
-            items = factoid.assocfactoidperson_set.all().order_by(*chosen_ordering)
+            items = AssocFactoidPerson.objects.filter(factoid=factoid).order_by(*chosen_ordering)
         if tab == 'assocfactoidwitness_set':
-            items = factoid.assocfactoidwitness_set.all().order_by(*chosen_ordering)
+            items = AssocFactoidWitness.objects.filter(factoid=factoid).order_by(*chosen_ordering)
         if tab == 'assocfactoidproanima_set':
             items = factoid.assocfactoidproanima_set.all().order_by(*chosen_ordering)
         # NOTE: no ordering for possessions as it'd require ad hoc field-choice
@@ -369,8 +369,8 @@ def factoid_detail(request, factoid_id):
             items = factoid.assocfactoidposs_alms_set.filter(helper_inferred=False)
         if tab == 'assocfactoidposs_objects_set':
             items = factoid.assocfactoidposs_objects_set.filter(helper_inferred=False)
-        if tab == 'assocfactoidposs_office_set':
-            items = factoid.assocfactoidposs_office_set.filter(helper_inferred=False)
+        if tab == 'assocfactoidposs_office':
+            items = factoid.assocfactoidposs_office.filter(helper_inferred=False)
         if tab == 'assocfactoidposs_pgeneral_set':
             items = factoid.assocfactoidposs_pgeneral_set.filter(helper_inferred=False)
         if tab == 'assocfactoidposs_revenuekind_set':
@@ -406,15 +406,15 @@ def factoid_detail(request, factoid_id):
 
     # vals['possessionFact'] = source.get_factoids('possession', chosen_ordering)
     # and the ORDERING?
-    vals['assocfactoidperson_set'] = factoid.assocfactoidperson_set.all().order_by(*chosen_ordering)
-    vals['assocfactoidwitness_set'] = factoid.assocfactoidwitness_set.all().order_by(*chosen_ordering)
+    vals['assocfactoidperson_set'] = AssocFactoidPerson.objects.filter(factoid=factoid).order_by(*chosen_ordering)
+    vals['assocfactoidwitness_set'] = AssocFactoidWitness.objects.filter(factoid=factoid).order_by(*chosen_ordering)
     vals['assocfactoidproanima_set'] = factoid.assocfactoidproanima_set.all().order_by(*chosen_ordering)
 
     if real_f[0] in ['transaction', 'possession']:
         vals['assocfactoidposs_lands_set'] = factoid.assocfactoidposs_lands_set.filter(helper_inferred=False)
         vals['assocfactoidposs_alms_set'] = factoid.assocfactoidposs_alms_set.filter(helper_inferred=False)
         vals['assocfactoidposs_objects_set'] = factoid.assocfactoidposs_objects_set.filter(helper_inferred=False)
-        vals['assocfactoidposs_office_set'] = factoid.assocfactoidposs_office_set.filter(helper_inferred=False)
+        vals['assocfactoidposs_office'] = factoid.assocfactoidpossoffice.filter(helper_inferred=False)
         vals['assocfactoidposs_pgeneral_set'] = factoid.assocfactoidposs_pgeneral_set.filter(helper_inferred=False)
         vals['assocfactoidposs_revenuekind_set'] = factoid.assocfactoidposs_revenuekind_set.filter(
             helper_inferred=False)
@@ -449,7 +449,7 @@ def factoid_detail(request, factoid_id):
                    'assocfactoidposs_lands_set': vals.get('assocfactoidposs_lands_set', None),
                    'assocfactoidposs_alms_set': vals.get('assocfactoidposs_alms_set', None),
                    'assocfactoidposs_objects_set': vals.get('assocfactoidposs_objects_set', None),
-                   'assocfactoidposs_office_set': vals.get('assocfactoidposs_office_set', None),
+                   'assocfactoidposs_office': vals.get('assocfactoidposs_office', None),
                    'assocfactoidposs_pgeneral_set': vals.get('assocfactoidposs_pgeneral_set', None),
                    'assocfactoidposs_revenuekind_set': vals.get('assocfactoidposs_revenuekind_set', None),
                    'assocfactoidposs_revenuesilver_set': vals.get('assocfactoidposs_revenuesilver_set',

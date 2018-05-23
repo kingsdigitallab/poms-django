@@ -31,7 +31,7 @@ def admin_overview(request):
 
 class PomsFacetedSearchView(FacetedSearchView):
     """
-    Main faceted search for POMS
+    Main search for POMS
     """
     facet_fields = ['index_type']
     form_class = PomsFacetedSearchForm
@@ -81,3 +81,9 @@ class PomsFacetedSearchView(FacetedSearchView):
                 )
             context['querystring'] = querystring
         return context
+
+class PomsFacetedBrowse(FacetedSearchView):
+    """The full faceted view, with all categories """
+    template_name = 'pomsapp/browse/facet_main.html'
+    queryset = SearchQuerySet()
+

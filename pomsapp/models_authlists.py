@@ -115,6 +115,10 @@ class Role(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.name
+
     table_group = 'Authority lists'
 
 
@@ -162,6 +166,9 @@ class TitleType(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -210,6 +217,9 @@ class Floruit(mymodels.PomsAuthorityList):
     def __unicode__(self):
         return self.eml + self.century
         # return 'Id[%s], Type[%s], Date[%s], Title[%s]' % (self.id,
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -223,6 +233,9 @@ class Gender(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -252,6 +265,9 @@ class Chartertype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -266,6 +282,9 @@ class Relationshipmetatype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 

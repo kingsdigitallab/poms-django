@@ -168,3 +168,11 @@ class PomsFacetedBrowse(PomsFacetedSearchView):
                 )
             # todo add view's order as well?
         return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(
+            PomsFacetedBrowse, self
+        ).get_context_data(*args, **kwargs)
+        context['facet_group'] = self.ajax_facet
+        context['facets'] = self.facet_fields[self.ajax_facet]
+        return context

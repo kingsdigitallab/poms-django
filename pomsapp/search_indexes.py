@@ -71,6 +71,22 @@ class PomsIndex(indexes.SearchIndex):
     medievalgaelicforename = indexes.MultiValueField(
         faceted=True,
         null=True)
+
+    medievalgaelicsurname = indexes.MultiValueField(
+        faceted=True,
+        null=True)
+
+    moderngaelicforename = indexes.MultiValueField(
+        faceted=True,
+        null=True)
+
+    moderngaelicforename = indexes.MultiValueField(
+        faceted=True,
+        null=True)
+
+
+
+
     startdate = indexes.IntegerField(
         faceted=True,
         null=True)
@@ -288,10 +304,27 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             self.prepared_data[
                 'gender'
             ] = obj.genderkey.name
+
         if obj.medievalgaelicforename:
             self.prepared_data[
                 'medievalgaelicforename'
             ] = obj.medievalgaelicforename.name
+
+        if obj.medievalgaelicsurename:
+            self.prepared_data[
+                'medievalgaelicsurename'
+            ] = obj.medievalgaelicsurename
+
+        if obj.medievalmodernforename:
+            self.prepared_data[
+                'moderngaelicforename'
+            ] = obj.moderngaelicforename.name
+
+        if obj.moderngaelicsurename:
+            self.prepared_data[
+                'moderngaelicsurename'
+            ] = obj.moderngaelicsurename
+
 
         if obj.genderkey == 5:
             self.prepared_data[
@@ -494,6 +527,27 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         ] = list(poms_models.MedievalGaelicForename.objects.filter(
             person__factoids=obj
         ).distinct().values_list('name', flat=True))
+
+        self.prepared_data[
+            'moderngaelicforename'
+        ] = list(poms_models.ModernGaelicForename.objects.filter(
+            person__factoids=obj
+        ).distinct().values_list('name', flat=True))
+
+        self.prepared_data[
+            'moderngaelicsurename'
+        ] = list(poms_models.Person.objects.filter(
+            factoids=obj
+        ).distinct().values_list('moderngaelicsurename', flat=True))
+
+        self.prepared_data[
+            'moderngaelicsurename'
+        ] = list(poms_models.Person.objects.filter(
+            factoids=obj
+        ).distinct().values_list('moderngaelicsurename', flat=True))
+
+
+
 
         # if 'transaction' in obj.inferred_type:
         #     # facttransaction__from_year
@@ -718,6 +772,24 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         ] = list(poms_models.MedievalGaelicForename.objects.filter(
             person__factoids__sourcekey=obj
         ).distinct().values_list('name', flat=True))
+
+        self.prepared_data[
+            'moderngaelicforename'
+        ] = list(poms_models.ModernGaelicForename.objects.filter(
+            person__factoids__sourcekey=obj
+        ).distinct().values_list('name', flat=True))
+
+        self.prepared_data[
+            'moderngaelicsurename'
+        ] = list(poms_models.Person.objects.filter(
+            factoids__sourcekey=obj
+        ).distinct().values_list('moderngaelicsurename', flat=True))
+
+        self.prepared_data[
+            'moderngaelicsurename'
+        ] = list(poms_models.Person.objects.filter(
+            factoids__sourcekey=obj
+        ).distinct().values_list('moderngaelicsurename', flat=True))
 
         self.prepared_data[
             'startdate'] = obj.from_year
@@ -980,7 +1052,23 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             person__helper_places=obj
         ).distinct().values_list('name', flat=True))
 
+        self.prepared_data[
+            'moderngaelicforename'
+        ] = list(poms_models.ModernGaelicForename.objects.filter(
+            person__helper_places=obj
+        ).distinct().values_list('name', flat=True))
 
+        self.prepared_data[
+            'moderngaelicsurename'
+        ] = list(poms_models.Person.objects.filter(
+            helper_places=obj
+        ).distinct().values_list('moderngaelicsurename', flat=True))
+
+        self.prepared_data[
+            'moderngaelicsurename'
+        ] = list(poms_models.Person.objects.filter(
+            helper_places=obj
+        ).distinct().values_list('moderngaelicsurename', flat=True))
 
 
         self.prepared_data[

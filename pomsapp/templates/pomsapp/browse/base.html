@@ -72,7 +72,53 @@
 	<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-overlap.js"></script>
 
 	
+		<script type="text/javascript">
+		
+			
+		// ONLOAD FUNCTION
 
+		$(document).ready(function() {
+
+
+			// overlay for facets
+			qtip_refineSearch();
+			qtip_history();
+			qtip_previews("{{STATIC_URL}}");
+					 
+			toggle_facets();  // open close the facets on demand
+			
+			{% if djfacet_splashpage %}
+				jump_to_facetgroup();
+			{% endif %}	
+			
+			{% if ajaxflag %}
+				
+				// hack: since I couldnt get the +/- to work, it's always plus! 
+				$(".openclosefacet").each(function() {
+					permute_plusminus($(this));
+					});
+					
+				// update facets behaviour	
+				$(".openclosefacet").bind( "click", function(event, ui) {
+					updateFacetValues($(this));
+				});
+				
+			{% endif %}		
+			
+			/* Tipsy tool tips -  used? */ 
+			   try {
+			       $(".tip").tipsy({
+			           delayIn: 500,
+			           delayOut: 500,
+			           fade: true
+			       });
+			   } catch(e) {
+			       // pass
+			       }		
+		
+		});
+		
+		</script>
 		
 	<meta http-equiv="X-UA-Compatible" content="IE=8" />		  
     </head>
@@ -106,8 +152,6 @@
 
 
 			{% block contents %}
-
-
  
 
 			{% endblock %}
@@ -136,7 +180,36 @@
 
 
 
+		<!-- GOOGLE ANALYTICS CODE START -->
 
+
+		<!--script type="text/javascript">
+
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-24308089-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+        </script-->
+        
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-68207578-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+		
+
+		<!-- GOOGLE ANALYTICS CODE END -->		
 	</body>
 </html>
 

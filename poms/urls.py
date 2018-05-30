@@ -195,6 +195,7 @@ urlpatterns = [
     url(r'^' + prefix + 'overview/', admin_overview),
     url(r'^' + prefix + 'record/', include('pomsapp.urls_record')),
     url(r'^' + prefix + 'search/', include('pomsapp.urls_search')),
+    url(r'^' + prefix + 'browse/', include('pomsapp.urls_browse')),
     url(r'^' + prefix + 'familytrees/', include('pomsapp.urls_family')),
     url(r'^' + prefix + 'map/', include('pomsapp.urls_map')),
     url(r'^' + prefix + 'sna/', include('sna.urls')),

@@ -68,3 +68,16 @@ class PomsFacetedSearchForm(FacetedSearchForm):
 
 
         return sqs
+
+class PomsFacetedBrowseForm(FacetedSearchForm):
+
+    def no_query_found(self):
+        """Determines the behaviour when no query was found; returns all the
+        results."""
+        return self.searchqueryset.all()
+
+    def search(self):
+        sqs = super(PomsFacetedBrowseForm, self).search()
+        if not self.is_valid():
+            return self.no_query_found()
+        return sqs

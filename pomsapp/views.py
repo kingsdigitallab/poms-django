@@ -5,8 +5,7 @@ from django.template import RequestContext
 from haystack.generic_views import FacetedSearchView
 from haystack.query import SearchQuerySet
 
-from pomsapp.forms import PomsFacetedSearchForm
-from pomsapp.search_indexes import PomsIndex
+from pomsapp.forms import PomsFacetedSearchForm, PomsFacetedBrowseForm
 
 
 def admin_overview(request):
@@ -96,15 +95,19 @@ class PomsFacetedSearchView(FacetedSearchView):
         return context
 
 
-class PomsFacetedBrowse(PomsFacetedSearchView):
+class PomsFacetedBrowse(FacetedSearchView):
     """The full faceted view, with all categories
     Is configured in browse urls to pass ajax snippets as well
     """
+    form_class = PomsFacetedBrowseForm
+    queryset = SearchQuerySet()
+    load_all = True
     template_name = 'pomsapp/browse/facetedbrowser.html'
     ajax = False
     ajax_facet = None
+    facet_fields = ['index_type']
 
-    facet_fields = {
+    facet_group_fields = {
         "person": [
             "surnames",
             "forenames",
@@ -130,12 +133,12 @@ class PomsFacetedBrowse(PomsFacetedSearchView):
         ],
         "transaction": [
             "transactiontypes",
-            "offices",
+            "possoffice",
             "possunfreepersons",
             'posslands',
             'possrevkind',
-            'possrevsilver'
-            'privileges'
+            'possrevsilver',
+            'privileges',
             'places'
         ],
         'termsoftenure': [
@@ -151,28 +154,35 @@ class PomsFacetedBrowse(PomsFacetedSearchView):
 
     }
 
+    def __init__(self, *args, **kwargs):
+        super(PomsFacetedBrowse, self).__init__(*args, **kwargs)
+        # if self.ajax and self.ajax_facet is not None:
+        #     self.facet_fields = self.facet_fields + self.facet_group_fields[
+        #         self.ajax_facet
+        #     ]
+
     def get_queryset(self):
         """Add facets to queryset
         all if not ajax, or only one facet group if ajax"""
         queryset = super(PomsFacetedBrowse, self).get_queryset()
-        if not self.ajax:
-            for field_name, field in PomsIndex.fields.items():
-                if field.faceted:
-                    queryset = queryset.facet(
-                        field_name, sort='index', limit=-1, mincount=1
-                    )
-        elif self.ajax and self.ajax_facet is not None:
-            for field_name in self.facet_fields[self.ajax_facet]:
+        if self.ajax and self.ajax_facet is not None:
+            for field_name in self.facet_group_fields[self.ajax_facet]:
                 queryset = queryset.facet(
                     field_name, sort='index', limit=-1, mincount=1
                 )
-            # todo add view's order as well?
+        # todo add view's order as well?
         return queryset
 
     def get_context_data(self, *args, **kwargs):
         context = super(
             PomsFacetedBrowse, self
         ).get_context_data(*args, **kwargs)
-        context['facet_group'] = self.ajax_facet
-        context['facets'] = self.facet_fields[self.ajax_facet]
+        if self.ajax_facet is not None:
+            context[
+                'facet_group'] = self.ajax_facet
+            context[
+                'facet_group_fields'] = self.facet_group_fields[
+                self.ajax_facet]
+        qs = self.request.GET.copy()
+        context['querydict'] = qs.copy()
         return context

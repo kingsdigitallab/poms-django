@@ -80,7 +80,7 @@ class PomsIndex(indexes.SearchIndex):
         faceted=True,
         null=True)
 
-    moderngaelicforename = indexes.MultiValueField(
+    moderngaelicsurname = indexes.MultiValueField(
         faceted=True,
         null=True)
 
@@ -310,20 +310,19 @@ class PersonIndex(PomsIndex, indexes.Indexable):
                 'medievalgaelicforename'
             ] = obj.medievalgaelicforename.name
 
-        if obj.medievalgaelicsurename:
-            self.prepared_data[
-                'medievalgaelicsurename'
-            ] = obj.medievalgaelicsurename
+        self.prepared_data[
+                'medievalgaelicsurname'
+            ] = obj.medievalgaelicsurname
 
-        if obj.medievalmodernforename:
+        if obj.moderngaelicforename:
             self.prepared_data[
                 'moderngaelicforename'
             ] = obj.moderngaelicforename.name
 
-        if obj.moderngaelicsurename:
-            self.prepared_data[
-                'moderngaelicsurename'
-            ] = obj.moderngaelicsurename
+
+        self.prepared_data[
+                'moderngaelicsurname'
+            ] = obj.moderngaelicsurname
 
 
         if obj.genderkey == 5:
@@ -368,31 +367,31 @@ class PersonIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
-                factoids__people=obj
+                factoid__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['posslands'] = list(
             poms_models.Poss_Lands.objects.filter(
-                factoids__people=obj
+                factoid__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['possrevkind'] = list(
             poms_models.Poss_Revenues_kind.objects.filter(
-                factoids__people=obj
+                factoid__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['possrevsilver'] = list(
             poms_models.Poss_Revenues_kind.objects.filter(
-                factoids__people=obj
+                factoid__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
         self.prepared_data['privileges'] = list(
             poms_models.Privileges.objects.filter(
-                factoids__people=obj
+                factoid__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
@@ -433,7 +432,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
     def prepare_possoffice(self, obj):
         return list(
             poms_models.Poss_Office.objects.filter(
-                assocfactoidposs_office__factoids__people=obj
+                factoid__people=obj
             ).distinct().values_list('name', flat=True)
         )
 
@@ -535,16 +534,16 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'moderngaelicsurename'
+            'moderngaelicsurname'
         ] = list(poms_models.Person.objects.filter(
             factoids=obj
-        ).distinct().values_list('moderngaelicsurename', flat=True))
+        ).distinct().values_list('moderngaelicsurname', flat=True))
 
         self.prepared_data[
-            'moderngaelicsurename'
+            'moderngaelicsurname'
         ] = list(poms_models.Person.objects.filter(
             factoids=obj
-        ).distinct().values_list('moderngaelicsurename', flat=True))
+        ).distinct().values_list('moderngaelicsurname', flat=True))
 
 
 
@@ -571,7 +570,7 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
-            factoid=obj
+            factoids=obj
         ).distinct()
 
         if charters.count() > 0:
@@ -679,7 +678,7 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         self.prepared_data[
             'possoffice'] = list(
             poms_models.Poss_Office.objects.filter(
-                assocfactoidposs_office__factoid=obj
+                factoid=obj
             ).distinct().values_list('name', flat=True)
         )
 
@@ -780,16 +779,16 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'moderngaelicsurename'
+            'moderngaelicsurname'
         ] = list(poms_models.Person.objects.filter(
             factoids__sourcekey=obj
-        ).distinct().values_list('moderngaelicsurename', flat=True))
+        ).distinct().values_list('moderngaelicsurname', flat=True))
 
         self.prepared_data[
-            'moderngaelicsurename'
+            'moderngaelicsurname'
         ] = list(poms_models.Person.objects.filter(
             factoids__sourcekey=obj
-        ).distinct().values_list('moderngaelicsurename', flat=True))
+        ).distinct().values_list('moderngaelicsurname', flat=True))
 
         self.prepared_data[
             'startdate'] = obj.from_year
@@ -804,7 +803,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
-            factoid__sourcekey=obj
+            factoids__sourcekey=obj
         ).distinct()
 
         if charters.count() > 0:
@@ -913,7 +912,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         self.prepared_data[
             'possoffice'] = list(
             poms_models.Poss_Office.objects.filter(
-                assocfactoidposs_office__factoid__sourcekey=obj
+                factoid__sourcekey=obj
             ).distinct().values_list('name', flat=True)
         )
 
@@ -1005,15 +1004,16 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             helper_places=obj
         ).order_by('floruitstartyr')
         if early_person.count() > 0:
-            startdates.append(early_person[0].floruitstartyr)
+            if early_person[0].floruitstartyr is not None:
+                startdates.append(early_person[0].floruitstartyr)
         early_factoid = poms_models.Factoid.objects.filter(
             helper_places=obj
         ).order_by('from_year')
         if early_factoid.count() > 0:
-            startdates.append(early_factoid[0].from_year)
+            if early_factoid[0].from_year is not None:
+                startdates.append(early_factoid[0].from_year)
         if len(startdates) > 0:
             startdates.sort()
-
             self.prepared_data[
                 'startdate'] = startdates[0]
 
@@ -1021,12 +1021,12 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         end_person = poms_models.Person.objects.filter(
             helper_places=obj
         ).order_by('-floruitstartyr')
-        if end_person.count() > 0:
+        if end_person.count() > 0 and end_person[0].floruitstartyr is not None:
             enddates.append(end_person[0].floruitstartyr)
         end_factoid = poms_models.Factoid.objects.filter(
             helper_places=obj
         ).order_by('-from_year')
-        if end_factoid.count() > 0:
+        if end_factoid.count() > 0 and end_factoid[0].from_year is not None:
             enddates.append(end_factoid[0].from_year)
         if len(enddates) > 0:
             enddates.sort(reverse=True)
@@ -1059,16 +1059,16 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'moderngaelicsurename'
+            'moderngaelicsurname'
         ] = list(poms_models.Person.objects.filter(
             helper_places=obj
-        ).distinct().values_list('moderngaelicsurename', flat=True))
+        ).distinct().values_list('moderngaelicsurname', flat=True))
 
         self.prepared_data[
-            'moderngaelicsurename'
+            'moderngaelicsurname'
         ] = list(poms_models.Person.objects.filter(
             helper_places=obj
-        ).distinct().values_list('moderngaelicsurename', flat=True))
+        ).distinct().values_list('moderngaelicsurname', flat=True))
 
 
         self.prepared_data[
@@ -1078,7 +1078,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
-            factoid__helper_places=obj
+            factoids__helper_places=obj
         ).distinct()
 
         if charters.count() > 0:
@@ -1187,7 +1187,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         self.prepared_data[
             'possoffice'] = list(
             poms_models.Poss_Office.objects.filter(
-                assocfactoidposs_office__factoid__helper_places=obj
+                factoid__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )
 

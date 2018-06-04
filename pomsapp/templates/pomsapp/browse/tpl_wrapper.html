@@ -1,0 +1,443 @@
+{% extends "pomsapp/browse/tpl_wrapper_base.html" %}
+
+
+{% load extrafilters %}
+
+
+
+
+
+	{% block permalink %} 
+	    {# <ul class="utl m1"> #}
+	    {#   <li class="i1"><a href="#" title="Permanent URL for this page, which will allow you to save a bookmark"><b>Permalink: http://tinyurl.com/poms-AE539C3</b></a></li> #}
+	    {# </ul> #}
+
+    {% endblock %}
+
+
+
+{# ################## #}
+{# #   							       #}
+{# #  CONTROL BAR: ACTIVE FACETS LIST  #}
+{# # 								   #}
+{# ################## #}
+
+
+{% block controlbar %} 
+			
+
+           <div class="hds">
+              <h3>Selected Terms</h3>
+              <ul class="utl m2">
+				<li class="i3"><a id="empty_controls" title="Remove all terms"><b>Remove all</b></a></li>
+				<li class="i4"><a title="why do I see these results?" onClick="explain_results()"><b>Explain </b></a></li>
+                {# <li class="i1"><a href="#" title="Save Terms"><b>Save Terms</b></a></li> #}
+                {# <li class="i2"><a href="#" title="Load Terms"><b>Load Terms</b></a></li> #}
+
+              </ul>
+            </div>
+
+				{#             <div class="g n3"> #}
+				{# 		 #}
+				{# {% for facetgroup, facets in facetgroups_and_facets reversed %} #}
+				{# 	 #}
+				{#     <div class="u {% cycle 'u0' 'u1' 'u2' 'u3' 'u4' 'u5' %}"> #}
+				{# 	    <h4>{{facetgroup.label|capfirst}}</h4> #}
+				{# 		                <ul id={{facetgroup.uniquename}} class="active_facets"> #}
+				{# 			<small class="no_facets">none</small> #}
+				{# 		                </ul> #}
+				{# 	</div> #}
+				{# {% endfor %}	 #}
+				{# 					 #}
+				{#             </div> #}
+
+
+			 <ul class="nvs active_facets">
+				{% for facetgroup, facets in facetgroups_and_facets reversed %}
+				<li class="{% cycle 'm0' 'm1' 'm2' 'm3' 'm4'%}">
+					<h5 id="{{facetgroup.uniquename}}" class="no_facets">{{facetgroup.label|capfirst}}</h5> &#8250; 
+						{# <a href="#">Facet</a> &#8250;  #}
+						{# <strong>FacetValue</strong> <a href="#" class="t9 m2" title="Remove this as a filter">Remove</a> #}
+					<small class="no_facets">none</small>
+				</li>
+				{% endfor %}
+			</ul>
+			
+						   
+
+			
+			
+
+			{# 2010-07-07 hidden fields for BlockUI message #}
+			<div id="blockUImessage1" style="display:none">
+	        </div>
+	
+			<div id="blockUImessage2" style="display:none">
+	        </div>
+
+{% endblock %}
+
+
+
+
+{# ################## #}
+{# #   							       #}
+{# #  RESULTS OF A SEARCH 			   #}
+{# # 								   #}
+{# ################## #}
+
+
+
+{% block results %}
+<!-- hidden fields with useful data -->
+{# e.g. a db field to do the ordering on: 'shortdesc', or an annotation command: 'annotate=factoid' #}
+<input type="hidden" id="active_ordering" value="default" />
+<input type="hidden" id="refresh_facets" value="{{count_is_active}}" />
+<!-- end of hidden fields -->
+
+
+<div class="hds">
+  <h3>Matching Records <dfn>(<span id="rec_num">{{items|length|default:"None"}}</span>)</dfn></h3>
+  <ul class="utl m2">
+    {# <li class="i1"><a href="#" title="Download these Results"><b>Download these Results</b></a></li> #}
+	{% if user.is_superuser %}
+    	<li class="i1"><a href="javascript:showLogs();" title="Hi there superuser!"><b>Log Query</b></a></li>
+		{% if count_test_button %}
+ 	    	<li class="i1"><a href="javascript:updateFacetValues(true);" title="Hi there superuser!"><b>Update open facet</b></a></li>
+		{% endif %}
+	{% endif %}
+  </ul>
+</div>
+
+
+<div class="tsb">
+  <ul class="tsn">
+	
+	{% for result_type in result_types %}
+		<li id={{result_type.uniquename}}><a href="#results_{{result_type.uniquename}}">{{result_type.label|capfirst}}</a></li>
+	{% endfor %}
+    {# <li id="factoid"><a href="#results_factoid">Factoids</a></li> #}
+    {# <li id="source"><a href="#results_source">Sources</a></li> #}
+    {# <li id="people"><a href="#results_people">People</a></li> #}
+  </ul>
+
+
+	{# {% for option in result_types %} #}
+	
+		{# <div id="results_{{option.name}}" class="tsp"> #}
+			
+		<div id="results_factoid" class="tsp">
+				
+			{# in order to use the inner block we must move it before the FOR command!!! #}
+
+		{% block inner_results %}
+		
+		{# PAGINATOR  TOP #}
+		
+		    <div class="itp">
+		      <h4>Listing items <strong>{{ items.start_index }}</strong> to <strong>{{ items.end_index }}</strong>, page <strong>{{ items.number }}</strong> of <strong>{{ items.paginator.num_pages }}</strong></h4>
+		      <ul>
+		        	
+				{% if items.has_previous %}
+					<li><a onClick="reload_results('1')">&#8249;&#8249; First</a></li>
+		            <li><a onClick="reload_results('{{ items.previous_page_number }}')">&#8249; Previous</a></li>
+				{% else %}
+					<li class="s5">&#8249;&#8249; First</li>
+					<li class="s5">&#8249; Previous</li>
+		        {% endif %}
+		
+				{% for el in items.extrastuff %}
+				
+					{% ifequal el items.number %}
+						<li class="s1">{{ el }}</li>
+					{% else %}
+						<li><a onClick="reload_results('{{ el }}')">{{ el }}</a></li>
+					{% endifequal %}
+		        	
+				{% endfor %}
+		
+				{% if items.has_next %}
+					<li><a onClick="reload_results('{{ items.next_page_number }}')">Next &#8250;</a></li>
+					<li><a onClick="reload_results('{{items.paginator.num_pages}}')">Last &#8250;&#8250;</a></li>
+				{% else %}
+					<li class="s5">Next &#8250;</li>
+					<li class="s5">Last &#8250;&#8250;</li>
+		        {% endif %}
+
+		      </ul>
+		    </div>
+			{# END PAGINATOR  TOP #}
+		
+		
+		
+			{# TIP : if we have items, we display them, otherwise we include the noresults_snippet.html (see below) #}
+			{% if items.object_list %}
+			
+			   <table>
+				
+				{% ifequal active_result_type 'factoid' %}
+
+				      <tr>
+				        <th><a href="javascript:change_ordering('shortdesc');">Description</a></th>
+					    <th><a href="javascript:change_ordering('inferred_type');">Type</a></th>
+				        <th><a href="javascript:change_ordering('sourcekey__helper_hammond');">Source</a></th>
+				        {# <th><a href="javascript:change_ordering('default');">Date</a></th> #}
+				        <th><a href="javascript:change_ordering('from_year, from_month, from_day, to_year');">Date</a></th>
+				      </tr>
+				
+					{% for record in items.object_list %}			
+
+				      <tr>
+				        <td><a class="extlink" href="{{record.get_absolute_url}}" target="_blank" title="show details">
+							{{record|capfirst|default:"<i>item empty (check DB for deletion)</i>"}}
+					    	</a></td>
+						<td>{{record.inferred_type}}</td>
+				        <td><a class="extlink" href="{% url source_detail record.sourcekey.id %}" title="show details" target="_blank">{{record.sourcekey|poms_italic|safe}}</a></td>
+						<td>{{record.firmdate|default:""}}</td>
+				      </tr>
+				
+					{% endfor %}
+					
+				{% endifequal %}
+	
+				
+				{% ifequal active_result_type 'source' %}
+
+				      <tr>
+				        <th><a href="javascript:change_ordering('hammondnumber,hammondnumb2,hammondnumb3');">Calendar number</a></th>
+				        <th><a href="javascript:change_ordering('description');">Description</a></th>
+				        <th><a href="javascript:change_ordering('from_year, from_month, from_day, to_year');">Date</a></th>
+				        {# <th><a href="javascript:change_ordering('annotate=factoid')">Associated factoids</a></th>  #}
+				      </tr>
+				
+					{% for record in items.object_list %}			
+
+				      <tr>
+				        <td><a class="extlink" href="{{record.get_absolute_url}}" target="_blank" title="show details">
+								{{record|poms_italic|safe|default:"<i>item empty (check DB for deletion)</i>"}}
+						</a></td>
+				        <td>{{record.description|truncatewords:15 }}</span></td>
+				        <td>{{ record.firmdate|default:"" }}</td>
+				      </tr>
+				
+					{% endfor %}
+					
+				{% endifequal %}
+
+				{% ifequal active_result_type 'people' %}
+
+				      <tr>
+				        <th><a href="javascript:change_ordering('persondisplayname');">Full Name</a></th>
+				        <th><a href="javascript:change_ordering('forename');">Forename</a></th>
+				        <th><a href="javascript:change_ordering('helper_searchbigsur');">Surname</a></th>
+				        <th><a href="javascript:change_ordering('standardmedievalname');">Medieval Gaelic Name</a></th>
+				        <th><a href="javascript:change_ordering('moderngaelicname');">Modern Gaelic Name</a></th>
+				        <th><a href="javascript:change_ordering('floruitstartyr, floruitendyr');">Floruit</a></th>
+				
+				 		{# 				        <th><a href="javascript:change_ordering('annotate=assocfactoidperson');">Generic factoids</a></th> #}
+				 		{# 				        <th><a href="javascript:change_ordering('annotate=assocfactoidwitness');">Witness factoids</a></th> #}
+				 		{# <th><a href="javascript:change_ordering('annotate=assocfactoidproanima');">Pro Anima factoids</a></th> #}
+				      </tr>
+				
+					{% for record in items.object_list %}			
+
+				      <tr>
+				        <td><a class="extlink" href="{{record.get_absolute_url}}" target="_blank" title="show details">
+					          {{record|capfirst|default:"<i>item empty (check DB for deletion)</i>"}}
+						</a></td>
+				        <td>{{record.forename|default:""}}</td>
+				        <td>{{record.helper_bigsurname|default:""}}</td>
+				        <td>{{record.standardmedievalname|default:""}}</td>
+				        <td>{{record.moderngaelicname|default:""}}</td>
+				        <td>{{record.nice_floruits|default:""}}</td>
+				        <!-- <td>{{record.get_all_associations|length }}</td> -->
+						{# <!-- 11Nov: temp. limited this to 'generic' factoids ...--> #}
+						{# 				        <td>{{record.assocfactoidperson_set.all|length }}</td> #}
+						{# 				        <td>{{record.assocfactoidwitness_set.all|length }}</td> #}
+						{# 				        <td>{{record.assocfactoidproanima_set.all|length }}</td> #}
+				      </tr>
+				
+					{% endfor %}
+					
+				{% endifequal %}
+				
+			    </table>
+			
+			
+			{# PAGINATOR #}
+			
+			    <div class="itp">
+			      <h4>Listing items <strong>{{ items.start_index }}</strong> to <strong>{{ items.end_index }}</strong>, page <strong>{{ items.number }}</strong> of <strong>{{ items.paginator.num_pages }}</strong></h4>
+			      <ul>
+			        	
+					{% if items.has_previous %}
+						<li><a onClick="reload_results('1')">&#8249;&#8249; First</a></li>
+			            <li><a onClick="reload_results('{{ items.previous_page_number }}')">&#8249; Previous</a></li>
+					{% else %}
+						<li class="s5">&#8249;&#8249; First</li>
+						<li class="s5">&#8249; Previous</li>
+			        {% endif %}
+			
+					{% for el in items.extrastuff %}
+					
+						{% ifequal el items.number %}
+							<li class="s1">{{ el }}</li>
+						{% else %}
+							<li><a onClick="reload_results('{{ el }}')">{{ el }}</a></li>
+						{% endifequal %}
+			        	
+					{% endfor %}
+			
+					{% if items.has_next %}
+						<li><a onClick="reload_results('{{ items.next_page_number }}')">Next &#8250;</a></li>
+						<li><a onClick="reload_results('{{items.paginator.num_pages}}')">Last &#8250;&#8250;</a></li>
+					{% else %}
+						<li class="s5">Next &#8250;</li>
+						<li class="s5">Last &#8250;&#8250;</li>
+			        {% endif %}
+
+			      </ul>
+			    </div>		
+
+			{% else %}
+			
+			
+				{% include "pomsapp/browse/snippet_noresults.html" %}
+				
+					
+			{% endif %}
+
+	{# {% endfor %} #}
+	
+		 {% endblock inner_results %}
+		
+		</div>
+        <div id="results_source" class="tsp">
+        	{% include "pomsapp/browse/snippet_noresults.html" %}
+        </div>
+        <div id="results_people" class="tsp">
+        	{% include "pomsapp/browse/snippet_noresults.html" %}
+        </div>		
+</div>
+
+{% endblock results %}
+
+
+
+
+
+
+
+
+
+{# ################## #}
+{# #   							       #}
+{# #  FACETS CHOOSER 	 			   #}
+{# # 								   #}
+{# ################## #}
+
+
+
+
+{% block search %}
+
+        <form action="">
+          <h3>Facets available:</h3>
+
+		{# start of accordion #}
+	      <ul id="accordion" class="nvh m1">
+	
+
+		{# we have a list of tuples like this: #}
+		{# [(<FacetsGroup1>, [(<Facet1>, [[<FacetValue1>, <FacetValue2>], [<FacetValue3>, <FacetValue4>]]), ('troupe country', [etc..])]), (......)] #}
+
+
+			{% for facetgroup, facet_and_values in facetgroups_and_facets reversed %}
+
+				<li class="u {% cycle 'm0' 'm1' 'm2' 'm3' 'm4'  'm5' %}">
+				  <h4 id="{{facetgroup.uniquename}}" class="to_collapse {{facetgroup.uniquename}}_tip">{{facetgroup.label}}</h4>  {# the facetgroup #}
+				  <ul>
+					
+				
+					{% for tuple in facet_and_values %}  
+					
+					{% with tuple.0 as facet %}
+					{% with tuple.1 as facetvalue_groups %}
+							
+								
+							
+					   <li id="{{facet.id}}"  class="s6  {% if facet.mptt %} istreefacet  {% endif %}">
+					      <h5><a href="#" title="Click to collapse facet panel" class="t9 m1 accordion_hook">Collapse</a><strong class="{{facet.uniquename}}_tip">{{facet.name|capfirst}}</strong>
+						{# FILTER BOX: moved it inside the div so that it doesn't interfere with accordion #}
+					        {# <fieldset id="fieldset_{{facet.id}}" >   #}
+					        {#   <label for="filter_{{facet.0}}">Filter {{facet.0|capfirst|truncatewords:1}}&hellip;</label> #}
+					        {#   <input id="filter_{{facet.0}}" /> #}
+					        {# </fieldset> #}
+					      </h5>
+					      <div class="g n2 {{facetgroup.uniquename}}__{{facet.name}}">
+					
+					{# facetvalues are divided into two groups, for display purposes #}		
+
+
+							{# INNER BLOCK TO BE UPDATED SUBSEQUENTLY #}
+							
+				{% block inner_facet_values %}
+					
+							{# <fieldset id="fieldset_{{facet.id}}" >   #}
+							{# 					          <label for="filter_{{facet.0}}">Filter {{facet.0|capfirst|truncatewords:1}}&hellip;</label> #}
+							{# 					          <input id="filter_{{facet.0}}" /> #}
+							{# 					        </fieldset> #}
+							{# 					 #}
+							{# {% for facetvalue_group in facetvalue_groups %}	 #}
+							{# 						 #}
+							{# 						        <ul class="u {% cycle 'u1' 'u2' %}"> #}
+							{# 		 #}
+							{# 		 #}
+							{# 		{% for facetvalue in facetvalue_group %} #}
+							{#  #}
+							{# 		 #}
+							{# 				{% ifequal facetvalue.name "99morebutton99" %} #}
+							{#  #}
+							{# 			  		<li><a id="{{facetgroup.uniquename}}__{{facet.name}}"  onClick="facetopts_update('{{facetgroup.uniquename}}__{{facet.name}}')"><span style="font-style:italic;">. . . more . . .</span></a> #}
+							{# 					</li> #}
+							{#  #}
+							{# 				{% else %} #}
+							{#  #}
+							{# 					<li><a id="{{facetgroup.uniquename}}_{{facetvalue.id}}" class="{{facet.name}}" onClick="facetvalue_sel('{{facetgroup.uniquename}}_{{facetvalue.id}}')"> #}
+							{# 						{{facetvalue.displayname|capfirst|default:"---"}}  #}
+							{# 						{% if count_is_active %} #}
+							{# 							({{facetvalue.howmany|default:"0"}}) #}
+							{# 						{% endif %} #}
+							{# 						 #}
+							{# 						</a> #}
+							{# 					</li> #}
+							{#  #}
+							{# 				{% endifequal %} #}
+							{# 					 #}
+							{# 		 #}
+							{# 		{% endfor %} #}
+							{# 				 #}
+							{# 						        </ul> #}
+							{# 						 #}
+							{# {% endfor %}	 #}
+								
+				{% endblock %}
+		
+		
+		
+					
+						</div>
+					</li>
+					{% endwith %}
+					{% endwith %}
+					{% endfor %}
+			</ul>
+		</li>
+		{% endfor %}
+
+       </ul>  {#  end of accordion  #}
+
+     </form>
+
+{% endblock %}
+

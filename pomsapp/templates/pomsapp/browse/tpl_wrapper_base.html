@@ -1,0 +1,72 @@
+{% extends "pomsapp/browse/fb_skeleton.html" %}
+
+
+	{% block tabs_titles  %}
+    <ul class="nvl">
+      <li class="i1"><a href="/db/search">Search</a></li>
+      <li class="s1"><a href="/db/faceted">Browse</a></li>
+      <li class="i1"><a href="/db/record">Record</a></li>
+      <li class="i1"><a href="/db/familytrees">Family Trees</a></li>
+    </ul>		
+	{% endblock %}
+
+	{% block small_links %}
+    <ul class="utl">
+      <li class="i1"><a href="#"><b>Help</b></a></li>
+      {# <li class="i2"><a href="#"><b>Register</b></a></li> #}
+      {# <li class="ix"><a href="#"><b>Login</b></a></li> #}
+    </ul>		
+	{% endblock %}
+	
+	{% block contents %}
+		
+
+    <div class="cg n2">
+      <div class="m">
+        <div class="c c1">
+	
+	
+	      <div class="r1" id="facets">
+	
+			{% block controlbar %} 
+				{# here the list of active facets #}
+			{% endblock %}
+	
+          </div>
+
+
+
+
+          <div class="r2" id="results">
+	
+			{% block results %}
+			
+				{% block inner_results %}
+				{# here the results of the search #}
+				
+				{% endblock %}
+				
+			{% endblock %}
+			
+          </div>
+ 
+
+
+       </div>
+      </div>
+
+      <div class="c c2" id="search">
+		{% block search %}	
+			{# here the facets list #}
+		{% endblock %}
+      </div>
+
+
+
+    </div>
+  
+
+	{% endblock %}
+	
+	
+	

@@ -102,7 +102,7 @@ class PomsFacetedBrowse(FacetedSearchView):
     form_class = PomsFacetedBrowseForm
     queryset = SearchQuerySet()
     load_all = True
-    template_name = 'pomsapp/browse/facetedbrowser.html'
+    template_name = 'pomsapp/browse/tpl_wrapper.html'
     ajax = False
     ajax_facet = None
     facet_fields = ['index_type']
@@ -183,6 +183,9 @@ class PomsFacetedBrowse(FacetedSearchView):
             context[
                 'facet_group_fields'] = self.facet_group_fields[
                 self.ajax_facet]
+        else:
+            context[
+                'facet_groups'] = self.facet_group_fields
         qs = self.request.GET.copy()
         context['querydict'] = qs.copy()
         return context

@@ -1,0 +1,39 @@
+{% block inner_facet_values %}
+	
+			<form id="fieldset_{{facet.id}}" class="filterfieldset">  {# style="display:none" #}
+		      {# <label for="filter_{{facet.id}}">Filter &hellip;</label> #}
+		      <input id="filter_{{facet.id}}" class="filterbox" size="30" value="enter some text to filter"/>
+		    </form>
+	
+			<div class="valueslist">
+			{% for facetvalue_group in facetvalue_groups %}	
+		
+		        <ul class="u {% cycle 'u1' 'u2' %}">
+
+					
+					{% for facetvalue in facetvalue_group %}
+
+					
+							{% ifequal facetvalue.name "99morebutton99" %}
+
+						  		<li><a id="{{facetgroup.uniquename}}__{{facet.name}}" ><span style="font-style:italic;">. . . more . . .</span></a>     {# onClick="facetopts_update('{{facetgroup.uniquename}}__{{facet.name}}')" #}
+								</li>
+
+							{% else %}
+
+								<li><a id="{{facetgroup.uniquename}}_{{facetvalue.id}}" class="{{facet.name}}" >   {# onClick="facetvalue_sel('{{facetgroup.uniquename}}_{{facetvalue.id}}')" #}
+									{{facetvalue.displayname|capfirst|default:"---"}} ({{facetvalue.howmany|default:"0"}})							
+									</a>
+								</li>
+
+							{% endifequal %}
+								
+					
+					{% endfor %}
+							
+		        </ul>
+		
+			{% endfor %}
+			</div>	
+				
+{% endblock %}

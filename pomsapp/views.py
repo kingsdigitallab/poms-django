@@ -104,8 +104,8 @@ class PomsFacetedBrowse(FacetedSearchView):
     load_all = True
     template_name = 'pomsapp/browse/tpl_wrapper.html'
     ajax = False
-    ajax_facet = None
     facet_fields = ['index_type']
+    index_type = 'person'
 
     facet_group_fields = {
         "person": [
@@ -154,22 +154,67 @@ class PomsFacetedBrowse(FacetedSearchView):
 
     }
 
+    result_types = [{'label': 'Factoids',
+                     'uniquename': 'factoid',
+                     },
+                    {'label': 'Sources',
+                     'uniquename': 'source',
+                     # at the moment the name can't be changed cause the js
+                     # uses iT!
+                     },
+                    {'label': 'People and Institutions',
+                     'uniquename': 'person',
+                     },
+                    {'label': 'Places',
+                     'uniquename': 'place',
+                     }
+                    ]
+
     def __init__(self, *args, **kwargs):
         super(PomsFacetedBrowse, self).__init__(*args, **kwargs)
+        if 'facet_group' in kwargs:
+            self.facet_group = kwargs['facet_group']
+        if 'facet_name' in kwargs:
+            self.facet_name = kwargs['facet_name']
+
         # if self.ajax and self.ajax_facet is not None:
         #     self.facet_fields = self.facet_fields + self.facet_group_fields[
         #         self.ajax_facet
         #     ]
 
+    @staticmethod
+    def __facet_by_group(queryset, group):
+        """Apply a list of fields as facets to queryset"""
+        for field_name in group:
+            queryset = queryset.facet(
+                field_name, sort='index', limit=-1, mincount=1
+            )
+        return queryset
+
     def get_queryset(self):
         """Add facets to queryset
         all if not ajax, or only one facet group if ajax"""
         queryset = super(PomsFacetedBrowse, self).get_queryset()
-        if self.ajax and self.ajax_facet is not None:
-            for field_name in self.facet_group_fields[self.ajax_facet]:
-                queryset = queryset.facet(
-                    field_name, sort='index', limit=-1, mincount=1
+        if self.ajax and 'facet_group' in self.kwargs:
+            queryset = self.__facet_by_group(
+                queryset,
+                self.facet_group_fields[self.kwargs['facet_group']]
+            )
+        else:
+            for facet_group_name, facet_fields in self.facet_group_fields.items():
+                queryset = self.__facet_by_group(
+                    queryset,
+                    facet_fields
                 )
+
+                # Narrow by index type
+        if 'index_type' in self.request.GET:
+            self.index_type = self.request.GET['index_type']
+        queryset = queryset.narrow(
+            'index_type:{}'.format(
+                self.index_type
+            )
+        )
         # todo add view's order as well?
         return queryset
 
@@ -177,15 +222,20 @@ class PomsFacetedBrowse(FacetedSearchView):
         context = super(
             PomsFacetedBrowse, self
         ).get_context_data(*args, **kwargs)
-        if self.ajax_facet is not None:
+        context['index_type'] = self.index_type
+        if 'facet_group' in self.kwargs:
             context[
-                'facet_group'] = self.ajax_facet
+                'facet_group'] = self.kwargs['facet_group']
+        if 'facet_name' in self.kwargs:
             context[
-                'facet_group_fields'] = self.facet_group_fields[
-                self.ajax_facet]
+                'facet_name'] = self.kwargs['facet_name']
+            context[
+                'facet_group_fields'] = [self.kwargs['facet_name']]
         else:
             context[
-                'facet_groups'] = self.facet_group_fields
+                'facet_group_fields'] = self.facet_group_fields
         qs = self.request.GET.copy()
         context['querydict'] = qs.copy()
+        context['result_types'] = self.result_types
+
         return context

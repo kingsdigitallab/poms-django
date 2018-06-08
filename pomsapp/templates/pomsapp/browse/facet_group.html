@@ -1,11 +1,9 @@
 {% load pomsapp_tags %}
 {% for facet in facet_group_fields %}
-    <li>
-        <h5><strong>{{ facet }}</strong></h5>
-        <div class="g n2 peoplegroup_surname">
-            <div class="valueslist">
+    {%  with facets.fields|get_item:facet as facet_terms %}
+
                 <ul class="u u1">
-                    {% for term in facets.fields|get_item:facet %}
+                    {% for term in facet_terms %}
                         {% with value=term.0 count=term.1 %}
                             {% if count > 0 %}
 
@@ -17,7 +15,6 @@
                         {% endwith %}
                     {% endfor %}
                 </ul>
-            </div>
-        </div>
-    </li>
+
+    {% endwith %}
 {% endfor %}

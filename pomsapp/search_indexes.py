@@ -2,18 +2,19 @@
 from haystack import indexes
 
 import pomsapp.models as poms_models
-from django.db.models import Max, Min
 
 """
 Replacing the result types with four indexes:
 
-#	label = interface name / uniquename = internal name / infospace: a Model or a QuerySet instance
+#	label = interface name / uniquename = internal name / infospace: a Model 
+or a QuerySet instance
 result_types = [{'label': 'factoid__sourcekeys',
                  'uniquename': 'factoid',
                  'infospace': Factoid},
 
                 {'label': 'Sources',
-                 'uniquename': 'source',  # at the moment the name can't be changed cause the js uses iT!
+                 'uniquename': 'source',  # at the moment the name can't be 
+                 changed cause the js uses iT!
                  'infospace': Source},
 
                 {'label': 'People and Institutions',
@@ -33,7 +34,7 @@ class PomsIndex(indexes.SearchIndex):
     """
     #
     object_id = indexes.IntegerField(model_attr='id')
-    index_type = indexes.CharField(faceted=True,)
+    index_type = indexes.CharField(faceted=True, )
     text = indexes.CharField(document=True, use_template=True)
     # these are single fields used in different result types
     # so that they can be sorted
@@ -50,7 +51,7 @@ class PomsIndex(indexes.SearchIndex):
     # place
     place_name = indexes.CharField(null=True, default='')
     place_parent = indexes.CharField(null=True, default='')
-    
+
     surnames = indexes.MultiValueField(
         faceted=True,
         null=True)
@@ -83,9 +84,6 @@ class PomsIndex(indexes.SearchIndex):
     moderngaelicsurname = indexes.MultiValueField(
         faceted=True,
         null=True)
-
-
-
 
     startdate = indexes.IntegerField(
         faceted=True,
@@ -152,7 +150,8 @@ class PomsIndex(indexes.SearchIndex):
     #     null=True
     # )
     # factreldaterange = indexes.CharField(
-    #     #model_attr='assoc_factoid_person__factrelationship__helper_daterange',
+    #
+    # #model_attr='assoc_factoid_person__factrelationship__helper_daterange',
     #     faceted=True,
     #     null=True
     # )
@@ -215,7 +214,8 @@ class PomsIndex(indexes.SearchIndex):
     #     null=True
     # )
     # facttradaterange = indexes.CharField(
-    #     #model_attr='assoc_factoid_person__facttransaction__helper_daterange',
+    #
+    # #model_attr='assoc_factoid_person__facttransaction__helper_daterange',
     #     faceted=True,
     #     null=True
     # )
@@ -311,19 +311,17 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             ] = obj.medievalgaelicforename.name
 
         self.prepared_data[
-                'medievalgaelicsurname'
-            ] = obj.medievalgaelicsurname
+            'medievalgaelicsurname'
+        ] = obj.medievalgaelicsurname
 
         if obj.moderngaelicforename:
             self.prepared_data[
                 'moderngaelicforename'
             ] = obj.moderngaelicforename.name
 
-
         self.prepared_data[
-                'moderngaelicsurname'
-            ] = obj.moderngaelicsurname
-
+            'moderngaelicsurname'
+        ] = obj.moderngaelicsurname
 
         if obj.genderkey == 5:
             self.prepared_data[
@@ -359,11 +357,15 @@ class PersonIndex(PomsIndex, indexes.Indexable):
                     sourcesfeatures.append(c.helper_tickboxes.name)
 
             self.prepared_data['documenttype'] = [d for d in set(documenttype)]
-            self.prepared_data['documentcategory'] = [d for d in set(documentcategory)]
-            self.prepared_data['grantorcategory'] = [d for d in set(grantor_category)]
-            self.prepared_data['placedatemodern'] = [d for d in set(placedatemodern)]
+            self.prepared_data['documentcategory'] = [d for d in
+                                                      set(documentcategory)]
+            self.prepared_data['grantorcategory'] = [d for d in
+                                                     set(grantor_category)]
+            self.prepared_data['placedatemodern'] = [d for d in
+                                                     set(placedatemodern)]
             self.prepared_data['language'] = [l for l in set(languages)]
-            self.prepared_data['sourcesfeatures'] = [d for d in set(sourcesfeatures)]
+            self.prepared_data['sourcesfeatures'] = [d for d in
+                                                     set(sourcesfeatures)]
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
@@ -545,9 +547,6 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
             factoids=obj
         ).distinct().values_list('moderngaelicsurname', flat=True))
 
-
-
-
         # if 'transaction' in obj.inferred_type:
         #     # facttransaction__from_year
         #     ft =poms_models.FactTransaction.objects.get(id=obj.id)
@@ -594,11 +593,15 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
                     sourcesfeatures.append(c.helper_tickboxes.name)
 
             self.prepared_data['documenttype'] = [d for d in set(documenttype)]
-            self.prepared_data['documentcategory'] = [d for d in set(documentcategory)]
-            self.prepared_data['grantorcategory'] = [d for d in set(grantor_category)]
-            self.prepared_data['placedatemodern'] = [d for d in set(placedatemodern)]
+            self.prepared_data['documentcategory'] = [d for d in
+                                                      set(documentcategory)]
+            self.prepared_data['grantorcategory'] = [d for d in
+                                                     set(grantor_category)]
+            self.prepared_data['placedatemodern'] = [d for d in
+                                                     set(placedatemodern)]
             self.prepared_data['language'] = [l for l in set(languages)]
-            self.prepared_data['sourcesfeatures'] = [d for d in set(sourcesfeatures)]
+            self.prepared_data['sourcesfeatures'] = [d for d in
+                                                     set(sourcesfeatures)]
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
@@ -661,14 +664,16 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
             ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'spiritualbenefits'] = list(poms_models.Transactiontype.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+            'spiritualbenefits'] = list(
+            poms_models.Transactiontype.objects.filter(
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'transactiontypes'] = list(poms_models.Transactiontype.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+            'transactiontypes'] = list(
+            poms_models.Transactiontype.objects.filter(
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'transfeatures'] = list(poms_models.TransTickboxes.objects.filter(
@@ -690,10 +695,11 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         )
 
         self.prepared_data[
-            'exemptionoptions'] = list(poms_models.Exemptiontype.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True)
-                                       )
+            'exemptionoptions'] = list(
+            poms_models.Exemptiontype.objects.filter(
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True)
+            )
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
@@ -701,14 +707,16 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'returnsrenders'] = list(poms_models.Returns_renders.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+            'returnsrenders'] = list(
+            poms_models.Returns_renders.objects.filter(
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'nominalrenders'] = list(poms_models.Nominalrendertype.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+            'nominalrenders'] = list(
+            poms_models.Nominalrendertype.objects.filter(
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'renderdates'] = list(poms_models.Renderdate.objects.filter(
@@ -716,14 +724,16 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'returnsmilitary'] = list(poms_models.Returns_military.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+            'returnsmilitary'] = list(
+            poms_models.Returns_military.objects.filter(
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'legalpertinents'] = list(poms_models.LegalPertinents.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+            'legalpertinents'] = list(
+            poms_models.LegalPertinents.objects.filter(
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'commonburdens'] = list(poms_models.CommonBurdens.objects.filter(
@@ -827,12 +837,15 @@ class SourceIndex(PomsIndex, indexes.Indexable):
                     sourcesfeatures.append(c.helper_tickboxes.name)
 
             self.prepared_data['documenttype'] = [d for d in set(documenttype)]
-            self.prepared_data['documentcategory'] = [d for d in set(documentcategory)]
-            self.prepared_data['grantorcategory'] = [d for d in set(grantor_category)]
-            self.prepared_data['placedatemodern'] = [d for d in set(placedatemodern)]
+            self.prepared_data['documentcategory'] = [d for d in
+                                                      set(documentcategory)]
+            self.prepared_data['grantorcategory'] = [d for d in
+                                                     set(grantor_category)]
+            self.prepared_data['placedatemodern'] = [d for d in
+                                                     set(placedatemodern)]
             self.prepared_data['language'] = [l for l in set(languages)]
-            self.prepared_data['sourcesfeatures'] = [d for d in set(sourcesfeatures)]
-
+            self.prepared_data['sourcesfeatures'] = [d for d in
+                                                     set(sourcesfeatures)]
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
@@ -895,14 +908,16 @@ class SourceIndex(PomsIndex, indexes.Indexable):
             ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'spiritualbenefits'] = list(poms_models.Transactiontype.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+            'spiritualbenefits'] = list(
+            poms_models.Transactiontype.objects.filter(
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'transactiontypes'] = list(poms_models.Transactiontype.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+            'transactiontypes'] = list(
+            poms_models.Transactiontype.objects.filter(
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'transfeatures'] = list(poms_models.TransTickboxes.objects.filter(
@@ -924,10 +939,11 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         )
 
         self.prepared_data[
-            'exemptionoptions'] = list(poms_models.Exemptiontype.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True)
-                                       )
+            'exemptionoptions'] = list(
+            poms_models.Exemptiontype.objects.filter(
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True)
+            )
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
@@ -935,14 +951,16 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'returnsrenders'] = list(poms_models.Returns_renders.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+            'returnsrenders'] = list(
+            poms_models.Returns_renders.objects.filter(
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'nominalrenders'] = list(poms_models.Nominalrendertype.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+            'nominalrenders'] = list(
+            poms_models.Nominalrendertype.objects.filter(
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'renderdates'] = list(poms_models.Renderdate.objects.filter(
@@ -950,20 +968,21 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'returnsmilitary'] = list(poms_models.Returns_military.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+            'returnsmilitary'] = list(
+            poms_models.Returns_military.objects.filter(
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'legalpertinents'] = list(poms_models.LegalPertinents.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+            'legalpertinents'] = list(
+            poms_models.LegalPertinents.objects.filter(
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'commonburdens'] = list(poms_models.CommonBurdens.objects.filter(
             facttransaction__sourcekey=obj
         ).distinct().values_list('name', flat=True))
-
 
         return self.prepared_data
 
@@ -1038,13 +1057,11 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
                     enddates[-1]
                 )
 
-
         self.prepared_data[
             'gender'
         ] = list(poms_models.Gender.objects.filter(
             person__helper_places=obj
         ).distinct().values_list('name', flat=True))
-
 
         self.prepared_data[
             'medievalgaelicforename'
@@ -1069,7 +1086,6 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         ] = list(poms_models.Person.objects.filter(
             helper_places=obj
         ).distinct().values_list('moderngaelicsurname', flat=True))
-
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
@@ -1102,12 +1118,15 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
                     sourcesfeatures.append(c.helper_tickboxes.name)
 
             self.prepared_data['documenttype'] = [d for d in set(documenttype)]
-            self.prepared_data['documentcategory'] = [d for d in set(documentcategory)]
-            self.prepared_data['grantorcategory'] = [d for d in set(grantor_category)]
-            self.prepared_data['placedatemodern'] = [d for d in set(placedatemodern)]
+            self.prepared_data['documentcategory'] = [d for d in
+                                                      set(documentcategory)]
+            self.prepared_data['grantorcategory'] = [d for d in
+                                                     set(grantor_category)]
+            self.prepared_data['placedatemodern'] = [d for d in
+                                                     set(placedatemodern)]
             self.prepared_data['language'] = [l for l in set(languages)]
-            self.prepared_data['sourcesfeatures'] = [d for d in set(sourcesfeatures)]
-
+            self.prepared_data['sourcesfeatures'] = [d for d in
+                                                     set(sourcesfeatures)]
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
@@ -1170,14 +1189,16 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'spiritualbenefits'] = list(poms_models.Transactiontype.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+            'spiritualbenefits'] = list(
+            poms_models.Transactiontype.objects.filter(
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'transactiontypes'] = list(poms_models.Transactiontype.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+            'transactiontypes'] = list(
+            poms_models.Transactiontype.objects.filter(
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'transfeatures'] = list(poms_models.TransTickboxes.objects.filter(
@@ -1199,10 +1220,11 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         )
 
         self.prepared_data[
-            'exemptionoptions'] = list(poms_models.Exemptiontype.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True)
-                                       )
+            'exemptionoptions'] = list(
+            poms_models.Exemptiontype.objects.filter(
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True)
+            )
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
@@ -1210,14 +1232,16 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'returnsrenders'] = list(poms_models.Returns_renders.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+            'returnsrenders'] = list(
+            poms_models.Returns_renders.objects.filter(
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'nominalrenders'] = list(poms_models.Nominalrendertype.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+            'nominalrenders'] = list(
+            poms_models.Nominalrendertype.objects.filter(
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'renderdates'] = list(poms_models.Renderdate.objects.filter(
@@ -1225,20 +1249,21 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'returnsmilitary'] = list(poms_models.Returns_military.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+            'returnsmilitary'] = list(
+            poms_models.Returns_military.objects.filter(
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'legalpertinents'] = list(poms_models.LegalPertinents.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+            'legalpertinents'] = list(
+            poms_models.LegalPertinents.objects.filter(
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'commonburdens'] = list(poms_models.CommonBurdens.objects.filter(
             facttransaction__helper_places=obj
         ).distinct().values_list('name', flat=True))
-
 
         return self.prepared_data
 

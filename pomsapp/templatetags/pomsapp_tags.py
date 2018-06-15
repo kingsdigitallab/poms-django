@@ -23,11 +23,13 @@ def add_facet_link(qd, facet, value):
     #     del qd['printme']
     facets = qd.getlist('selected_facets', [])
     if len(facet) > 0:
-        facet_value = '{0}_exact:{1}'.format(
-            facet, value)
-        if facet_value not in facets:
+        for f in facets:
+            facet_value = '{0}_exact:{1}'.format(
+                facet, value)
+            if facet in f:
+                facets.remove(f)
             facets.append(facet_value)
-            qd.setlist('selected_facets', facets)
+    qd.setlist('selected_facets', facets)
     return '?{0}'.format(qd.urlencode())
 
 @register.filter

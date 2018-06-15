@@ -159,32 +159,25 @@
 			
 			{% if 'person' in index_type  %}
 
-			      <tr>
-			        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('personfull');"><b>Full Name</b></a></th> #}
-			        <th>Full Name <span style="text-transform: none; font-size: 9px;">(order by: <a class="{{active_ordering|infer_class:'personfore'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=forename"><b>Forename</b></a> | <a class="{{active_ordering|infer_class:'personsur'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=surname"><b>Surname</b></a> | <a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=persondisplayname"><b>Full Name</b></a> )</span></th>
-					<th>Description</th>
-			        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('personmedieval');"><b>Medieval Name</b></a></th> #}
-			        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('persongaelic');"><b>Modern Gaelic Name</b></a></th> #}
-			        <th><a class="{{active_ordering|infer_class:'persondate'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate"><b>Floruits</b></a></th>
-			      </tr>
+			     <tr>
+                    <th><a href="javascript:change_ordering('persondisplayname');">Full Name</a></th>
+                    <th><a href="javascript:change_ordering('forename');">Forename</a></th>
+                    <th><a href="javascript:change_ordering('helper_searchbigsur');">Surname</a></th>
+                    <th><a href="javascript:change_ordering('standardmedievalname');">Medieval Gaelic Name</a></th>
+                    <th><a href="javascript:change_ordering('moderngaelicname');">Modern Gaelic Name</a></th>
+                    <th><a href="javascript:change_ordering('floruitstartyr, floruitendyr');">Floruit</a></th>
+                </tr>
 
 				{% for result in object_list %}
                     {%  with record=result.object %}
-
 				  
 			      <tr>
-			        <td>
-				{% if record.matrix_set.all %}
-				{% for m in record.matrix_set.all %}
-					<a href="{% url 'matrix_detail' m.id %}" class="seal" title="Show Matrix/Seal info">MATRIXICON</a>
-				{% endfor %}
-				{% endif %}
-				<a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
-				          {{record|capfirst|default:""}}
-					</a></td>
-			        <td>{{record.persondescription|truncatewords:15|poms_italic|safe}}</td>
-			        {# <td>{{record.standardmedievalname|default:""}}</td> #}
-			        {# <td>{{record.moderngaelicname|default:""}}</td> #}
+
+			        <td><a href="{% url 'person_detail' record.id %}"> {{record.persondisplayname|truncatewords:15|poms_italic|safe}}</a></td>
+                  <td>{{record.forename|truncatewords:15|poms_italic|safe}}</td>
+                  <td>{{record.surname|truncatewords:15|poms_italic|safe}}</td>
+			         <td>{{record.standardmedievalname|default:""}}</td>
+			         <td>{{record.moderngaelicname|default:""}}</td>
 			        <td>{{record.nice_floruits|safe}}</td>
 			      </tr>
                     {% endwith %}

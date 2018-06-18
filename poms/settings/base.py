@@ -323,3 +323,4 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'poms_haystack',
     },
 }
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 50

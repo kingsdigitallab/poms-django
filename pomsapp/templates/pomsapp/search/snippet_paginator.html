@@ -13,17 +13,17 @@
 			<li class="s5">&#8249; Previous</li>
         {% endif %}
 
-{#
-		Don\t know what this is, commented out for the minute
-		{% for el in items.extrastuff %}#}
-{##}
-{#			{% ifequal el items.number %}#}
-{#				<li class="s1">{{ el }}</li>#}
-{#			{% else %}#}
-{#				<li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ el }}">{{ el }}</a></li>#}
-{#			{% endifequal %}#}
-{##}
-{#		{% endfor %}#}
+
+		<!-- EH Don\t know what this is, left it in for the minute-->
+		{% for el in items.extrastuff %}
+
+			{% ifequal el items.number %}
+				<li class="s1">{{ el }}</li>
+			{% else %}
+				<li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ el }}">{{ el }}</a></li>
+			{% endifequal %}
+
+		{% endfor %}
 
 		{% if page_obj.has_next %}
 			<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.next_page_number }}" >Next &#8250;</a></li>

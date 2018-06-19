@@ -272,7 +272,7 @@ class PomsIndex(indexes.SearchIndex):
     )
 
 
-class PersonIndex(PomsIndex):
+class PersonIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
@@ -494,7 +494,7 @@ class PersonIndex(PomsIndex):
         return poms_models.Person
 
 
-class FactoidIndex(PomsIndex):
+class FactoidIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
@@ -993,7 +993,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         return poms_models.Source
 
 
-class PlaceIndex(PomsIndex):
+class PlaceIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet place result type    """
 
     def prepare(self, obj):

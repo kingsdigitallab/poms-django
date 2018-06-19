@@ -11,11 +11,11 @@ LOCAL_SERVER = True
 DATABASES = {
     'default': {
         'ENGINE': db_engine,
-        'NAME': 'poms',
+        'NAME': 'app_poms_stg',
         'USER': 'app_poms',
         'PASSWORD': 'app_poms',
-        'ADMINUSER': 'postgres',
-        'HOST': 'localhost'
+        'HOST': 'localhost',
+        'STORAGE_ENGINE': 'INNODB'
     },
 }
 
@@ -30,10 +30,10 @@ FABRIC_USER = ''
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8983/solr'
+        'URL': 'http://127.0.0.1:8983/solr/dev',
+        'ADMIN_URL': 'http://localhost:8983/solr/admin/cores'
     },
 }
-
 
 # -----------------------------------------------------------------------------
 # Django Debug Toolbar

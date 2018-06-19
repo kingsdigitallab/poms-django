@@ -26,9 +26,8 @@ def admin_overview(request):
                'models': mm,
                'open_and_solved': open_and_solved
                }
-    return render_to_response('pomsapp/admin_overview.html',
-                              context,
-                              context_instance=RequestContext(request))
+    return render_to_response(request, 'pomsapp/admin_overview.html',
+                              context)
 
 
 class PomsFacetedSearchView(FacetedSearchView):

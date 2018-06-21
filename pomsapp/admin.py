@@ -196,9 +196,10 @@ admin.site.register(ModernGaelicForename, AuthListAudiofileAdmin)
 possessions_lists = [Privileges, Poss_Alms, Poss_Unfree_persons, Poss_Revenues_silver, Poss_Revenues_kind,
                      Poss_Office, Poss_Objects, Poss_Lands, Poss_General, ]  # Possession
 
-func = lambda x: admin.site.register(x, GenericPossessionsAdmin)
+for possession in possessions_lists:
+    admin.site.register(possession, GenericPossessionsAdmin)
 # func = lambda x : admin.site.register(x, TestAdmin)
-map(func, possessions_lists)
+# map(func, possessions_lists)
 # ad hoc possession admins
 
 

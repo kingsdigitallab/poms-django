@@ -52,30 +52,30 @@
 		</ul>
         <h3>{% trans 'Orphan records' %}</h3>
 		<ul>
-			<li><a href="/db/admin/orphan_places">Orphan places</a></li>
-			<li><a href="/db/admin/orphan_possessions">Orphan possessions</a></li>
-			<li><a href="/db/admin/orphan_people">Orphan people</a></li>
-			<li><a href="/db/admin/orphan_titles">Orphan titles</a></li>
+			<li><a href="{% url 'orphan_places' %}">Orphan places</a></li>
+			<li><a href="{% url 'orphan_possessions' %}">Orphan possessions</a></li>
+			<li><a href="{% url 'orphan_people' %}">Orphan people</a></li>
+			<li><a href="{% url 'orphan_titles' %}">Orphan titles</a></li>
 		</ul>
 		<h3>{% trans 'Miscellaneous' %}</h3>
 		<ul>
-			<li><a href="/db/admin/unmarked_factoids">Factoids that used to have the 'review' checkbox</a></li>
-			<li><a href="/db/admin/charterscirca">Charters that use 'before', 'after' or 'circa'</a></li>
-			<li><a href="/db/admin/previous_landholder">List of 'previous landholder' role in possession factoid</a></li>
+			<li><a href="{% url 'unmarked_factoids' %}">Factoids that used to have the 'review' checkbox</a></li>
+			<li><a href="{% url 'charters_circa' %}">Charters that use 'before', 'after' or 'circa'</a></li>
+			<li><a href="{% url 'previous_landholders' %}">List of 'previous landholder' role in possession factoid</a></li>
 		</ul>
 		<h3>{% trans 'Places Integration' %}</h3>
 		<ul>
-			<li><a href="/db/admin/missing_docplaces">Charters without links to Places</a></li>
-			<li><a href="/db/admin/created_docplaces">Charters *automatically* linked to Places (to be reviewed)</a></li>
-			<li><a href="/db/admin/missing_possplaces">Possession-Lands without links to Places</a></li>
-			<li><a href="/db/admin/created_possplaces">Possession-Lands *automatically* linked to Places (to be reviewed)</a></li>
+			<li><a href="{% url 'missing_docplaces' %}">Charters without links to Places</a></li>
+			<li><a href="{% url 'created_docplaces' %}">Charters *automatically* linked to Places (to be reviewed)</a></li>
+			<li><a href="{% url 'missing_possplaces' %}">Possession-Lands without links to Places</a></li>
+			<li><a href="{% url 'created_possplaces' %}">Possession-Lands *automatically* linked to Places (to be reviewed)</a></li>
 		</ul>		
 		
 		
 		
 		<h3>{% trans 'Logs' %}</h3>
 		<ul>
-			<li><a href="/db/admin/contributions">Last 1000 actions</a></li>
+			<li><a href="{% url 'contributions' %}">Last 1000 actions</a></li>
 		</ul>
     </div>
 

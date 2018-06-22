@@ -71,7 +71,7 @@ from django.utils.safestring import mark_safe
 from django.utils.text import get_text_list
 from django.utils.text import Truncator
 from django.utils.translation import ugettext as _
-
+from django.contrib.admin.sites import site
 
 class FkSearchInput(ForeignKeyRawIdWidget):
     """
@@ -102,7 +102,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
 
     def __init__(self, rel, search_fields, attrs=None):
         self.search_fields = search_fields
-        super(FkSearchInput, self).__init__(rel, attrs)
+        super(FkSearchInput, self).__init__(rel, site, attrs)
 
     def render(self, name, value, attrs=None):
         if attrs is None:
@@ -117,7 +117,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
             url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
         else:
             url = ''
-        if not attrs.has_key('class'):
+        if 'class' in attrs:
             attrs['class'] = 'vForeignKeyRawIdAdminField'
         # Call the TextInput render method directly to have more control
         output = [forms.TextInput.render(self, name, value, attrs)]
@@ -128,7 +128,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
         context = {
             'url': url,
             'related_url': related_url,
-            'admin_media_prefix': settings.ADMIN_MEDIA_PREFIX,
+            'admin_media_prefix': settings.STATIC_URL+'/admin/',
             'search_path': self.search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,

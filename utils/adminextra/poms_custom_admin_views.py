@@ -2,7 +2,7 @@ import re
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
-
+from django.utils.text import capfirst
 from pomsapp.models import *
 
 
@@ -236,7 +236,7 @@ def orphan_possessions(request):
 @staff_member_required
 def orphan_people(request, ):
     "List all people that are not attached to factoids"
-    ll = Person.objects.filter(assochelperperson=None)
+    ll = Person.objects.filter(factoids__isnull=True)
     return render(
         request,
         "admin/orphan_people.html",

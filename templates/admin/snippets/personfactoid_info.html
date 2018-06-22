@@ -18,9 +18,9 @@
 	  <tr>
 	    <td>{{a.factoid.id}}</td>
 		<td>{{a.factoid.get_right_subclass.0}}&#160;&#160;&#160;&#160;</td>
-	    <td><a href="{% url factoid_detail a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+	    <td><a href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
 	    <td>{{a.role}}</td>
-	    <td><a href="{% url source_detail a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey}}</a></td>
+	    <td><a href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey}}</a></td>
 	    <td>{{a.updated_at}}</td>
 	  </tr>
 	{% endfor %}

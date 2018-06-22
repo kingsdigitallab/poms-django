@@ -13,7 +13,7 @@
 	{% for p in place.person_set.all %}
 	  <tr>
 	    <td>{{p.id}}</td>
-		<td><a href="{% url person_detail p.id %}" title="click to show">{{p.persondisplayname}}</a></td>
+		<td><a href="{% url "person_detail" p.id %}" title="click to show">{{p.persondisplayname}}</a></td>
 	    {# <td></td> #}
 	    <td>{{p.placeandinst}}</td>
 	  </tr>

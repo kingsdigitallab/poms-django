@@ -19,8 +19,8 @@
 	
 	{% for f in document.factoid_set.all|latest_updated|slice:":30" %}
 	  <tr>
-	    <td><a href="{% url factoid_detail f.id %}" title="click to show">{{f.id}}</a></td>
-	    <td><a href="{% url factoid_detail f.id %}" title="click to show">{{f}}</a></td>
+	    <td><a href="{% url 'factoid_detail' f.id %}" title="click to show">{{f.id}}</a></td>
+	    <td><a href="{% url 'factoid_detail' f.id %}" title="click to show">{{f}}</a></td>
 		<td>{{f.get_right_subclass.0}}</td>
 		<td>{{f.updated_at}}</td>
 	  </tr>

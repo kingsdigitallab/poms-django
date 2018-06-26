@@ -64,3 +64,6 @@ local.py
 logs/
 static/
 playbook.retry
+
+# Data
+data.sql.gz

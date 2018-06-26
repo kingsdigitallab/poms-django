@@ -11,7 +11,7 @@ LOCAL_SERVER = True
 DATABASES = {
     'default': {
         'ENGINE': db_engine,
-        'NAME': 'app_poms_stg',
+        'NAME': 'poms',
         'USER': 'app_poms',
         'PASSWORD': 'app_poms',
         'HOST': 'localhost',

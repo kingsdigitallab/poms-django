@@ -103,6 +103,34 @@ nav {
 
 /* Main content */
 
+.main {
+    float: left;
+    width: 75%;
+}
+
+.wrapper {
+    clear: both;
+    display: block;
+    width: 100%;
+}
+
 /* Facets */
+
+// Sidebar
+
+.facet-sidebar {
+    float: left;
+    width: 25%;
+}
+
+.facet-group,
+.facets-list {
+    list-style: none;
+    li {
+        p:first-letter {
+            text-transform: uppercase;
+        }
+    }
+}
 
 /* Footer */

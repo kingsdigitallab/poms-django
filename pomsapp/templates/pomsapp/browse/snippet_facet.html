@@ -1,10 +1,7 @@
 {% load pomsapp_tags %}
 
 {% block inner_facet_values %}
-
 {% for facet in facet_groups %}
-
-
 <form id="fieldset_{{ facet.id }}" class="filterfieldset">  {# style="display:none" #}
     {# <label for="filter_{{facet.id}}">Filter &hellip;</label> #}
     <input id="filter_{{ facet.id }}" class="filterbox" size="30" value="enter some text to filter"/>
@@ -14,10 +11,7 @@
     {% for facetvalue_group in facetvalue_groups %}
 
     <ul class="u {% cycle 'u1' 'u2' %}">
-
-
         {% for facetvalue in facetvalue_group %}
-
 
         {% ifequal facetvalue.name "99morebutton99" %}
 
@@ -36,11 +30,8 @@
 
         {% endifequal %}
 
-
         {% endfor %}
-
     </ul>
-
     {% endfor %}
 </div>
 {% endfor %}

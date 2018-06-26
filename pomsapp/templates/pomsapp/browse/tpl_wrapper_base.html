@@ -1,7 +1,12 @@
 {% extends "pomsapp/browse/fb_skeleton.html" %}
 
 {% block contents %}
-<div class="cg n2">
+
+{% block sidebar %}
+{% endblock %}
+
+{% block main_content %}
+<div class="main">
     <div class="m">
         <div class="c c1">
             <div class="r1" id="facets">
@@ -25,5 +30,4 @@
     </div>
 </div>
 {% endblock %}
-
-
+{% endblock %}

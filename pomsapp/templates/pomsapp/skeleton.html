@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  {% block titlepage  %}
+  {% block titlepage %}
     <title>{{ PROJECT_TITLE }}</title>
   {% endblock %}
 
@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/main.scss' %}">
   {% endcompress %}
 
-  {% block load_css  %}
+  {% block load_css %}
   {% endblock %}
 </head>
 <body{% if record_splash_page %} id="recordPage"{% endif %}>
@@ -29,7 +29,6 @@
 {% endblock %}
 
 <div id="gw"{% if djfacet_splashpage %} class="splash"{% endif %}>
-
   <div id="ss">
     {% block tabs_titles  %}
     {% endblock %}
@@ -45,7 +44,6 @@
     {% block contents %}
     {% endblock %}
   </div>
-
 </div>
 
 <script>

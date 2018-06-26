@@ -63,3 +63,7 @@ local.py
 #local_*.py
 logs/
 static/
+playbook.retry
+
+# Data
+data.sql.gz

@@ -1,11 +1,10 @@
 {% load compress staticfiles %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=8">
+  <meta charset="UTF-8">
   {% block titlepage  %}
-  	<title>POMS</title>
+    <title>{{ PROJECT_TITLE }}</title>
   {% endblock %}
 
   {# Shared main CSS #}
@@ -17,83 +16,34 @@
   {% endblock %}
 </head>
 <body{% if record_splash_page %} id="recordPage"{% endif %}>
+
+{% block header %}
+{% include 'pomsapp/includes/header.html' %}
+{% endblock %}
+
+{% block navigation %}
+{% include 'pomsapp/includes/navigation.html' %}
+{% endblock %}
+
+{% block subnav %}
+{% endblock %}
+
 <div id="gw"{% if djfacet_splashpage %} class="splash"{% endif %}>
-  <div id="hs">
-    <div id="bs">
-      <h3 title="Paradox of Medieval Scotland 1093 - 1314">Paradox of Medieval Scotland 1093 - 1314</h3>
-      <div class="gx gx1" title="[Image: Seal Palimpsest]">[Image: Seal Palimpsest]</div>
-    </div>
-    <div id="ns">
-      <ul class="nvg">
-          <li class="i1">
-             <a href="{{FRONTEND_URL}}">
-                <b>Home</b>
-             </a>
-          </li>
-          <li>
-             <a href="{{FRONTEND_URL}}about">
-                <b>About</b>
-             </a>
-          </li>
-          <li class="s1">
-             <a href="{{DATABASE_URL}}">
-                <b>Database</b>
-             </a>
-          </li>
-          <li>
-             <a href="{{FRONTEND_URL}}information">
-                <b>Information</b>
-             </a>
-          </li>
-          <li>
-             <a href="{{FRONTEND_URL}}schools">
-                <b>Schools</b>
-             </a>
-          </li>
-          <li>
-             <a href="{{FRONTEND_URL}}news">
-                <b>News</b>
-             </a>
-          </li>
-          <li>
-             <a href="{{FRONTEND_URL}}contact">
-                <b>Contacts</b>
-             </a>
-          </li>
-          <li>
-             <a href="http://www.poms.ac.uk/social-network-analysis/">
-                <b>Social Network Analysis</b>
-             </a>
-          </li>
-
-          <li class="ix">
-             <a href="{{FRONTEND_URL}}help">
-                <b>Help</b>
-             </a>
-          </li>
-
-        {# <li class="i1"><a href="/index.html">Home</a></li> #}
-        {# <li class="s1"><a href="#">PoMS Database</a></li> #}
-        {# <li><a href="/content/feature/feature.html">Feature of the Month</a></li> #}
-        {# <li class="ix"><a href="/help">Help</a></li> #}
-      </ul>
-    </div>
-  </div>
 
   <div id="ss">
-	{% block tabs_titles  %}
-	{% endblock %}
+    {% block tabs_titles  %}
+    {% endblock %}
 
-	{% block small_links %}
-	{% endblock %}
+    {% block small_links %}
+    {% endblock %}
   </div>
 
   <div id="cs">
-	{% block permalink %}
-	{% endblock %}
+    {% block permalink %}
+    {% endblock %}
 
-	{% block contents %}
-	{% endblock %}
+    {% block contents %}
+    {% endblock %}
   </div>
 
 </div>
@@ -111,7 +61,7 @@
 {% block body_closing %}
 {% endblock %}
 
-{% block load_js  %}
+{% block load_js %}
 {% endblock %}
 </body>
 </html>

@@ -1,13 +1,108 @@
 /** POMS Styleshee 2018 **/
 
+@import 'fonts';
+
+/* Variables */
+
+$beige: #e3e2cd;
+$primary-color: #2c528b;
+
 /* Globals */
 
 body {
     font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+// Headings
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Cinzel";
+    font-weight: 400;
+    line-height: 1.125;
+}
+
+.top-header {
+    h1 {
+        color: $beige;
+        font-size: 28px;
+        margin: 0;
+        padding: 42px 0 0 148px;
+        text-shadow: 3px 3px 4px black;
+        text-transform: uppercase;
+    }
 }
 
 /* Header */
 
+.top-header {
+    background: url('/static/images/header-banner.jpg') top left no-repeat black;
+    min-height: 140px;
+}
+
+/* Navigation */
+
+.menu {
+    margin: 0;
+    padding: 0;
+
+    a {
+        padding: 8px 16px;
+
+        &:hover {
+            background: darken($primary-color, 10%);
+            color: $beige;
+            text-decoration: none;
+        }
+    }
+
+    li {
+        display: inline-block;
+        list-style: none;
+        padding: 8px 0;
+    }
+}
+
+nav {
+    font-family: "EB_Garamond";
+}
+
+.subnav {
+    background: lighten($primary-color, 60%);
+
+    a {
+        color: $primary-color;
+
+        &.active {
+            background: lighten($primary-color, 50%);
+        }
+    }
+}
+
+.top-nav {
+    background: $primary-color;
+
+    a {
+        color: white;
+
+        &.active {
+            background: lighten($primary-color, 60%);
+            color: $primary-color;
+        }
+    }
+}
+
 /* Main content */
+
+/* Facets */
 
 /* Footer */

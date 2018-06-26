@@ -1,0 +1,38 @@
+/* EB Garamond */
+
+@font-face {
+    font-family: "EB_Garamond";
+    src:    url("/static/fonts/EB_Garamond/EBGaramond-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "EB_Garamond";
+    src:    url("/static/fonts/EB_Garamond/EBGaramond-Italic.ttf") format("truetype");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "EB_Garamond";
+    src:    url("/static/fonts/EB_Garamond/EBGaramond-Bold.ttf") format("truetype");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "EB_Garamond";
+    src:    url("/static/fonts/EB_Garamond/EBGaramond-BoldItalic.ttf") format("truetype");
+    font-style: italic;
+    font-weight: bold;
+}
+
+/* Cinzel */
+
+@font-face {
+    font-family: "Cinzel";
+    src:    url("/static/fonts/Cinzel/Cinzel-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "Cinzel";
+    src:    url("/static/fonts/Cinzel/Cinzel-Bold.ttf") format("truetype");
+    font-weight: bold;
+}

@@ -1,10 +1,20 @@
 {% extends "pomsapp/skeleton.html" %}
 
 {% block load_css  %}
+{% comment %}
 	<link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}paul/c/a.css">
 	<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ MEDIA_URL }}paul/c/s.css">
 	<link rel="stylesheet" type="text/css" media="print" href="{{ MEDIA_URL }}paul/c/p.css">
 	<link type="text/css" href="{{ MEDIA_URL }}css/jquery.treeview.css" rel="stylesheet">
+    {% endcomment %}
+{% endblock %}
+
+{% block titlepage %}
+    <title>Browse | {{ PROJECT_TITLE }}</title>
+{% endblock %}
+
+{% block subnav %}
+{% include 'pomsapp/includes/db_navigation.html' %}
 {% endblock %}
 
 {% block tabs_titles  %}

@@ -1,17 +1,13 @@
 {% extends "pomsapp/skeleton.html" %}
 
 {% block titlepage  %}
-    <title>Search | {{ PROJECT_TITLE }}</title>
+<title>Search | {{ PROJECT_TITLE }}</title>
 {% endblock %}
 
 {% block load_css  %}
 {% endblock %}
 
-
-
 {% block load_js  %}
-
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.5.1.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery.overlabel.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery-ui.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}paul/s/cufon.min.js"></script>
@@ -22,7 +18,6 @@
 
 <script type="text/javascript" src="{{ STATIC_URL }}js/ui/ui.core.js"></script> 
 <script type="text/javascript" src="{{ STATIC_URL }}js/ui/ui.slider.js"></script>
-
 
 <script> 
 $(document).ready(function() {
@@ -53,9 +48,7 @@ $(document).ready(function() {
         style: 'ui-tooltip-light ui-tooltip-rounded'
     });
 
-
     // map ajax previews:
-
     // ....
     $('#preview-map').each(function(){
         $(this).qtip({
@@ -92,7 +85,6 @@ $(document).ready(function() {
     .click(function(event) { event.preventDefault(); });    
     
     // ajax previews:
-
     // ....
     
     $('a.no_extlink').each(function(){
@@ -130,36 +122,25 @@ $(document).ready(function() {
 
 //  final parenthesis
 });
-
-
-
 </script>
 
 {% endblock %}
 
+{% block tabs_titles  %} 
+{% endblock %}
 
-    {% block tabs_titles  %}
-        
-    {% endblock %}
+{% block small_links %}  
+{% endblock %}
 
-    {% block small_links %}
-        
-    {% endblock %}
+{% block permalink %}
+{% endblock %}
 
+<div class="wrapper">
+{% block contents %}
+{% endblock %}
+</div>
 
-    {% block permalink %}
-
-    {% endblock %}
-
-
-    {% block contents %}
-  
-
-    {% endblock %}
-
-
-
-    {% block body_closing %}
-        <script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
-        {% include "pomsapp/snippet_history.html" %}
-    {% endblock %}
+{% block body_closing %}
+    <script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+    {% include "pomsapp/snippet_history.html" %}
+{% endblock %}

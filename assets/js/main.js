@@ -25,4 +25,11 @@ $(function() {
                 });
             }*/
         });
+
+    // Expand / Collapse
+    $('.facet-group-name').bind('click', function() {
+        $(this).next('.facets-list').slideToggle(400).toggleClass('hide');
+        $(this).toggleClass('active');
+        return false;
+    });
 });

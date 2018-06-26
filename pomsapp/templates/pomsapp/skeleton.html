@@ -56,6 +56,12 @@
   ga('send', 'pageview');
 </script>
 
+
+{% compress js %}
+<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% endcompress %}
+
 {% block body_closing %}
 {% endblock %}
 

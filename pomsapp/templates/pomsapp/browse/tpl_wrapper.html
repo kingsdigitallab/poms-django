@@ -104,9 +104,9 @@
 {% endblock results %}
 
 {# ################## #}
-{# #                                   #}
-{# #  FACETS CHOOSER                   #}
-{# #                                   #}
+{# #                  #}
+{# #  FACETS CHOOSER  #}
+{# #                  #}
 {# ################## #}
 
 {% block sidebar %}
@@ -116,8 +116,8 @@
         <ul class="facet-group">
             {% for facet_group_names, facet_group_facets in facet_group_fields.items %}
             <li>
-                <p>{{ facet_group_names }}</p>
-                <ul class="facets-list">
+                <p class="facet-group-name">{{ facet_group_names }}</p>
+                <ul class="facets-list hide">
                     {% for facet_name in facet_group_facets %}
                     {% with facets.fields|get_item:facet_name as facet_terms %}
                     <li>

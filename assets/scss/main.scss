@@ -12,6 +12,7 @@
  * ----- Forms
  * ----- Pagination
  * ----- Slider
+ * ----- Table
  * ----- Tooltips
  * -- Facets
  * ----- Sidebar
@@ -210,6 +211,33 @@ fieldset {
   top: 0;
   width: 16px;
   z-index: 100;
+}
+
+// Table
+
+td,
+th {
+    border: 1px solid white;
+    padding: 8px;
+}
+
+th {
+    background: $primary-color;
+    color: white;
+    font-weight: normal;
+    text-align: left;
+
+    a {
+        color: white;
+    }
+}
+
+tr:nth-child(odd) {
+    background: lighten($primary-color, 55%);
+}
+
+tr:nth-child(even) {
+    background: lighten($primary-color, 62%);
 }
 
 // Tooltips

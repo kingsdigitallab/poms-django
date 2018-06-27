@@ -1,24 +1,24 @@
 {# PAGINATOR #}
 
-    <div class="itp">
-      <h4>Listing items <strong>{{ page_obj.start_index }}</strong> to <strong>{{ page_obj.end_index }}</strong>, page <strong>{{ page_obj.number }}</strong> of <strong>{{ paginator.num_pages }}</strong></h4>
-      <ul>
+    <div class="results-nav">
+      <p>Listing items <strong>{{ page_obj.start_index }}</strong> to <strong>{{ page_obj.end_index }}</strong>, page <strong>{{ page_obj.number }}</strong> of <strong>{{ paginator.num_pages }}</strong></p>
+      <ul class="pagination">
 
 		{% if page_obj.has_previous %}
 			{# <li><a onClick="reload_results('1')">&#8249;&#8249; First</a></li> #}
-			<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page=1">&#8249;&#8249; First</a></li>
-            <li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.previous_page_number }}">&#8249; Previous</a></li>
+			<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page=1"><i class="far fa-angle-double-left"></i> First</a></li>
+            <li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.previous_page_number }}"><i class="far fa-angle-left"></i> Previous</a></li>
 		{% else %}
-			<li class="s5">&#8249;&#8249; First</li>
-			<li class="s5">&#8249; Previous</li>
+			<li><a href="#"><i class="far fa-angle-double-left"></i> First</a></li>
+			<li><a href="#"><i class="far fa-angle-left"></i> Previous</a></li>
         {% endif %}
 
 
-		<!-- EH Don\t know what this is, left it in for the minute-->
+		<!-- EH Don't know what this is, left it in for the minute-->
 		{% for el in items.extrastuff %}
 
 			{% ifequal el items.number %}
-				<li class="s1">{{ el }}</li>
+				<li>{{ el }}</li>
 			{% else %}
 				<li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ el }}">{{ el }}</a></li>
 			{% endifequal %}
@@ -26,11 +26,11 @@
 		{% endfor %}
 
 		{% if page_obj.has_next %}
-			<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.next_page_number }}" >Next &#8250;</a></li>
-			<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.paginator.num_pages }}">Last &#8250;&#8250;</a></li>
+			<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.next_page_number }}" >Next <i class="far fa-angle-right"></i></a></li>
+			<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.paginator.num_pages }}">Last <i class="far fa-angle-double-right"></i></a></li>
 		{% else %}
-			<li class="s5">Next &#8250;</li>
-			<li class="s5">Last &#8250;&#8250;</li>
+			<li><a href="#">Next <i class="far fa-angle-right"></i></a></li>
+			<li><a href="#">Last <i class="far fa-angle-double-right"></i></a></li>
         {% endif %}
 
       </ul>

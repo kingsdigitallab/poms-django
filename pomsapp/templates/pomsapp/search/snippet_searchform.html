@@ -1,60 +1,72 @@
-<form id="search_form" action="." class="fms">
+<form id="search_form" action=".">
 
+  {% comment %}
+    TODO:
+      * use span text to create tooltips
+      * add icons for tooltips
+      * add js for tooltips in main.js
+      * style form
+  {% endcomment %}
 
+  <fieldset>
+    <legend>Search for:</legend>
+    <p>
+      <input id="bs_f" type="radio" name="index_type" value="factoid"{% if 'factoid' in index_type %} checked{% endif %}>
+      <label for="bs_f">Factoids <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltiptext">Searching on fields: short description, source for data entry, ID number.</span></span></label>
+    </p>
 
-   <fieldset class="i2">
-      <h4>Search for:</h4>
-      <ul>
-        <li>
-          <input id="bs_f" type="radio" name="index_type" value="factoid" {% if 'factoid' in index_type %}checked="CHECKED"{% endif %}  />
-          <label for="bs_f" id="bs_f_h">Factoids <span class="infoTip tip" title="Searching on fields: short description, source for data entry, ID number."></span></label>
-        </li>
-        <li>
-          <input id="bs_s" type="radio" name="index_type" value="source" {% if 'source' in index_type %}checked="CHECKED"{% endif %} />
-          <label for="bs_s" id="bs_s_h">Sources <span class="infoTip tip" title="Searching in fields: H-number, trad.ID, description, ID number."></span></label>
-        </li>
-        <li>
-          <input id="bs_pl" type="radio" name="index_type" value="place" {% if 'place' in index_type %}checked="CHECKED"{% endif %}  />
-          <label for="bs_pl" id="bs_pl_h">Places <span class="infoTip tip" title="Searching in fields: name, ID number."></span></label>
-        </li>
-        <li>
-          <input id="bs_p" type="radio" name="index_type" value="person" {% if 'person' in index_type %}checked="CHECKED"{% endif %} />
-          <label for="bs_p" id="bs_p_h">People and Institutions <span class="infoTip tip" title="Searching in fields: full modern name, standard medieval name, modern gaelic name, ID number."></span></label>
-        </li>
-      </ul>
-   </fieldset>
+    <p>
+      <input id="bs_s" type="radio" name="index_type" value="source"{% if 'source' in index_type %} checked{% endif %}>
+      <label for="bs_s">Sources <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltiptext">Searching in fields: H-number, trad.ID, description, ID number.</span></span></label>
+    </p>
 
+    <p>
+      <input id="bs_pl" type="radio" name="index_type" value="place"{% if 'place' in index_type %} checked{% endif %}>
+      <label for="bs_pl">Places <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltiptext">Searching in fields: name, ID number.</span></span></label>
+    </p>
 
-	<br /><br />
+    <p>
+      <input id="bs_p" type="radio" name="index_type" value="person"{% if 'person' in index_type %} checked{% endif %}>
+      <label for="bs_p">People and Institutions <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltiptext">Searching in fields: full modern name, standard medieval name, modern gaelic name, ID number.</span></span></label>
+    </p>
+  </fieldset>
 	
-   <fieldset class="i1">
-      <label for="bs_input">
-	{% if query %}
-		{{query}}
-	{% else %}
-		Enter search terms
-    {% endif %}
-	  </label>
-	
-      <input id="bs_input" type="text" name='q'  {% if 'q' in form.data %}value='{{form.data.q}}'{% else %}value=""{% endif %}/>
-      <button>Go</button>
-      <button type='reset' id='reset_search'>Reset</button>
-   </fieldset>
+  <fieldset>
+    <label for="bs_input">
+      {% if query %}
+      {{query}}
+      {% else %}
+      Enter search terms
+      {% endif %}
+    </label>
 
+    <input id="bs_input" type="text" name='q'{% if 'q' in form.data %} value='{{form.data.q}}'{% else %} value=""{% endif %}>
+    <button>Go</button>
+    <button type='reset' id='reset_search'>Reset</button>
+  </fieldset>
 
+  {# 2010-10-20: added two hidden fields for ordering and years #}
 
-{# 2010-10-20: added two hidden fields for ordering and years #}
+  <fieldset>
+    <p>
+      <label>Date range (start date):</label>
+    </p>
 
+    <p>
+    <label for="min">Min value:</label>
+    <input type="text" value="1093" id="min">
+    </p>
+    
+    <p>
+    <label for="max">Max value:</label>
+    <input type="text" value="1314" id="max">
+    </p>
 
+    <div class="g-ranger" id="range"></div>
+  </fieldset>
 
-	<p> 
-	<label for="date_range">Date range (start date):</label>
-	<br /><br />
-	<div id="slider_range"></div>
-	<br />
-	<input type="text" id="date_range" name="date_range" style="color:black; font-weight:bold;" value="{{ date_range }}" />
-	</p>
-	
-	<br /><br /><br />
-
+  {% comment %}
+  <div id="slider_range"></div>
+  <input type="text" id="date_range" name="date_range" value="{{ date_range }}">
+  {% endcomment %}
 </form>

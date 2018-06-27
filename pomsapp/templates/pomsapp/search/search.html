@@ -32,15 +32,17 @@
     {% endblock %}
 
     {% block main_content %}
-    <div class="handles searchPages">
-        <ul>
-            <li><a original-title="Hide refine history panel" href="#" id="historyHandle" class="historyPanel tip">Hide</a>
-            </li>  
-        </ul>
-    </div><!-- handles end -->
+    <div class="main">
+        <div class="handles searchPages">
+            <ul>
+                <li><a original-title="Hide refine history panel" href="#" id="historyHandle" class="historyPanel tip">Hide</a>
+                </li>  
+            </ul>
+        </div><!-- handles end -->
 
-    <div class="r2" id="results">
-        {% include "pomsapp/search/snippet_results.html" %}
+        <div id="results">
+            {% include "pomsapp/search/snippet_results.html" %}
+        </div>
     </div>
     {% endblock %}
 {% endblock %}

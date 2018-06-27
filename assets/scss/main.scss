@@ -2,12 +2,35 @@
 
 @import 'fonts';
 
+/***
+ * -- Variables
+ * -- Globals
+ * ----- Headings
+ * -- Header
+ * -- Navigation
+ * -- Main content
+ * ----- Forms
+ * ----- Pagination
+ * ----- Slider
+ * ----- Tooltips
+ * -- Facets
+ * ----- Sidebar
+ * -- Footer
+ * -- Import FontAwesome
+ */
+
 /* Variables */
 
 $beige: #e3e2cd;
 $primary-color: #2c528b;
 
 /* Globals */
+
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
 
 body {
     font-family: sans-serif;
@@ -16,6 +39,7 @@ body {
 }
 
 a {
+    color: $primary-color;
     text-decoration: none;
 
     &:hover {
@@ -34,9 +58,16 @@ a {
 // Headings
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Cinzel";
     font-weight: 400;
     line-height: 1.125;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+}
+
+h2, h3, h4, h5, h6 {
+    font-family: 'EB_Garamond', serif;
 }
 
 .top-header {
@@ -113,6 +144,8 @@ nav {
 
 .main {
     float: left;
+    padding-left: 8px;
+    padding-right: 16px;
     width: 75%;
 }
 
@@ -122,12 +155,120 @@ nav {
     width: 100%;
 }
 
+// Forms
+
+fieldset {
+    border: none;
+}
+
+#search_form {
+}
+
+// Pagination
+
+.pagination {
+    border: 1px solid $primary-color;
+    border-left: 0;
+    border-right: 0;
+    list-style: none;
+    padding: 8px 0;
+
+    li {
+        display: inline-block;
+    }
+
+    a {
+        padding: 8px 16px;
+        text-decoration: none;
+
+        &.active,
+        &:hover:not(.active) {
+            background: lighten($primary-color, 60%);
+        }
+    }
+}
+
+// Slider
+
+.g-ranger {
+  background-color: lighten($primary-color, 55%);
+  display: block;
+  height: 10px;
+  position: relative;
+}
+
+.g-ranger .slider {
+  background-color: lighten($primary-color, 10%);
+  border: 1px solid #fff;
+  cursor: pointer;
+  display: block;
+  height: 16px;
+  left: 0;
+  margin-top: -3px;
+  margin-left: -3px;
+  position: absolute;
+  top: 0;
+  width: 16px;
+  z-index: 100;
+}
+
+// Tooltips
+
+ /* Tooltip container */
+.tooltip {
+    display: inline-block;
+    position: relative;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+    background-color: $primary-color;
+    border-radius: 2px;
+    color: #fff;
+    font-size: .875em;
+    line-height: 1.25;
+    padding: 5px;
+    visibility: hidden;
+    width: 180px;
+
+    /* Position the tooltip text */
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    position: absolute;
+    z-index: 1;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+    content: "";
+    left: 40%;
+    margin-left: -5px;
+    position: absolute;
+    top: 100%;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+    opacity: 1;
+    visibility: visible;
+} 
+
 /* Facets */
 
 // Sidebar
 
 .facet-sidebar {
     float: left;
+    padding-left: 16px;
+    padding-right: 8px;
     width: 25%;
 
     .active {
@@ -150,3 +291,6 @@ nav {
 }
 
 /* Footer */
+
+/* Import FontAwesome */
+@import '../fonts/FontAwesome/scss/fontawesome.scss';

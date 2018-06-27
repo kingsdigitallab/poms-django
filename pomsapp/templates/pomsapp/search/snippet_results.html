@@ -12,9 +12,9 @@
       <h3>{% if query %}Matching Records{% else %}Showing All Records{% endif %} <dfn>(<span id="rec_num">{{totitems|default:'None'}}</span>)</dfn></h3>
     
       <ul class="utl m2">
-        {# <li class="i1"><a href="#" title="Download these Results"><b>Download these Results</b></a></li> #}
+        {# <li class="i1"><a href="#" title="Download these Results">Download these Results</a></li> #}
         {% if user.is_superuser %}
-            <li class="i1"><a href="javascript:showLogs();" title="Hi there superuser!"><b>Log Query</b></a></li>
+            <li class="i1"><a href="javascript:showLogs();" title="Hi there superuser!">Log Query</a></li>
         {% endif %}
       </ul>
     </div>
@@ -47,10 +47,10 @@
 
                 <thead>
                     <tr>
-                        <th><a class="{{active_ordering|infer_class:'factoiddesc'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=description"><b>Description</b></a></th>
-                        <th><a class="{{active_ordering|infer_class:'factoidtype'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=inferred_type"><b>Type</b></a></th>
-                        <th><a class="{{active_ordering|infer_class:'factoidsource'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=source"><b>Source</b></a></th>
-                        <th><a class="{{active_ordering|infer_class:'factoiddate'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate"><b>Date</b></a></th>
+                        <th><a class="{{active_ordering|infer_class:'factoiddesc'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a></th>
+                        <th><a class="{{active_ordering|infer_class:'factoidtype'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=inferred_type">Type</a></th>
+                        <th><a class="{{active_ordering|infer_class:'factoidsource'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=source">Source</a></th>
+                        <th><a class="{{active_ordering|infer_class:'factoiddate'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
                     </tr>
                 </thead>
 
@@ -76,30 +76,27 @@
             {# ******** #}
 
             {% ifequal index_type 'source' %}
-
                   <tr>
-                    <th><a class="{{active_ordering|infer_class:'sourcehammond'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=calendar_number"><b>Calendar number</b></a></th>
-                    <th><a class="{{active_ordering|infer_class:'sourcedesc'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=description"><b>Description</b></a></th>
-                    <th><a class="{{active_ordering|infer_class:'sourcedate'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate"><b>Date</b></a></th>
-                    {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('annotate=factoid')"><b>Associated factoids</b></a></th>  #}
+                    <th><a class="{{active_ordering|infer_class:'sourcehammond'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=calendar_number">Calendar number</a></th>
+                    <th><a class="{{active_ordering|infer_class:'sourcedesc'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a></th>
+                    <th><a class="{{active_ordering|infer_class:'sourcedate'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
+                    {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('annotate=factoid')">Associated factoids</a></th>  #}
                   </tr>
 
                 {% for result in object_list %}
-                    {%  with record=result.object %}
-
-                  <tr>
-                    <td><a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
-                            {{record|poms_italic|safe|default:"<i>item empty (check DB for deletion)</i>"}}
-                    </a></td>
+                {% with record=result.object %}
+                <tr>
+                    <td>
+                        <a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
+                        {{record|poms_italic|safe|default:"<i>item empty (check DB for deletion)</i>"}}
+                        </a>
+                    </td>
                     <td>{{record.description|truncatewords:15 }}</td>
                     <td>{{ record.firmdate|format_dates}}</td>
-                  </tr>
-                    {% endwith %}
-
+                </tr>
+                {% endwith %}
                 {% endfor %}
-
             {% endifequal %}
-
 
 
             {# ******** #}
@@ -107,25 +104,23 @@
             {# ******** #}
 
             {% ifequal index_type 'place' %}
-
                   <tr>
-                    <th><a class="{{active_ordering|infer_class:'placename'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=place_name"><b>Place name</b></a></th>
-                    <th><a class="{{active_ordering|infer_class:'placeparent'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=parent"><b>Parent</b></a></th>
+                    <th><a class="{{active_ordering|infer_class:'placename'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=place_name">Place name</a></th>
+                    <th><a class="{{active_ordering|infer_class:'placeparent'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=parent">Parent</a></th>
                   </tr>
 
                 {% for result in object_list %}
-                    {%  with record=result.object %}
-
-                  <tr>
+                {% with record=result.object %}
+                <tr>
                     <td><a class="no_extlink" href="{% url 'place_detail' record.id %}" target="_self" title="show details">{{record.name}}</a></td>
-                    <td>{% if record.parent %}
+                    <td>
+                        {% if record.parent %}
                         <a class="no_extlink" href="{% url 'place_detail' record.parent.id %}" target="_self" title="show details">{{record.parent.name}}</a>
-                    {% endif %}</td>
-                  </tr>
-                    {% endwith %}
-
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endwith %}
                 {% endfor %}
-
             {% endifequal %}
             
             
@@ -135,7 +130,7 @@
             {# ******** #}
             
             
-            {% if 'person' in index_type  %}
+            {% if 'person' in index_type %}
 
                  <tr>
                     <th><a href="javascript:change_ordering('persondisplayname');">Full Name</a></th>

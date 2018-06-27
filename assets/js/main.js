@@ -32,4 +32,6 @@ $(function() {
         $(this).toggleClass('active');
         return false;
     });
+
+    new gRanger('#range', '#min', '#max');
 });

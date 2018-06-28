@@ -7,23 +7,21 @@
 
 {% block main_content %}
 <div class="main">
-    <div class="m">
-        <div class="c c1">
-            <div class="r1" id="facets">
-                {% block controlbar %} 
-                {# here the list of active facets #}
+    <div>
+        <div id="facets">
+            {% block controlbar %} 
+            {# here the list of active facets #}
+            {% endblock %}
+        </div>
+        <div id="results">
+            {% block results %}
+                {% block inner_results %}
+                {# here the results of the search #}
                 {% endblock %}
-            </div>
-            <div class="r2" id="results">
-                {% block results %}
-                    {% block inner_results %}
-                    {# here the results of the search #}
-                    {% endblock %}
-                {% endblock %}
-            </div>
+            {% endblock %}
         </div>
     </div>
-    <div class="c c2" id="search">
+    <div id="search">
         {% block search %}  
         {# here the facets list #}
         {% endblock %}

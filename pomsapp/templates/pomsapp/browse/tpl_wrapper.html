@@ -8,36 +8,35 @@
     {# </ul> #}
 {% endblock %}
 
-{# ################## #}
-{# #                                   #}
-{# #  CONTROL BAR: ACTIVE FACETS LIST  #}
-{# #                                   #}
-{# ################## #}
+{# ################################ #}
+{#                                  #}
+{# CONTROL BAR: ACTIVE FACETS LIST  #}
+{#                                  #}
+{# ################################ #}
 
 {% block controlbar %}
-<div class="hds">
-    <h3>Selected Terms</h3>
-    <ul class="utl m2">
-        <li class="i3"><a id="empty_controls" title="Remove all terms"><b>Remove all</b></a></li>
-        <li class="i4"><a title="why do I see these results?" onClick="explain_results()"><b>Explain </b></a></li>
-        {# <li class="i1"><a href="#" title="Save Terms"><b>Save Terms</b></a></li> #}
-        {# <li class="i2"><a href="#" title="Load Terms"><b>Load Terms</b></a></li> #}
+<h2>Selected Terms</h2>
+<ul class="menu">
+    <li><a id="empty_controls">Remove all</a></li>
+    {# This below should be rethought #}
+    <li><a title="why do I see these results?" onClick="explain_results()">Explain <i class="fas fa-question-circle"></i></a></li>
+    {# <li class="i1"><a href="#" title="Save Terms"><b>Save Terms</b></a></li> #}
+    {# <li class="i2"><a href="#" title="Load Terms"><b>Load Terms</b></a></li> #}
+</ul>
 
-    </ul>
-</div>
-
-<ul class="nvs active_facets">
+<ul class="active_facets">
     {% for facetgroup, facets in facetgroups_and_facets reversed %}
-        <li class="{% cycle 'm0' 'm1' 'm2' 'm3' 'm4' %}">
-            <h5 id="{{ facetgroup.uniquename }}" class="no_facets">{{ facetgroup.label|capfirst }}</h5> &#8250;
-            {# <a href="#">Facet</a> &#8250;  #}
-            {# <strong>FacetValue</strong> <a href="#" class="t9 m2" title="Remove this as a filter">Remove</a> #}
-            <small class="no_facets">none</small>
-        </li>
+    <li class="{% cycle 'm0' 'm1' 'm2' 'm3' 'm4' %}">
+        <h3 id="{{ facetgroup.uniquename }}" class="no_facets">{{ facetgroup.label|capfirst }}</h3> &#8250;
+        {# <a href="#">Facet</a> &#8250;  #}
+        {# <strong>FacetValue</strong> <a href="#" class="t9 m2" title="Remove this as a filter">Remove</a> #}
+        <small class="no_facets">none</small>
+    </li>
     {% endfor %}
 </ul>
 
 {# 2010-07-07 hidden fields for BlockUI message #}
+{# No idea what these two <div>s do, blockUImessage1 and blockUImessage2 - Ginestra #}
 <div id="blockUImessage1" style="display:none">
 </div>
 
@@ -45,62 +44,55 @@
 </div>
 {% endblock %}
 
-{# ################## #}
-{# #                                   #}
-{# #  RESULTS OF A SEARCH              #}
-{# #                                   #}
-{# ################## #}
+{# ##################### #}
+{#                       #}
+{#  RESULTS OF A SEARCH  #}
+{#                       #}
+{# ##################### #}
 
 {% block results %}
 <!-- hidden fields with useful data -->
 {# e.g. a db field to do the ordering on: 'shortdesc', or an annotation command: 'annotate=factoid' #}
-<input type="hidden" id="active_ordering" value="default"/>
-<input type="hidden" id="refresh_facets" value="{{ count_is_active }}"/>
+<input type="hidden" id="active_ordering" value="default">
+<input type="hidden" id="refresh_facets" value="{{ count_is_active }}">
 <!-- end of hidden fields -->
 
-<div class="hds">
-    <h3>Matching Records <dfn>(<span id="rec_num">{{ items|length|default:"None"}}</span>)</dfn></h3>
-    <ul class="utl m2">
-        {# <li class="i1"><a href="#" title="Download these Results"><b>Download these Results</b></a></li> #}
-        {% if user.is_superuser %}
-            <li class="i1"><a href="javascript:showLogs();" title="Hi there superuser!"><b>Log Query</b></a></li>
-            {% if count_test_button %}
-                <li class="i1"><a href="javascript:updateFacetValues(true);" title="Hi there superuser!"><b>Update open
-                    facet</b></a></li>
-            {% endif %}
-        {% endif %}
-    </ul>
+<h2>Matching Records <dfn>(<span id="rec_num">{{ items|length|default:"None" }}</span>)</dfn></h2>
+<ul>
+    {# <li class="i1"><a href="#" title="Download these Results"><b>Download these Results</b></a></li> #}
+    {% if user.is_superuser %}
+    <li><a href="javascript:showLogs();">Log Query</a></li>
+    {% if count_test_button %}
+    <li><a href="javascript:updateFacetValues(true);">Update open facet</a></li>
+    {% endif %}
+    {% endif %}
+</ul>
+
+<ul class="menu">
+    {% for result_type in result_types %}
+    <li id="{{ result_type.uniquename }}">
+        <a href="{% url 'browse' %}{%  add_facet_link querydict 'index_type' result_type.uniquename %}">{{ result_type.label|capfirst }}</a>
+    </li>
+    {% endfor %}
+    {# <li id="factoid"><a href="#results_factoid">Factoids</a></li> #}
+    {# <li id="source"><a href="#results_source">Sources</a></li> #}
+    {# <li id="people"><a href="#results_people">People</a></li> #}
+</ul>
+
+<div id="results_factoid">
+    {# in order to use the inner block we must move it before the FOR command!!! #}
+    {% block inner_results %}
+    {% include 'pomsapp/search/snippet_results.html' %}
+    {% endblock inner_results %}
 </div>
 
-<div class="tsb">
-    <ul class="tsn">
-
-        {% for result_type in result_types %}
-            <li id="{{ result_type.uniquename }}"><a
-                    href="{% url 'browse' %}{%  add_facet_link querydict 'index_type' result_type.uniquename %}">{{ result_type.label|capfirst }}</a></li>
-        {% endfor %}
-        {# <li id="factoid"><a href="#results_factoid">Factoids</a></li> #}
-        {# <li id="source"><a href="#results_source">Sources</a></li> #}
-        {# <li id="people"><a href="#results_people">People</a></li> #}
-    </ul>
-
-    <div id="results_factoid" class="tsp">
-
-        {# in order to use the inner block we must move it before the FOR command!!! #}
-
-        {% block inner_results %}
-        {% include 'pomsapp/search/snippet_results.html' %}
-        {% endblock inner_results %}
-
-    </div>
-    <div id="results_source" class="tsp">
-        {% include "pomsapp/browse/snippet_noresults.html" %}
-    </div>
-    <div id="results_people" class="tsp">
-        {% include "pomsapp/browse/snippet_noresults.html" %}
-    </div>
+<div id="results_source">
+    {% include "pomsapp/browse/snippet_noresults.html" %}
 </div>
 
+<div id="results_people">
+    {% include "pomsapp/browse/snippet_noresults.html" %}
+</div>
 {% endblock results %}
 
 {# ################## #}
@@ -111,7 +103,7 @@
 
 {% block sidebar %}
 <div class="facet-sidebar">
-    <h3>Facets available:</h3>
+    <h2>Facets available:</h2>
     <form>
         <ul class="facet-group">
             {% for facet_group_names, facet_group_facets in facet_group_fields.items %}

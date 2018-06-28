@@ -1,184 +1,164 @@
 {% load extrafilters %}
+
 <!-- hidden fields with useful data -->
-
 {# e.g. a db field to do the ordering on: 'shortdesc', or an annotation command: 'annotate=factoid' #}
-<input type="hidden" id="active_result_type" value="{{active_result_type}}">
-
+<input type="hidden" id="active_result_type" value="{{ active_result_type }}">
 <!-- end of hidden fields -->
 
 {% if object_list %}
+<h2>{% if query %}Matching Records{% else %}Showing All Records{% endif %} <dfn>(<span id="rec_num">{{ totitems|default:'None' }}</span>)</dfn></h2>
 
-    <div class="hds">
-      <h3>{% if query %}Matching Records{% else %}Showing All Records{% endif %} <dfn>(<span id="rec_num">{{totitems|default:'None'}}</span>)</dfn></h3>
-    
-      <ul class="utl m2">
-        {# <li class="i1"><a href="#" title="Download these Results">Download these Results</a></li> #}
-        {% if user.is_superuser %}
-            <li class="i1"><a href="javascript:showLogs();" title="Hi there superuser!">Log Query</a></li>
-        {% endif %}
-      </ul>
-    </div>
-            
-{% endif %}
-        
-<div class="tsb">
-
-    {% if object_list %}
-    <ul class="tsn">
-    {% for result_type in result_types %}
-        <li id={{result_type.uniquename}}><a href="search?query={{query}}&amp;years={{active_years}}&amp;basic_search_type={{result_type.uniquename}}&amp;page=1">{{result_type.label|capfirst}}</a></li>
-    {% endfor %}
-    </ul>
+<ul>
+    {# <li class="i1"><a href="#" title="Download these Results">Download these Results</a></li> #}
+    {% if user.is_superuser %}
+    <li><a href="javascript:showLogs();" title="Hi there superuser!">Log Query</a></li>
     {% endif %}
+</ul>
 
-    <div id="results_factoid" class="tsp">  {# old name, but really it's just a div, not tabber #}
+{% comment %}
+{# This is repeating if object_list, so I'd remove it #}
+{% endif %}
 
+{% if object_list %}
+{% endcomment %}
+
+<ul class="menu">
+    {% for result_type in result_types %}
+    <li id="{{ result_type.uniquename }}">
+        <a href="search?query={{ query }}&amp;years={{ active_years }}&amp;basic_search_type={{ result_type.uniquename }}&amp;page=1">{{ result_type.label|capfirst }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div id="results_factoid">  {# old name, but really it's just a div, not tabber #}
     {% block inner_results %}
-        {# TIP : if we have items, we display them, otherwise we include the noresults_snippet.html (see below) #}
-        {% if object_list %}
-            {% include "pomsapp/search/snippet_paginator.html" %}
-            <table>
-            {# ******** #}
-            {# FACTOIDS #}
-            {# ******** #}
-            
-            {% ifequal index_type 'factoid' %}
-                <thead>
-                    <tr>
-                        <th><a class="{{active_ordering|infer_class:'factoiddesc'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a></th>
-                        <th><a class="{{active_ordering|infer_class:'factoidtype'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=inferred_type">Type</a></th>
-                        <th><a class="{{active_ordering|infer_class:'factoidsource'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=source">Source</a></th>
-                        <th><a class="{{active_ordering|infer_class:'factoiddate'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
-                    </tr>
-                </thead>
+    {# TIP : if we have items, we display them, otherwise we include the noresults_snippet.html (see below) #}
+    {% if object_list %}
+    {% include "pomsapp/search/snippet_paginator.html" %}
+    <table>
+        {# ******** #}
+        {# FACTOIDS #}
+        {# ******** #}
+        {% ifequal index_type 'factoid' %}
+        <thead>
+            <tr>
+                <th><a class="{{ active_ordering|infer_class:'factoiddesc' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a></th>
+                <th><a class="{{ active_ordering|infer_class:'factoidtype' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=inferred_type">Type</a></th>
+                <th><a class="{{ active_ordering|infer_class:'factoidsource' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=source">Source</a></th>
+                <th><a class="{{ active_ordering|infer_class:'factoiddate' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
+            </tr>
+        </thead>
 
-                {% for result in object_list %}
-                {%  with record=result.object %}
-                <tbody>
-                    <tr>
-                        <td><a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
-                            {{record|capfirst|truncatewords:15|default:"<em>item empty (check DB for deletion)</em>"}}
-                            </a></td>
-                        <td>{{record.inferred_type}}</td>
-                        <td><a class="no_extlink" href="{% url 'source_detail' record.sourcekey.id %}" title="show details" target="_self">{{record.sourcekey|poms_italic|safe}}</a></td>
-                        <td>{{record.firmdate|format_dates}}</td>
-                    </tr>
-                </tbody>
-                {% endwith %}
-                {% endfor %}
-            {% endifequal %}
+        {% for result in object_list %}
+        {%  with record=result.object %}
+        <tbody>
+            <tr>
+                <td>
+                    <a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
+                        {{ record|capfirst|truncatewords:15|default:"<em>item empty (check DB for deletion)</em>" }}
+                    </a>
+                </td>
+                <td>{{ record.inferred_type }}</td>
+                <td>
+                    <a class="no_extlink" href="{% url 'source_detail' record.sourcekey.id %}" title="show details" target="_self">{{ record.sourcekey|poms_italic|safe }}</a>
+                </td>
+                <td>{{ record.firmdate|format_dates }}</td>
+            </tr>
+        </tbody>
+        {% endwith %}
+        {% endfor %}
+        {% endifequal %}
 
+        {# ******** #}
+        {# SOURCES #}
+        {# ******** #}
 
-            {# ******** #}
-            {# SOURCES #}
-            {# ******** #}
+        {% ifequal index_type 'source' %}
+        <thead>
+            <tr>
+                <th><a class="{{ active_ordering|infer_class:'sourcehammond' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=calendar_number">Calendar number</a></th>
+                <th><a class="{{ active_ordering|infer_class:'sourcedesc' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a></th>
+                <th><a class="{{ active_ordering|infer_class:'sourcedate' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
+                {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('annotate=factoid')">Associated factoids</a></th>  #}
+            </tr>
+        </thead>
 
-            {% ifequal index_type 'source' %}
-                <thead>
-                    <tr>
-                        <th><a class="{{active_ordering|infer_class:'sourcehammond'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=calendar_number">Calendar number</a></th>
-                        <th><a class="{{active_ordering|infer_class:'sourcedesc'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a></th>
-                        <th><a class="{{active_ordering|infer_class:'sourcedate'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
-                        {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('annotate=factoid')">Associated factoids</a></th>  #}
-                    </tr>
-                </thead>
+        {% for result in object_list %}
+        {% with record=result.object %}
+        <tbody>
+            <tr>
+                <td>
+                    <a class="no_extlink" href="{{ record.get_absolute_url }}" target="_self" title="show details">
+                        {{ record|poms_italic|safe|default:"<em>item empty (check DB for deletion)</em>" }}
+                    </a>
+                </td>
+                <td>{{ record.description|truncatewords:15 }}</td>
+                <td>{{ record.firmdate|format_dates }}</td>
+            </tr>
+        </tbody>
+        {% endwith %}
+        {% endfor %}
+        {% endifequal %}
 
-                {% for result in object_list %}
-                {% with record=result.object %}
-                <tbody>
-                    <tr>
-                        <td>
-                            <a class="no_extlink" href="{{record.get_absolute_url}}" target="_self" title="show details">
-                            {{record|poms_italic|safe|default:"<em>item empty (check DB for deletion)</em>"}}
-                            </a>
-                        </td>
-                        <td>{{record.description|truncatewords:15 }}</td>
-                        <td>{{ record.firmdate|format_dates}}</td>
-                    </tr>
-                </tbody>
-                {% endwith %}
-                {% endfor %}
-            {% endifequal %}
+        {# ******** #}
+        {# PLACES   #}
+        {# ******** #}
 
+        {% ifequal index_type 'place' %}
+        <tr>
+            <th><a class="{{ active_ordering|infer_class:'placename' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=place_name">Place name</a></th>
+            <th><a class="{{ active_ordering|infer_class:'placeparent' }} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=parent">Parent</a></th>
+        </tr>
 
-            {# ******** #}
-            {# PLACES #}
-            {# ******** #}
+        {% for result in object_list %}
+        {% with record=result.object %}
+        <tr>
+            <td><a class="no_extlink" href="{% url 'place_detail' record.id %}" target="_self" title="show details">{{ record.name }}</a></td>
+            <td>
+                {% if record.parent %}
+                <a class="no_extlink" href="{% url 'place_detail' record.parent.id %}" target="_self" title="show details">{{ record.parent.name }}</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+        {% endifequal %}
 
-            {% ifequal index_type 'place' %}
-                  <tr>
-                    <th><a class="{{active_ordering|infer_class:'placename'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=place_name">Place name</a></th>
-                    <th><a class="{{active_ordering|infer_class:'placeparent'}} arrowUp" href="{% url 'basic_search' %}?{{ querystring }}&order_by=parent">Parent</a></th>
-                  </tr>
+        {# ****** #}
+        {# PEOPLE #}
+        {# ****** #}
 
-                {% for result in object_list %}
-                {% with record=result.object %}
-                <tr>
-                    <td><a class="no_extlink" href="{% url 'place_detail' record.id %}" target="_self" title="show details">{{record.name}}</a></td>
-                    <td>
-                        {% if record.parent %}
-                        <a class="no_extlink" href="{% url 'place_detail' record.parent.id %}" target="_self" title="show details">{{record.parent.name}}</a>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endwith %}
-                {% endfor %}
-            {% endifequal %}
-            
-            
+        {% if 'person' in index_type %}
+        <tr>
+            <th><a href="javascript:change_ordering('persondisplayname');">Full Name</a></th>
+            <th><a href="javascript:change_ordering('forename');">Forename</a></th>
+            <th><a href="javascript:change_ordering('helper_searchbigsur');">Surname</a></th>
+            <th><a href="javascript:change_ordering('standardmedievalname');">Medieval Gaelic Name</a></th>
+            <th><a href="javascript:change_ordering('moderngaelicname');">Modern Gaelic Name</a></th>
+            <th><a href="javascript:change_ordering('floruitstartyr, floruitendyr');">Floruit</a></th>
+        </tr>
 
-            {# ******** #}
-            {# PEOPLE #}
-            {# ******** #}
-            
-            
-            {% if 'person' in index_type %}
-
-                 <tr>
-                    <th><a href="javascript:change_ordering('persondisplayname');">Full Name</a></th>
-                    <th><a href="javascript:change_ordering('forename');">Forename</a></th>
-                    <th><a href="javascript:change_ordering('helper_searchbigsur');">Surname</a></th>
-                    <th><a href="javascript:change_ordering('standardmedievalname');">Medieval Gaelic Name</a></th>
-                    <th><a href="javascript:change_ordering('moderngaelicname');">Modern Gaelic Name</a></th>
-                    <th><a href="javascript:change_ordering('floruitstartyr, floruitendyr');">Floruit</a></th>
-                </tr>
-
-                {% for result in object_list %}
-                    {%  with record=result.object %}
-                  
-                  <tr>
-
-                    <td><a href="{% url 'person_detail' record.id %}"> {{record.persondisplayname|truncatewords:15|poms_italic|safe}}</a></td>
-                  <td>{{record.forename|truncatewords:15|poms_italic|safe}}</td>
-                  <td>{{record.surname|truncatewords:15|poms_italic|safe}}</td>
-                     <td>{{record.standardmedievalname|default:""}}</td>
-                     <td>{{record.moderngaelicname|default:""}}</td>
-                    <td>{{record.nice_floruits|safe}}</td>
-                  </tr>
-                    {% endwith %}
-
-                {% endfor %}
-
-            {% endif %}
-
-        </table>
-
-
-        {% include "pomsapp/search/snippet_paginator.html" %}
-        
-        
-
-        {% else %}
-
-
-            {% include "pomsapp/search/snippet_noresults.html" %}
-
-
+        {% for result in object_list %}
+        {%  with record=result.object %}
+        <tr>
+            <td><a href="{% url 'person_detail' record.id %}"> {{ record.persondisplayname|truncatewords:15|poms_italic|safe }}</a></td>
+            <td>{{ record.forename|truncatewords:15|poms_italic|safe }}</td>
+            <td>{{ record.surname|truncatewords:15|poms_italic|safe }}</td>
+            <td>{{ record.standardmedievalname|default:"" }}</td>
+            <td>{{ record.moderngaelicname|default:"" }}</td>
+            <td>{{ record.nice_floruits|safe }}</td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
         {% endif %}
+    </table>
 
+{% include "pomsapp/search/snippet_paginator.html" %}
 
-     {% endblock inner_results %}
+{% else %}
+{% include "pomsapp/search/snippet_noresults.html" %}
+{% endif %}
+{% endblock inner_results %}
 
-    </div>    {# results_factoid #}
-                
-</div>   {# tsb #}
+</div> {# results_factoid #}

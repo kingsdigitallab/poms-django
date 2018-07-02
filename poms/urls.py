@@ -8,9 +8,9 @@ from pomsapp.views import admin_overview
 from utils.adminextra import poms_custom_admin_views
 
 kdl_ldap_register_signal_hadlers()
-# from wagtail.wagtailadmin import urls as wagtailadmin_urls
-# from wagtail.wagtailcore import urls as wagtail_urls
-# from wagtail.wagtaildocs import urls as wagtaildocs_urls
+from wagtail.wagtailadmin import urls as wagtailadmin_urls
+from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
 
 """
@@ -158,9 +158,6 @@ if settings.LOCAL_SERVER:     # ===> static files on local machine
 
 admin.autodiscover()
 
-# url(r'^wagtail/', include(wagtailadmin_urls)),
-#     url(r'^documents/', include(wagtaildocs_urls)),
-# url(r'', include(wagtail_urls)),
 
 # todo assuming this is because of /db/ prefix, will remove
 # when wagtail rationalises site
@@ -202,7 +199,9 @@ urlpatterns = [
     # url(r'^' + prefix + 'labs/', include('labsapp.urls')),
     # This replace djfacet with haystack
     url(r'^search/', include('haystack.urls')),
-
+    url(r'^wagtail/', include(wagtailadmin_urls)),
+    url(r'^documents/', include(wagtaildocs_urls)),
+    url(r'', include(wagtail_urls)),
 ]
 
 # -----------------------------------------------------------------------------

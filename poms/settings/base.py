@@ -94,10 +94,7 @@ INSTALLED_APPS = [
 
 ]
 
-"""
-temp removed to get clean django
 INSTALLED_APPS += [  # your project apps here
-    
 
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
@@ -113,7 +110,7 @@ INSTALLED_APPS += [  # your project apps here
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.table_block',
     'taggit',
-]"""
+]
 
 INTERNAL_IPS = ['127.0.0.1']
 
@@ -178,9 +175,6 @@ LOGGING = {
     }
 }
 
-# 'wagtail.wagtailcore.middleware.SiteMiddleware',
-# 'wagtail.wagtailredirects.middleware.RedirectMiddleware',
-
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -190,6 +184,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'wagtail.wagtailcore.middleware.SiteMiddleware',
+    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
 
 ]
 
@@ -318,7 +314,8 @@ ITEMS_PER_PAGE = 10
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE':
-            'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            'haystack.backends.elasticsearch_backend'
+            '.ElasticsearchSearchEngine',
         'URL': 'http://127.0.0.1:9200/',
         'INDEX_NAME': 'poms_haystack',
     },

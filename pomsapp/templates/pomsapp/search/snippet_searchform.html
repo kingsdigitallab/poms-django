@@ -33,15 +33,12 @@
 	
   <fieldset>
     <label for="bs_input">
-      {% if query %}
-      {{ query }}
-      {% else %}
       Enter search terms
-      {% endif %}
     </label>
 
     <input id="bs_input" type="text" name="q"{% if 'q' in form.data %} value="{{ form.data.q }}"{% else %} value=""{% endif %}>
     <button class="primary">Go</button>
+    {# TODO: Fix -> Reset doesn't seem to work - Ginestra #}
     <input type="reset" id="reset_search" value="Reset">
   </fieldset>
 

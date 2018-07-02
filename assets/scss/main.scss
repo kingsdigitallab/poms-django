@@ -5,6 +5,7 @@
 /***
  * -- Variables
  * -- Globals
+ * ----- Buttons
  * ----- Headings
  * -- Header
  * -- Navigation
@@ -54,6 +55,30 @@ a {
 
 .show {
     display: block;
+}
+
+// Buttons
+
+button,
+input,
+.submit {
+    font-size: 16px;
+    margin-top: 16px;
+    padding: 8px;
+}
+
+button.primary,
+input[type="submit"],
+.submit {
+    background: $primary-color;
+    color: white;
+}
+
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    border: 0;
 }
 
 // Headings

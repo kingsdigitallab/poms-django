@@ -7,15 +7,19 @@
 
 {% block small_links %}
 {# <ul class="utl"> #}
-  {# <li class="i1"><a href="#"><b>Help</b></a></li> #}
-  {# <li class="i2"><a href="#"><b>Register</b></a></li> #}
-  {# <li class="ix"><a href="#"><b>Login</b></a></li> #}
+  {# <li class="i1"><a href="#"><strong>Help</strong></a></li> #}
+  {# <li class="i2"><a href="#"><strong>Register</strong></a></li> #}
+  {# <li class="ix"><a href="#"><strong>Login</strong></a></li> #}
 {# </ul>         #}
 {% endblock %}
 
 {% block permalink %}
-{# <ul class="utl m1"> #}
-{#   <li class="i1"><a href="#" title="Permanent URL for this page, which will allow you to save a bookmark"><b>Permalink: {{permalink}}</b></a></li> #}
+{# <ul> #}
+{#  <li>
+        <a href="#" title="Permanent URL for this page, which will allow you to save a bookmark">
+            <strong>Permalink: {{permalink}}</strong>
+        </a>
+    </li> #}
 {# </ul> #}
 {% endblock %}
 
@@ -34,6 +38,7 @@
     {% block main_content %}
     <div class="main">
         <div class="handles searchPages">
+            {# No idea what this does - Ginestra #}
             <ul>
                 <li><a original-title="Hide refine history panel" href="#" id="historyHandle" class="historyPanel tip">Hide</a>
                 </li>  

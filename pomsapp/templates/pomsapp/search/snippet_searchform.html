@@ -41,28 +41,30 @@
     </label>
 
     <input id="bs_input" type="text" name='q'{% if 'q' in form.data %} value='{{form.data.q}}'{% else %} value=""{% endif %}>
-    <button>Go</button>
+    <button class="primary">Go</button>
     <button type='reset' id='reset_search'>Reset</button>
   </fieldset>
 
   {# 2010-10-20: added two hidden fields for ordering and years #}
 
   <fieldset>
-    <p>
+    <h3>
       <label>Date range (start date):</label>
-    </p>
+    </h3>
 
     <p>
     <label for="min">Min value:</label>
+    {# Elliott it would be good to get the min year dynamically, if possible - Ginestra #}
     <input type="text" value="1093" id="min">
-    </p>
-    
-    <p>
+
+    {# Elliott it would be good to get the max year dynamically, if possible - Ginestra #}
     <label for="max">Max value:</label>
     <input type="text" value="1314" id="max">
     </p>
 
     <div class="g-ranger" id="range"></div>
+
+    <input type="submit" value="Submit">
   </fieldset>
 
   {% comment %}

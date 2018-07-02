@@ -39,12 +39,19 @@
 
     {% block main_content %}
     <div class="main">
+        {% if query or date_range %}
         <div class="filters">
             <h2>Filters</h2>
             <ul class="no-bullet filters">
+                {% if query %}
                 <li>{{ query }} <a href="#"><i class="fas fa-times-circle"></i></a></li>
+                {% endif %}
+                {% if date_range %}
+                <li>{{ date_range }} <a href="#"><i class="fas fa-times-circle"></i></a></li>
+                {% endif %}
             </ul>
         </div>
+        {% endif %}
         <div class="handles searchPages">
             {# No idea what this does - Ginestra #}
             <ul>

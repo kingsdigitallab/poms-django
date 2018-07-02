@@ -6,7 +6,9 @@
  * -- Variables
  * -- Globals
  * ----- Buttons
+ * ----- Filters
  * ----- Headings
+ * ----- Lists
  * -- Header
  * -- Navigation
  * -- Main content
@@ -62,9 +64,17 @@ a {
 button,
 input,
 .submit {
+    border: 1px solid $beige;
     font-size: 16px;
     margin-top: 16px;
     padding: 8px;
+}
+
+button,
+input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+    cursor: pointer;
 }
 
 button.primary,
@@ -74,11 +84,26 @@ input[type="submit"],
     color: white;
 }
 
-button,
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
-    border: 0;
+input {
+    &.year {
+        width: 70px;
+    }
+}
+
+// Filters
+
+.filters {
+    display: block;
+    overflow: hidden;
+    padding-left: 0;
+    width: 100%;
+
+    li {
+        background: $beige;
+        float: left;
+        margin-right: 5px;
+        padding: 8px;
+    }
 }
 
 // Headings
@@ -105,6 +130,12 @@ h2, h3, h4, h5, h6 {
         text-shadow: 3px 3px 4px black;
         text-transform: uppercase;
     }
+}
+
+// Lists
+
+.no-bullet {
+    list-style: none;
 }
 
 /* Header */
@@ -221,21 +252,21 @@ fieldset {
   display: block;
   height: 10px;
   position: relative;
-}
 
-.g-ranger .slider {
-  background-color: lighten($primary-color, 10%);
-  border: 1px solid #fff;
-  cursor: pointer;
-  display: block;
-  height: 16px;
-  left: 0;
-  margin-top: -3px;
-  margin-left: -3px;
-  position: absolute;
-  top: 0;
-  width: 16px;
-  z-index: 100;
+  .slider {
+      background-color: lighten($primary-color, 10%);
+      border: 1px solid #fff;
+      cursor: pointer;
+      display: block;
+      height: 16px;
+      left: 0;
+      margin-top: -3px;
+      margin-left: -3px;
+      position: absolute;
+      top: 0;
+      width: 16px;
+      z-index: 100;
+    }
 }
 
 // Table

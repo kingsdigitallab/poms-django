@@ -40,14 +40,15 @@
       {% endif %}
     </label>
 
-    <input id="bs_input" type="text" name='q'{% if 'q' in form.data %} value='{{ form.data.q }}'{% else %} value=""{% endif %}>
+    <input id="bs_input" type="text" name="q"{% if 'q' in form.data %} value="{{ form.data.q }}"{% else %} value=""{% endif %}>
     <button class="primary">Go</button>
-    <button type='reset' id='reset_search'>Reset</button>
+    <input type="reset" id="reset_search" value="Reset">
   </fieldset>
 
   {# 2010-10-20: added two hidden fields for ordering and years #}
 
   <fieldset>
+    {# Elliott: this needs to be implemented - Ginestra #}
     <h3>
       <label>Date range (start date):</label>
     </h3>
@@ -55,11 +56,11 @@
     <p>
     <label for="min">Min value:</label>
     {# Elliott it would be good to get the min year dynamically, if possible - Ginestra #}
-    <input type="text" value="1093" id="min">
+    <input type="text" value="1093" id="min" class="year">
 
     {# Elliott it would be good to get the max year dynamically, if possible - Ginestra #}
     <label for="max">Max value:</label>
-    <input type="text" value="1314" id="max">
+    <input type="text" value="1314" id="max" class="year">
     </p>
 
     <div class="g-ranger" id="range"></div>
@@ -67,8 +68,7 @@
     <input type="submit" value="Submit">
   </fieldset>
 
-  {% comment %}
-  <div id="slider_range"></div>
+  {# To keep the form working: - Ginestra #}
   <input type="text" id="date_range" name="date_range" value="{{ date_range }}">
-  {% endcomment %}
+
 </form>

@@ -221,7 +221,10 @@ class PomsFacetedBrowse(FacetedSearchView):
         context = super(
             PomsFacetedBrowse, self
         ).get_context_data(*args, **kwargs)
+        qs = self.request.GET.copy()
         context['index_type'] = self.index_type
+        if self.request.GET.getlist('selected_facets'):
+            context['selected_facets'] = qs.getlist('selected_facets')
         if 'facet_group' in self.kwargs:
             context[
                 'facet_group'] = self.kwargs['facet_group']
@@ -233,7 +236,7 @@ class PomsFacetedBrowse(FacetedSearchView):
         else:
             context[
                 'facet_group_fields'] = self.facet_group_fields
-        qs = self.request.GET.copy()
+
         context['querydict'] = qs.copy()
         context['result_types'] = self.result_types
 

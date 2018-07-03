@@ -17,20 +17,28 @@ def add_facet_link(qd, facet, value):
     :rtype: `str`
 
     """
-    qd = qd.copy()
+    q = qd.copy()
     #qd['page'] = 1
     # if 'printme' in qd:
     #     del qd['printme']
-    facets = qd.getlist('selected_facets', [])
+    facets = q.getlist('selected_facets', [])
     if len(facet) > 0:
+        facet_value = '{0}_exact:{1}'.format(
+            facet, value)
         for f in facets:
-            facet_value = '{0}_exact:{1}'.format(
-                facet, value)
             if facet in f:
                 facets.remove(f)
+        if len(value) > 0:
             facets.append(facet_value)
-    qd.setlist('selected_facets', facets)
-    return '?{0}'.format(qd.urlencode())
+    q.setlist('selected_facets', facets)
+    return '?{0}'.format(q.urlencode())
+
+@register.simple_tag
+def split_selected_facet(selected_facet):
+    # surnames_exact%3AAbraham
+    facet, value = selected_facet.split(':')
+    facet=facet.replace('_exact','')
+    return facet,value
 
 @register.filter
 def get_item(dictionary, key):

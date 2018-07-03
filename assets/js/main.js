@@ -4,8 +4,9 @@ $(function() {
             var facet_group = $(this).data('facet_group');
             var facet_name = $(this).data('facet_name');
             var index_type = $(this).data('index_type');
+            var selected_facets = $(this).data('selected_facets');
             var title = this;
-            $.get("/browse/" + facet_group + "/" + facet_name + "/?index_type="+index_type, function (data) {
+            $.get("/browse/" + facet_group + "/" + facet_name + "/?index_type="+index_type+"&selected_facets="+selected_facets, function (data) {
                 var div = $('div.'+facet_group+'__'+facet_name);
                 if (div.length > 0){
                     var content = div[0];

@@ -46,3 +46,37 @@ def get_item(dictionary, key):
         return dictionary[key]
 
     return None
+
+@register.filter
+def facet_display_name(facet):
+    facet_display_names = {
+        'person':'People and Institutions',
+        'source':'Sources',
+        'termsoftenure': 'Terms of tenure',
+        'gender':'gender/type',
+        'titles':'Titles/occupations',
+        'medievalgaelicforename': 'Medieval Gaelic forename',
+        'medievalgaelicsurname': 'Medieval Gaelic surname',
+        'moderngaelicforename': 'Modern Gaelic forename',
+        'moderngaelicsurname': 'Modern Gaelic surame',
+        'documenttype':'Document type',
+        'documentcategory': 'Document category',
+        'grantorcategory': 'Grantor category',
+        'placedatemodern':'Place date modern',
+        'relationshiptypes':'Relationship types',
+        'spiritualbenefites':'Spiritual benefites',
+        'transactiontypes':'Transaction types',
+        'possoffice':'offices',
+        'possunfreepersons': 'Unfree persons',
+        'posslands':'Possession lands',
+        'possrevkind': 'Revenues in kind',
+        'possrevsilver': 'Revenues in silver',
+
+
+    }
+    if facet in facet_display_names:
+        return facet_display_names[facet]
+    else:
+        return facet
+
+

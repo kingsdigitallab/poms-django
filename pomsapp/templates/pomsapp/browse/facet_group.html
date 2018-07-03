@@ -1,14 +1,14 @@
 {% load pomsapp_tags %}
 {% for facet in facet_group_fields %}
     {%  with facets.fields|get_item:facet as facet_terms %}
-
-    <ul class="u u1">
+    <input type="text" data-facet="{{ facet }}" id="{{ facet }}_facetfilter" />
+    <ul class="u u1 {{ facet }}_choices">
         {% for term in facet_terms %}
             {% with value=term.0 count=term.1 %}
                 {% if count > 0 %}
 
                 <li>
-                    <a href="{% url 'browse' %}{% add_facet_link querydict facet value %}">{{ value }} ({{ count }})</a>
+                    <a href="{% url 'browse' %}{% add_facet_link querydict facet value %}">{{ value|facet_display_name }} ({{ count }})</a>
                 </li>
                 {% endif %}
 

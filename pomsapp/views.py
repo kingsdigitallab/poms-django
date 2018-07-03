@@ -207,8 +207,12 @@ class PomsFacetedBrowse(FacetedSearchView):
                 )
 
                 # Narrow by index type
-        if 'index_type' in self.request.GET:
-            self.index_type = self.request.GET['index_type']
+        if 'selected_facets' in self.request.GET:
+            for facet in self.request.GET.getlist('selected_facets'):
+                if 'index_type' in facet:
+                    self.index_type = facet.replace('index_type_exact:','')
+        else:
+            self.index_type = 'person'
         queryset = queryset.narrow(
             'index_type:{}'.format(
                 self.index_type

@@ -17,7 +17,7 @@
 {% block controlbar %}
     <h2>Selected Terms</h2>
     <ul class="menu">
-        <li><a id="empty_controls">Remove all</a></li>
+        <li><a href="{% url 'browse' %}" id="empty_controls">Remove all</a></li>
         {# This below should be rethought #}
         <li><a title="why do I see these results?" onClick="explain_results()">Explain <i
                 class="fas fa-question-circle"></i></a></li>
@@ -113,7 +113,7 @@
             <ul class="facet-group">
                 {% for facet_group_names, facet_group_facets in facet_group_fields.items %}
                     <li>
-                        <p class="facet-group-name">{{ facet_group_names }}</p>
+                        <p class="facet-group-name">{{ facet_group_names|facet_display_name }}</p>
                         <ul class="facets-list hide">
                             {% for facet_name in facet_group_facets %}
                                 {% with facets.fields|get_item:facet_name as facet_terms %}
@@ -121,7 +121,7 @@
                                         <p>
                                             <a href="#" class="async" data-facet_group="{{ facet_group_names }}"
                                               data-selected_facets="{{ querydict.selected_facets }}" data-facet_name="{{ facet_name }}" data-index_type="{{ index_type }}">
-                                                {{ facet_name|capfirst }} ({{ facet_terms|length }})
+                                                {{ facet_name|facet_display_name }} ({{ facet_terms|length }})
                                             </a>
                                         </p>
                                         <div class="{{ facet_group_names }}__{{ facet_name }}">

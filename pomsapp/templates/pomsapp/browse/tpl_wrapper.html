@@ -29,9 +29,9 @@
         {% for facet_value in selected_facets %}
             <li class="{% cycle 'm0' 'm1' 'm2' 'm3' 'm4' %}">
             {% split_selected_facet facet_value as split_facets %}
-                <h3 id="{{ facetgroup.uniquename }}" class="no_facets">{{ split_facets.0|capfirst }}</h3>
+                <h3 id="{{ facetgroup.uniquename }}" class="no_facets">{{ split_facets.0|facet_display_name }}</h3>
                 {# <a href="#">Facet</a> &#8250;  #}
-                <strong>{{ split_facets.1|capfirst }}</strong> <a href="{% url 'browse' %}{% add_facet_link querydict split_facets.0 '' %}" class="t9 m2" title="Remove this as a filter">Remove</a>
+                <strong>{{ split_facets.1|capfirst|truncatewords:4 }}</strong> <a href="{% url 'browse' %}{% add_facet_link querydict split_facets.0 '' %}" class="t9 m2" title="Remove this as a filter">Remove</a>
 
 
             </li>
@@ -61,28 +61,7 @@
     <input type="hidden" id="refresh_facets" value="{{ count_is_active }}">
     <!-- end of hidden fields -->
 
-    <h2>Matching Records <dfn>(<span id="rec_num">{{ items|length|default:"None" }}</span>)</dfn></h2>
-    <ul>
-        {# <li class="i1"><a href="#" title="Download these Results"><b>Download these Results</b></a></li> #}
-        {% if user.is_superuser %}
-            <li><a href="javascript:showLogs();">Log Query</a></li>
-            {% if count_test_button %}
-                <li><a href="javascript:updateFacetValues(true);">Update open facet</a></li>
-            {% endif %}
-        {% endif %}
-    </ul>
 
-    <ul class="menu">
-        {% for result_type in result_types %}
-            <li id="{{ result_type.uniquename }}">
-                <a href="
-                        {% url 'browse' %}{% add_facet_link querydict 'index_type' result_type.uniquename %}">{{ result_type.label|capfirst }}</a>
-            </li>
-        {% endfor %}
-        {# <li id="factoid"><a href="#results_factoid">Factoids</a></li> #}
-        {# <li id="source"><a href="#results_source">Sources</a></li> #}
-        {# <li id="people"><a href="#results_people">People</a></li> #}
-    </ul>
 
     <div id="results_factoid">
         {# in order to use the inner block we must move it before the FOR command!!! #}
@@ -91,13 +70,7 @@
         {% endblock inner_results %}
     </div>
 
-    <div id="results_source">
-        {% include "pomsapp/browse/snippet_noresults.html" %}
-    </div>
 
-    <div id="results_people">
-        {% include "pomsapp/browse/snippet_noresults.html" %}
-    </div>
 {% endblock results %}
 
 {# ################## #}

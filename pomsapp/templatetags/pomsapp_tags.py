@@ -36,8 +36,8 @@ def add_facet_link(qd, facet, value):
 @register.simple_tag
 def split_selected_facet(selected_facet):
     # surnames_exact%3AAbraham
-    facet, value = selected_facet.split(':')
-    facet=facet.replace('_exact','')
+    facet, value = selected_facet.split('_exact:')
+    #facet=facet.replace('_exact','')
     return facet,value
 
 @register.filter
@@ -71,7 +71,16 @@ def facet_display_name(facet):
         'posslands':'Possession lands',
         'possrevkind': 'Revenues in kind',
         'possrevsilver': 'Revenues in silver',
-
+        'tenendasoptions':'Tenendas options',
+        'exemptionoptions': 'Exemption options',
+        'sicutclause': 'Sicut clause',
+        'returnsrenders': 'Returns/renders',
+        'nominalrenders': 'Nominal renders',
+        'renderdates ':'Render dates',
+        'returnsmilitary':'Returns military',
+        'commonburdens': 'Common burdens',
+        'renderdates':'Render dates',
+        'index_type': 'Result type'
 
     }
     if facet in facet_display_names:

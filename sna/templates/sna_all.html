@@ -1,13 +1,14 @@
+{% load static %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html class="cufon-active j cufon-ready" xmlns="http://www.w3.org/1999/xhtml"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>POMS SNA: {{ viz.description }}</title>
 
-<link rel="stylesheet" type="text/css" media="all" href="/media/static/sna_assets/a.css">
-<link rel="stylesheet" type="text/css" media="screen, projection" href="/media/static/sna_assets/s.css">
-<!-- link rel="stylesheet" type="text/css" media="print" href="/media/static/sna_assets/p.css" -->
+<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}sna_assets/a.css">
+<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}sna_assets/s.css">
+<!-- link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}sna_assets/p.css" -->
 
-<link type="text/css" rel="stylesheet" href="/media/static/sna_assets/jquery.css">
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}sna_assets/jquery.css">
 
 <style type="text/css" media="screen">
 .ui-tooltip{
@@ -34,33 +35,31 @@ padding: 10px;
 }
 </style>
 
-<script src="/media/static/sna_assets/analytics.js" async=""></script>
+<script src="{{ STATIC_URL }}sna_assets/analytics.js" async=""></script>
 
-<script type="text/javascript" src="/media/static/sna_assets/jquery-1.js"></script>
-
-<script type="text/javascript" src="/media/static/sna_assets/jquery.js"></script>
-<script type="text/javascript" src="/media/static/sna_assets/jquery-ui.js"></script>
-<script type="text/javascript" src="/media/static/sna_assets/cufon.js"></script><style type="text/css">cufon{text-indent:0!important;}@media screen,projection{cufon{display:inline!important;display:inline-block!important;position:relative!important;vertical-align:middle!important;font-size:1px!important;line-height:1px!important;}cufon cufontext{display:-moz-inline-box!important;display:inline-block!important;width:0!important;height:0!important;overflow:hidden!important;text-indent:-10000in!important;}cufon canvas{position:relative!important;}}@media print{cufon{padding:0!important;}cufon canvas{display:none!important;}}</style>
-<script type="text/javascript" src="/media/static/sna_assets/agaramondpro.js"></script>
-<script type="text/javascript" src="/media/static/sna_assets/functions_record.js"></script>
+<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}sna_assets/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/cufon.js"></script><style type="text/css">cufon{text-indent:0!important;}@media screen,projection{cufon{display:inline!important;display:inline-block!important;position:relative!important;vertical-align:middle!important;font-size:1px!important;line-height:1px!important;}cufon cufontext{display:-moz-inline-box!important;display:inline-block!important;width:0!important;height:0!important;overflow:hidden!important;text-indent:-10000in!important;}cufon canvas{position:relative!important;}}@media print{cufon{padding:0!important;}cufon canvas{display:none!important;}}</style>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/agaramondpro.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/functions_record.js"></script>
 
 
 <meta http-equiv="X-UA-Compatible" content="IE=8">
 
 <!-- ###materials from gexfjs  (JB) ##### -->
 
-<link rel="stylesheet" type="text/css" href="/media/static/sna_assets/styles/gexfjs.css" />
-<link rel="stylesheet" type="text/css" href="/media/static/sna_assets/styles/jquery-ui-1.10.3.custom.min.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sna_assets/styles/gexfjs.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sna_assets/styles/jquery-ui-1.10.3.custom.min.css" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script type="text/javascript">
    // Fallback in case JQuery CDN isn't available
    if (typeof jQuery == 'undefined') {
-      document.write(unescape("%3Cscript type='text/javascript' src='/media/static/sna_assets/js/jquery-2.0.2.min.js'%3E%3C/script%3E"));
+      document.write(unescape("%3Cscript type='text/javascript' src='{{ STATIC_URL }}sna_assets/js/jquery-2.0.2.min.js'%3E%3C/script%3E"));
    }
 </script>
-<script type="text/javascript" src="/media/static/sna_assets/js/jquery.mousewheel.min.js"></script>
-<script type="text/javascript" src="/media/static/sna_assets/js/jquery-ui-1.10.3.custom.min.js"></script>
-<script type="text/javascript" src="/media/static/sna_assets/js/gexfjs.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/js/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/js/gexfjs.js"></script>
 
 
 <script type="text/javascript" src="/sna/js/{{ viz.id }}/{{ viz.get_style_display }}.js"></script>
@@ -225,6 +224,6 @@ ga('create', 'UA-68207578-1', 'auto');
 ga('send', 'pageview');
 
 </script>
-	<script type="text/javascript" src="/media/static/sna_assets/jquery_002.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/jquery_002.js"></script>
 
 </body></html>

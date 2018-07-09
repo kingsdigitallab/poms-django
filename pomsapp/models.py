@@ -19,6 +19,9 @@ from pomsapp.models_authlists import *
 #
 from pomsapp.models_possessions import *
 
+# Wagtail
+from pomsapp.models_wagtail import *
+
 
 #  TEMP
 # from pomsapp.models_possessions_legacy import *

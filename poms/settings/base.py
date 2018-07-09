@@ -95,6 +95,7 @@ INSTALLED_APPS = [
 ]
 
 INSTALLED_APPS += [  # your project apps here
+    'kdl_wordpress2wagtail',
     'wagtail.wagtailcore',
     'wagtail.wagtailadmin',
     'wagtail.wagtaildocs',

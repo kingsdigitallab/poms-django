@@ -101,7 +101,7 @@ class PomsFacetedBrowse(FacetedSearchView):
     form_class = PomsFacetedBrowseForm
     queryset = SearchQuerySet()
     load_all = True
-    template_name = 'pomsapp/browse/tpl_wrapper.html'
+    template_name = 'pomsapp/browse/browse_main.html'
     ajax = False
     facet_fields = ['index_type']
     index_type = 'person'

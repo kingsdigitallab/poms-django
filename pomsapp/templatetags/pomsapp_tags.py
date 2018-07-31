@@ -40,6 +40,17 @@ def split_selected_facet(selected_facet):
     #facet=facet.replace('_exact','')
     return facet,value
 
+@register.simple_tag(takes_context=True)
+def get_order_by(context, order_by):
+    if 'order_by' in context:
+        if order_by in context['order_by']:
+            if '-' in order_by:
+                # toggle
+                return order_by.replace('-','')
+            else:
+                return "-{}".format(order_by)
+    return order_by
+
 @register.filter
 def get_item(dictionary, key):
     if dictionary:

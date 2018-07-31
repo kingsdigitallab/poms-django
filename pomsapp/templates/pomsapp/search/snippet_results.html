@@ -48,14 +48,14 @@
                     <thead>
                     <tr>
                         <th><a class="{{ active_ordering|infer_class:'factoiddesc' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a>
+                               href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "description" %}">Description</a>
                         </th>
                         <th><a class="{{ active_ordering|infer_class:'factoidtype' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=inferred_type">Type</a></th>
+                               href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "inferred_type" %}">Type</a></th>
                         <th><a class="{{ active_ordering|infer_class:'factoidsource' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=source">Source</a></th>
+                               href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "source" %}">Source</a></th>
                         <th><a class="{{ active_ordering|infer_class:'factoiddate' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
+                               href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "startdate" %}">Date</a></th>
                     </tr>
                     </thead>
 
@@ -152,12 +152,12 @@
 
                 {% if 'person' in index_type %}
                     <tr>
-                        <th><a href="javascript:change_ordering('persondisplayname');">Full Name</a></th>
-                        <th><a href="javascript:change_ordering('forename');">Forename</a></th>
-                        <th><a href="javascript:change_ordering('helper_searchbigsur');">Surname</a></th>
-                        <th><a href="javascript:change_ordering('standardmedievalname');">Medieval Gaelic Name</a></th>
-                        <th><a href="javascript:change_ordering('moderngaelicname');">Modern Gaelic Name</a></th>
-                        <th><a href="javascript:change_ordering('floruitstartyr, floruitendyr');">Floruit</a></th>
+                        <th><a href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "persondisplayname" %}">Full Name</a></th>
+                        <th><a href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "forename" %}">Forename</a></th>
+                        <th><a href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "surname" %}">Surname</a></th>
+                        <th><a href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "standardmedievalname" %}">Medieval Gaelic Name</a></th>
+                        <th><a href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "moderngaelicname" %}">Modern Gaelic Name</a></th>
+                        <th><a href="{% url 'basic_search' %}?{{ querystring }}&amp;order_by={% get_order_by "startdate" %}">Floruit</a></th>
                     </tr>
 
                     {% for result in object_list %}

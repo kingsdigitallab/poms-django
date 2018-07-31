@@ -66,6 +66,10 @@ class PomsFacetedSearchView(FacetedSearchView):
         context = super(
             PomsFacetedSearchView, self
         ).get_context_data(*args, **kwargs)
+        min = SearchQuerySet().all().order_by('startdate')[0]
+        max = SearchQuerySet().all().order_by('-startdate')[0]
+        min_date  = min.startdate
+        max_date = max.startdate
         if context['form']:
             form = context['form']
             querystring = ''
@@ -76,21 +80,26 @@ class PomsFacetedSearchView(FacetedSearchView):
                 )
             else:
                 context['index_type'] = 'person'
-            if 'date_range' in form.cleaned_data:
-                context['date_range'] = form.cleaned_data['date_range']
-                querystring += '&date_range={}'.format(
-                    form.cleaned_data['date_range']
+            if 'min_date' in form.cleaned_data:
+                querystring += '&min_date={}'.format(
+                    form.data['min_date']
                 )
             else:
-                context['date_range'] = '{}-{}'.format(
-                    form.DATE_MINIMUM,
-                    form.DATE_MAXIMUM
+                form.data['min_date'] = min_date
+            if 'max_date' in form.cleaned_data:
+                querystring += '&max_date={}'.format(
+                    form.cleaned_data['max_date']
                 )
+            else:
+                form.data['max_date'] = max_date
             if 'q' in form.cleaned_data:
                 querystring += '&q={}'.format(
                     form.cleaned_data['q']
                 )
             context['querystring'] = querystring
+            context['form'] = form
+        if 'order_by' in self.request.GET:
+            context['order_by'] = self.request.GET['order_by']
         return context
 
 

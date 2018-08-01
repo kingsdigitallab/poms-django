@@ -99,10 +99,9 @@
                         {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('annotate=factoid')">Associated factoids</a></th>  #}
                     </tr>
                     </thead>
-
+                        <tbody>
                     {% for result in object_list %}
                         {% with record=result.object %}
-                            <tbody>
                             <tr>
                                 <td>
                                     <a class="no_extlink" href="{{ record.get_absolute_url }}" target="_self"
@@ -113,9 +112,9 @@
                                 <td>{{ record.description|truncatewords:15 }}</td>
                                 <td>{{ record.firmdate|format_dates }}</td>
                             </tr>
-                            </tbody>
                         {% endwith %}
                     {% endfor %}
+                     </tbody>
                 {% endifequal %}
 
                 {# ******** #}
@@ -127,7 +126,7 @@
                         <th><a class="{{ active_ordering|infer_class:'placename' }} arrowUp"
                                href="{% url 'basic_search' %}?{{ querystring }}&order_by={% get_order_by "place_name" %}">Place name</a></th>
                         <th><a class="{{ active_ordering|infer_class:'placeparent' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by={% get_order_by "parent" %}">Parent</a></th>
+                               href="{% url 'basic_search' %}?{{ querystring }}&order_by={% get_order_by "place_parent" %}">Parent</a></th>
                     </tr>
 
                     {% for result in object_list %}

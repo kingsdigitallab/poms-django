@@ -132,7 +132,8 @@ class PomsFacetedBrowse(FacetedSearchView):
             "documentcategory",
             "grantorcategory",
             "placedatemodern",
-            "language"
+            "language",
+            'sourcesfeatures'
         ],
         "relationship": [
             "relationshiptypes",
@@ -141,6 +142,7 @@ class PomsFacetedBrowse(FacetedSearchView):
         ],
         "transaction": [
             "transactiontypes",
+            "transfeatures",
             "possoffice",
             "possunfreepersons",
             'posslands',
@@ -157,7 +159,8 @@ class PomsFacetedBrowse(FacetedSearchView):
             "nominalrenders",
             "renderdates",
             "returnsmilitary",
-            "commonburdens"
+            "commonburdens",
+            "legalpertinents"
         ]
 
     }

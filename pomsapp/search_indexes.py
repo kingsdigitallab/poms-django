@@ -38,14 +38,20 @@ class PomsIndex(indexes.SearchIndex):
     text = indexes.CharField(document=True, use_template=True)
     # these are single fields used in different result types
     # so that they can be sorted
+
+
     # Person
     surname = indexes.CharField(null=True, default='')
     forename = indexes.CharField(null=True, default='')
     persondisplayname = indexes.CharField(null=True, default='')
+    standardmedievalname  = indexes.CharField(null=True, default='')
+    moderngaelicname  = indexes.CharField(null=True, default='')
+
     # Factoid
     description = indexes.CharField(null=True, default='')
     inferred_type = indexes.CharField(null=True, default='')
     source = indexes.CharField(null=True, default='')
+
     # source
     calendar_number = indexes.CharField(null=True, default='')
     # place
@@ -114,10 +120,11 @@ class PomsIndex(indexes.SearchIndex):
         faceted=True,
         null=True)
     sourcesfeatures = indexes.MultiValueField(
-
         faceted=True,
         null=True
     )
+
+
     # REMOVED
     # sourcesstartdate = indexes.IntegerField(
     #     model_attr='factoids__sourcekey__from_year',
@@ -309,6 +316,10 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             self.prepared_data[
                 'medievalgaelicforename'
             ] = obj.medievalgaelicforename.name
+        if obj.standardmedievalname:
+            self.standardmedievalname = obj.standardmedievalname
+        if obj.moderngaelicname:
+            self.moderngaelicname = obj.moderngaelicname
 
         self.prepared_data[
             'medievalgaelicsurname'
@@ -323,7 +334,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             'moderngaelicsurname'
         ] = obj.moderngaelicsurname
 
-        if obj.genderkey == 5:
+        if obj.genderkey.id == 5:
             self.prepared_data[
                 'institutions'] = [obj.persondisplayname]
 

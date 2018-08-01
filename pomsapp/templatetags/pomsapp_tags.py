@@ -91,7 +91,9 @@ def facet_display_name(facet):
         'returnsmilitary':'Returns military',
         'commonburdens': 'Common burdens',
         'renderdates':'Render dates',
-        'index_type': 'Result type'
+        'index_type': 'Result type',
+        "legalpertinents":"Legal Pertinents",
+        "transfeatures":"Transaction Features"
 
     }
     if facet in facet_display_names:

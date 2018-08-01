@@ -89,13 +89,13 @@
                     <thead>
                     <tr>
                         <th><a class="{{ active_ordering|infer_class:'sourcehammond' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=calendar_number">Calendar
+                               href="{% url 'basic_search' %}?{{ querystring }}&order_by={% get_order_by "calendar_number" %}">Calendar
                             number</a></th>
                         <th><a class="{{ active_ordering|infer_class:'sourcedesc' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a>
+                               href="{% url 'basic_search' %}?{{ querystring }}&order_by={% get_order_by "description" %}">Description</a>
                         </th>
                         <th><a class="{{ active_ordering|infer_class:'sourcedate' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
+                               href="{% url 'basic_search' %}?{{ querystring }}&order_by={% get_order_by "startdate" %}">Date</a></th>
                         {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('annotate=factoid')">Associated factoids</a></th>  #}
                     </tr>
                     </thead>
@@ -125,9 +125,9 @@
                 {% ifequal index_type 'place' %}
                     <tr>
                         <th><a class="{{ active_ordering|infer_class:'placename' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=place_name">Place name</a></th>
+                               href="{% url 'basic_search' %}?{{ querystring }}&order_by={% get_order_by "place_name" %}">Place name</a></th>
                         <th><a class="{{ active_ordering|infer_class:'placeparent' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=parent">Parent</a></th>
+                               href="{% url 'basic_search' %}?{{ querystring }}&order_by={% get_order_by "parent" %}">Parent</a></th>
                     </tr>
 
                     {% for result in object_list %}

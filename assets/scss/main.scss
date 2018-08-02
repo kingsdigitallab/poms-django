@@ -17,6 +17,8 @@
  * ----- Slider
  * ----- Table
  * ----- Tooltips
+ * ----- Map
+ * ----- Tabs
  * -- Facets
  * ----- Sidebar
  * -- Footer
@@ -27,6 +29,12 @@
 
 $beige: #e3e2cd;
 $primary-color: #2c528b;
+$gray1:#f1f1f1;
+$gray2:#ccc;
+$gray3: #999;
+$darkblue:#2c528b;
+$white:#fff;
+$black:#000;
 
 /* Globals */
 
@@ -168,6 +176,20 @@ h2, h3, h4, h5, h6 {
     }
 }
 
+#gw{
+    ul.nvl{
+        background: #eff3fa;
+        margin: 0 0 0 -20px;
+        font-family: "EB_Garamond";
+
+        li {
+            display: inline-block;
+            list-style: none;
+            padding: 8px 15px
+        }
+    }
+}
+
 nav {
     font-family: "EB_Garamond";
 }
@@ -197,6 +219,7 @@ nav {
     }
 }
 
+
 /* Main content */
 
 .main {
@@ -212,6 +235,21 @@ nav {
     width: 100%;
 }
 
+#cs{
+    padding: 0 16px;
+}
+
+dt{
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+dd{
+    padding: 4px 0 16px 0;
+    margin: 0;
+}
 // Forms
 
 fieldset {
@@ -245,6 +283,7 @@ fieldset {
     }
 }
 
+
 // Slider
 
 .g-ranger {
@@ -270,6 +309,9 @@ fieldset {
 }
 
 // Table
+table{
+    width:100%;
+}
 
 td,
 th {
@@ -344,6 +386,97 @@ tr:nth-child(even) {
     opacity: 1;
     visibility: visible;
 } 
+
+// Map
+#map{
+    margin: 0!important;
+}
+
+// Tabs
+
+#tabs{
+    font-family: 'EB_Garamond', serif;
+
+    input, section {
+        clear: both;
+        padding-top: 10px;
+        display: none;
+    }
+
+    section{
+        border: 1px solid $gray1;
+
+        h4{
+            display: inline-block;
+            width:50%;
+            text-align: left;
+            color: $black;
+        }
+        ul {
+            padding-left:0;
+            display: inline-block;
+            width:49%;
+            text-align: right;
+            color: $black;
+        }
+
+        li{
+            list-style-type: none;
+            display: inline;
+
+                &:nth-child(-n+2){
+                padding-right:16px;
+                }
+                &:nth-last-child(-n+2){
+                padding-left:16px;
+                }
+
+            }
+        
+    }
+    label {
+        display: inline-block;
+        margin: 4px 0 0 0;
+        padding: 10px 20px;
+        text-align: center;
+        color: $gray3;
+        background: $gray1;
+    }
+
+    label:hover {
+      color: #888;
+      cursor: pointer;
+    }
+
+    label span{
+        font-size:10px;
+    }
+
+    #tab1:checked ~ #content1,
+    #tab2:checked ~ #content2,
+    #tab3:checked ~ #content3,
+    #tab4:checked ~ #content4,
+    #tab5:checked ~ #content5,
+    #tab6:checked ~ #content6,
+    #tab7:checked ~ #content7,
+    #tab8:checked ~ #content8,
+    #tab9:checked ~ #content9,
+    #tab10:checked ~ #content10,
+    #tab11:checked ~ #content11,
+    #tab12:checked ~ #content12   {
+      display: block;
+      padding: 20px;
+      background: #fff;
+      color: $gray3;
+    }
+
+    [id^="tab"]:checked + label {
+      color: $white;
+      background: $darkblue;
+    }
+}
+
+
 
 /* Facets */
 

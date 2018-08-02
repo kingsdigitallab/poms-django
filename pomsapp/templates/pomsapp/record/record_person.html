@@ -136,44 +136,45 @@
 
         <h2>Total number of associated factoids: {{ record.how_many_factoids}}</h2>
 
-        <!-- <section class="tabsContent"> -->
+        <!-- Tab Headers -->
+        {% if transactionFact.object_list  %}
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">Transaction factoids <span>({{ transactionFact.tot}})</span></label>
+        {% endif %}
 
-            <ul class="tsn">
+        {% if relationshipFact.object_list  %}
+        <input id="tab2" type="radio" name="tabs">
+        <label for="tab2">Relationship factoids <span>({{ relationshipFact.tot }})</span></label>
+        {% endif %}
 
+        {% if titleFact.object_list  %}
+        <input id="tab3" type="radio" name="tabs" checked>
+        <label for="tab3">Transaction factoids <span>({{ transactionFact.tot}})</span></label>
+        {% endif %}
 
-                {% if transactionFact.object_list  %}
-                <li><a href="#{{transactionFact.type}}"><span>Transaction factoids ({{ transactionFact.tot}}):</span></a></li>
-                {% endif %}
+        {% if possessionFact.object_list  %}
+        <input id="tab4" type="radio" name="tabs">
+        <label for="tab4">Possession factoids <span>({{ possessionFact.tot }})</span></label>
+        {% endif %}
 
-                {% if relationshipFact.object_list  %}
-                    <li><a href="#{{relationshipFact.type}}"><span>Relationship factoids ({{ relationshipFact.tot }}):</span></a></li>
-                {% endif %}
+        {% if proanimaFact.object_list  %}
+        <input id="tab5" type="radio" name="tabs" checked>
+        <label for="tab5">Pro-Anima factoids <span>({{ proanimaFact.tot }})</span></label>
+        {% endif %}
 
-                {% if titleFact.object_list  %}
-                    <li><a href="#{{titleFact.type}}"><span>Title factoids ({{ titleFact.tot }}):</span></a></li>
-                {% endif %}
+        {% if witnessFact.object_list  %}
+        <input id="tab6" type="radio" name="tabs">
+        <label for="tab6">Witnesses factoids <span>({{ witnessFact.tot }})</span></label>
+        {% endif %}
+        <!-- end Tab Headers -->
 
-                {% if possessionFact.object_list  %}
-                <li><a href="#{{possessionFact.type}}"><span>Possession factoids ({{ possessionFact.tot }}):</span></a></li>
-                {% endif %}
-
-                {% if proanimaFact.object_list  %}
-                    <li><a href="#{{proanimaFact.type}}"><span>Pro-Anima factoids ({{ proanimaFact.tot }}):</span></a></li>
-                {% endif %}
-
-                {% if witnessFact.object_list  %}
-                    <li><a href="#{{witnessFact.type}}"><span>Witnesses factoids ({{ witnessFact.tot }}):</span></a></li>
-                {% endif %}
-
-           </ul>
-
-
+        <!-- Tab Content -->
         {# ----------- #}
         {# TRANSACTION #}
         {# ----------- #}
 
         {% if transactionFact.object_list %}
-
+            <section id="content1" class="tab-content">
             <div id="{{transactionFact.type}}">
 
 
@@ -219,6 +220,7 @@
 
 
             </div>
+            </section>
             {# end of fragment1 #}
 
         {% endif %}
@@ -231,7 +233,7 @@
         {# ----------- #}
 
         {% if relationshipFact.object_list %}
-
+            <section id="content2" class="tab-content">
             <div id="{{relationshipFact.type}}">
 
 
@@ -275,6 +277,7 @@
 
 
             </div>
+            </section>
             {# end of fragment1 #}
 
         {% endif %}
@@ -287,7 +290,7 @@
         {# ----------- #}
 
         {% if titleFact.object_list %}
-
+            <section id="content3" class="tab-content">
             <div id="{{titleFact.type}}">
 
 
@@ -330,6 +333,7 @@
 
 
             </div>
+            </section>
             {# end of fragment1 #}
 
         {% endif %}
@@ -343,7 +347,7 @@
         {# ----------- #}
 
         {% if possessionFact.object_list %}
-
+            <section id="content4" class="tab-content">
             <div id="{{possessionFact.type}}">
 
 
@@ -388,6 +392,7 @@
 
 
             </div>
+            </section>
             {# end of fragment1 #}
 
         {% endif %}
@@ -400,7 +405,7 @@
 
 
         {% if proanimaFact.object_list  %}
-
+            <section id="content5" class="tab-content">
             <div id="{{proanimaFact.type}}">
 
                 {% block proanimaFact %}
@@ -438,6 +443,7 @@
                 {% endblock proanimaFact %}
 
             </div>
+            </section>
 
         {% endif %}
 
@@ -451,7 +457,7 @@
 
 
         {% if witnessFact.object_list  %}
-
+            <section id="content6" class="tab-content">
             <div id="{{witnessFact.type}}">
 
             {% block witnessFact %}
@@ -486,6 +492,7 @@
                 <br />
                 {% endblock witnessFact %}
             </div>
+            </section>
 
 
 
@@ -495,7 +502,7 @@
 
 
         {% endif %}
-
+        <!-- end Tab Content -->
 
 
 

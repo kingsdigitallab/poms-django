@@ -28,6 +28,7 @@ result_types = [{'label': 'factoid__sourcekeys',
                     ]
 """
 
+from django.conf import settings as settings
 
 class PomsIndex(indexes.SearchIndex):
     """ Base object with fields common to all result types
@@ -278,6 +279,13 @@ class PomsIndex(indexes.SearchIndex):
         null=True
     )
 
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        if settings.PARTIAL_INDEX:
+            return self.get_model().objects.filter(id__lt=500)
+        else:
+            return self.get_model().objects.all()
+
 
 class PersonIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
@@ -497,9 +505,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             facttransaction__people=obj
         ).distinct().values_list('name', flat=True))
 
-    def index_queryset(self, using=None):
-        """Used when the entire index for model is updated."""
-        return self.get_model().objects.filter()
+
 
     def get_model(self):
         return poms_models.Person
@@ -753,8 +759,6 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
         return self.prepared_data
 
-    def index_queryset(self, using=None):
-        return self.get_model().objects.filter()
 
     def get_model(self):
         return poms_models.Factoid
@@ -997,8 +1001,6 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
         return self.prepared_data
 
-    def index_queryset(self, using=None):
-        return self.get_model().objects.filter()
 
     def get_model(self):
         return poms_models.Source
@@ -1278,8 +1280,6 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         return self.prepared_data
 
-    def index_queryset(self, using=None):
-        return self.get_model().objects.filter()
 
     def get_model(self):
         return poms_models.Place

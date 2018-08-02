@@ -53,11 +53,12 @@
         <p>
             <label for="min">Min value:</label>
             {# Elliott it would be good to get the min year dynamically, if possible - Ginestra #}
-            {{ form.min_date }}
+            <input type="number" name="min_date" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
+
 
             {# Elliott it would be good to get the max year dynamically, if possible - Ginestra #}
             <label for="id_max_date">Max value:</label>
-            {{ form.max_date }}
+            <input type="number" name="max_date" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" id="id_max_date">
         </p>
 
         <div class="g-ranger" id="range"></div>

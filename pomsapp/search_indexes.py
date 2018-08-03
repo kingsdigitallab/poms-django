@@ -330,6 +330,9 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             self.prepared_data[
                 'gender'
             ] = obj.genderkey.name
+            if obj.genderkey.id == 5:
+                self.prepared_data[
+                    'institutions'] = [obj.persondisplayname]
 
         if obj.medievalgaelicforename:
             self.prepared_data[
@@ -353,9 +356,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             'moderngaelicsurname'
         ] = obj.moderngaelicsurname
 
-        if obj.genderkey.id == 5:
-            self.prepared_data[
-                'institutions'] = [obj.persondisplayname]
+
 
         if obj.floruitstartyr > 0:
             self.prepared_data[

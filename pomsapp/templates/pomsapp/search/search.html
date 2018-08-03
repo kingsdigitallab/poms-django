@@ -1,183 +1,190 @@
 {% extends "base.html" %}
 {% load extrafilters %}
-{% block titlepage  %}
-<title>Search | {{ PROJECT_TITLE }}</title>
+{% block titlepage %}
+    <title>Search | {{ PROJECT_TITLE }}</title>
 {% endblock %}
 
-{% block load_css  %}
+{% block load_css %}
 {% endblock %}
 
 {% block subnav %}
-{% include 'pomsapp/includes/db_navigation.html' %}
+    {% include 'pomsapp/includes/db_navigation.html' %}
 {% endblock %}
 
 
 {% comment %}
-{# Elliott: do you think we can remove some of these JS files? - Ginestra #}
-{# I'm not using any of these for UI - Ginestra #}
-{% block load_js  %}
+    {# Elliott: do you think we can remove some of these JS files? - Ginestra #}
+    {# I'm not using any of these for UI - Ginestra #}
+    {% block load_js %}
 
-<script> 
-$(document).ready(function() {
+        <script>
+            $(document).ready(function () {
 
-    // overlay for history
-    
-    $('#historyHandle').qtip(
-    {
-        id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
-        content: {
-            text: $('#historyContent'),
-            title: {
-                text: 'History',
-                button: true
-            }
-        },
-        position: {
-            my: 'center', // ...at the center of the viewport
-            at: 'center',
-            target: $(window)
-        },
-        show: {
-            event: 'click', // Show it on click...
-            solo: true, // ...and hide all other tooltips...
-            modal: true // ...and make it modal
-        },
-        hide: false,
-        style: 'ui-tooltip-light ui-tooltip-rounded'
-    });
+                // overlay for history
 
-    // map ajax previews:
-    // ....
-    $('#preview-map').each(function(){
-        $(this).qtip({
-            content: {
-                text: '<img height="20" src="{{ STATIC_URL }}labs/img/loading.gif" alt="Loading..." />',
-                ajax: {
-                    url: $(this).attr('href') // Use the rel attribute of each element for the url to load
-                },
-                title: {
-                    // Give the tooltip box a title 
-                    // text: $(this).attr('title'), 
-                    text: "Map Preview - <a href='" + $(this).attr('href') + "#'>click to show the full map</a>"+ 
-                        "<small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>", 
-                    button: true
-                }
-            },
-            style: {
-                classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map'  
-            },
-            show: {
-                event: 'click',
-                delay: 10,
-                solo: true // Only show one tooltip at a time
-            },
-            position: {
-                my: 'center', // ...at the center of the viewport
-                at: 'center',
-                target: $(window),
-            },
-            hide: 'unfocus',
-            })
-        })          
-    // Make sure it doesn't follow the link when we click it
-    .click(function(event) { event.preventDefault(); });    
-    
-    // ajax previews:
-    // ....
-    
-    $('a.no_extlink').each(function(){
-        $(this).qtip({
-            content: {
-                text: '<img height="20" src="{{ STATIC_URL }}labs/img/loading.gif" alt="Loading..." />',
-                ajax: {
-                    url: $(this).attr('href') + "?preview=true" // Use the rel attribute of each element for the url to load
-                },
-                title: {
-                    // Give the tooltip box a title 
-                    // text: $(this).attr('title'), 
-                    text: "Record Preview - <a href='" + $(this).attr('href') + "#'>click to show the full record</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>", 
-                    button: true
-                }
-            },
-            style: {
-                classes: 'ui-tooltip-bootstrap ui-tooltip-shadow'  
-            },
-            show: {
-                event: 'click',
-                delay: 10,
-                solo: true // Only show one tooltip at a time
-            },
-            position: {
-                my: 'center', // ...at the center of the viewport
-                at: 'center',
-                target: $(window),
-            },
-            hide: 'unfocus',
-            })
-        })          
-    // Make sure it doesn't follow the link when we click it
-    .click(function(event) { event.preventDefault(); });
+                $('#historyHandle').qtip(
+                    {
+                        id: 'modal', // Since we're only creating one modal, give it an ID so we can style it
+                        content: {
+                            text: $('#historyContent'),
+                            title: {
+                                text: 'History',
+                                button: true
+                            }
+                        },
+                        position: {
+                            my: 'center', // ...at the center of the viewport
+                            at: 'center',
+                            target: $(window)
+                        },
+                        show: {
+                            event: 'click', // Show it on click...
+                            solo: true, // ...and hide all other tooltips...
+                            modal: true // ...and make it modal
+                        },
+                        hide: false,
+                        style: 'ui-tooltip-light ui-tooltip-rounded'
+                    });
+
+                // map ajax previews:
+                // ....
+                $('#preview-map').each(function () {
+                    $(this).qtip({
+                        content: {
+                            text: '<img height="20" src="{{ STATIC_URL }}labs/img/loading.gif" alt="Loading..." />',
+                            ajax: {
+                                url: $(this).attr('href') // Use the rel attribute of each element for the url to load
+                            },
+                            title: {
+                                // Give the tooltip box a title
+                                // text: $(this).attr('title'),
+                                text: "Map Preview - <a href='" + $(this).attr('href') + "#'>click to show the full map</a>" +
+                                "<small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>",
+                                button: true
+                            }
+                        },
+                        style: {
+                            classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map'
+                        },
+                        show: {
+                            event: 'click',
+                            delay: 10,
+                            solo: true // Only show one tooltip at a time
+                        },
+                        position: {
+                            my: 'center', // ...at the center of the viewport
+                            at: 'center',
+                            target: $(window),
+                        },
+                        hide: 'unfocus',
+                    })
+                })
+                // Make sure it doesn't follow the link when we click it
+                    .click(function (event) {
+                        event.preventDefault();
+                    });
+
+                // ajax previews:
+                // ....
+
+                $('a.no_extlink').each(function () {
+                    $(this).qtip({
+                        content: {
+                            text: '<img height="20" src="{{ STATIC_URL }}labs/img/loading.gif" alt="Loading..." />',
+                            ajax: {
+                                url: $(this).attr('href') + "?preview=true" // Use the rel attribute of each element for the url to load
+                            },
+                            title: {
+                                // Give the tooltip box a title
+                                // text: $(this).attr('title'),
+                                text: "Record Preview - <a href='" + $(this).attr('href') + "#'>click to show the full record</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>",
+                                button: true
+                            }
+                        },
+                        style: {
+                            classes: 'ui-tooltip-bootstrap ui-tooltip-shadow'
+                        },
+                        show: {
+                            event: 'click',
+                            delay: 10,
+                            solo: true // Only show one tooltip at a time
+                        },
+                        position: {
+                            my: 'center', // ...at the center of the viewport
+                            at: 'center',
+                            target: $(window),
+                        },
+                        hide: 'unfocus',
+                    })
+                })
+                // Make sure it doesn't follow the link when we click it
+                    .click(function (event) {
+                        event.preventDefault();
+                    });
 
 //  final parenthesis
-});
-</script>
+            });
+        </script>
 
-{% endblock %}
+    {% endblock %}
 
 {% endcomment %}
 
-{% block tabs_titles  %} 
+{% block tabs_titles %}
 {% endblock %}
 
-{% block small_links %}  
+{% block small_links %}
 {% endblock %}
 
 {% block permalink %}
 {% endblock %}
 
 <div class="wrapper">
-{% block contents %}
-     {% block sidebar %}
-    <div class="facet-sidebar">
-        <div id="search">
-            {% block search %}
-            <h2>Basic Search</h2>
-            {% include "pomsapp/search/snippet_searchform.html" %}
-            {% endblock %}
-        </div>
-    </div>
-    {% endblock %}
-
-    {% block main_content %}
-    <div class="main">
-        {% if query or date_range %}
-        <div class="filters">
-            <h2>Filters</h2>
-            <ul class="no-bullet filters">
-                {% if query %}
-                <li>{{ query }} <a href="#"><i class="fas fa-times-circle"></i></a></li>
-                {% endif %}
-                {% if date_range %}
-                <li>{{ date_range }} <a href="#"><i class="fas fa-times-circle"></i></a></li>
-                {% endif %}
-            </ul>
-        </div>
-        {% endif %}
-        <div class="handles searchPages">
-            {# No idea what this does - Ginestra #}
-            <ul>
-                <li><a original-title="Hide refine history panel" href="#" id="historyHandle" class="historyPanel tip">Hide</a>
-                </li>
-            </ul>
-        </div><!-- handles end -->
-
-        <div id="results">
-            {% include "pomsapp/search/snippet_results.html" %}
-        </div>
-    </div>
+    {% block contents %}
+        {% block sidebar %}
+            <div class="facet-sidebar">
+                <div id="search">
+                    {% block search %}
+                        <h2>Basic Search</h2>
+                        {% include "pomsapp/search/snippet_searchform.html" %}
+                    {% endblock %}
+                </div>
+            </div>
         {% endblock %}
 
-{% endblock %}
+        {% block main_content %}
+            <div class="main">
+                {% if query or date_range %}
+                    <div class="filters">
+                        <h2>Filters</h2>
+                        <ul class="no-bullet filters">
+                            {% if query %}
+                                <li>{{ query }} <a href="#"><i class="fas fa-times-circle"></i></a></li>
+                            {% endif %}
+                            {% if date_range %}
+                                <li>{{ date_range }} <a href="#"><i class="fas fa-times-circle"></i></a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+                <div class="handles searchPages">
+                    {# No idea what this does - Ginestra #}
+                    <ul>
+                        <li><a original-title="Hide refine history panel" href="#" id="historyHandle"
+                               class="historyPanel tip">Hide</a>
+                        </li>
+                    </ul>
+                </div><!-- handles end -->
+
+                <div id="results">
+                    {% with search_template='basic_search' %}
+                        {% include "pomsapp/search/snippet_results.html" %}
+                    {% endwith %}
+                </div>
+            </div>
+        {% endblock %}
+
+    {% endblock %}
 </div>
 
 {% block body_closing %}

@@ -1,6 +1,5 @@
 """Haystack search indexes to replace DJFacet"""
 from haystack import indexes
-
 import pomsapp.models as poms_models
 
 """
@@ -28,24 +27,37 @@ result_types = [{'label': 'factoid__sourcekeys',
                     ]
 """
 
+from django.conf import settings as settings
+"""
+    Use this to limit how many records will be indexed in a partial index
+    it's done by id rather than absolute count so <500 id may not equal
+    500 records.  For testing only.
+    """
+PARTIAL_INDEX_MAX_ID = 500
 
 class PomsIndex(indexes.SearchIndex):
-    """ Base object with fields common to all result types
-    """
+    """ Base object with fields common to all result types  """
+
+
     #
     object_id = indexes.IntegerField(model_attr='id')
     index_type = indexes.CharField(faceted=True, )
     text = indexes.CharField(document=True, use_template=True)
     # these are single fields used in different result types
     # so that they can be sorted
+
     # Person
     surname = indexes.CharField(null=True, default='')
     forename = indexes.CharField(null=True, default='')
     persondisplayname = indexes.CharField(null=True, default='')
+    standardmedievalname = indexes.CharField(null=True, default='')
+    moderngaelicname = indexes.CharField(null=True, default='')
+
     # Factoid
     description = indexes.CharField(null=True, default='')
     inferred_type = indexes.CharField(null=True, default='')
     source = indexes.CharField(null=True, default='')
+
     # source
     calendar_number = indexes.CharField(null=True, default='')
     # place
@@ -114,10 +126,10 @@ class PomsIndex(indexes.SearchIndex):
         faceted=True,
         null=True)
     sourcesfeatures = indexes.MultiValueField(
-
         faceted=True,
         null=True
     )
+
     # REMOVED
     # sourcesstartdate = indexes.IntegerField(
     #     model_attr='factoids__sourcekey__from_year',
@@ -271,6 +283,15 @@ class PomsIndex(indexes.SearchIndex):
         null=True
     )
 
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        if settings.PARTIAL_INDEX:
+            return self.get_model().objects.filter(
+                id__lt=PARTIAL_INDEX_MAX_ID
+            )
+        else:
+            return self.get_model().objects.all()
+
 
 class PersonIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
@@ -290,9 +311,14 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         self.prepared_data[
             'forenames'
         ] = obj.forename
-        self.prepared_data[
-            'surname'
-        ] = obj.helper_searchbigsur
+        if obj.helper_searchbigsur is not None:
+            self.prepared_data[
+                'surname'
+            ] = obj.helper_searchbigsur
+        else:
+            self.prepared_data[
+                'surname'
+            ] = ''
         self.prepared_data[
             'persondisplayname'
         ] = obj.persondisplayname
@@ -304,11 +330,18 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             self.prepared_data[
                 'gender'
             ] = obj.genderkey.name
+            if obj.genderkey.id == 5:
+                self.prepared_data[
+                    'institutions'] = [obj.persondisplayname]
 
         if obj.medievalgaelicforename:
             self.prepared_data[
                 'medievalgaelicforename'
             ] = obj.medievalgaelicforename.name
+        if obj.standardmedievalname:
+            self.standardmedievalname = obj.standardmedievalname
+        if obj.moderngaelicname:
+            self.moderngaelicname = obj.moderngaelicname
 
         self.prepared_data[
             'medievalgaelicsurname'
@@ -323,12 +356,15 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             'moderngaelicsurname'
         ] = obj.moderngaelicsurname
 
-        if obj.genderkey == 5:
-            self.prepared_data[
-                'institutions'] = [obj.persondisplayname]
 
-        self.prepared_data[
-            'startdate'] = obj.floruitstartyr
+
+        if obj.floruitstartyr > 0:
+            self.prepared_data[
+                'startdate'] = obj.floruitstartyr
+        else:
+            self.prepared_data[
+                'startdate'] = obj.floruitendyr
+
         self.prepared_data[
             'daterange'] = obj.helper_daterange
 
@@ -485,10 +521,6 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         return list(poms_models.LegalPertinents.objects.filter(
             facttransaction__people=obj
         ).distinct().values_list('name', flat=True))
-
-    def index_queryset(self, using=None):
-        """Used when the entire index for model is updated."""
-        return self.get_model().objects.filter()
 
     def get_model(self):
         return poms_models.Person
@@ -699,7 +731,7 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
             poms_models.Exemptiontype.objects.filter(
                 facttransaction=obj
             ).distinct().values_list('name', flat=True)
-            )
+        )
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
@@ -741,9 +773,6 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         return self.prepared_data
-
-    def index_queryset(self, using=None):
-        return self.get_model().objects.filter()
 
     def get_model(self):
         return poms_models.Factoid
@@ -943,7 +972,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
             poms_models.Exemptiontype.objects.filter(
                 facttransaction__sourcekey=obj
             ).distinct().values_list('name', flat=True)
-            )
+        )
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
@@ -985,9 +1014,6 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         return self.prepared_data
-
-    def index_queryset(self, using=None):
-        return self.get_model().objects.filter()
 
     def get_model(self):
         return poms_models.Source
@@ -1224,7 +1250,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             poms_models.Exemptiontype.objects.filter(
                 facttransaction__helper_places=obj
             ).distinct().values_list('name', flat=True)
-            )
+        )
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
@@ -1266,9 +1292,6 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         ).distinct().values_list('name', flat=True))
 
         return self.prepared_data
-
-    def index_queryset(self, using=None):
-        return self.get_model().objects.filter()
 
     def get_model(self):
         return poms_models.Place

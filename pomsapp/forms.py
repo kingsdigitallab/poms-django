@@ -11,7 +11,7 @@ RESULT_TYPES = [
 
 
 class PomsFacetedSearchForm(FacetedSearchForm):
-    DATE_MINIMUM = 1000
+    DATE_MINIMUM = 1093
     DATE_MAXIMUM = 1300
 
 
@@ -23,12 +23,10 @@ class PomsFacetedSearchForm(FacetedSearchForm):
     )
 
     min_date = forms.IntegerField(
-        required=True,
         initial=DATE_MINIMUM
     )
 
     max_date = forms.IntegerField(
-        required=True,
         initial=DATE_MAXIMUM
     )
 

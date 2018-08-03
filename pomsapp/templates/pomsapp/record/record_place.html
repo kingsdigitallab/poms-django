@@ -80,39 +80,45 @@
 	
 
 <div id="tabs" class="tsb recordTabs">
-    <ul class="tsn">
-	
-
-		{% if peopleAssoc.object_list  %}
-        <li><a href="#{{peopleAssoc.type}}"><span>Associated People ({{ peopleAssoc.tot}}):</span></a></li>
- 		{% endif %}
-
-		{% if documentAssoc.object_list  %}
-        <li><a href="#{{documentAssoc.type}}"><span>Associated Documents ({{ documentAssoc.tot}}):</span></a></li>
- 		{% endif %}
-
-		{% if transactionFact.object_list  %}
-        <li><a href="#{{transactionFact.type}}"><span>Transaction factoids ({{ transactionFact.tot}}):</span></a></li>
- 		{% endif %}
-
-		{% if relationshipFact.object_list  %}
-        	<li><a href="#{{relationshipFact.type}}"><span>Relationship factoids ({{ relationshipFact.tot }}):</span></a></li>
- 		{% endif %}
-
-		{% if possessionFact.object_list  %}
-        <li><a href="#{{possessionFact.type}}"><span>Possession factoids ({{ possessionFact.tot }}):</span></a></li>
- 		{% endif %}
-
-   </ul>
 
 
 
+	<!-- Tab Headers -->
+	{% if peopleAssoc.object_list  %}
+	<input id="tab1" type="radio" name="tabs" checked>
+    <label for="tab1">Associated People <span>({{ peopleAssoc.tot}})</span></label>
+    {% endif %}
+
+
+
+	{% if documentAssoc.object_list  %}
+	<input id="tab2" type="radio" name="tabs" checked>
+    <label for="tab2">Associated Documents <span>({{ documentAssoc.tot}})</span></label>
+	{% endif %}
+
+	{% if transactionFact.object_list  %}
+	<input id="tab3" type="radio" name="tabs" checked>
+    <label for="tab3">Transaction factoids <span>({{ transactionFact.tot}})</span></label>
+	{% endif %}
+
+	{% if relationshipFact.object_list  %}
+	<input id="tab4" type="radio" name="tabs" checked>
+    <label for="tab4">Relationship factoids <span>({{ relationshipFact.tot }})</span></label>
+	{% endif %}
+
+	{% if possessionFact.object_list  %}
+	<input id="tab5" type="radio" name="tabs" checked>
+    <label for="tab5">Possession factoids <span>({{ possessionFact.tot }})</span></label>
+	{% endif %}
+	<!-- end Tab Headers -->
+
+	<!-- Tab Content -->
 	{# ----------- #}
 	{# ASSOC PEOPLE #}
 	{# ----------- #}
 
 	{% if peopleAssoc.object_list %}
-		
+	<section id="content1" class="tab-content">
 	    <div id="{{peopleAssoc.type}}">
 		
 
@@ -156,7 +162,7 @@
 			
 	    </div>  
 		{# end of fragment1 #} 
-	
+	</section>
 	{% endif %}
 
 
@@ -169,7 +175,7 @@
 	{# ----------- #}
 
 	{% if documentAssoc.object_list %}
-		
+	<section id="content2" class="tab-content">
 	    <div id="{{documentAssoc.type}}">
 		
 
@@ -211,7 +217,7 @@
 			
 	    </div>  
 		{# end of fragment1 #} 
-	
+	</section>
 	{% endif %}
 
 
@@ -225,7 +231,7 @@
 	{# ----------- #}
 	
 	{% if transactionFact.object_list %}
-		
+	<section id="content3" class="tab-content">
 	    <div id="{{transactionFact.type}}">
 		
 
@@ -270,7 +276,7 @@
 			
 	    </div>  
 		{# end of fragment1 #} 
-	
+	</section>
 	{% endif %}
 	
 	
@@ -281,7 +287,7 @@
 	{# ----------- #}
 
 	{% if relationshipFact.object_list %}
-		
+	<section id="content4" class="tab-content">	
 	    <div id="{{relationshipFact.type}}">
 		
 
@@ -326,7 +332,7 @@
 			
 	    </div>  
 		{# end of fragment1 #} 
-	
+	</section>
 	{% endif %}
 
 
@@ -339,7 +345,7 @@
 	{# ----------- #}
 
 	{% if possessionFact.object_list %}
-		
+	<section id="content5" class="tab-content">	
 	    <div id="{{possessionFact.type}}">
 		
 
@@ -385,12 +391,8 @@
 			
 	    </div>  
 		{# end of fragment1 #} 
-	
+	</section>
 	{% endif %}
-
-
-
-
 
 </div>
 

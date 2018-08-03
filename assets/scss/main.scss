@@ -32,6 +32,8 @@ $primary-color: #2c528b;
 $gray1:#f1f1f1;
 $gray2:#ccc;
 $gray3: #999;
+$lightblue:#f7f9fc;
+$midblue:#dce5f4;
 $darkblue:#2c528b;
 $white:#fff;
 $black:#000;
@@ -72,10 +74,8 @@ a {
 button,
 input,
 .submit {
-    border: 1px solid $beige;
-    font-size: 16px;
-    margin-top: 16px;
-    padding: 8px;
+    border: none;
+    font-size: 14px;
 }
 
 button,
@@ -130,6 +130,9 @@ h2, h3, h4, h5, h6 {
     font-family: 'EB_Garamond', serif;
 }
 
+h2{
+    font-size: 1.3em;
+}
 .top-header {
     h1 {
         color: $beige;
@@ -266,6 +269,36 @@ fieldset {
 }
 
 #search_form {
+    background: $darkblue;
+    padding: 1.5em 0;
+    color: $white;
+    font-size: 0.8em;
+    label[for=bs_input]{
+        display: block;
+    }
+
+    button, input[type=reset]{
+        padding: 2px 10px;
+        margin-top: 1em;
+        background: $darkblue;
+        border:1px solid $midblue;
+        color: $midblue;
+        
+        &:hover{
+            background: $midblue;
+            border:1px solid $midblue;
+            color: $black;
+        }
+    }
+
+    p{
+        margin: 0;
+        padding: 0;
+
+        input{
+            margin: 5px 0;
+        }
+    }
 }
 
 // Pagination
@@ -357,15 +390,13 @@ tr:nth-child(even) {
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-    background-color: $primary-color;
-    border-radius: 2px;
-    color: #fff;
+    background-color: $midblue;
+    color: $black;
     font-size: .875em;
     line-height: 1.25;
-    padding: 16px;
+    padding: 8px;
     visibility: hidden;
     width: 180px;
-
     /* Position the tooltip text */
     bottom: 125%;
     left: 50%;
@@ -453,7 +484,7 @@ tr:nth-child(even) {
     }
 
     label:hover {
-      color: #888;
+      color: $darkblue;
       cursor: pointer;
     }
 
@@ -500,6 +531,11 @@ tr:nth-child(even) {
     .active {
         font-weight: bold;
     }
+
+    ul{
+        list-style-type: none;
+        margin-left:-40px;
+    }
 }
 
 .facet-group,
@@ -516,6 +552,57 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
+#facets{
+    ul.menu{
+        li{
+            padding:0;
+            margin:0;
+            
+            h2{
+                padding:0;
+                margin:0.8em 0 0.2em 0;
+            }
+        }
+
+    }
+}
+ul.active_facets{
+    list-style-type: none;
+    background: #f1f1f1;
+    h3{
+        display: inline-block;
+    }
+
+    li{
+        margin-left:-20px;
+
+        span{
+            padding:0.2em 0.5em;
+            background: $darkblue;
+            color: $white;
+
+            a{
+                color: $white;
+            }
+            &:hover{
+                background: $midblue;
+                color: $darkblue;
+
+            a{
+                color: $darkblue;
+            }
+            }
+        }
+    }
+}
+
+ul#accordion{
+    >li{
+        background: $gray1;
+        padding: 0.1em 1em;
+        margin: 1em 0;
+    }
+}
 /* Footer */
 
 /* Import FontAwesome */

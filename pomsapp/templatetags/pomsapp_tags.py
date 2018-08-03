@@ -25,16 +25,16 @@ def add_facet_link(qd, facet, value):
     # if 'index_type' in facet:
     #
     # else:
-        facets = q.getlist('selected_facets', [])
-        if len(facet) > 0:
-            facet_value = '{0}_exact:{1}'.format(
-                facet, value)
-            for f in facets:
-                if facet in f:
-                    facets.remove(f)
-            if len(value) > 0:
-                facets.append(facet_value)
-        q.setlist('selected_facets', facets)
+    facets = q.getlist('selected_facets', [])
+    if len(facet) > 0:
+        facet_value = '{0}_exact:{1}'.format(
+            facet, value)
+        for f in facets:
+            if facet in f:
+                facets.remove(f)
+        if len(value) > 0:
+            facets.append(facet_value)
+    q.setlist('selected_facets', facets)
     return '?{0}'.format(q.urlencode())
 
 

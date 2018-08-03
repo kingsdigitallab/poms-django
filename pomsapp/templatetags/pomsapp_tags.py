@@ -22,9 +22,9 @@ def add_facet_link(qd, facet, value):
     # qd['page'] = 1
     # if 'printme' in qd:
     #     del qd['printme']
-    if 'index_type' in facet:
-
-    else:
+    # if 'index_type' in facet:
+    #
+    # else:
         facets = q.getlist('selected_facets', [])
         if len(facet) > 0:
             facet_value = '{0}_exact:{1}'.format(

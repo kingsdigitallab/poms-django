@@ -23,12 +23,10 @@ class PomsFacetedSearchForm(FacetedSearchForm):
     )
 
     min_date = forms.IntegerField(
-        required=True,
         initial=DATE_MINIMUM
     )
 
     max_date = forms.IntegerField(
-        required=True,
         initial=DATE_MAXIMUM
     )
 

@@ -1,7 +1,6 @@
 # Create your views here.
 
 from django.shortcuts import render_to_response
-from django.template import RequestContext
 from haystack.generic_views import FacetedSearchView
 from haystack.query import SearchQuerySet
 
@@ -50,8 +49,6 @@ class PomsFacetedSearchView(FacetedSearchView):
     template_name = 'pomsapp/search/search.html'
     queryset = SearchQuerySet()
     load_all = True
-
-
 
     def get_queryset(self):
         queryset = super(
@@ -213,7 +210,8 @@ class PomsFacetedBrowse(FacetedSearchView):
                 self.facet_group_fields[self.kwargs['facet_group']]
             )
         else:
-            for facet_group_name, facet_fields in self.facet_group_fields.items():
+            for facet_group_name, facet_fields in \
+                    self.facet_group_fields.items():
                 queryset = self.__facet_by_group(
                     queryset,
                     facet_fields
@@ -223,7 +221,7 @@ class PomsFacetedBrowse(FacetedSearchView):
         if 'selected_facets' in self.request.GET:
             for facet in self.request.GET.getlist('selected_facets'):
                 if 'index_type' in facet:
-                    self.index_type = facet.replace('index_type_exact:','')
+                    self.index_type = facet.replace('index_type_exact:', '')
         else:
             self.index_type = 'person'
         queryset = queryset.narrow(
@@ -231,8 +229,12 @@ class PomsFacetedBrowse(FacetedSearchView):
                 self.index_type
             )
         )
-        # todo add view's order as well?
-        return queryset
+        if 'order_by' in self.request.GET:
+            return queryset.order_by(
+                self.request.GET['order_by']
+            )
+        else:
+            return queryset.order_by('startdate')
 
     def get_context_data(self, *args, **kwargs):
         context = super(
@@ -256,5 +258,6 @@ class PomsFacetedBrowse(FacetedSearchView):
 
         context['querydict'] = qs.copy()
         context['result_types'] = self.result_types
-
+        if 'order_by' in self.request.GET:
+            context['order_by'] = self.request.GET['order_by']
         return context

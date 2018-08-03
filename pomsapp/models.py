@@ -725,6 +725,7 @@ class Charter(Source):
     class Meta:
         verbose_name_plural = "Documents"
         verbose_name = "Document"
+        ordering = ['id']
 
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
         related_search_fields = {'placefk': ('name',), }
@@ -2081,7 +2082,7 @@ class Place(mymodels.PomsModel):
         for x in Factoid.objects.filter(assocfactoidposs_pgeneral__poss_pgeneral__place__id=self.id):
             if x not in ret:
                 ret.append(x)
-        for x in Factoid.objects.filter(assocfactoidposs_office__poss_office__place__id=self.id):
+        for x in Factoid.objects.filter(poss_office__place__id=self.id):
             if x not in ret:
                 ret.append(x)
         for x in Factoid.objects.filter(assocfactoidposs_unfreep__poss_unfree_persons__place__id=self.id):

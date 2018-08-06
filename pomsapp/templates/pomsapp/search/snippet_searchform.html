@@ -1,71 +1,71 @@
 <form id="search_form" action=".">
 
-  {% comment %}
-    TODO:
-      * use span text to create tooltips - DONE
-      * add icons for tooltips - DONE
-      * add js for tooltips in main.js - DONE
-      * style form
-  {% endcomment %}
+    {% comment %}
+        TODO:
+        * use span text to create tooltips - DONE
+        * add icons for tooltips - DONE
+        * add js for tooltips in main.js - DONE
+        * style form
+    {% endcomment %}
 
-  <fieldset>
-    <legend>Search for:</legend>
-    <p>
-      <input id="bs_f" type="radio" name="index_type" value="factoid"{% if 'factoid' in index_type %} checked{% endif %}>
-      <label for="bs_f">Factoids <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltiptext">Searching on fields: short description, source for data entry, ID number.</span></span></label>
-    </p>
+    <fieldset>
+        <legend>Search for:</legend>
+        <p>
+            <input id="bs_f" type="radio" name="index_type" value="factoid"{% if 'factoid' in index_type %}
+                   checked{% endif %}>
+            <label for="bs_f">Factoids <span class="tooltip"><i class="fas fa-question-circle"></i><span
+                    class="tooltiptext">Searching on fields: short description, source for data entry, ID number.</span></span></label>
+        </p>
 
-    <p>
-      <input id="bs_s" type="radio" name="index_type" value="source"{% if 'source' in index_type %} checked{% endif %}>
-      <label for="bs_s">Sources <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltiptext">Searching in fields: H-number, trad.ID, description, ID number.</span></span></label>
-    </p>
+        <p>
+            <input id="bs_s" type="radio" name="index_type" value="source"{% if 'source' in index_type %}
+                   checked{% endif %}>
+            <label for="bs_s">Sources <span class="tooltip"><i class="fas fa-question-circle"></i><span
+                    class="tooltiptext">Searching in fields: H-number, trad.ID, description, ID number.</span></span></label>
+        </p>
 
-    <p>
-      <input id="bs_pl" type="radio" name="index_type" value="place"{% if 'place' in index_type %} checked{% endif %}>
-      <label for="bs_pl">Places <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltiptext">Searching in fields: name, ID number.</span></span></label>
-    </p>
+        <p>
+            <input id="bs_pl" type="radio" name="index_type" value="place"{% if 'place' in index_type %}
+                   checked{% endif %}>
+            <label for="bs_pl">Places <span class="tooltip"><i class="fas fa-question-circle"></i><span
+                    class="tooltiptext">Searching in fields: name, ID number.</span></span></label>
+        </p>
 
-    <p>
-      <input id="bs_p" type="radio" name="index_type" value="person"{% if 'person' in index_type %} checked{% endif %}>
-      <label for="bs_p">People and Institutions <span class="tooltip"><i class="fas fa-question-circle"></i><span class="tooltiptext">Searching in fields: full modern name, standard medieval name, modern gaelic name, ID number.</span></span></label>
-    </p>
-  </fieldset>
-	
-  <fieldset>
-    <label for="bs_input">
-      Enter search terms
-    </label>
+        <p>
+            <input id="bs_p" type="radio" name="index_type" value="person"{% if 'person' in index_type %}
+                   checked{% endif %}>
+            <label for="bs_p">People and Institutions <span class="tooltip"><i class="fas fa-question-circle"></i><span
+                    class="tooltiptext">Searching in fields: full modern name, standard medieval name, modern gaelic name, ID number.</span></span></label>
+        </p>
+    </fieldset>
 
-    <input id="bs_input" type="text" name="q"{% if 'q' in form.data %} value="{{ form.data.q }}"{% else %} value=""{% endif %}>
-    <button class="primary">Go</button>
-    {# TODO: Fix -> Reset doesn't seem to work - Ginestra #}
-    <input type="reset" id="reset_search" value="Reset">
-  </fieldset>
+    <fieldset>
+        <label for="bs_input">
+            Enter search terms
+        </label>
 
-  {# 2010-10-20: added two hidden fields for ordering and years #}
+        <input id="bs_input" type="text" name="q"{% if 'q' in form.data %} value="{{ form.data.q }}"{% else %}
+               value=""{% endif %}>
+        <h3>
+            <label>Date range (start date):</label>
+        </h3>
 
-  <fieldset>
-    {# Elliott: this needs to be implemented - Ginestra #}
-    <h3>
-      <label>Date range (start date):</label>
-    </h3>
+        <p>
+            <label for="min">Min value:</label>
+            {# Elliott it would be good to get the min year dynamically, if possible - Ginestra #}
+            <input type="number" name="min_date" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
 
-    <p>
-    <label for="min">Min value:</label>
-    {# Elliott it would be good to get the min year dynamically, if possible - Ginestra #}
-    <input type="text" value="1093" id="min" class="year">
 
-    {# Elliott it would be good to get the max year dynamically, if possible - Ginestra #}
-    <label for="max">Max value:</label>
-    <input type="text" value="1314" id="max" class="year">
-    </p>
+            {# Elliott it would be good to get the max year dynamically, if possible - Ginestra #}
+            <label for="id_max_date">Max value:</label>
+            <input type="number" name="max_date" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" id="id_max_date">
+        </p>
 
-    <div class="g-ranger" id="range"></div>
+        <div class="g-ranger" id="range"></div>
 
-    <input type="submit" value="Submit">
-  </fieldset>
 
-  {# To keep the form working: - Ginestra #}
-  <input type="text" id="date_range" name="date_range" value="{{ date_range }}">
-
+        <button class="primary">Go</button>
+        {# TODO: Fix -> Reset doesn't seem to work - Ginestra #}
+        <input type="reset" id="reset_search" value="Reset">
+    </fieldset>
 </form>

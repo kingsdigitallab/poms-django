@@ -67,3 +67,4 @@ playbook.retry
 
 # Data
 data.sql.gz
+data.tar.gz

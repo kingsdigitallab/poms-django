@@ -1,13 +1,156 @@
-{% extends "pomsapp/map/map_base.html" %}
+{% extends "base.html" %}
 {% load extrafilters %}
 
+{% block titlepage  %}
+	<title>POMS: Map</title>
+{% endblock %}
+
+
+{% block load_css  %}
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}paul/c/a.css"/>
+	<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}paul/c/s.css"/>
+	<link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}paul/c/p.css"/>
+
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/jquery.qtip.min.css" />	
+	{# eventually this must be put in its own file! #}	
+	<style type="text/css" media="screen">
+
+	.ui-tooltip{
+		min-width: 550px;
+		overflow: auto;
+		max-height: 400px;
+		margin-top: 150px;
+	}
+	
+	.ui-tooltip-bootstrap .ui-tooltip-titlebar {
+		font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
+	}
+	
+	#ui-tooltip-modal{
+		max-width: 420px;
+
+		-moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+		-webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+		box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
+	}
+
+	#ui-tooltip-modal .ui-tooltip-content{
+		padding: 10px;
+	}
+	
+	
+	</style>
+	
+{% endblock %}
+
+
+{% block load_js  %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/functions_record.js"></script>
+<!--<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-src.js"></script>-->
+
+<script>
+	L_PREFER_CANVAS = true
+</script>
+
+<script type="text/javascript" src="/media/static/mapbox.js-bower-2.2.1/mapbox.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.css"></link>-->
+<link rel="stylesheet" type="text/css" href="/media/static/mapbox.js-bower-2.2.1/mapbox.css"></link>
+
+<script type="text/javascript" src="/media/static/js/turf.js"></script>
+<script type="text/javascript" src="/media/static/js/hex_grid.js"></script>
+
+<script type="text/javascript" src="/media/static/js/leaflet-image.js"></script>
+<link rel="stylesheet" type="text/css" href="/media/static/js/css/style.css"></link>
+
+<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-overlap.js"></script>
+
+<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
+<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+
+
+<script type="text/javascript" src="{{ STATIC_URL}}js/LeafletFunctionButton.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.draw.css"></link>
+<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet.draw.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL}}js/spin.min.js"></script>
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet.awesome-markers.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.awesome-markers.css"></link>
+
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+
+
+<script> 
+$(document).ready(function() {
+	var maskWidth = $(window).width();   // returns height of browser viewport
+	var maskHeight = $(window).height();   // returns height of browser viewport
+
+	qtip_history();
+	qtip_citation();
+	qtip_previews("{{STATIC_URL}}");
+
+	// qtip_labs();  // disabled for now		
+	// tips for splash page :: add again once the qTip class is fixed
+	// $('span.x6[title]').qtip();
+// 	final parenthesis
+});
+
+function printMap() {
+	leafletImage(map, function(err, canvas) {
+		var img = document.createElement('img');
+		var dimensions = map.getSize();
+        img.width = (dimensions.x);
+        img.height = (dimensions.y);
+		img.src = canvas.toDataURL();
+		document.getElementById('map-image').innerHTML = '';
+		document.getElementById('map-image').appendChild(img);
+	});
+	
+	$('#map-image-details').find('h3').remove();
+	$('#map-image-details').find('dl').remove();	
+	
+	$.each($('.result-container.ui-tabs-panel'),function(){
+		if ( $(this).find('dl').length > 0){
+			$('#map-image-details').append('<h3>'+ toTitleCase(($(this).attr('id')).replace('-results','')) +'</h3>')
+			$(this).find('dl').clone().appendTo('#map-image-details')
+		}
+	})
+};
+
+</script>
+{% endblock %}
+
+
+{% block tabs_titles  %}
+   <ul class="nvl">
+     <li class="i1"><a href="/search">Search</a></li>
+     <li class="i1"><a href="/browse">Browse</a></li>
+     <li class="i1"><a href="/record/">Record</a></li>
+       <li class="i1"><a href="/sna/all/">Social Network Analysis</a></li>
+
+     <li class="s1"><a href="/map/browse/">Map</a></li>	 
+     <li class="i1"><a href="/familytrees">Family Trees</a></li>
+     <li class="i1"><a href="/labs">Labs</a></li>
+   </ul>		
+{% endblock %}
+
+
+{% block permalink %}
+
+{% endblock %}
+
+
 {% block contents %}
-<div>
+
+	<div>
 
 <!--
 <div id="map-modal"><input type="button" value="Print map"></input></div>
 -->
- 
+
 <div id="map">
 
 </div>
@@ -68,7 +211,7 @@ L.Map.addInitHook(function () {
 });
 
 
-						
+
 var oms;
 
 
@@ -78,32 +221,32 @@ var personMarker = L.AwesomeMarkers.icon({
     markerColor: 'red',
     prefix: 'fa'
   });
-  
+
 var personCharterMarker = L.AwesomeMarkers.icon({
     icon: 'male',
     markerColor: 'green',
     prefix: 'fa'
-  });  
-  
+  });
+
 var charterMarker = L.AwesomeMarkers.icon({
     icon: 'legal',
     markerColor: 'green',
     prefix: 'fa'
-  }); 
-  
+  });
+
 var plainMarker = L.AwesomeMarkers.icon({
     icon: 'university',
     markerColor: 'blue',
     prefix: 'fa'
-  });  
+  });
 
 
 //var personMarker = L.circleMarker();
-  
+
 //var personCharterMarker = L.circleMarker();
-  
+
 //var charterMarker = L.circleMarker();
-  
+
 //var plainMarker = L.circleMarker();
 
 
@@ -126,13 +269,13 @@ $(document).ready(function(){
 				format:'image/png',
 				transparent:true,
 				attribution:'<a href="http://hla.rcahms.gov.uk/">Historic Environment Scotland</a>'}
-		);        
+		);
         os_1st_ed = new L.TileLayer('http://geo.nls.uk/maps/os/1inch_2nd_ed/{z}/{x}/{y}.png',{tms:true,attribtution:'<a href="http://maps.nls.uk/">National Library of Scotland</a>'})
-        
+
 		geology = new L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/WMSServer?',{
 			layers:'BGS.50k.Bedrock',
 			format :'image/png',
-			crs:L.CRS.EPSG3857, 
+			crs:L.CRS.EPSG3857,
 			minZoom:13,
 			opacity:0.5,
 			transparent:true,
@@ -147,7 +290,7 @@ $(document).ready(function(){
 			attribution:'BGS:50k'}
 			);
 		map.setView([56.3926,-3.724],7);
-		
+
 /* 'https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/' */
 
 // Initialise the FeatureGroup to store editable layers
@@ -170,7 +313,7 @@ switcher = new L.control.layers({'Terrain':layer,'Modern':modern},{'Modern regio
 			}
 			}
 	})
-	
+
 	$('.leaflet-control-layers-overlays label input:checkbox').click(function() {
         if (	$(this).next().html()  ==  ' Superficial (Zoom 13+)'   ){
 			if ( $(this).attr('checked') ){
@@ -188,14 +331,14 @@ switcher = new L.control.layers({'Terrain':layer,'Modern':modern},{'Modern regio
 			content: {
 				text: 'Loading...',
 				title: {
-					// Give the tooltip box a title 
-					// text: $(this).attr('title'), 
-					text: "Right click on image to download", // - <a href='" + $(this).attr('href') + "#'>click to show the full map</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>", 
+					// Give the tooltip box a title
+					// text: $(this).attr('title'),
+					text: "Right click on image to download", // - <a href='" + $(this).attr('href') + "#'>click to show the full map</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>",
 					button: true
 				}
 			},
 			style: {
-				classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map'  
+				classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map'
 			},
 			show: {
 				event: 'click',
@@ -208,21 +351,21 @@ switcher = new L.control.layers({'Terrain':layer,'Modern':modern},{'Modern regio
 				target: $(window),
 			},
 			hide: 'unfocus',
-		})    
-    
-    
+		})
 
-	$('#map-modal').click(printMap);	
+
+
+	$('#map-modal').click(printMap);
 
 function getBGSBedrock(e){
 		if (map.getZoom() >= 13){
 					map.spin(true)
 						$.ajax('/bgs/WMSServer?version=1.3.0&request=GetFeatureInfo&layers=BGS.50k.Bedrock'+
-						'&query_layers=BGS.50k.Bedrock&crs=CRS:84&info_format=text/html&i=' 
+						'&query_layers=BGS.50k.Bedrock&crs=CRS:84&info_format=text/html&i='
 						+ e.containerPoint.x + '&j='
 						+ e.containerPoint.y +'&radius=0'
-						+ 'SRS=EPSG:4326&BBOX=' 
-						+ map.getBounds()._southWest.lng 
+						+ 'SRS=EPSG:4326&BBOX='
+						+ map.getBounds()._southWest.lng
 						+','
 						+ map.getBounds()._southWest.lat
 						+','
@@ -231,27 +374,27 @@ function getBGSBedrock(e){
 						+ map.getBounds()._northEast.lat
 						+ '&WIDTH='
 						+ map.getSize().x
-						+ '&HEIGHT='+ map.getSize().y 
+						+ '&HEIGHT='+ map.getSize().y
 						+ '&styles=default',
 						{success: function(data){
 										map.spin(false)
-								var popup = L.popup().setLatLng([ e.latlng.lat,e.latlng.lng]).setContent( 
+								var popup = L.popup().setLatLng([ e.latlng.lat,e.latlng.lng]).setContent(
 									'<h3>' + $(data).find('td:nth-child(5)').html() + '</h3><p>' + $(data).find('td:nth-child(22)').html() + '</p>' ).openOn(map);
 							},
 						type:'html'
 						})
 		}
-}	
-	
-function getBGSSuperficial(e){	
+}
+
+function getBGSSuperficial(e){
 	if (map.getZoom() >= 13){
 		map.spin(true)
 						$.ajax('/bgs/WMSServer?version=1.3.0&request=GetFeatureInfo&layers=BGS.50k.Superficial.deposits'+
-						'&query_layers=BGS.50k.Superficial.deposits&crs=CRS:84&info_format=text/html&i=' 
+						'&query_layers=BGS.50k.Superficial.deposits&crs=CRS:84&info_format=text/html&i='
 						+ e.containerPoint.x + '&j='
 						+ e.containerPoint.y +'&radius=0'
-						+ 'SRS=EPSG:4326&BBOX=' 
-						+ map.getBounds()._southWest.lng 
+						+ 'SRS=EPSG:4326&BBOX='
+						+ map.getBounds()._southWest.lng
 						+','
 						+ map.getBounds()._southWest.lat
 						+','
@@ -260,12 +403,12 @@ function getBGSSuperficial(e){
 						+ map.getBounds()._northEast.lat
 						+ '&WIDTH='
 						+ map.getSize().x
-						+ '&HEIGHT='+ map.getSize().y 
+						+ '&HEIGHT='+ map.getSize().y
 						+ '&styles=default',
 						{success: function(data){
 								map.spin(false)
 								if ( $(data).find('td').length!=0 )  {
-									var popup = L.popup().setLatLng([ e.latlng.lat,e.latlng.lng]).setContent( 
+									var popup = L.popup().setLatLng([ e.latlng.lat,e.latlng.lng]).setContent(
 									'<h3>' + $(data).find('td:nth-child(5)').html() + '</h3><p>' + $(data).find('td:nth-child(26)').html() + '</p>' ).openOn(map);
 								}
 							},
@@ -288,7 +431,7 @@ var drawControl = new L.Control.Draw({
         rectangle:true,
         polygon:false,
         marker:false,
-		position:'bottomleft'                            
+		position:'bottomleft'
         }
     }).addTo(map);
 
@@ -302,16 +445,16 @@ var drawControl = new L.Control.Draw({
     })
 
     map.on('draw:deleted', function (e) {
-     geomQry = '' 
+     geomQry = ''
     })
-	 
-	 
+
+
 	$('.leaflet-control-zoom-in').after('<a id="zoom-level">7</a>');
-	
+
 	map.on('zoomend',function(e){
 		$('#zoom-level').html(map.getZoom());
 	})
-	
+
 	$.ajax('/map/hierarchy/',{
 		success:function(data){
 		        $('.leaflet-control-container').append(data);
@@ -356,17 +499,17 @@ var drawControl = new L.Control.Draw({
 			});
 		}
 	};
-	
+
 
 var neil;
- 
+
 function parseMapResults(data){
     //oms.clearLayers()
     geoJSON.clearLayers();
-	
+
 
     geoJSON.addData(data).addTo(map);
-    
+
     //map.addLayer(oms)
     // Store the data for use in TURF
     neil = data;
@@ -390,7 +533,7 @@ var geoJSON = new L.geoJson(null,
 					  }
 					}
 		    else if ( feature.properties.charters.length > 0)
-		    		{ 
+		    		{
 		    		marker =  new L.marker(latlng,{icon:charterMarker});
 		    		//  marker = new L.circleMarker(latlng)
 					  feature.properties['style'] = 'charter'
@@ -400,11 +543,11 @@ var geoJSON = new L.geoJson(null,
 		    	//marker = new L.circleMarker(latlng)
 				feature.properties['style'] = 'place'
 		    }
-        	
+
             oms.addMarker(marker);
             //oms.addLayer(marker);
         	return marker
-		}		
+		}
 	}
 );
 
@@ -421,7 +564,7 @@ function getPopup(props){
 	}
 
 
-	
+
 	if (props.people.length > 0){
 		str += '<tr><th>People:</th></tr>';
 		for (p in props.people ){
@@ -468,9 +611,9 @@ function printMap() {
 			content: {
 				text: 'Loading...',
 				title: {
-					// Give the tooltip box a title 
-					// text: $(this).attr('title'), 
-					text: "Right click on image to download", // - <a href='" + $(this).attr('href') + "#'>click to show the full map</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>", 
+					// Give the tooltip box a title
+					// text: $(this).attr('title'),
+					text: "Right click on image to download", // - <a href='" + $(this).attr('href') + "#'>click to show the full map</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>",
 					button: true
 				}
 			},
@@ -490,7 +633,7 @@ function printMap() {
 			},
 			hide: 'unfocus',
 			})
-	
+
         $('#map-modal').qtip()
 
         leafletImage(map, function(err, canvas) {
@@ -502,12 +645,12 @@ function printMap() {
         $.ajax({
             type: "POST",
             url: '/map/map-image/',
-            data: { 
+            data: {
                     "image" : img.src,
                     "csrfmiddlewaretoken": '{{ csrf_token }}'
                   },
             success: openMapImage
-        });          
+        });
         });
 };
 
@@ -515,11 +658,19 @@ function printMap() {
 function openMapImage(data){
 	$('.ui-tooltip-content').html(data)
     map.addLayer(oms)
-    map.removeLayer(geoJSON)    
+    map.removeLayer(geoJSON)
 };
 
 
 </script>
-
+	
+	
 {% endblock %}
-
+	
+	
+	
+{% block body_closing %}
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+	{% include "pomsapp/snippet_history.html" %}
+	{% include "pomsapp/record/snippet_citation.html" %}
+{% endblock %}	

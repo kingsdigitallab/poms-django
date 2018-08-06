@@ -324,4 +324,6 @@ HAYSTACK_CONNECTIONS = {
         'INDEX_NAME': 'poms_haystack',
     },
 }
+# Index only the first 500 objects of each type (for vagrant and debug)
+PARTIAL_INDEX = False
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 50

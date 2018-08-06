@@ -48,14 +48,14 @@
                     <thead>
                     <tr>
                         <th><a class="{{ active_ordering|infer_class:'factoiddesc' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a>
+                               href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "description" %}">Description</a>
                         </th>
                         <th><a class="{{ active_ordering|infer_class:'factoidtype' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=inferred_type">Type</a></th>
+                               href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "inferred_type" %}">Type</a></th>
                         <th><a class="{{ active_ordering|infer_class:'factoidsource' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=source">Source</a></th>
+                               href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "source" %}">Source</a></th>
                         <th><a class="{{ active_ordering|infer_class:'factoiddate' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
+                               href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "startdate" %}">Date</a></th>
                     </tr>
                     </thead>
 
@@ -89,20 +89,19 @@
                     <thead>
                     <tr>
                         <th><a class="{{ active_ordering|infer_class:'sourcehammond' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=calendar_number">Calendar
+                               href="{% url search_template %}?{{ querystring }}&order_by={% get_order_by "calendar_number" %}">Calendar
                             number</a></th>
                         <th><a class="{{ active_ordering|infer_class:'sourcedesc' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=description">Description</a>
+                               href="{% url search_template %}?{{ querystring }}&order_by={% get_order_by "description" %}">Description</a>
                         </th>
                         <th><a class="{{ active_ordering|infer_class:'sourcedate' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=startdate">Date</a></th>
+                               href="{% url search_template %}?{{ querystring }}&order_by={% get_order_by "startdate" %}">Date</a></th>
                         {# <th><a class="{{active_ordering|infer_class:'personfull'}} arrowUp" href="javascript:change_ordering('annotate=factoid')">Associated factoids</a></th>  #}
                     </tr>
                     </thead>
-
+                        <tbody>
                     {% for result in object_list %}
                         {% with record=result.object %}
-                            <tbody>
                             <tr>
                                 <td>
                                     <a class="no_extlink" href="{{ record.get_absolute_url }}" target="_self"
@@ -113,9 +112,9 @@
                                 <td>{{ record.description|truncatewords:15 }}</td>
                                 <td>{{ record.firmdate|format_dates }}</td>
                             </tr>
-                            </tbody>
                         {% endwith %}
                     {% endfor %}
+                     </tbody>
                 {% endifequal %}
 
                 {# ******** #}
@@ -125,9 +124,9 @@
                 {% ifequal index_type 'place' %}
                     <tr>
                         <th><a class="{{ active_ordering|infer_class:'placename' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=place_name">Place name</a></th>
+                               href="{% url search_template %}?{{ querystring }}&order_by={% get_order_by "place_name" %}">Place name</a></th>
                         <th><a class="{{ active_ordering|infer_class:'placeparent' }} arrowUp"
-                               href="{% url 'basic_search' %}?{{ querystring }}&order_by=parent">Parent</a></th>
+                               href="{% url search_template %}?{{ querystring }}&order_by={% get_order_by "place_parent" %}">Parent</a></th>
                     </tr>
 
                     {% for result in object_list %}
@@ -152,23 +151,23 @@
 
                 {% if 'person' in index_type %}
                     <tr>
-                        <th><a href="javascript:change_ordering('persondisplayname');">Full Name</a></th>
-                        <th><a href="javascript:change_ordering('forename');">Forename</a></th>
-                        <th><a href="javascript:change_ordering('helper_searchbigsur');">Surname</a></th>
-                        <th><a href="javascript:change_ordering('standardmedievalname');">Medieval Gaelic Name</a></th>
-                        <th><a href="javascript:change_ordering('moderngaelicname');">Modern Gaelic Name</a></th>
-                        <th><a href="javascript:change_ordering('floruitstartyr, floruitendyr');">Floruit</a></th>
+                        <th><a href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "persondisplayname" %}">Full Name</a></th>
+                        <th><a href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "forename" %}">Forename</a></th>
+                        <th><a href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "surname" %}">Surname</a></th>
+                        <th><a href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "standardmedievalname" %}">Medieval Gaelic Name</a></th>
+                        <th><a href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "moderngaelicname" %}">Modern Gaelic Name</a></th>
+                        <th><a href="{% url search_template %}?{{ querystring }}&amp;order_by={% get_order_by "startdate" %}">Floruit</a></th>
                     </tr>
 
                     {% for result in object_list %}
                         {% with record=result.object %}
                             <tr>
-                                <td><a href="{% url 'person_detail' record.id %}">
-                                    {{ record.persondisplayname|truncatewords:15|poms_italic|safe }}</a></td>
+                                <td><a href="{% url 'person_detail' result.object_id %}">
+                                    {{ result.persondisplayname|truncatewords:15|poms_italic|safe }}</a></td>
                                 <td>{{ record.forename|truncatewords:15|poms_italic|safe }}</td>
-                                <td>{{ record.surname|truncatewords:15|poms_italic|safe }}</td>
-                                <td>{{ record.standardmedievalname|default:"" }}</td>
-                                <td>{{ record.moderngaelicname|default:"" }}</td>
+                                <td>{{ result.surname|truncatewords:15|poms_italic|safe }}</td>
+                                <td>{{ result.standardmedievalname|default:"" }}</td>
+                                <td>{{ result.moderngaelicname|default:"" }}</td>
                                 <td>{{ record.nice_floruits|safe }}</td>
                             </tr>
                         {% endwith %}

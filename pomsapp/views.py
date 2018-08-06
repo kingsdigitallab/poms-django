@@ -1,7 +1,6 @@
 # Create your views here.
 
 from django.shortcuts import render_to_response
-from django.template import RequestContext
 from haystack.generic_views import FacetedSearchView
 from haystack.query import SearchQuerySet
 
@@ -66,6 +65,9 @@ class PomsFacetedSearchView(FacetedSearchView):
         context = super(
             PomsFacetedSearchView, self
         ).get_context_data(*args, **kwargs)
+
+        max = SearchQuerySet().all().order_by('-startdate')[0]
+        max_date = max.startdate
         if context['form']:
             form = context['form']
             querystring = ''
@@ -76,21 +78,26 @@ class PomsFacetedSearchView(FacetedSearchView):
                 )
             else:
                 context['index_type'] = 'person'
-            if 'date_range' in form.cleaned_data:
-                context['date_range'] = form.cleaned_data['date_range']
-                querystring += '&date_range={}'.format(
-                    form.cleaned_data['date_range']
+            if 'min_date' in form.cleaned_data:
+                querystring += '&min_date={}'.format(
+                    form.data['min_date']
                 )
-            else:
-                context['date_range'] = '{}-{}'.format(
-                    form.DATE_MINIMUM,
-                    form.DATE_MAXIMUM
+
+            if 'max_date' in form.cleaned_data:
+                querystring += '&max_date={}'.format(
+                    form.cleaned_data['max_date']
                 )
+
             if 'q' in form.cleaned_data:
                 querystring += '&q={}'.format(
                     form.cleaned_data['q']
                 )
             context['querystring'] = querystring
+            context['form'] = form
+        context['min_date'] = PomsFacetedSearchForm.DATE_MINIMUM
+        context['max_date'] = max_date
+        if 'order_by' in self.request.GET:
+            context['order_by'] = self.request.GET['order_by']
         return context
 
 
@@ -101,7 +108,7 @@ class PomsFacetedBrowse(FacetedSearchView):
     form_class = PomsFacetedBrowseForm
     queryset = SearchQuerySet()
     load_all = True
-    template_name = 'pomsapp/browse/tpl_wrapper.html'
+    template_name = 'pomsapp/browse/browse_main.html'
     ajax = False
     facet_fields = ['index_type']
     index_type = 'person'
@@ -123,7 +130,8 @@ class PomsFacetedBrowse(FacetedSearchView):
             "documentcategory",
             "grantorcategory",
             "placedatemodern",
-            "language"
+            "language",
+            'sourcesfeatures'
         ],
         "relationship": [
             "relationshiptypes",
@@ -132,6 +140,7 @@ class PomsFacetedBrowse(FacetedSearchView):
         ],
         "transaction": [
             "transactiontypes",
+            "transfeatures",
             "possoffice",
             "possunfreepersons",
             'posslands',
@@ -148,7 +157,8 @@ class PomsFacetedBrowse(FacetedSearchView):
             "nominalrenders",
             "renderdates",
             "returnsmilitary",
-            "commonburdens"
+            "commonburdens",
+            "legalpertinents"
         ]
 
     }
@@ -200,7 +210,8 @@ class PomsFacetedBrowse(FacetedSearchView):
                 self.facet_group_fields[self.kwargs['facet_group']]
             )
         else:
-            for facet_group_name, facet_fields in self.facet_group_fields.items():
+            for facet_group_name, facet_fields in \
+                    self.facet_group_fields.items():
                 queryset = self.__facet_by_group(
                     queryset,
                     facet_fields
@@ -210,7 +221,7 @@ class PomsFacetedBrowse(FacetedSearchView):
         if 'selected_facets' in self.request.GET:
             for facet in self.request.GET.getlist('selected_facets'):
                 if 'index_type' in facet:
-                    self.index_type = facet.replace('index_type_exact:','')
+                    self.index_type = facet.replace('index_type_exact:', '')
         else:
             self.index_type = 'person'
         queryset = queryset.narrow(
@@ -218,8 +229,12 @@ class PomsFacetedBrowse(FacetedSearchView):
                 self.index_type
             )
         )
-        # todo add view's order as well?
-        return queryset
+        if 'order_by' in self.request.GET:
+            return queryset.order_by(
+                self.request.GET['order_by']
+            )
+        else:
+            return queryset.order_by('startdate')
 
     def get_context_data(self, *args, **kwargs):
         context = super(
@@ -243,5 +258,6 @@ class PomsFacetedBrowse(FacetedSearchView):
 
         context['querydict'] = qs.copy()
         context['result_types'] = self.result_types
-
+        if 'order_by' in self.request.GET:
+            context['order_by'] = self.request.GET['order_by']
         return context

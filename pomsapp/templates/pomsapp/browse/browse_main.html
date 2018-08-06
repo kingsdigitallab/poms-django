@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% load extrafilters pomsapp_tags %}
+
+{% block load_css %}
+{% endblock %}
+
+{% block titlepage %}
+    <title>Browse | {{ PROJECT_TITLE }}</title>
+{% endblock %}
+
+{% block subnav %}
+    {% include 'pomsapp/includes/db_navigation.html' %}
+{% endblock %}
+
+{% block tabs_titles %}
+{% endblock %}
+
+{% block small_links %}
+{% endblock %}
+
+{% block permalink %}
+{% endblock %}
+
+<div class="wrapper">
+    {% block contents %}
+        {% block sidebar %}
+            <div class="facet-sidebar">
+         <form action="">
+            <h3>Facets available:</h3>
+
+            {# start of accordion #}
+            <ul id="accordion" class="nvh m1">
+
+                {# we have a list of tuples like this: #}
+                {# [(<FacetsGroup1>, [(<Facet1>, [[<FacetValue1>, <FacetValue2>], [<FacetValue3>, <FacetValue4>]]), ('troupe country', [etc..])]), (......)] #}
+
+                {% for facet_group_names, facet_group_facets in facet_group_fields.items %}
+
+                    <li class="u {% cycle 'm0' 'm1' 'm2' 'm3' 'm4'  'm5' %}">
+                        <h4 id="{{ facet_group_names }}"
+                            class="to_collapse {{ facet_group_names }}_tip">{{ facet_group_names }}</h4>
+                        {# the facetgroup #}
+                        <ul>
+                            {% for facet_name in facet_group_facets %}
+                                {% with facets.fields|get_item:facet_name as facet_terms %}
+                                    <li id="{{ facet.id }}" class="s6">
+                                        <h5><a href="#" title="Click to collapse facet panel"
+                                               class="t9 m1 accordion_hook">Collapse</a>
+
+                                            <a href="#" class="async" data-facet_group="{{ facet_group_names }}"
+                                              data-selected_facets="{% for selected_facet in selected_facets %}selected_facets={{ selected_facet }}&{% endfor %}" data-facet_name="{{ facet_name }}" data-index_type="{{ index_type }}">
+                                                <strong
+                                                        class="{{ facet_name }}_tip">{{ facet_name|facet_display_name|capfirst }}
+                                                    ({{ facet_terms|length }})</strong>
+                                            </a>
+                                            {# FILTER BOX: moved it inside the div so that it doesn't interfere with accordion #}
+                                            {# <fieldset id="fieldset_{{facet.id}}" >   #}
+                                            {#   <label for="filter_{{facet.0}}">Filter {{facet.0|capfirst|truncatewords:1}}&hellip;</label> #}
+                                            {#   <input id="filter_{{facet.0}}" /> #}
+                                            {# </fieldset> #}
+                                        </h5>
+                                        <div class="g n2 {{ facet_group_names }}__{{ facet_name }}"></div>
+                                    </li>
+                                {% endwith %}
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+            </ul>
+            {#  end of accordion  #}
+        </form>
+    </div>
+        {% endblock %}
+
+        {% block main_content %}
+            <div class="main">
+                <div>
+                    <div id="facets">
+                        {% block controlbar %}
+                            <h2>Selected Terms</h2>
+                            <ul class="menu">
+                                <li><a href="{% url 'browse' %}" id="empty_controls">Remove all</a></li>
+                                {# This below should be rethought #}
+                                <li><a title="why do I see these results?" onClick="explain_results()">Explain <i
+                                        class="fas fa-question-circle"></i></a></li>
+                                {# <li class="i1"><a href="#" title="Save Terms"><b>Save Terms</b></a></li> #}
+                                {# <li class="i2"><a href="#" title="Load Terms"><b>Load Terms</b></a></li> #}
+                            </ul>
+
+                            <ul class="active_facets">
+                                {% for facet_value in selected_facets %}
+                                    <li class="{% cycle 'm0' 'm1' 'm2' 'm3' 'm4' %}">
+                                        {% split_selected_facet facet_value as split_facets %}
+                                        <h3 id="{{ facetgroup.uniquename }}"
+                                            class="no_facets">{{ split_facets.0|facet_display_name }}</h3>
+                                        {# <a href="#">Facet</a> &#8250;  #}
+                                        <strong>{{ split_facets.1|capfirst|truncatewords:4 }}</strong> <a
+                                            href="{% url 'browse' %}{% add_facet_link querydict split_facets.0 '' %}"
+                                            class="t9 m2" title="Remove this as a filter">Remove</a>
+
+
+                                    </li>
+                                {% endfor %}
+                                {#  <small class="no_facets">none</small>#}
+                            </ul>
+
+                            {# 2010-07-07 hidden fields for BlockUI message #}
+                            {# No idea what these two <div>s do, blockUImessage1 and blockUImessage2 - Ginestra #}
+                            <div id="blockUImessage1" style="display:none">
+                            </div>
+
+                            <div id="blockUImessage2" style="display:none">
+                            </div>
+                        {% endblock %}
+                    </div>
+                    <div id="results">
+                        {% block results %}
+                            <!-- hidden fields with useful data -->
+                            {# e.g. a db field to do the ordering on: 'shortdesc', or an annotation command: 'annotate=factoid' #}
+                            <input type="hidden" id="active_ordering" value="default">
+                            <input type="hidden" id="refresh_facets" value="{{ count_is_active }}">
+                            <!-- end of hidden fields -->
+
+                            <div id="results_factoid">
+                                {# in order to use the inner block we must move it before the FOR command!!! #}
+                                {% block inner_results %}
+                                    {% with search_template='browse' %}
+                                    {% include 'pomsapp/search/snippet_results.html' %}
+                                    {% endwith %}
+                                {% endblock inner_results %}
+                            </div>
+
+                        {% endblock %}
+                    </div>
+                </div>
+                <div id="search">
+                    {% block search %}
+
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+    {% endblock %}
+</div>

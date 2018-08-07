@@ -1,5 +1,6 @@
 """Haystack search indexes to replace DJFacet"""
 from haystack import indexes
+
 import pomsapp.models as poms_models
 
 """
@@ -28,6 +29,7 @@ result_types = [{'label': 'factoid__sourcekeys',
 """
 
 from django.conf import settings as settings
+
 """
     Use this to limit how many records will be indexed in a partial index
     it's done by id rather than absolute count so <500 id may not equal
@@ -35,9 +37,9 @@ from django.conf import settings as settings
     """
 PARTIAL_INDEX_MAX_ID = 500
 
+
 class PomsIndex(indexes.SearchIndex):
     """ Base object with fields common to all result types  """
-
 
     #
     object_id = indexes.IntegerField(model_attr='id')
@@ -355,8 +357,6 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         self.prepared_data[
             'moderngaelicsurname'
         ] = obj.moderngaelicsurname
-
-
 
         if obj.floruitstartyr > 0:
             self.prepared_data[

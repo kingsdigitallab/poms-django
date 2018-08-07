@@ -1,3 +1,5 @@
+from django.db import models
+
 """
 Wagtail classes to replace wordpress static pages
 """

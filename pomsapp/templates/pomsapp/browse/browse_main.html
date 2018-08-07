@@ -22,7 +22,45 @@
 {% endblock %}
 
 <div class="wrapper">
+
+
+
+
+
+
     {% block contents %}
+    <div id="tabs">
+    <!-- Tab Headers -->
+    
+    <input id="tab1" type="radio" name="tabs" checked>
+    <label for="tab1">Factoids <span>()</span></label>
+    
+    <input id="tab2" type="radio" name="tabs" checked>
+    <label for="tab2">Sources <span>()</span></label>
+
+    <input id="tab3" type="radio" name="tabs" checked>
+    <label for="tab3">People and Institutions  <span>()</span></label>
+
+    <input id="tab4" type="radio" name="tabs" checked>
+    <label for="tab4">Places <span>()</span></label>
+
+    <!-- end Tab Headers -->
+
+    <!-- Tab Content -->
+    <section id="content1" class="tab-content">
+
+
+    
+    </section>
+    <section id="content2" class="tab-content">
+    </section>
+    <section id="content3" class="tab-content">
+    </section>
+    <section id="content4" class="tab-content">
+    </section>
+    </div>
+
+
         {% block sidebar %}
             <div class="facet-sidebar">
          <form action="">
@@ -91,23 +129,7 @@
                            
                             
 
-                            <ul class="active_facets">
-                                {% for facet_value in selected_facets %}
-                                    <li class="{% cycle 'm0' 'm1' 'm2' 'm3' 'm4' %}">
-                                        {% split_selected_facet facet_value as split_facets %}
-                                        <h3 id="{{ facetgroup.uniquename }}"
-                                            class="no_facets">{{ split_facets.0|facet_display_name }}</h3>
-                                        {# <a href="#">Facet</a> &#8250;  #}
-                                        <span>{{ split_facets.1|capfirst|truncatewords:4 }}  <a
-                                            href="{% url 'browse' %}{% add_facet_link querydict split_facets.0 '' %}"
-                                            class="t9 m2" title="Remove this as a filter"><i
-                                        class="fas fa-times-circle"></i></a></span>
-
-
-                                    </li>
-                                {% endfor %}
-                                {#  <small class="no_facets">none</small>#}
-                            </ul>
+                       
 
                             {# 2010-07-07 hidden fields for BlockUI message #}
                             {# No idea what these two <div>s do, blockUImessage1 and blockUImessage2 - Ginestra #}

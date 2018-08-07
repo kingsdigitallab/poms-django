@@ -166,9 +166,8 @@ h2{
     a {
         padding: 8px 16px;
 
-        &:hover {
-            background: darken($primary-color, 10%);
-            color: $beige;
+        &:hover { 
+            color: lighten($primary-color, 40%);
             text-decoration: none;
         }
     }
@@ -180,6 +179,7 @@ h2{
     }
 }
 
+/* TO - Check if not needed then delete
 #gw{
     ul.nvl{
         background: #eff3fa;
@@ -192,7 +192,7 @@ h2{
             padding: 8px 15px
         }
     }
-}
+}*/
 
 nav {
     font-family: "EB_Garamond";
@@ -203,9 +203,17 @@ nav {
 
     a {
         color: $primary-color;
-
+        padding:0 0.5em;
+        margin:0 1em;
+        color: lighten($primary-color, 20%);
         &.active {
-            background: lighten($primary-color, 50%);
+            border-bottom: 3px solid $primary-color;
+            color: $primary-color;
+        }
+        &:hover{
+            border-bottom: none;
+            background: none;
+            color: $primary-color;
         }
     }
 }
@@ -304,11 +312,9 @@ fieldset {
 // Pagination
 
 .pagination {
-    border: 1px solid $primary-color;
-    border-left: 0;
-    border-right: 0;
     list-style: none;
-    padding: 8px 0;
+    padding:0;
+    text-align: right;
 
     li {
         display: inline-block;
@@ -326,6 +332,18 @@ fieldset {
 }
 
 
+.results-nav{
+    font-family: 'EB_Garamond', serif;
+    p{
+        width:49%;
+        display: inline-block;
+    }
+    ul{
+        width:50%;
+        display: inline-block;
+
+    }
+}
 // Slider
 
 .g-ranger {
@@ -533,9 +551,26 @@ tr:nth-child(even) {
     }
 
     ul{
-        list-style-type: none;
-        margin-left:-40px;
+        
     }
+
+    ul#accordion{
+        list-style-type: none;
+        >li{
+            background: $gray1;
+            padding: 0.1em 1em;
+            margin: 1em 0 1em -40px;
+              >ul{
+                list-style-type: none;
+                background: lighten($gray1,3%);
+                padding:1px 0;
+                    >li{
+                        padding:0 6px;
+                    }
+                }
+        }
+    }
+
 }
 
 .facet-group,
@@ -554,10 +589,10 @@ tr:nth-child(even) {
 
 #facets{
     ul.menu{
-        li{
+        >li{
             padding:0;
             margin:0;
-            
+
             h2{
                 padding:0;
                 margin:0.8em 0 0.2em 0;
@@ -569,40 +604,37 @@ tr:nth-child(even) {
 ul.active_facets{
     list-style-type: none;
     background: #f1f1f1;
-    h3{
+    >li{
         display: inline-block;
-    }
-
-    li{
-        margin-left:-20px;
+        background: $darkblue;;
+        margin: 1em 20px 1em -20px;
+        padding: 0.5em;
+        color: $white;
+        font-family: 'EB_Garamond', serif;
+        border:1px solid $darkblue;
+        h3{
+            //display: inline-block;
+            margin: 0 0 0.3em 0;
+        }
 
         span{
-            padding:0.2em 0.5em;
-            background: $darkblue;
-            color: $white;
-
             a{
                 color: $white;
             }
-            &:hover{
-                background: $midblue;
-                color: $darkblue;
+        }
+        &:hover{
+            border:1px solid $gray2;
+            background: $midblue;
+            color: $darkblue;
 
             a{
                 color: $darkblue;
-            }
             }
         }
     }
 }
 
-ul#accordion{
-    >li{
-        background: $gray1;
-        padding: 0.1em 1em;
-        margin: 1em 0;
-    }
-}
+
 /* Footer */
 
 /* Import FontAwesome */

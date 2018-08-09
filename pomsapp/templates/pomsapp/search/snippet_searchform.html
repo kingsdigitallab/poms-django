@@ -9,62 +9,63 @@
     {% endcomment %}
 
     <fieldset>
-        <legend>Search for:</legend>
-        <p>
+        <legend>Find in:</legend>
+        <div id="mode">
             <input id="bs_f" type="radio" name="index_type" value="factoid"{% if 'factoid' in index_type %}
                    checked{% endif %}>
             <label for="bs_f">Factoids <span class="tooltip"><i class="fas fa-question-circle"></i><span
                     class="tooltiptext">Searching on fields: short description, source for data entry, ID number.</span></span></label>
-        </p>
+        
 
-        <p>
+        
             <input id="bs_s" type="radio" name="index_type" value="source"{% if 'source' in index_type %}
                    checked{% endif %}>
             <label for="bs_s">Sources <span class="tooltip"><i class="fas fa-question-circle"></i><span
                     class="tooltiptext">Searching in fields: H-number, trad.ID, description, ID number.</span></span></label>
-        </p>
+        
 
-        <p>
+        
             <input id="bs_pl" type="radio" name="index_type" value="place"{% if 'place' in index_type %}
                    checked{% endif %}>
             <label for="bs_pl">Places <span class="tooltip"><i class="fas fa-question-circle"></i><span
                     class="tooltiptext">Searching in fields: name, ID number.</span></span></label>
-        </p>
 
-        <p>
             <input id="bs_p" type="radio" name="index_type" value="person"{% if 'person' in index_type %}
                    checked{% endif %}>
             <label for="bs_p">People and Institutions <span class="tooltip"><i class="fas fa-question-circle"></i><span
                     class="tooltiptext">Searching in fields: full modern name, standard medieval name, modern gaelic name, ID number.</span></span></label>
-        </p>
+        </div>
     </fieldset>
 
     <fieldset>
         <label for="bs_input">
-            Enter search terms
+            Keyword(s)
         </label>
 
         <input id="bs_input" type="text" name="q"{% if 'q' in form.data %} value="{{ form.data.q }}"{% else %}
                value=""{% endif %}>
-        <h3>
-            <label>Date range (start date):</label>
-        </h3>
+        <!--<h3>
+            <label>Date range:</label>
+        </h3>-->
 
-        <p>
-            <label for="min">Min value:</label>
-            {# Elliott it would be good to get the min year dynamically, if possible - Ginestra #}
-            <input type="number" name="min_date" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
+        <div id="date_range">
+            <span>
+                <label for="min">Year from</label>
+                {# Elliott it would be good to get the min year dynamically, if possible - Ginestra #}
+                <input type="number" name="min_date" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
+            </span>
 
-
-            {# Elliott it would be good to get the max year dynamically, if possible - Ginestra #}
-            <label for="id_max_date">Max value:</label>
-            <input type="number" name="max_date" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" id="id_max_date">
-        </p>
+            <span>
+                {# Elliott it would be good to get the max year dynamically, if possible - Ginestra #}
+                <label for="id_max_date">Year to</label>
+                <input type="number" name="max_date" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" id="id_max_date">
+            </span>
+        </div>
 
         <div class="g-ranger" id="range"></div>
 
 
-        <button class="primary">Go</button>
+        <button class="primary">Search</button>
         {# TODO: Fix -> Reset doesn't seem to work - Ginestra #}
         <input type="reset" id="reset_search" value="Reset">
     </fieldset>

@@ -1,1 +1,10 @@
 {% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block tabs_titles  %}
+      {{ self.title }}
+    {% endblock %}
+
+{% block contents %}
+    {{ self.body | richtext }}
+    {% endblock %}

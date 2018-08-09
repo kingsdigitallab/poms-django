@@ -29,12 +29,7 @@
 
 $beige: #e3e2cd;
 $primary-color: #2c528b;
-$gray1:#f1f1f1;
-$gray2:#ccc;
-$gray3: #999;
-$lightblue:#f7f9fc;
-$midblue:#dce5f4;
-$darkblue:#2c528b;
+$gray: #666;
 $white:#fff;
 $black:#000;
 
@@ -47,9 +42,9 @@ $black:#000;
 }
 
 body {
-    font-family: sans-serif;
     margin: 0;
     padding: 0;
+    font-family: 'EB_Garamond', serif;
 }
 
 a {
@@ -126,9 +121,6 @@ h1 {
     font-size: 1.5em;
 }
 
-h2, h3, h4, h5, h6 {
-    font-family: 'EB_Garamond', serif;
-}
 
 h2{
     font-size: 1.3em;
@@ -200,33 +192,35 @@ nav {
 
 .subnav {
     background: lighten($primary-color, 60%);
+    padding:0.8em 0;
 
     a {
         color: $primary-color;
-        padding:0 0.5em;
+        padding:0.2em 0.5em;
         margin:0 1em;
         color: lighten($primary-color, 20%);
         &.active {
-            border-bottom: 3px solid $primary-color;
-            color: $primary-color;
+            border-bottom: 1px solid darken($primary-color,20%);
+            color: darken($primary-color,20%);
         }
         &:hover{
             border-bottom: none;
             background: none;
-            color: $primary-color;
+            color:darken($primary-color,20%);
         }
     }
 }
 
 .top-nav {
     background: $primary-color;
+    text-transform: uppercase;
 
     a {
         color: white;
 
         &.active {
             background: lighten($primary-color, 60%);
-            color: $primary-color;
+            color: darken($primary-color,20%);
         }
     }
 }
@@ -277,34 +271,68 @@ fieldset {
 }
 
 #search_form {
-    background: $darkblue;
-    padding: 1.5em 0;
+    background: $primary-color;
+    padding: 1.5em 0 0.5em 0;
     color: $white;
     font-size: 0.8em;
-    label[for=bs_input]{
+    label[for=bs_input], [for=min], [for=id_max_date]{
         display: block;
+        margin-bottom: 0.2em;
     }
-
-    button, input[type=reset]{
-        padding: 2px 10px;
-        margin-top: 1em;
-        background: $darkblue;
-        border:1px solid $midblue;
-        color: $midblue;
-        
+    input{
+        padding: 0.2em;
+        margin: 0 0 1em 0;
+        font-family: 'EB_Garamond', serif;
+    }
+    input[type=reset]{
+        color: lighten($primary-color, 50%);
+        font-family: 'EB_Garamond', serif;
+        text-align: center;
+        width:100%;
+        background: $primary-color;
+        padding:0;
+        margin:0;
         &:hover{
-            background: $midblue;
-            border:1px solid $midblue;
-            color: $black;
+            text-decoration: underline;
+        }
+    }
+    #mode{
+        input{
+            width:10%;
+            display: inline-block;
+        }
+        label{
+            width:80%;
+            display: inline-block;
+        }
+    }
+    button{
+        width:100%;
+        padding: 2px 10px;
+        margin-top: 3em;
+        background: $white;
+        border:1px solid $white;
+        color: $primary-color;
+        font-family: 'EB_Garamond', serif;
+
+        &:hover{
+            background: darken($primary-color,20%);
+            border:1px solid darken($primary-color,20%);
+            color: $white;
         }
     }
 
-    p{
-        margin: 0;
-        padding: 0;
+    #date_range{
+        span{
+            width: 35%;
+            display: inline-block;
+            &:last-child{
+                float: right;
+            }
+        }
 
         input{
-            margin: 5px 0;
+            width: 100%;
         }
     }
 }
@@ -371,32 +399,37 @@ fieldset {
 // Table
 table{
     width:100%;
+    color: $gray;
 }
 
 td,
 th {
-    border: 1px solid white;
-    padding: 8px;
+    padding: 7px 8px;
 }
 
 th {
     background: $primary-color;
-    color: white;
+    color: $white;
     font-weight: normal;
     text-align: left;
 
     a {
-        color: white;
+        color: $white;
     }
 }
 
+tr{
+    background: lighten($gray,57%);
+}
+
+/* TO: Delete if not needed
 tr:nth-child(odd) {
-    background: lighten($primary-color, 55%);
+    background: lighten($gray,57%);
 }
 
 tr:nth-child(even) {
-    background: lighten($primary-color, 62%);
-}
+    background: lighten($gray,57%);
+}*/
 
 // Tooltips
 
@@ -408,7 +441,7 @@ tr:nth-child(even) {
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-    background-color: $midblue;
+    background-color: lighten($primary-color, 65%);
     color: $black;
     font-size: .875em;
     line-height: 1.25;
@@ -462,7 +495,7 @@ tr:nth-child(even) {
     }
 
     section{
-        border: 1px solid $gray1;
+        border: 1px solid lighten($gray,30%);
 
         h4{
             display: inline-block;
@@ -497,12 +530,12 @@ tr:nth-child(even) {
         margin: 4px 0 0 0;
         padding: 10px 20px;
         text-align: center;
-        color: $gray3;
-        background: $gray1;
+        color: $gray;
+        background: lighten($gray,48%);
     }
 
     label:hover {
-      color: $darkblue;
+      color: $primary-color;
       cursor: pointer;
     }
 
@@ -525,12 +558,12 @@ tr:nth-child(even) {
       display: block;
       padding: 20px;
       background: #fff;
-      color: $gray3;
+      color: $gray;
     }
 
     [id^="tab"]:checked + label {
       color: $white;
-      background: $darkblue;
+      background: $primary-color;
     }
 }
 
@@ -557,16 +590,19 @@ tr:nth-child(even) {
     ul#accordion{
         list-style-type: none;
         >li{
-            background: $gray1;
+            background: lighten($gray,57%);
             padding: 0.1em 1em;
             margin: 1em 0 1em -40px;
               >ul{
                 list-style-type: none;
-                background: lighten($gray1,3%);
+                background: lighten($gray,60%);
                 padding:1px 0;
                     >li{
                         padding:0 6px;
                     }
+                }
+                input{
+                    border:1px solid gray;
                 }
         }
     }
@@ -606,12 +642,12 @@ ul.active_facets{
     background: #f1f1f1;
     >li{
         display: inline-block;
-        background: $darkblue;;
+        background: $primary-color;
         margin: 1em 20px 1em -20px;
         padding: 0.5em;
         color: $white;
         font-family: 'EB_Garamond', serif;
-        border:1px solid $darkblue;
+        border:1px solid $primary-color;
         h3{
             //display: inline-block;
             margin: 0 0 0.3em 0;
@@ -623,12 +659,12 @@ ul.active_facets{
             }
         }
         &:hover{
-            border:1px solid $gray2;
-            background: $midblue;
-            color: $darkblue;
+            border:1px solid lighten($gray,20%);
+            background: lighten($primary-color, 65%);
+            color: $primary-color;
 
             a{
-                color: $darkblue;
+                color: $primary-color;
             }
         }
     }

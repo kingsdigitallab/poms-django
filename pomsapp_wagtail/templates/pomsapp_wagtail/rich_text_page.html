@@ -1,1 +1,9 @@
 {% extends "base.html" %}
+
+  {% block tabs_titles  %}
+      {{ self.title }}
+    {% endblock %}
+
+{% block contents %}
+    {{ self.content | richtext }}
+    {% endblock %}

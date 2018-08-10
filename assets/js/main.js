@@ -7,6 +7,62 @@ var filterFacets = function () {
     });
 }
 
+/** Record pagination
+ *
+ * From existing template, will need to be refactored...
+ * */
+jQuery.fn.simple_blink = function() {
+    return this.fadeOut("fast").fadeIn("slow");
+};
+jQuery.fn.add_loading_icon = function() {
+    loadingData = "<img src='/media/static/paul/i/g.gif' alt='loading data' />"
+    return this.empty().append(loadingData);
+};
+
+// for the Person/Source record-page
+function update_related_factoids(page, ordering, tab){
+    // EH: Not sure what this is, but will replace with proper ordering.
+    var old_ordering = $("#" + tab + " .active_ordering").val();
+    $("#" + tab).add_loading_icon();
+
+    if (old_ordering == ordering) {
+        ordering = "-" + ordering;
+        // alert(ordering);
+    }
+    // ajax_update_tabs("#fragment-1", "", tab, page, ordering);
+    ajax_update_tabs("#" + tab, "", tab, page, ordering);
+}
+
+
+
+
+// for the Source record-page :: USED?
+function update_source_factoids(page, ordering, tab){
+    if (!tab) var tab = "fragment-1";   // we pass the tab-ids directly in the functions... might be done dynamically later..
+    $("#" + tab).add_loading_icon();
+    ajax_update_tabs("#" + tab, "", tab, page, ordering);
+}
+
+
+
+// name (= value in the facet), type(facet group), facet (the facet within a group) identify a value uniquely
+function ajax_update_tabs(divname, ajaxcall, tab, page, ordering) {
+    if (!page) var page = 1;   // if no page defaults to 1
+    if (!tab) var tab = 1;   // if no page defaults to 1
+    if (!ordering) var ordering = 'default';   // if no page defaults to 1person_detail
+
+    $.get(ajaxcall,
+         { tab: tab, page: page, ordering: ordering},
+              function(data){
+                 $(divname).empty().append(data);
+                // reload qtips
+                 qtip_previews();
+              }
+   );
+}
+
+
+/* ******************* */
 
 $(function () {
     $('a.async').click(function (e) {

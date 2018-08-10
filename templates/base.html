@@ -1,4 +1,4 @@
-{% load compress staticfiles %}
+{% load compress staticfiles pomsapp_wagtail_tags wagtailcore_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,11 +21,12 @@
 <body{% if record_splash_page %} id="recordPage"{% endif %}>
 
 {% block header %}
-{% include 'pomsapp/includes/header.html' %}
+{% include 'includes/header.html' %}
 {% endblock %}
 
 {% block navigation %}
-{% include 'pomsapp/includes/navigation.html' %}
+{% get_site_root as site_root %}
+{% main_menu root=site_root current_page=self %}
 {% endblock %}
 
 {% block subnav %}

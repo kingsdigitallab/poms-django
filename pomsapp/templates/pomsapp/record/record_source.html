@@ -156,24 +156,24 @@
         <h2>Total number of associated factoids: {{ record.get_factoids|length }}</h2>
 
         <!-- Tab Headers -->
-        {% if transactionFact.object_list  %}
-        <input id="tab1" type="radio" name="tabs" checked>
-        <label for="tab1">Transaction factoids <span>({{ transactionFact.tot}})</span></label>
+        {% if transactionFact.object_list %}
+            <input id="tab1" type="radio" name="tabs" checked>
+            <label for="tab1">Transaction factoids <span>({{ transactionFact.tot }})</span></label>
         {% endif %}
 
         {% if relationshipFact.object_list %}
-        <input id="tab2" type="radio" name="tabs" checked>
-        <label for="tab2">Relationship factoids <span>({{ relationshipFact.tot }})</span></label>
+            <input id="tab2" type="radio" name="tabs" checked>
+            <label for="tab2">Relationship factoids <span>({{ relationshipFact.tot }})</span></label>
         {% endif %}
 
         {% if titleFact.object_list %}
-        <input id="tab3" type="radio" name="tabs" checked>
-        <label for="tab3">Title factoids <span>({{ titleFact.tot }})</span></label>
+            <input id="tab3" type="radio" name="tabs" checked>
+            <label for="tab3">Title factoids <span>({{ titleFact.tot }})</span></label>
         {% endif %}
 
         {% if possessionFact.object_list %}
-        <input id="tab4" type="radio" name="tabs" checked>
-        <label for="tab4">Possession factoids <span>({{ possessionFact.tot }})</span></label>
+            <input id="tab4" type="radio" name="tabs" checked>
+            <label for="tab4">Possession factoids <span>({{ possessionFact.tot }})</span></label>
         {% endif %}
         <!-- end Tab Headers -->
 
@@ -184,56 +184,56 @@
 
         {% if transactionFact.object_list %}
             <section id="content1" class="tab-content">
-            <div id="{{ transactionFact.type }}">
+                <div id="{{ transactionFact.type }}">
 
 
-                {% block transactionFact %}
+                    {% block transactionFact %}
 
-                    {% with transactionFact as items %}
-                        {% include "pomsapp/record/paginator_record.html" %}
-                    {% endwith %}
+                        {% with transactionFact as items %}
+                            {% include "pomsapp/record/paginator_record.html" %}
+                        {% endwith %}
 
-                    <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+                        <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
 
-                    <br/>
+                        <br/>
 
-                    <table>
-                        <tr>
-                            <th><a class="{{ active_ordering|infer_class:'date1'}}"
-                                   onClick="update_related_factoids('1', 'date1', '{{ transactionFact.type }}')">Date</a>
-                            </th>
-                            <th><a class="{{ active_ordering|infer_class:'summary'}}"
-                                   onClick="update_related_factoids('1', 'summary', '{{ transactionFact.type }}')">Short
-                                Summary</a></th>
-                            <th><a class="{{ active_ordering|infer_class:'primary'}}"
-                                   onClick="update_related_factoids('1', 'primary', '{{ transactionFact.type }}')">Primary</a>
-                            </th>
-                            <th>Witnesses</th>
-                        </tr>
-
-                        {% for a in transactionFact.object_list %}
-
+                        <table>
                             <tr>
-                                <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
-                                <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
-                                       title="click to show">{{ a.shortdesc }}</a></td>
-                                <td>{{ a.isprimary|yesno:"yes,no"}}</td>
-                                <td>{{ a.witnesses.all|printmany_withabsoluteurl|safe }}</td>
+                                <th><a class="paginate" data-page="1" data-ordering="date1"
+                                       data-tab="{{ transactionFact.type }}">Date</a>
+                                </th>
+                                <th><a class="paginate" data-page="1" data-ordering="summary"
+                                       data-tab="{{ transactionFact.type }}">Short
+                                    Summary</a></th>
+                                <th><a class="paginate" data-page="1" data-ordering="primary"
+                                       data-tab="{{ transactionFact.type }}">Primary</a>
+                                </th>
+                                <th>Witnesses</th>
                             </tr>
 
-                        {% endfor %}
+                            {% for a in transactionFact.object_list %}
+
+                                <tr>
+                                    <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
+                                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
+                                           title="click to show">{{ a.shortdesc }}</a></td>
+                                    <td>{{ a.isprimary|yesno:"yes,no"}}</td>
+                                    <td>{{ a.witnesses.all|printmany_withabsoluteurl|safe }}</td>
+                                </tr>
+
+                            {% endfor %}
 
 
-                    </table>
+                        </table>
 
 
-                    <br/><br/>
+                        <br/><br/>
 
 
-                {% endblock transactionFact %}
+                    {% endblock transactionFact %}
 
 
-            </div>
+                </div>
             </section>
             {# end of fragment1 #}
 
@@ -248,54 +248,52 @@
 
         {% if relationshipFact.object_list %}
             <section id="content2" class="tab-content">
-            <div id="{{ relationshipFact.type }}">
+                <div id="{{ relationshipFact.type }}">
 
 
-                {% block relationshipFact %}
+                    {% block relationshipFact %}
 
-                    {% with relationshipFact as items %}
-                        {% include "pomsapp/record/paginator_record.html" %}
-                    {% endwith %}
+                        {% with relationshipFact as items %}
+                            {% include "pomsapp/record/paginator_record.html" %}
+                        {% endwith %}
 
-                    <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+                        <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
 
-                    <br/>
+                        <br/>
 
-                    <table>
-                        <tr>
-                            <th><a class="{{ active_ordering|infer_class:'date1'}}"
-                                   onClick="update_related_factoids('1', 'date1', '{{ relationshipFact.type }}')">Date</a>
-                            </th>
-                            <th><a class="{{ active_ordering|infer_class:'summary'}}"
-                                   onClick="update_related_factoids('1', 'summary', '{{ relationshipFact.type }}')">Short
-                                Summary</a></th>
-                            <th>Subject</th>
-                            <th>Object</th>
-                        </tr>
-
-                        {% for a in relationshipFact.object_list %}
-
+                        <table>
                             <tr>
-                                <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
-                                <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
-                                       title="click to show">{{ a.shortdesc }}</a></td>
-                                <td>{{ a.get_secondaryPersons|printmany_withabsoluteurl|safe }}</td>
-                                <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
+                                <th><a class="paginate" data-page="1" data-ordering="date1"
+                                       data-tab="{{ relationshipFact.type }}">Date</a></th>
+                                <th><a class="paginate" data-page="1" data-ordering="summary"
+                                       data-tab="{{ relationshipFact.type }}">Short Summary</a></th>
+                                <th>Subject</th>
+                                <th>Object</th>
                             </tr>
 
-                        {% endfor %}
+                            {% for a in relationshipFact.object_list %}
+
+                                <tr>
+                                    <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
+                                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
+                                           title="click to show">{{ a.shortdesc }}</a></td>
+                                    <td>{{ a.get_secondaryPersons|printmany_withabsoluteurl|safe }}</td>
+                                    <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
+                                </tr>
+
+                            {% endfor %}
 
 
-                    </table>
+                        </table>
 
 
-                    <br/><br/>
+                        <br/><br/>
 
 
-                {% endblock relationshipFact %}
+                    {% endblock relationshipFact %}
 
 
-            </div>
+                </div>
             </section>
             {# end of fragment1 #}
 
@@ -310,55 +308,50 @@
 
         {% if titleFact.object_list %}
             <section id="content3" class="tab-content">
-            <div id="{{ titleFact.type }}">
+                <div id="{{ titleFact.type }}">
 
 
-                {% block titleFact %}
+                    {% block titleFact %}
 
-                    {% with titleFact as items %}
-                        {% include "pomsapp/record/paginator_record.html" %}
-                    {% endwith %}
+                        {% with titleFact as items %}
+                            {% include "pomsapp/record/paginator_record.html" %}
+                        {% endwith %}
 
-                    <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+                        <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
 
-                    <br/>
+                        <br/>
 
-                    <table>
-                        <tr>
-                            <th id="test1"><a class="{{ active_ordering|infer_class:'date1'}}"
-                                              onClick="update_related_factoids('1', 'date1', '{{ titleFact.type }}')">Date</a>
-                            </th>
-                            <th><a class="{{ active_ordering|infer_class:'summary'}}"
-                                   onClick="update_related_factoids('1', 'summary', '{{ titleFact.type }}')">Short
-                                Summary</a></th>
-                            <th><a class="{{ active_ordering|infer_class:'titleholder'}}"
-                                   onClick="update_related_factoids('1', 'titleholder', '{{ titleFact.type }}')">Title
-                                Holder</a></th>
-                        </tr>
-
-
-                        {% for a in titleFact.object_list %}
-
+                        <table>
                             <tr>
-                                <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
-                                <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
-                                       title="click to show">{{ a.shortdesc }}</a></td>
-                                <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
+                                <th><a class="paginate" data-page="1" data-ordering="date1" data-tab="{{titleFact.type}}">Date</a></th>
+                    <th><a class="paginate" data-page="1" data-ordering="summary" data-tab="{{titleFact.type}}">Short Summary</a></th>
+                                <th><a class="paginate" data-page="1" data-ordering="titleholder" data-tab="{{titleFact.type}}">Title Holder</a></th>
+
                             </tr>
 
-                        {% endfor %}
+
+                            {% for a in titleFact.object_list %}
+
+                                <tr>
+                                    <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
+                                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
+                                           title="click to show">{{ a.shortdesc }}</a></td>
+                                    <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
+                                </tr>
+
+                            {% endfor %}
 
 
-                    </table>
+                        </table>
 
 
-                    <br/><br/>
+                        <br/><br/>
 
 
-                {% endblock titleFact %}
+                    {% endblock titleFact %}
 
 
-            </div>
+                </div>
             </section>
             {# end of fragment1 #}
 
@@ -374,55 +367,51 @@
 
         {% if possessionFact.object_list %}
             <section id="content4" class="tab-content">
-            <div id="{{ possessionFact.type }}">
+                <div id="{{ possessionFact.type }}">
 
 
-                {% block possessionFact %}
+                    {% block possessionFact %}
 
-                    {% with possessionFact as items %}
-                        {% include "pomsapp/record/paginator_record.html" %}
-                    {% endwith %}
+                        {% with possessionFact as items %}
+                            {% include "pomsapp/record/paginator_record.html" %}
+                        {% endwith %}
 
-                    <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+                        <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
 
-                    <br/>
+                        <br/>
 
-                    <table>
-                        <tr>
-                            <th><a class="{{ active_ordering|infer_class:'date1'}}"
-                                   onClick="update_related_factoids('1', 'date1', '{{ possessionFact.type }}')">Date</a>
-                            </th>
-                            <th><a class="{{ active_ordering|infer_class:'summary'}}"
-                                   onClick="update_related_factoids('1', 'summary', '{{ possessionFact.type }}')">Short
-                                Summary</a></th>
-                            <th>Holder</th>
-                            <th>Lord</th>
-                        </tr>
-
-
-                        {% for a in possessionFact.object_list %}
-
+                        <table>
                             <tr>
-                                <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
-                                <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
-                                       title="click to show">{{ a.shortdesc }}</a></td>
-                                <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
-                                <td>{{ a.get_secondaryPersons|printmany_withabsoluteurl|safe }}</td>
+                                <th><a class="paginate" data-page="1" data-ordering="date1" data-tab="{{possessionFact.type}}">Date</a></th>
+                    <th><a class="paginate" data-page="1" data-ordering="summary" data-tab="{{possessionFact.type}}">Short Summary</a></th>
+                                <th>Holder</th>
+                                <th>Lord</th>
                             </tr>
 
-                        {% endfor %}
+
+                            {% for a in possessionFact.object_list %}
+
+                                <tr>
+                                    <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
+                                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
+                                           title="click to show">{{ a.shortdesc }}</a></td>
+                                    <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
+                                    <td>{{ a.get_secondaryPersons|printmany_withabsoluteurl|safe }}</td>
+                                </tr>
+
+                            {% endfor %}
 
 
-                    </table>
+                        </table>
 
 
-                    <br/><br/>
+                        <br/><br/>
 
 
-                {% endblock possessionFact %}
+                    {% endblock possessionFact %}
 
 
-            </div>
+                </div>
             </section>
             {# end of fragment1 #}
 
@@ -530,11 +519,11 @@
 
                     for (p in geoArray[r].places) {
                         if (markerCentreArray.indexOf(String(
-                                    parseFloat(geoArray[r].places[p].coordinates.split(',')[0]))
-                                + ',' +
-                                String(
-                                    parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
-                                )) == -1 && geoArray[r].places[p].coordinates.length > 8) {
+                            parseFloat(geoArray[r].places[p].coordinates.split(',')[0]))
+                            + ',' +
+                            String(
+                                parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+                            )) == -1 && geoArray[r].places[p].coordinates.length > 8) {
                             markerCentreArray.push(
                                 String(
                                     parseFloat(geoArray[r].places[p].coordinates.split(',')[0]))

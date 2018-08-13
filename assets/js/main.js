@@ -54,7 +54,7 @@ function ajax_update_tabs(divname, ajaxcall, tab, page, ordering) {
     $.get(ajaxcall,
          { tab: tab, page: page, ordering: ordering},
               function(data){
-                 $(divname).empty().append(data);
+                $(divname).empty().append($(data).find(divname).html());
                 // reload qtips
                  qtip_previews();
               }
@@ -65,6 +65,8 @@ function ajax_update_tabs(divname, ajaxcall, tab, page, ordering) {
 /* ******************* */
 
 $(function () {
+
+    // Loading facet categories via async
     $('a.async').click(function (e) {
         e.preventDefault();
         var facet_group = $(this).data('facet_group');
@@ -104,6 +106,15 @@ $(function () {
             $(this).toggleClass('active');
         }
 
+    });
+
+    // Ajax pagination for detail pages
+    $('a.paginate').click(function (e) {
+        e.preventDefault();
+        var page = $(this).data('page');
+        var ordering = $(this).data('ordering');
+        var tab = $(this).data('tab');
+        update_related_factoids(page, ordering, tab);
     });
 
 

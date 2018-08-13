@@ -5,8 +5,8 @@
       <ul>
 
 		{% if items.has_previous %}
-			<li><a onClick="update_related_factoids('1', '{{ items.ordering }}', '{{ items.type }}')">&#8249;&#8249; First</a></li>
-            <li><a onClick="update_related_factoids('{{ items.previous_page_number }}', '{{ items.ordering }}', '{{ items.type }}')">&#8249; Previous</a></li>
+			<li><a class="paginate" data-page="1" data-ordering="{{ items.ordering }}" data-tab="{{ items.type }}">&#8249;&#8249; First</a></li>
+            <li><a class="paginate" data-page="{{ items.previous_page_number }}" data-ordering="{{ items.ordering }}" data-tab="{{ items.type }}">&#8249; Previous</a></li>
 		{% else %}
 			<li class="s5">&#8249;&#8249; First</li>
 			<li class="s5">&#8249; Previous</li>
@@ -17,14 +17,14 @@
 			{% ifequal el items.number %}
 				<li class="s1">{{ el }}</li>
 			{% else %}
-				<li><a onClick="update_related_factoids('{{ el }}', '{{ items.ordering }}', '{{ items.type }}')">{{ el }}</a></li>
+				<li><a class="paginate" data-page="{{ el }}" data-ordering="{{ items.ordering }}" data-tab="{{ items.type }}">{{ el }}</a></li>
 			{% endifequal %}
 
 		{% endfor %}
 
 		{% if items.has_next %}
-			<li><a onClick="update_related_factoids('{{ items.next_page_number }}', '{{ items.ordering }}', '{{ items.type }}')">Next &#8250;</a></li>
-			<li><a onClick="update_related_factoids('{{items.paginator.num_pages}}', '{{ items.ordering }}', '{{ items.type }}')">Last &#8250;&#8250;</a></li>
+			<li><a class="paginate" data-page="{{ items.next_page_number }}" data-ordering="{{ items.ordering }}" data-tab="{{ items.type }}">Next &#8250;</a></li>
+			<li><a class="paginate" data-page="{{items.paginator.num_pages}}" data-ordering="{{ items.ordering }}" data-tab="{{ items.type }}">Last &#8250;&#8250;</a></li>
 		{% else %}
 			<li class="s5">Next &#8250;</li>
 			<li class="s5">Last &#8250;&#8250;</li>

@@ -9,7 +9,7 @@ var filterFacets = function () {
 
 /** Record pagination
  *
- * From existing template, will need to be refactored...
+ * Legacy From existing template, will need to be refactored...
  * */
 jQuery.fn.simple_blink = function() {
     return this.fadeOut("fast").fadeIn("slow");
@@ -19,7 +19,12 @@ jQuery.fn.add_loading_icon = function() {
     return this.empty().append(loadingData);
 };
 
-// for the Person/Source record-page
+/**
+ * Update tables in detail pages for relevant result type
+ * @param page
+ * @param ordering order the results
+ * @param tab tab to update
+ */
 function update_related_factoids(page, ordering, tab){
     // EH: Not sure what this is, but will replace with proper ordering.
     var old_ordering = $("#" + tab + " .active_ordering").val();
@@ -62,6 +67,11 @@ function ajax_update_tabs(divname, ajaxcall, tab, page, ordering) {
    );
 }
 
+/**
+ * anchor function to advance pagination in detail pages
+ * also used for ordering in column headings
+ * @param e
+ */
 var paginate = function (e) {
         e.preventDefault();
         var page = $(this).data('page');
@@ -70,6 +80,21 @@ var paginate = function (e) {
         update_related_factoids(page, ordering, tab);
     }
 
+/**
+ * Swap the icon in the facet label if it's open/closed
+ * @param target selector for label
+ */
+var toggle_facet_icon = function(target){
+        var closed_icon = '>';
+        var open_icon = 'v';
+        if ($(target).html().indexOf(closed_icon)>-1){
+            $(target).html($(target).html().replace(closed_icon,open_icon));
+        } else{
+            $(target).html($(target).html().replace(open_icon,closed_icon));
+        }
+
+
+}
 /* ******************* */
 
 $(function () {
@@ -96,20 +121,14 @@ $(function () {
                         $(content).append(data);
                     }
                     $("#" + facet_name + "_facetfilter").on("keyup", filterFacets);
-                    $(label).html($(label).html().replace('+','-'));
+                    toggle_facet_icon(label);
                 });
             }
 
             $(this).toggleClass('loaded');
             $(this).toggleClass('active');
         } else{
-            if ($(this).attr('class').indexOf('active') > 0){
-                // Already loaded and open
-                $(label).html($(label).html().replace('-','+'));
-            } else{
-                //Loaded and closed
-                $(label).html($(label).html().replace('+','-'));
-            }
+            toggle_facet_icon(label);
             $('div.' + facet_group + '__' + facet_name).slideToggle(400);
             $(this).toggleClass('active');
         }

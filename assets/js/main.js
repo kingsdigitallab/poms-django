@@ -55,12 +55,20 @@ function ajax_update_tabs(divname, ajaxcall, tab, page, ordering) {
          { tab: tab, page: page, ordering: ordering},
               function(data){
                 $(divname).empty().append($(data).find(divname).html());
+                $(divname+' a.paginate').on("click", paginate);
                 // reload qtips
                  qtip_previews();
               }
    );
 }
 
+var paginate = function (e) {
+        e.preventDefault();
+        var page = $(this).data('page');
+        var ordering = $(this).data('ordering');
+        var tab = $(this).data('tab');
+        update_related_factoids(page, ordering, tab);
+    }
 
 /* ******************* */
 
@@ -109,13 +117,7 @@ $(function () {
     });
 
     // Ajax pagination for detail pages
-    $('a.paginate').click(function (e) {
-        e.preventDefault();
-        var page = $(this).data('page');
-        var ordering = $(this).data('ordering');
-        var tab = $(this).data('tab');
-        update_related_factoids(page, ordering, tab);
-    });
+    $('a.paginate').on("click", paginate);
 
 
 

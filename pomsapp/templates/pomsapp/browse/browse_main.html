@@ -61,10 +61,32 @@
     </div>
 
 
-        {% block sidebar %}
-            <div class="facet-sidebar">
-         <form action="">
-            <h3>Facets available:</h3>
+    {% block sidebar %}
+    <div class="facet-sidebar">
+        <form action="">
+            <h3>Facets</h3>
+            <div id="selected-facets"> <!-- TO: Static content, EH to change. Only show div when a facet is selected -->
+                <h4>Selected facet types
+                    
+                </h4> 
+                <ul>
+                    <li>
+                    termsoftenure > Tenendas options > in (free, pure and/or perpetual) alms 
+                    </li>
+                    <li>
+                    transaction > Transaction Features > Exchange
+                    </li>
+                    <li>
+                    relationship > Roles > Grantor
+                    </li>
+                </ul>
+                <span>Clear all</span>
+            </div>
+
+
+
+
+
 
             {# start of accordion #}
             <ul id="accordion" class="nvh m1">
@@ -87,7 +109,7 @@
                                             <a href="#" class="async" data-facet_group="{{ facet_group_names }}"
                                               data-selected_facets="{% for selected_facet in selected_facets %}selected_facets={{ selected_facet }}&{% endfor %}" data-facet_name="{{ facet_name }}" data-index_type="{{ index_type }}">
                                                 <strong
-                                                        class="{{ facet_name }}_tip">+ {{ facet_name|facet_display_name|capfirst }}
+                                                        class="{{ facet_name }}_tip">&#8250; {{ facet_name|facet_display_name|capfirst }}
                                                     ({{ facet_terms|length }})</strong>
                                             </a>
                                             {# FILTER BOX: moved it inside the div so that it doesn't interfere with accordion #}
@@ -109,8 +131,56 @@
     </div>
         {% endblock %}
 
+
         {% block main_content %}
             <div class="main">
+                <!-- Search form --> <!-- TO: Static content, EH to change -->
+
+    <div id="search">
+                    
+    <h2>Search</h2>
+    <form id="search_form" action=".">
+
+    <fieldset>
+        <label for="bs_input">
+            Keyword(s)
+        </label>
+
+        <input id="bs_input" type="text" name="q" value="">
+    </fieldset>
+
+    <fieldset>
+        <div id="date_range">
+            <span>
+                <label for="min">Year from</label>
+                
+                <input type="number" name="min_date" value="1093" id="id_min_date">
+            </span>
+
+            <span>
+                
+                <label for="id_max_date">Year to</label>
+                <input type="number" name="max_date" value="1309" id="id_max_date">
+            </span>
+        </div>
+    
+        <div class="g-ranger" id="range"></div>
+    </fieldset>   
+
+    <fieldset>
+        <button class="primary">Search</button>
+        
+        <input type="reset" id="reset_search" value="Reset">
+    </fieldset>
+</form>
+
+
+                    
+</div>
+<!-- End Search form -->
+
+
+                <!-- TO: Old selected facets
                 <div id="facets"> 
                     {% block controlbar %}
                     
@@ -153,7 +223,7 @@
 
                         {% endblock %}
                     </div>
-                </div>
+                </div> -->
                 <div id="search">
                     {% block search %}
 

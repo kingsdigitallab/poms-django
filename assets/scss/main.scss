@@ -20,6 +20,7 @@
  * ----- Map
  * ----- Tabs
  * -- Facets
+ * ----- Selected
  * ----- Sidebar
  * -- Footer
  * -- Import FontAwesome
@@ -327,6 +328,10 @@ fieldset {
             text-decoration: underline;
         }
     }
+    fieldset{
+        width: 30%;
+        display: inline-block;
+    }
     #mode{
         input{
             width:10%;
@@ -340,7 +345,6 @@ fieldset {
     button{
         width:100%;
         padding: 2px 10px;
-        margin-top: 3em;
         background: $white;
         border:1px solid $white;
         color: $primary-color;
@@ -526,7 +530,7 @@ tr:nth-child(even) {
     }
 
     section{
-        border: 1px solid lighten($gray,30%);
+        border: 1px solid lighten($gray,48%);
 
         h4{
             display: inline-block;
@@ -601,6 +605,38 @@ tr:nth-child(even) {
 
 
 /* Facets */
+// Selected
+#selected-facets{
+    padding:0.5em;
+    border:1px solid lighten($gray,48%);
+    h4{
+        margin:0;
+        padding:0.2em 0;
+        text-align: center;  
+    }
+    >span{
+        font-size:0.8em;
+        text-align: center;
+        display: block;
+        color: $primary-color;
+        text-decoration: underline;
+
+        &:hover{
+            opacity: 0.7;
+        }
+    }
+    ul{
+        margin:0;
+        >li{
+        background: $primary-color;
+        color: $white;
+        list-style-type: none;
+        padding:0.5em;
+        margin: 0.3em 0 0.3em -40px;
+        }
+    }
+    
+}
 
 // Sidebar
 
@@ -621,19 +657,37 @@ tr:nth-child(even) {
         list-style-type: none;
         >li{
             background: lighten($gray,57%);
-            padding: 0.1em 1em;
+            padding: 0.1em 1em 1em 1em;
             margin: 1em 0 1em -40px;
+            list-style-type: none;
+              h4{
+                margin: 0.5em 0;
+              }
               >ul{
                 list-style-type: none;
                 background: lighten($gray,60%);
                 padding:1px 0;
                     >li{
                         padding:0 6px;
+                        list-style-type: none;
+                    h5{
+                        margin: 0.7em 0;
+                    }
+                    ul{
+                    list-style-type: none;
+                    background: lighten($gray,60%);
+                    padding:1px 0;
+                        li{
+                            padding:0 6px;
+                            list-style-type: none;
+                        }
                     }
                 }
-                input{
-                    border:1px solid gray;
-                }
+            }
+
+            input{
+                border:1px solid gray;
+            }
         }
     }
 

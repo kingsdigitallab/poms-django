@@ -17,6 +17,17 @@
 
   {# FontAwesome #}
   <script defer src="{% static 'fonts/FontAwesome/js/all.js' %}"></script>
+  <script type="text/javascript" src="{{ STATIC_URL }}js/cufon.min.js"></script>
+
+
+{% compress js %}
+<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'js/gRanger.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+{% endcompress %}
+
+{% block load_js %}
+{% endblock %}
 </head>
 <body{% if record_splash_page %} id="recordPage"{% endif %}>
 
@@ -63,16 +74,9 @@
 </script>
 
 
-{% compress js %}
-<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-<script src="{% static 'js/gRanger.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-{% endcompress %}
-
 {% block body_closing %}
 {% endblock %}
 
-{% block load_js %}
-{% endblock %}
+
 </body>
 </html>

@@ -7,9 +7,9 @@
 
 
 {% block load_css  %}
-	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}paul/c/a.css"/>
-	<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}paul/c/s.css"/>
-	<link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}paul/c/p.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/a.css"/>
+	<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/s.css"/>
+	<link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}css/p.css"/>
 
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/jquery.qtip.min.css" />	
 	{# eventually this must be put in its own file! #}	
@@ -53,15 +53,15 @@
 	L_PREFER_CANVAS = true
 </script>
 
-<script type="text/javascript" src="/media/static/mapbox.js-bower-2.2.1/mapbox.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.js"></script>
 <!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.css"></link>-->
-<link rel="stylesheet" type="text/css" href="/media/static/mapbox.js-bower-2.2.1/mapbox.css"></link>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.css"></link>
 
-<script type="text/javascript" src="/media/static/js/turf.js"></script>
-<script type="text/javascript" src="/media/static/js/hex_grid.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/turf.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/hex_grid.js"></script>
 
-<script type="text/javascript" src="/media/static/js/leaflet-image.js"></script>
-<link rel="stylesheet" type="text/css" href="/media/static/js/css/style.css"></link>
+<script type="text/javascript" src="{{ STATIC_URL }}js/leaflet-image.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL}}css/meyerweb-reset.css"></link>
 
 <script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-overlap.js"></script>
 
@@ -71,14 +71,14 @@
 
 
 <script type="text/javascript" src="{{ STATIC_URL}}js/LeafletFunctionButton.js"></script>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.draw.css"></link>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.draw.css"></link>
 <script type="text/javascript" src="{{ STATIC_URL}}js/leaflet.draw.js"></script>
 
 <script type="text/javascript" src="{{ STATIC_URL}}js/spin.min.js"></script>
 
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script type="text/javascript" src="{{ STATIC_URL}}js/leaflet.awesome-markers.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.awesome-markers.css"></link>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.awesome-markers.css"></link>
 
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
 
@@ -472,7 +472,7 @@ var drawControl = new L.Control.Draw({
 		                geoJSON.clearLayers();
 					}
 				})
-                $($('#parent-places label')[0]).before('<img src="/media/static/img/map_key.png"></img>')
+                $($('#parent-places label')[0]).before('<img src="{{ STATIC_URL }}images/map_key.png"></img>')
 		    }
 		}
 	)
@@ -491,11 +491,11 @@ var drawControl = new L.Control.Draw({
 		}
 		else if ( parentID != ''){
 		$.ajax('/map/search-by-parent/?id='+ parentID ,{
-			dataType:"jsonp"
-			}).done(function() {
-					map.spin(false);
-			}).error(function () {
-				map.spin(false);
+			     dataType:"jsonp",
+			     complete: function() {
+					   map.spin(false);
+			     }
+                 
 			});
 		}
 	};
@@ -670,7 +670,7 @@ function openMapImage(data){
 	
 	
 {% block body_closing %}
-	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.qtip.min.js"></script>
 	{% include "pomsapp/snippet_history.html" %}
 	{% include "pomsapp/record/snippet_citation.html" %}
 {% endblock %}	

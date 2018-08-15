@@ -23,16 +23,7 @@
 {% if object_list %}
 {% endcomment %}
 
-<ul class="menu">
-    {% for result_type in result_types %}
-        <li id="{{ result_type.uniquename }}">
-            <a href="
 
-                    {% url 'browse' %}{% add_facet_link querydict 'index_type' result_type.uniquename %}">{{ result_type.label|capfirst }}</a>
-        </li>
-    {% endfor %}
-
-</ul>
 {% endif %}
 
 <div id="results_factoid">  {# old name, but really it's just a div, not tabber #}

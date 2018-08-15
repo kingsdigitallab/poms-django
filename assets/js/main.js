@@ -85,7 +85,7 @@ var paginate = function (e) {
  * @param target selector for label
  */
 var toggle_facet_icon = function(target){
-        var closed_icon = '>';
+        var closed_icon = '›';
         var open_icon = 'v';
         if ($(target).html().indexOf(closed_icon)>-1){
             $(target).html($(target).html().replace(closed_icon,open_icon));

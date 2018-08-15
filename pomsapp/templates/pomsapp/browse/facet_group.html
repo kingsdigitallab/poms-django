@@ -8,7 +8,7 @@
                 {% if count > 0 %}
 
                 <li>
-                    <a href="{% url 'browse' %}{% add_facet_link querydict facet value %}">{{ value|facet_display_name }} ({{ count }})</a>
+                    <a href="{% url 'browse' %}{% add_facet_link querydict facet value %}&index_type={{ index_type }}">{{ value|facet_display_name }} ({{ count }})</a>
                 </li>
                 {% endif %}
 

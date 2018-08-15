@@ -112,6 +112,9 @@ class PomsFacetedBrowse(FacetedSearchView):
     ajax = False
     facet_fields = ['index_type']
     index_type = 'person'
+    index_type_counts = {}
+    DATE_MINIMUM = 1093
+    DATE_MAXIMUM = 1300
 
     facet_group_fields = {
         "person": [
@@ -220,15 +223,22 @@ class PomsFacetedBrowse(FacetedSearchView):
                 # Narrow by index type
         if 'selected_facets' in self.request.GET:
             for facet in self.request.GET.getlist('selected_facets'):
-                if 'index_type' in facet:
+                if 'index_type_exact' in facet:
                     self.index_type = facet.replace('index_type_exact:', '')
+        # Set the form's variables using get string
+        if 'index_type' in self.request.GET:
+            self.form_class.index_type = self.request.GET.get('index_type')
         else:
-            self.index_type = 'person'
-        queryset = queryset.narrow(
-            'index_type:{}'.format(
-                self.index_type
-            )
-        )
+            self.form_class.index_type = 'person'
+        min_date = self.DATE_MINIMUM
+        max_date = self.DATE_MAXIMUM
+        if 'min_date' in self.request.GET:
+            min_date = self.request.GET.get('min_date')
+        if 'max_date' in self.request.GET:
+            max_date = self.request.GET.get('max_date')
+        self.form_class.min_date = min_date
+        self.form_class.max_date = max_date
+
         if 'order_by' in self.request.GET:
             return queryset.order_by(
                 self.request.GET['order_by']
@@ -241,7 +251,8 @@ class PomsFacetedBrowse(FacetedSearchView):
             PomsFacetedBrowse, self
         ).get_context_data(*args, **kwargs)
         qs = self.request.GET.copy()
-        context['index_type'] = self.index_type
+        context['index_type'] = self.form_class.index_type
+        context['index_type_counts'] = self.form_class.index_type_counts
         if self.request.GET.getlist('selected_facets'):
             context['selected_facets'] = qs.getlist('selected_facets')
         if 'facet_group' in self.kwargs:
@@ -258,6 +269,8 @@ class PomsFacetedBrowse(FacetedSearchView):
 
         context['querydict'] = qs.copy()
         context['result_types'] = self.result_types
+
         if 'order_by' in self.request.GET:
             context['order_by'] = self.request.GET['order_by']
+
         return context

@@ -1,7 +1,10 @@
 {% load pomsapp_tags %}
 {% for facet in facet_group_fields %}
     {%  with facets.fields|get_item:facet as facet_terms %}
-    <input type="text" data-facet="{{ facet }}" id="{{ facet }}_facetfilter" />
+    <span class="text-filter">
+        Text filter <input type="text" name="focus" required class="text-box" data-facet="{{ facet }}" id="{{ facet }}_facetfilter" />
+        <button class="clear-icon" type="reset"></button>
+    </span>
     <ul class="u u1 {{ facet }}_choices">
         {% for term in facet_terms %}
             {% with value=term.0 count=term.1 %}

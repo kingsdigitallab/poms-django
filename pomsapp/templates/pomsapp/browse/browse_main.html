@@ -22,167 +22,137 @@
 {% endblock %}
 
 <div class="wrapper">
-
-
-
-
-
-
     {% block contents %}
     <div id="tabs">
-    <!-- Tab Headers -->
+        <!-- Tab Headers -->
 
-    <input id="tab1" type="radio" name="tabs" checked>
-    <label for="tab1"><a href="
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1"><a href="
 
-                    {% url 'browse' %}{% add_facet_link querydict 'index_type' 'factoid'%}">Factoids <span>({{ index_type_counts.factoid }})</span></a></label>
+                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'factoid'%}">Factoids <span>({{ index_type_counts.factoid }})</span></a></label>
 
-    <input id="tab2" type="radio" name="tabs" checked>
-    <label for="tab2"><a href="
+        <input id="tab2" type="radio" name="tabs" checked>
+        <label for="tab2"><a href="
 
-                    {% url 'browse' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources <span>({{ index_type_counts.source }})</span></a></label>
+                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources <span>({{ index_type_counts.source }})</span></a></label>
 
-    <input id="tab3" type="radio" name="tabs" checked>
-    <label for="tab3"><a href="
+        <input id="tab3" type="radio" name="tabs" checked>
+        <label for="tab3"><a href="
 
-                    {% url 'browse' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions  <span>({{ index_type_counts.person }})</span></a></label>
+                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions  <span>({{ index_type_counts.person }})</span></a></label>
 
-    <input id="tab4" type="radio" name="tabs" checked>
-    <label for="tab4"><a href="
-                    {% url 'browse' %}{% add_facet_link querydict 'index_type' 'place' %}">Places <span>({{ index_type_counts.place }})</span></a></label>
+        <input id="tab4" type="radio" name="tabs" checked>
+        <label for="tab4"><a href="
+                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'place' %}">Places <span>({{ index_type_counts.place }})</span></a></label>
 
-    <!-- end Tab Headers -->
+        <!-- end Tab Headers -->
 
-    <!-- Tab Content -->
-    <section id="content1" class="tab-content">
-
-    </section>
-    <section id="content2" class="tab-content">
-    </section>
-    <section id="content3" class="tab-content">
-    </section>
-    <section id="content4" class="tab-content">
-    </section>
-    </div>
-
-
-    {% block sidebar %}
-    <div class="facet-sidebar">
-        <form action="">
-            <h3>Facets</h3>
-        {% if selected_facets %}
-            <div id="selected-facets"> <!-- TO: Static content, EH to change. Only show div when a facet is selected -->
-                <h4>Selected facet types</h4>
-                <ul>
-                    {% for facet in selected_facets %}
-                    {% selected_facet facet%}
-                    {% endfor %}
-                </ul>
-                <a href="{% url 'browse' %}{% add_facet_link querydict 'clear_all' 'clear' %}">
-                    <span>Clear all</span></a>
-            </div>
-        {% endif %}
+        <!-- Tab Content -->
+        <section id="content4" class="pseudo-tabcontent">
+        {% block sidebar %}
+        <div class="facet-sidebar">
+            <form action="">
+                <h3>Facets</h3>
+            {% if selected_facets %}
+                <div id="selected-facets"> <!-- TO: Static content, EH to change. Only show div when a facet is selected -->
+                    <h4>Selected facet types</h4>
+                    <ul>
+                        {% for facet in selected_facets %}
+                        {% selected_facet facet%}
+                        {% endfor %}
+                    </ul>
+                    <a href="{% url 'browse' %}{% add_facet_link querydict 'clear_all' 'clear' %}">
+                        <h5>Clear all</h5></a>
+                </div>
+            {% endif %}
 
 
 
 
 
-            {# start of accordion #}
-            <ul id="accordion" class="nvh m1">
+                {# start of accordion #}
+                <ul id="accordion" class="nvh m1">
 
-                {# we have a list of tuples like this: #}
-                {# [(<FacetsGroup1>, [(<Facet1>, [[<FacetValue1>, <FacetValue2>], [<FacetValue3>, <FacetValue4>]]), ('troupe country', [etc..])]), (......)] #}
+                    {# we have a list of tuples like this: #}
+                    {# [(<FacetsGroup1>, [(<Facet1>, [[<FacetValue1>, <FacetValue2>], [<FacetValue3>, <FacetValue4>]]), ('troupe country', [etc..])]), (......)] #}
 
-                {% for facet_group_names, facet_group_facets in facet_group_fields.items %}
+                    {% for facet_group_names, facet_group_facets in facet_group_fields.items %}
 
                     <li class="u {% cycle 'm0' 'm1' 'm2' 'm3' 'm4'  'm5' %}">
                         <h4 id="{{ facet_group_names }}"
                             class="to_collapse {{ facet_group_names }}_tip">{{ facet_group_names }}</h4>
                         {# the facetgroup #}
                         <ul>
-                            {% for facet_name in facet_group_facets %}
-                                {% with facets.fields|get_item:facet_name as facet_terms %}
-                                    {% if facet_terms %}
-                                    <li id="{{ facet.id }}" class="s6">
-                                        <h5>
-
-                                            <a href="#" class="async" data-facet_group="{{ facet_group_names }}"
-                                              data-selected_facets="{% for selected_facet in selected_facets %}selected_facets={{ selected_facet }}&{% endfor %}" data-facet_name="{{ facet_name }}" data-index_type="{{ index_type }}">
-                                                <strong
-                                                        class="{{ facet_name }}_tip">&#8250; {{ facet_name|facet_display_name|capfirst }}
-                                                    ({{ facet_terms|length }})</strong>
-                                            </a>
-                                            {# FILTER BOX: moved it inside the div so that it doesn't interfere with accordion #}
-                                            {# <fieldset id="fieldset_{{facet.id}}" >   #}
-                                            {#   <label for="filter_{{facet.0}}">Filter {{facet.0|capfirst|truncatewords:1}}&hellip;</label> #}
-                                            {#   <input id="filter_{{facet.0}}" /> #}
-                                            {# </fieldset> #}
-                                        </h5>
-                                        <div class="g n2 {{ facet_group_names }}__{{ facet_name }}"></div>
-                                    </li>
-                                    {% endif %}
-                                {% endwith %}
-                            {% endfor %}
+                        {% for facet_name in facet_group_facets %}
+                        {% with facets.fields|get_item:facet_name as facet_terms %}
+                        {% if facet_terms %}
+                        <li id="{{ facet.id }}" class="s6">
+                            <h5>
+                                <a href="#" class="async" data-facet_group="{{ facet_group_names }}"
+                                  data-selected_facets="{% for selected_facet in selected_facets %}selected_facets={{ selected_facet }}&{% endfor %}" data-facet_name="{{ facet_name }}" data-index_type="{{ index_type }}">
+                                    <strong
+                                            class="{{ facet_name }}_tip">&#8250; {{ facet_name|facet_display_name|capfirst }}
+                                        ({{ facet_terms|length }})</strong>
+                                </a>
+                                {# FILTER BOX: moved it inside the div so that it doesn't interfere with accordion #}
+                                {# <fieldset id="fieldset_{{facet.id}}" >   #}
+                                {#   <label for="filter_{{facet.0}}">Filter {{facet.0|capfirst|truncatewords:1}}&hellip;</label> #}
+                                {# <input id="filter_{{facet.0}}" /> #}
+                                {# </fieldset> #}
+                            </h5>
+                            <div class="g n2 {{ facet_group_names }}__{{ facet_name }}"></div>
+                        </li>
+                        {% endif %}
+                        {% endwith %}
+                        {% endfor %}
                         </ul>
                     </li>
-                {% endfor %}
-            </ul>
-            {#  end of accordion  #}
-        </form>
-    </div>
-        {% endblock %}
+                    {% endfor %}
+                </ul>
+                {#  end of accordion  #}
+            </form>
+            </div>
+                {% endblock %}
 
 
-        {% block main_content %}
+            {% block main_content %}
             <div class="main">
-                <!-- Search form --> <!-- TO: Static content, EH to change -->
+                <h2>Search</h2> <!-- Search form -->
+                <form id="search_form" action=".">
+                <fieldset>
+                    <label for="bs_input">
+                        Keyword(s)
+                    </label>
 
-    <div id="search">
+                    <input id="bs_input" type="text" name="q"{% if 'q' in form.data %} value="{{ form.data.q }}"{% else %}
+                           value=""{% endif %}>
 
-    <h2>Search</h2>
-    <form id="search_form" action=".">
+                </fieldset>
 
-    <fieldset>
-        <label for="bs_input">
-            Keyword(s)
-        </label>
+                <fieldset>
+                    <div id="date_range">
+                        <span>
+                            <label for="min">Year from</label>
 
-        <input id="bs_input" type="text" name="q"{% if 'q' in form.data %} value="{{ form.data.q }}"{% else %}
-               value=""{% endif %}>
+                            <input type="number" name="min_date" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
+                        </span>
 
-    </fieldset>
+                        <span>
 
-    <fieldset>
-        <div id="date_range">
-            <span>
-                <label for="min">Year from</label>
-                
-                <input type="number" name="min_date" value="{{ min_date }}" id="id_min_date">
-            </span>
+                            <label for="id_max_date">Year to</label>
+                            <input type="number" name="max_date" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" id="id_max_date">
+                        </span>
+                    </div>
 
-            <span>
-                
-                <label for="id_max_date">Year to</label>
-                <input type="number" name="max_date" value="{{ max_date }}" id="id_max_date">
-            </span>
-        </div>
+                    <div class="g-ranger" id="range"></div>
+                </fieldset>
 
-        <div class="g-ranger" id="range"></div>
-    </fieldset>
+                <fieldset>
+                    <button class="primary">Apply</button>
 
-    <fieldset>
-        <button class="primary">Apply</button>
-
-        <input type="reset" id="reset_search" value="Reset">
-    </fieldset>
-</form>
-
-
-
-</div>
-<!-- End Search form -->
-
-
+                    <input type="reset" id="reset_search" value="Reset">
+                </fieldset>
+            </form> <!-- End Search form -->
                 <!-- TO: Old selected facets
                 <div id="facets"> 
                     {% block controlbar %}
@@ -209,30 +179,32 @@
                     
                     <div id="results">
                         {% block results %}
-                            <!-- hidden fields with useful data -->
-                            {# e.g. a db field to do the ordering on: 'shortdesc', or an annotation command: 'annotate=factoid' #}
-                            <input type="hidden" id="active_ordering" value="default">
-                            <input type="hidden" id="refresh_facets" value="{{ count_is_active }}">
-                            <!-- end of hidden fields -->
+                        <!-- hidden fields with useful data -->
+                        {# e.g. a db field to do the ordering on: 'shortdesc', or an annotation command: 'annotate=factoid' #}
+                        <input type="hidden" id="active_ordering" value="default">
+                        <input type="hidden" id="refresh_facets" value="{{ count_is_active }}">
+                        <!-- end of hidden fields -->
 
-                            <div id="results_factoid">
-                                {# in order to use the inner block we must move it before the FOR command!!! #}
-                                {% block inner_results %}
-                                    {% with search_template='browse' %}
-                                    {% include 'pomsapp/search/snippet_results.html' %}
-                                    {% endwith %}
-                                {% endblock inner_results %}
-                            </div>
+                        <div id="results_factoid">
+                            {# in order to use the inner block we must move it before the FOR command!!! #}
+                            {% block inner_results %}
+                                {% with search_template='browse' %}
+                                {% include 'pomsapp/search/snippet_results.html' %}
+                                {% endwith %}
+                            {% endblock inner_results %}
+                        </div>
 
                         {% endblock %}
                     </div>
-                </div> -->
+                </div>
                 <div id="search">
                     {% block search %}
 
                     {% endblock %}
                 </div>
             </div>
-        {% endblock %}
+            {% endblock %}
+        </section> <!-- End Tab content -->
+    </div> <!-- End Tab id -->
     {% endblock %}
-</div>
+</div> <!-- End Tab id -->

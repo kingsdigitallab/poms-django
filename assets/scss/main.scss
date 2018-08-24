@@ -438,6 +438,35 @@ ul.pagination {
     }
 }
 
+
+.dateRangeInfo{
+    position: relative;
+    height: 30px;
+    margin-top: 60px;
+}
+.dateRangeInfo label{
+    position: absolute;
+    top: -30px;
+    left: 10px;
+}                            /* moves label field */
+.dateRangeInfo #id_min_date{
+    top: -40px;
+    position: absolute;
+    left: 100px;
+}       /* moves first input field */
+.dateRangeInfo #id_max_date{
+    top: -40px;
+    position: absolute;
+    left: 170px;
+}      /* move second input field */
+.dateRangeInfo div.ui-slider{
+    position: absolute;
+}                   /* move both sliders - adressing 1st slider with CSS is hard */
+.dateRangeInfo div:last-child{
+    position: absolute;
+    left: 0px;
+}
+
 // Table
 table{
     width:100%;

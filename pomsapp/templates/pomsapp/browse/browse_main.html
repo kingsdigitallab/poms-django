@@ -130,22 +130,20 @@
                 </fieldset>
 
                 <fieldset>
-                    <div id="date_range">
-                        <span>
+                    <div id="date_range" class="dateRangeInfo">
+
                             <label for="min">Year from</label>
 
-                            <input type="number" name="min_date" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
-                        </span>
+                            <input type="range" class="minBuyingSlider" name="min_date" min="{{ min_date }}" max="{{ max_date }}" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
+                            <input type="range" name="max_date" min="{{ min_date }}" max="{{ max_date }}" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" data-track-theme="b" id="id_max_date">
 
-                        <span>
-
-                            <label for="id_max_date">Year to</label>
-                            <input type="number" name="max_date" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" id="id_max_date">
-                        </span>
                     </div>
 
                     <div class="g-ranger" id="range"></div>
                 </fieldset>
+
+
+
 
                 <fieldset>
                     <button class="primary">Apply</button>
@@ -208,3 +206,7 @@
     </div> <!-- End Tab id -->
     {% endblock %}
 </div> <!-- End Tab id -->
+
+{% block load_js %}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+{% endblock %}

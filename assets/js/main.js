@@ -11,10 +11,10 @@ var filterFacets = function () {
  *
  * Legacy From existing template, will need to be refactored...
  * */
-jQuery.fn.simple_blink = function() {
+jQuery.fn.simple_blink = function () {
     return this.fadeOut("fast").fadeIn("slow");
 };
-jQuery.fn.add_loading_icon = function() {
+jQuery.fn.add_loading_icon = function () {
     loadingData = "<img src='/media/static/paul/i/g.gif' alt='loading data' />"
     return this.empty().append(loadingData);
 };
@@ -25,7 +25,7 @@ jQuery.fn.add_loading_icon = function() {
  * @param ordering order the results
  * @param tab tab to update
  */
-function update_related_factoids(page, ordering, tab){
+function update_related_factoids(page, ordering, tab) {
     // EH: Not sure what this is, but will replace with proper ordering.
     var old_ordering = $("#" + tab + " .active_ordering").val();
     $("#" + tab).add_loading_icon();
@@ -39,15 +39,12 @@ function update_related_factoids(page, ordering, tab){
 }
 
 
-
-
 // for the Source record-page :: USED?
-function update_source_factoids(page, ordering, tab){
+function update_source_factoids(page, ordering, tab) {
     if (!tab) var tab = "fragment-1";   // we pass the tab-ids directly in the functions... might be done dynamically later..
     $("#" + tab).add_loading_icon();
     ajax_update_tabs("#" + tab, "", tab, page, ordering);
 }
-
 
 
 // name (= value in the facet), type(facet group), facet (the facet within a group) identify a value uniquely
@@ -57,14 +54,14 @@ function ajax_update_tabs(divname, ajaxcall, tab, page, ordering) {
     if (!ordering) var ordering = 'default';   // if no page defaults to 1person_detail
 
     $.get(ajaxcall,
-         { tab: tab, page: page, ordering: ordering},
-              function(data){
-                $(divname).empty().append($(data).find(divname).html());
-                $(divname+' a.paginate').on("click", paginate);
-                // reload qtips
-                 qtip_previews();
-              }
-   );
+        {tab: tab, page: page, ordering: ordering},
+        function (data) {
+            $(divname).empty().append($(data).find(divname).html());
+            $(divname + ' a.paginate').on("click", paginate);
+            // reload qtips
+            qtip_previews();
+        }
+    );
 }
 
 /**
@@ -73,25 +70,25 @@ function ajax_update_tabs(divname, ajaxcall, tab, page, ordering) {
  * @param e
  */
 var paginate = function (e) {
-        e.preventDefault();
-        var page = $(this).data('page');
-        var ordering = $(this).data('ordering');
-        var tab = $(this).data('tab');
-        update_related_factoids(page, ordering, tab);
-    }
+    e.preventDefault();
+    var page = $(this).data('page');
+    var ordering = $(this).data('ordering');
+    var tab = $(this).data('tab');
+    update_related_factoids(page, ordering, tab);
+}
 
 /**
  * Swap the icon in the facet label if it's open/closed
  * @param target selector for label
  */
-var toggle_facet_icon = function(target){
-        var closed_icon = '›';
-        var open_icon = 'v';
-        if ($(target).html().indexOf(closed_icon)>-1){
-            $(target).html($(target).html().replace(closed_icon,open_icon));
-        } else{
-            $(target).html($(target).html().replace(open_icon,closed_icon));
-        }
+var toggle_facet_icon = function (target) {
+    var closed_icon = '›';
+    var open_icon = 'v';
+    if ($(target).html().indexOf(closed_icon) > -1) {
+        $(target).html($(target).html().replace(closed_icon, open_icon));
+    } else {
+        $(target).html($(target).html().replace(open_icon, closed_icon));
+    }
 
 
 }
@@ -104,7 +101,7 @@ $(function () {
         e.preventDefault();
         var facet_group = $(this).data('facet_group');
         var facet_name = $(this).data('facet_name');
-        var label=$(this).children('strong');
+        var label = $(this).children('strong');
         if ($(this).attr('class').indexOf('loaded') < 0) {
             // Load the facet choices
             var selected_facets = $(this).data('selected_facets');
@@ -127,7 +124,7 @@ $(function () {
 
             $(this).toggleClass('loaded');
             $(this).toggleClass('active');
-        } else{
+        } else {
             toggle_facet_icon(label);
             $('div.' + facet_group + '__' + facet_name).slideToggle(400);
             $(this).toggleClass('active');
@@ -138,6 +135,24 @@ $(function () {
     // Ajax pagination for detail pages
     $('a.paginate').on("click", paginate);
 
+
+    $('#id_min_date').change(function () {
+        var min = parseInt($(this).val());
+        var max = parseInt($('#id_max_date').val());
+        if (min > max) {
+            $(this).val(max);
+            $(this).slider('refresh');
+        }
+    });
+    $('#id_max_date').change(function () {
+        var min = parseInt($('#id_min_date').val());
+        var max = parseInt($(this).val());
+
+        if (min > max) {
+            $(this).val(min);
+            $(this).slider('refresh');
+        }
+    });
 
 
     //new gRanger('#range', '#min', '#max');

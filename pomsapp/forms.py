@@ -78,10 +78,7 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
     def __init__(self, *args, **kwargs):
         super(PomsFacetedBrowseForm, self).__init__(*args, **kwargs)
         # get the earliest and latest dates in the whole record set
-        min = SearchQuerySet().all().order_by('startdate')[0]
-        max = SearchQuerySet().all().order_by('-startdate')[0]
-        # self.min_date = min.startdate
-        # self.max_date = max.startdate
+
 
     def no_query_found(self):
         """Determines the behaviour when no query was found; returns all the

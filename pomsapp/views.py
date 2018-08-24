@@ -269,6 +269,8 @@ class PomsFacetedBrowse(FacetedSearchView):
 
         context['querydict'] = qs.copy()
         context['result_types'] = self.result_types
+        form = context['form']
+        context
 
         if 'order_by' in self.request.GET:
             context['order_by'] = self.request.GET['order_by']

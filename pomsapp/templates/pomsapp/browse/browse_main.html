@@ -157,13 +157,13 @@
             <span>
                 <label for="min">Year from</label>
                 
-                <input type="number" name="min_date" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
+                <input type="number" name="min_date" value="{{ min_date }}" id="id_min_date">
             </span>
 
             <span>
                 
                 <label for="id_max_date">Year to</label>
-                <input type="number" name="max_date" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" id="id_max_date">
+                <input type="number" name="max_date" value="{{ max_date }}" id="id_max_date">
             </span>
         </div>
 

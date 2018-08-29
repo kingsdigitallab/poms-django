@@ -1,7 +1,7 @@
 /*** USE THIS FILE TO SET OPTIONS ***/
 
 setParams({
-    graphFile : "/media/static/sna_assets/gran-ben-2.gexf",
+    graphFile : "/static/sna_assets/gran-ben-2.gexf",
         /*
             The GEXF file to show ! -- can be overriden by adding
             a hash to the document location, e.g. index.html#celegans.gexf

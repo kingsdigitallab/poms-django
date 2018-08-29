@@ -180,7 +180,7 @@ ga('create', 'UA-68207578-1', 'auto');
 ga('send', 'pageview');
 
 </script>
-	<script type="text/javascript" src="/media/static/sna_assets/jquery_002.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/jquery_002.js"></script>
 
 
 <script>
@@ -192,7 +192,7 @@ ga('send', 'pageview');
 {% if person_id %}
 $(document).ready(function(){
 
-	xml = $.ajax('/media/static/sna_assets/FamilyRelationships.gexf',{
+	xml = $.ajax('{{ STATIC_URL }}sna_assets/FamilyRelationships.gexf',{
 		success:function(data){
 			gephi = $.parseXML(data);
      		pindex = $(gephi).find('graph').find('nodes').find('#{{ person_id }}').index();

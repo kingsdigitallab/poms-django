@@ -358,12 +358,13 @@ class PersonIndex(PomsIndex, indexes.Indexable):
             'moderngaelicsurname'
         ] = obj.moderngaelicsurname
 
-        if obj.floruitstartyr > 0:
-            self.prepared_data[
-                'startdate'] = obj.floruitstartyr
-        else:
-            self.prepared_data[
-                'startdate'] = obj.floruitendyr
+        if obj.floruitstartyr:
+            if obj.floruitstartyr > 0:
+                self.prepared_data[
+                    'startdate'] = obj.floruitstartyr
+            else:
+                self.prepared_data[
+                    'startdate'] = obj.floruitendyr
 
         self.prepared_data[
             'daterange'] = obj.helper_daterange

@@ -1,7 +1,7 @@
 /*** USE THIS FILE TO SET OPTIONS ***/
 
 setParams({
-    graphFile : "/media/static/{{ viz.file }}", 
+    graphFile : "/static/{{ viz.file }}", 
         /*
             The GEXF file to show ! -- can be overriden by adding
             a hash to the document location, e.g. index.html#celegans.gexf

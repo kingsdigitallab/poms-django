@@ -16,15 +16,12 @@
         {% endif %}
     </ul>
 
-    {% comment %}
-    {# This is repeating if object_list, so I'd remove it #}
+
+    {% else %}
+    <h2>No matching records</h2>
 {% endif %}
 
-{% if object_list %}
-{% endcomment %}
 
-
-{% endif %}
 
 <div id="results_factoid">  {# old name, but really it's just a div, not tabber #}
     {% block inner_results %}

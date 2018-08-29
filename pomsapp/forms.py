@@ -72,12 +72,15 @@ class PomsFacetedSearchForm(FacetedSearchForm):
 class PomsFacetedBrowseForm(FacetedSearchForm):
     min_date = '0'
     max_date = '0'
+    DATE_MINIMUM = 1093
+    DATE_MAXIMUM = 1300
     index_type_counts = {}
     index_type = 'person'
 
     def __init__(self, *args, **kwargs):
         super(PomsFacetedBrowseForm, self).__init__(*args, **kwargs)
         # get the earliest and latest dates in the whole record set
+
 
 
     def no_query_found(self):
@@ -89,11 +92,14 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
         sqs = super(PomsFacetedBrowseForm, self).search()
         if not self.is_valid():
             return self.no_query_found()
-        if self.min_date:
-            sqs = sqs.narrow('startdate:[{0} TO {1}]'.format(
-                self.min_date,
-                self.max_date
-            ))
+
+        if self.is_bound:
+            data = self.data
+            if 'min_date' in data:
+                sqs = sqs.narrow('startdate:[{0} TO {1}]'.format(
+                    data['min_date'],
+                    data['max_date']
+                ))
         # Get index counts for all types
         if ('fields' in sqs.facet_counts()
                 and 'index_type' in sqs.facet_counts()['fields']
@@ -107,5 +113,11 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
                 self.index_type
             )
         )
+        if sqs.count() > 0:
+            dateqs = sqs.order_by('-startdate')
+            min = sqs.order_by('startdate')[0]
+            max = sqs.order_by('-startdate')[0]
+            self.DATE_MAXIMUM = max.startdate
+            self.DATE_MINIMUM = min.startdate
         return sqs
 

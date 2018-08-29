@@ -136,23 +136,7 @@ $(function () {
     $('a.paginate').on("click", paginate);
 
 
-    $('#id_min_date').change(function () {
-        var min = parseInt($(this).val());
-        var max = parseInt($('#id_max_date').val());
-        if (min > max) {
-            $(this).val(max);
-            $(this).slider('refresh');
-        }
-    });
-    $('#id_max_date').change(function () {
-        var min = parseInt($('#id_min_date').val());
-        var max = parseInt($(this).val());
 
-        if (min > max) {
-            $(this).val(min);
-            $(this).slider('refresh');
-        }
-    });
 
 
     //new gRanger('#range', '#min', '#max');

@@ -1,5 +1,6 @@
 {% load extrafilters pomsapp_tags %}
 <li>
     <span>{{ label|capfirst }} > {{ value }}</span>
+
     <a href="{% url 'browse' %}{% add_facet_link querydict facet 'clear' %}">&#x2716;</a>
 </li>

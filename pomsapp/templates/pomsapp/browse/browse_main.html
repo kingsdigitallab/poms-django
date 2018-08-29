@@ -2,6 +2,7 @@
 {% load extrafilters pomsapp_tags %}
 
 {% block load_css %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 {% endblock %}
 
 {% block titlepage %}
@@ -26,22 +27,22 @@
     <div id="tabs">
         <!-- Tab Headers -->
 
-        <input id="tab1" type="radio" name="tabs" checked>
+        <input id="tab1" type="radio" name="tabs" checked {% if index_type == 'factoid' %}checked{% endif %}>
         <label for="tab1"><a href="
 
                         {% url 'browse' %}{% add_facet_link querydict 'index_type' 'factoid'%}">Factoids <span>({{ index_type_counts.factoid }})</span></a></label>
 
-        <input id="tab2" type="radio" name="tabs" checked>
+        <input id="tab2" type="radio" name="tabs" checked {% if index_type == 'source' %}checked{% endif %}>
         <label for="tab2"><a href="
 
                         {% url 'browse' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources <span>({{ index_type_counts.source }})</span></a></label>
 
-        <input id="tab3" type="radio" name="tabs" checked>
+        <input id="tab3" type="radio" name="tabs" checked {% if index_type == 'person' %}checked{% endif %}>
         <label for="tab3"><a href="
 
                         {% url 'browse' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions  <span>({{ index_type_counts.person }})</span></a></label>
 
-        <input id="tab4" type="radio" name="tabs" checked>
+        <input id="tab4" type="radio" name="tabs" checked {% if index_type == 'place' %}checked{% endif %}>
         <label for="tab4"><a href="
                         {% url 'browse' %}{% add_facet_link querydict 'index_type' 'place' %}">Places <span>({{ index_type_counts.place }})</span></a></label>
 
@@ -51,10 +52,10 @@
         <section id="content4" class="pseudo-tabcontent">
         {% block sidebar %}
         <div class="facet-sidebar">
-            <form action="">
+
                 <h3>Facets</h3>
             {% if selected_facets %}
-                <div id="selected-facets"> <!-- TO: Static content, EH to change. Only show div when a facet is selected -->
+                <div id="selected-facets">
                     <h4>Selected facet types</h4>
                     <ul>
                         {% for facet in selected_facets %}
@@ -110,7 +111,7 @@
                     {% endfor %}
                 </ul>
                 {#  end of accordion  #}
-            </form>
+
             </div>
                 {% endblock %}
 
@@ -119,6 +120,11 @@
             <div class="main">
                 <h2>Search</h2> <!-- Search form -->
                 <form id="search_form" action=".">
+                {% if selected_facets %}
+                    {% for facet in selected_facets %}
+                        <input type="hidden" name="selected_facets" value="{{ facet }}">
+                        {% endfor %}
+                {% endif %}
                 <fieldset>
                     <label for="bs_input">
                         Keyword(s)
@@ -130,18 +136,22 @@
                 </fieldset>
 
                 <fieldset>
-                    <div id="date_range" class="dateRangeInfo">
-
+                    <div id="date_range">
+                        <span>
                             <label for="min">Year from</label>
 
-                            <input type="range" class="minBuyingSlider" name="min_date" min="{{ min_date }}" max="{{ max_date }}" value="{% if 'min_date' in form.data %}{{ form.data.min_date }}{% else %}{{ min_date }}{% endif %}" id="id_min_date">
-                            <input type="range" name="max_date" min="{{ min_date }}" max="{{ max_date }}" value="{% if 'max_date' in form.data %}{{ form.data.max_date }}{% else %}{{ max_date }}{% endif %}" data-track-theme="b" id="id_max_date">
+                            <input type="number" name="min_date" value="{{ min_date }}" id="id_min_date">
+                        </span>
 
+                        <span>
+
+                            <label for="id_max_date">Year to</label>
+                            <input type="number" name="max_date"  value="{{ max_date }}" data-track-theme="b" id="id_max_date">
+                        </span>
                     </div>
 
                     <div class="g-ranger" id="range"></div>
                 </fieldset>
-
 
 
 
@@ -209,4 +219,18 @@
 
 {% block load_js %}
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+
+    $( "#range" ).slider({
+      range: true,
+      min: {{ form.DATE_MINIMUM }},
+      max: {{ form.DATE_MAXIMUM }},
+      values: [ {{ min_date }}, {{ max_date }} ],
+      slide: function( event, ui ) {
+        $( "#id_min_date" ).val( ui.values[ 0 ]); // + " - $" + ui.values[ 1 ] );
+          $( "#id_max_date" ).val( ui.values[ 1 ]);
+
+      }
+    });
+    </script>
 {% endblock %}

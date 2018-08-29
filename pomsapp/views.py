@@ -127,6 +127,7 @@ class PomsFacetedBrowse(FacetedSearchView):
             'medievalgaelicsurname',
             'moderngaelicforename',
             'moderngaelicsurname',
+            'startdate'
         ],
         "source": [
             "documenttype",
@@ -277,11 +278,17 @@ class PomsFacetedBrowse(FacetedSearchView):
         context['result_types'] = self.result_types
         form = context['form']
         if 'min_date' in self.request.GET:
-            context['min_date'] = self.request.GET.get('min_date')
+            if int(self.request.GET.get('min_date')) < int(form.DATE_MINIMUM):
+                context['min_date'] = form.DATE_MINIMUM
+            else:
+                context['min_date'] = self.request.GET.get('min_date')
         else:
             context['min_date'] = form.DATE_MINIMUM
         if 'max_date' in self.request.GET:
-            context['max_date'] = self.request.GET.get('max_date')
+            if int(self.request.GET.get('max_date')) > int(form.DATE_MAXIMUM):
+                context['max_date'] = form.DATE_MAXIMUM
+            else:
+                context['max_date'] = self.request.GET.get('max_date')
         else:
             context['max_date'] = form.DATE_MAXIMUM
 

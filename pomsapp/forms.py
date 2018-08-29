@@ -113,11 +113,14 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
                 self.index_type
             )
         )
-        if sqs.count() > 0:
-            dateqs = sqs.order_by('-startdate')
-            min = sqs.order_by('startdate')[0]
-            max = sqs.order_by('-startdate')[0]
-            self.DATE_MAXIMUM = max.startdate
-            self.DATE_MINIMUM = min.startdate
+        if ('fields' in sqs.facet_counts()
+                and 'startdate' in sqs.facet_counts()['fields']
+        ):
+            min = sqs.facet_counts()['fields'][
+                'startdate'][0]
+            max = sqs.facet_counts()['fields'][
+                'startdate'][-1]
+            self.DATE_MAXIMUM = max[0]
+            self.DATE_MINIMUM = min[0]
         return sqs
 

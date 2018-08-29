@@ -270,7 +270,7 @@ $(document).ready(function(){
 				transparent:true,
 				attribution:'<a href="http://hla.rcahms.gov.uk/">Historic Environment Scotland</a>'}
 		);
-        os_1st_ed = new L.TileLayer('http://geo.nls.uk/maps/os/1inch_2nd_ed/{z}/{x}/{y}.png',{tms:true,attribtution:'<a href="http://maps.nls.uk/">National Library of Scotland</a>'})
+        os_1st_ed = new L.TileLayer('http://geo.nls.uk/maps/os/1inch_2nd_ed/{z}/{x}/{y}.png',{tms:false,attribtution:'<a href="http://maps.nls.uk/">National Library of Scotland</a>'})
 
 		geology = new L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/WMSServer?',{
 			layers:'BGS.50k.Bedrock',

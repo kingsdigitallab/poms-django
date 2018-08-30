@@ -455,7 +455,7 @@ var drawControl = new L.Control.Draw({
 		$('#zoom-level').html(map.getZoom());
 	})
 
-	$.ajax('/map/hierarchy/',{
+	$.ajax('../hierarchy/',{
 		success:function(data){
 		        $('.leaflet-control-container').append(data);
 				$('#parent-places input').click('',function(){

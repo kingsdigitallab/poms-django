@@ -10,7 +10,9 @@
 {% endblock %}
 
 {% block subnav %}
+    {% with slug='db' %}
     {% include 'pomsapp/includes/db_navigation.html' %}
+    {% endwith %}
 {% endblock %}
 
 {% block tabs_titles %}

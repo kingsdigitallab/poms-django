@@ -1,4 +1,6 @@
 from django import template
+from pomsapp_wagtail.models import IndexPage
+from wagtail.wagtailcore.models import Page
 
 register = template.Library()
 
@@ -26,6 +28,14 @@ def get_site_root(context):
     :rtype: `wagtail.wagtailcore.models.Page`
     """
     return context['request'].site.root_page
+
+@register.simple_tag()
+def get_wagtail_page(slug):
+    pages = Page.objects.filter(slug=slug)
+    if pages.count() > 0:
+        return pages[0]
+    return None
+
 
 @register.filter
 def is_current_or_ancestor(page, current_page):

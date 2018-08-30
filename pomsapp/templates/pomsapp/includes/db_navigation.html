@@ -1,18 +1,16 @@
-{% load staticfiles %}
+{% load staticfiles pomsapp_tags pomsapp_wagtail_tags wagtailcore_tags %}
 
 <nav class="subnav">
     <ul class="menu">
         {% comment %}
-        TODO: add class="active" when the url of the current page matches the menu item
+            TODO: add class="active" when the url of the current page matches the menu item
         {% endcomment %}
-        <li><a href="/search">Search</a></li>
         {# example of active class // Should be removed once implemented #}
-        <li><a href="/browse" class="active">Browse</a></li>
-        <li><a href="/record">Record</a></li>
-        <li><a href="/sna/all/">Social Network Analysis</a></li>
-
-        <li><a href="/map/browse/">Map</a></li>
-        <li><a href="/familytrees">Family Trees</a></li>
-        <li><a href="/labs">Labs</a></li>
+     {% get_wagtail_page slug as wagtail_page %}
+        {% for page in wagtail_page.get_children.specific %}
+            <li>
+                <a href="{% pageurl page %}">{{ page.title }}</a>
+            </li>
+        {% endfor %}
     </ul>
 </nav>

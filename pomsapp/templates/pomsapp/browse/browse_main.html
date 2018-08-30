@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load extrafilters pomsapp_tags %}
+{% load extrafilters pomsapp_tags pomsapp_wagtail_tags %}
 
 {% block load_css %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -10,9 +10,9 @@
 {% endblock %}
 
 {% block subnav %}
-    {% with slug='db' %}
-    {% include 'pomsapp/includes/db_navigation.html' %}
-    {% endwith %}
+{% get_wagtail_page 'db' as wagtail_page  %}
+    {% local_menu wagtail_page%}
+
 {% endblock %}
 
 {% block tabs_titles %}

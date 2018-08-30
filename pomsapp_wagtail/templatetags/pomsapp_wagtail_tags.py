@@ -1,5 +1,5 @@
 from django import template
-from pomsapp_wagtail.models import IndexPage
+
 from wagtail.wagtailcore.models import Page
 
 register = template.Library()
@@ -35,6 +35,8 @@ def get_wagtail_page(slug):
     if pages.count() > 0:
         return pages[0]
     return None
+
+
 
 
 @register.filter

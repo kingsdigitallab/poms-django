@@ -1,4 +1,5 @@
 from django import template
+from pomsapp_wagtail.models import HomePage
 
 register = template.Library()
 
@@ -130,3 +131,32 @@ def facet_display_name(facet):
         return facet_display_names[facet]
     else:
         return facet
+
+@register.inclusion_tag('pomsapp/includes/db_navigation.html', takes_context=True)
+def local_menu(context, current_page=None):
+    """Retrieves the secondary links for the 'also in this section' links -
+    either the children or siblings of the current page."""
+    menu_pages = []
+    label = ''
+
+    if current_page:
+        label = current_page.title
+        menu_pages = current_page.get_children().filter(
+            live=True, show_in_menus=True)
+
+        # if no children, get siblings instead
+        if len(menu_pages) == 0:
+            menu_pages = current_page.get_siblings().filter(
+                live=True, show_in_menus=True)
+
+        if current_page.get_children_count() == 0:
+            if not isinstance(current_page.get_parent().specific, HomePage):
+                label = current_page.get_parent().title
+
+    # required by the pageurl tag that we want to use within this template
+    return {'request': context['request'], 'current_page': current_page,
+            'menu_pages': menu_pages, 'menu_label': label}
+
+
+def has_menu_children(page):
+    return page.get_children().live().in_menu().exists()

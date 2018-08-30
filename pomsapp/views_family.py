@@ -14,24 +14,21 @@ from django.shortcuts import render
 ##################
 
 
-def familytrees(request, image_id):
-    mappings = {'1': ['familytrees1.html', 'Scottishroyalfamily.capt.jpg'],
-                '2': ['familytrees2.html', 'EarlDaviddescendants.jpg'],
-                '3': ['familytrees3.html', 'Englishroyalfamily.jpg'],
-                '4': ['familytrees4.html', 'Manxroyalfamily.jpg'],
+def familytrees(request, image_id='1'):
+    mappings = {'1': 'Scottishroyalfamily.capt.jpg',
+                '2': 'EarlDaviddescendants.jpg',
+                '3': 'Englishroyalfamily.jpg',
+                '4': 'Manxroyalfamily.jpg',
                 }
 
-    # request.session['queryargs'] = []
-    # request.session['activeIDs'] = []
 
-    template_name = mappings[image_id][0]
-    image_name = mappings[image_id][1]
+    image_name = mappings[image_id]
 
     return render(request,
-                  'pomsapp/familytrees/' + template_name,
+                  'pomsapp/familytrees/familytrees.html',
                   {
                       'permalink': request.get_host() + request.path,
-                      'FAMTREE_IMAGE': image_name,
+                      'FAMTREE_IMAGE': 'images/famtree/'+image_name,
                       'image_id': image_id,
                   }
                   )

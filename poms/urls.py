@@ -12,6 +12,8 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
+import pomsapp.views_family as views_family
+
 
 """
 OLD URLS FILE, WILL BE REMOVED AS UPDATED AND ADDED
@@ -192,7 +194,9 @@ urlpatterns = [
     url(r'^' + prefix + 'record/', include('pomsapp.urls_record')),
     url(r'^' + prefix + 'search/', include('pomsapp.urls_search')),
     url(r'^' + prefix + 'browse/', include('pomsapp.urls_browse')),
-    url(r'^' + prefix + 'familytrees/', include('pomsapp.urls_family')),
+    #url(r'^' + prefix + 'familytrees/', include('pomsapp.urls_family')),
+    url(r'^' + prefix + 'familytrees/',  views_family.familytrees, name='familytrees'),
+    url(r'^' + prefix + 'familytrees/(?P<image_id>\d+)/$', views_family.familytrees, name='familytrees'),
     url(r'^' + prefix + 'map/', include('pomsapp.urls_map')),
     url(r'^' + prefix + 'sna/', include('sna.urls')),
     # todo removed for now

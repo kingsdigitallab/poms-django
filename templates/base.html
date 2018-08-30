@@ -14,6 +14,19 @@
 
   {% block load_css %}
   {% endblock %}
+  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <script src="{% static 'js/jquery.overlabel.js' %}"></script>
+  <script src="{% static 'js/cufon.min.js' %}"></script>
+
+  {% block load_js %}
+  {% endblock %}
+  {% compress js %}
+  <script src="{% static 'js/main.js' %}"></script>
+  {% endcompress %}
+
+
 
   {# FontAwesome #}
   <script defer src="{% static 'fonts/FontAwesome/js/all.js' %}"></script>
@@ -63,13 +76,6 @@
 </script>
 
 
-{% compress js %}
-<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-<script src="{% static 'js/main.js' %}"></script>
-{% endcompress %}
-
-{% block load_js %}
-{% endblock %}
 
 {% block body_closing %}
 {% endblock %}

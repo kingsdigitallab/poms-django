@@ -455,7 +455,7 @@ var drawControl = new L.Control.Draw({
 		$('#zoom-level').html(map.getZoom());
 	})
 
-	$.ajax('../hierarchy/',{
+	$.ajax('hierarchy/',{
 		success:function(data){
 		        $('.leaflet-control-container').append(data);
 				$('#parent-places input').click('',function(){
@@ -481,7 +481,7 @@ var drawControl = new L.Control.Draw({
 	function updateResults(){
 		map.spin(true);
 		if (geomQry != ''){
-		$.ajax('/map/search/?'+ geomQry ,{
+		$.ajax('search/?'+ geomQry ,{
 			dataType:"jsonp"
 			}).done(function() {
 				map.spin(false);
@@ -490,7 +490,7 @@ var drawControl = new L.Control.Draw({
 				});
 		}
 		else if ( parentID != ''){
-		$.ajax('/map/search-by-parent/?id='+ parentID ,{
+		$.ajax('search-by-parent/?id='+ parentID ,{
 			     dataType:"jsonp",
 			     complete: function() {
 					   map.spin(false);

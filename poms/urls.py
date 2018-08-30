@@ -164,7 +164,7 @@ admin.autodiscover()
 # try:
 #     prefix = settings.URL_PREFIX
 # except:
-prefix = "db"
+prefix = "db/"
 
 urlpatterns = [
     url(r'^accounts/', include('registration.backends.model_activation.urls')),

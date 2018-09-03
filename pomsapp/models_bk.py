@@ -35,6 +35,8 @@ class Role(mymodels.PomsAuthorityList):
 		ordering = ['name']
 	def __unicode__(self):
 		return self.name
+	def __str__(self):
+		return self.name
 	table_group = 'Authority lists'
 
 

@@ -42,10 +42,13 @@ def basic_record(request):
         return n / 3
 
     people = Person.objects.filter(helper_totfactoids__gt=MAX_FACTOIDS_PEOPLE)
-    people_for_cloud = [(p, calc_size_people(p.helper_totfactoids)) for p in people]
+    people_for_cloud = [(p, calc_size_people(p.helper_totfactoids)) for p in
+                        people]
 
-    charters = Charter.objects.filter(helper_totfactoids__gt=MAX_FACTOIDS_CHARTERS)
-    charters_for_cloud = [(p, calc_size_sources(p.helper_totfactoids)) for p in charters]
+    charters = Charter.objects.filter(
+        helper_totfactoids__gt=MAX_FACTOIDS_CHARTERS)
+    charters_for_cloud = [(p, calc_size_sources(p.helper_totfactoids)) for p in
+                          charters]
     context = {
         'charters_for_cloud': charters_for_cloud,
         'people_for_cloud': people_for_cloud,
@@ -61,7 +64,8 @@ def basic_record(request):
 
 
 def person_detail(request, person_id):
-    """ View for persons: check if it's a call for the entire page, or if it's an ajax call for updating the
+    """ View for persons: check if it's a call for the entire page,
+    or if it's an ajax call for updating the
         bottom part of the page only, where the related factoids are displayed.
 
     """
@@ -85,16 +89,24 @@ def person_detail(request, person_id):
 
     MAX_RESULTS_LENGTH = 50
 
-    ordering_string, chosen_ordering, proanima_chosen_ordering = determine_ordering("person", ordering)
+    ordering_string, chosen_ordering, proanima_chosen_ordering = \
+        determine_ordering(
+        "person", ordering)
 
     person = get_object_or_404(Person, pk=person_id)
-
-    if preview:  # in this case we're just returning a sub-template for info, before the user clicks on the actual
+    if (person.floruitstartyr == 0
+            or person.floruitendyr == 0):
+        person = build_floruits(person)
+        person.save()
+    if preview:  # in this case we're just returning a sub-template for
+        # info, before the user clicks on the actual
         # page
 
-        return_str = render_block_to_string('pomsapp/record/record_person.html',
-                                            'preview_contents',
-                                            {'record': person, 'active_ordering': ordering_string, 'preview': True})
+        return_str = render_block_to_string(
+            'pomsapp/record/record_person.html',
+            'preview_contents',
+            {'record': person, 'active_ordering': ordering_string,
+             'preview': True})
         return HttpResponse(return_str)
 
     # ++++
@@ -104,15 +116,20 @@ def person_detail(request, person_id):
     if ajax_flag:
         items = None
         if tab == 'possessionFact':
-            items = person.get_association_factoids('possession', chosen_ordering)
+            items = person.get_association_factoids('possession',
+                                                    chosen_ordering)
         if tab == 'relationshipFact':
-            items = person.get_association_factoids('relationship', chosen_ordering)
+            items = person.get_association_factoids('relationship',
+                                                    chosen_ordering)
         if tab == 'titleFact':
-            items = person.get_association_factoids('title/occupation', chosen_ordering)
+            items = person.get_association_factoids('title/occupation',
+                                                    chosen_ordering)
         if tab == 'transactionFact':
-            items = person.get_association_factoids('transaction', chosen_ordering)
+            items = person.get_association_factoids('transaction',
+                                                    chosen_ordering)
         if tab == 'proanimaFact':
-            items = person.get_association_factoids('proanima', proanima_chosen_ordering)
+            items = person.get_association_factoids('proanima',
+                                                    proanima_chosen_ordering)
         if tab == 'witnessFact':
             items = person.get_association_factoids('witness', chosen_ordering)
 
@@ -122,16 +139,19 @@ def person_detail(request, person_id):
             try:
                 items = paginator.page(page)
             except (EmptyPage, InvalidPage):
-                # If page request is out of range, deliver last page of results.
+                # If page request is out of range, deliver last page of
+                # results.
                 items = paginator.page(paginator.num_pages)
             items.extrastuff = paginator_helper(page,
-                                                paginator.num_pages)  # add other useful paginator data to the object
+                                                paginator.num_pages)  # add
+            # other useful paginator data to the object
             items.ordering = ordering
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
             return_str = render(request, 'pomsapp/record/record_person.html',
-                                {'record': person, 'active_ordering': ordering_string,
+                                {'record': person,
+                                 'active_ordering': ordering_string,
                                  tab: items, })
             return HttpResponse(return_str)
 
@@ -143,12 +163,18 @@ def person_detail(request, person_id):
 
         vals = {}
 
-        vals['possessionFact'] = person.get_association_factoids('possession', chosen_ordering)
-        vals['relationshipFact'] = person.get_association_factoids('relationship', chosen_ordering)
-        vals['titleFact'] = person.get_association_factoids('title/occupation', chosen_ordering)
-        vals['transactionFact'] = person.get_association_factoids('transaction', chosen_ordering)
-        vals['proanimaFact'] = person.get_association_factoids('proanima', proanima_chosen_ordering)
-        vals['witnessFact'] = person.get_association_factoids('witness', chosen_ordering)
+        vals['possessionFact'] = person.get_association_factoids('possession',
+                                                                 chosen_ordering)
+        vals['relationshipFact'] = person.get_association_factoids(
+            'relationship', chosen_ordering)
+        vals['titleFact'] = person.get_association_factoids('title/occupation',
+                                                            chosen_ordering)
+        vals['transactionFact'] = person.get_association_factoids(
+            'transaction', chosen_ordering)
+        vals['proanimaFact'] = person.get_association_factoids('proanima',
+                                                               proanima_chosen_ordering)
+        vals['witnessFact'] = person.get_association_factoids('witness',
+                                                              chosen_ordering)
 
         # substitute the contents of the dict with the paginated values
         for k in vals.keys():
@@ -157,10 +183,12 @@ def person_detail(request, person_id):
             try:
                 vals[k] = paginator.page(page)
             except (EmptyPage, InvalidPage):
-                # If page request is out of range, deliver last page of results.
+                # If page request is out of range, deliver last page of
+                # results.
                 vals[k] = paginator.page(paginator.num_pages)
             vals[k].extrastuff = paginator_helper(page,
-                                                  paginator.num_pages)  # add other useful paginator data to the object
+                                                  paginator.num_pages)  #
+            # add other useful paginator data to the object
             vals[k].ordering = ordering
             vals[k].tot = tot
             vals[k].type = k  # a string repr of the type, eg 'possessionFact'
@@ -191,7 +219,8 @@ def source_detail(request, source_id):
     # request.session['queryargs'] = []
     # request.session['activeIDs'] = []
     page = request.GET.get('page', False)
-    tab = request.GET.get('tab', False)  # I put it here, but it's not necessary yet
+    tab = request.GET.get('tab',
+                          False)  # I put it here, but it's not necessary yet
     ordering = request.GET.get('ordering', False)
     preview = request.GET.get('preview', False)
     ajax_flag = False
@@ -207,7 +236,9 @@ def source_detail(request, source_id):
         page = 1
         tab = 1
 
-    ordering_string, chosen_ordering, proanima_chosen_ordering = determine_ordering("source", ordering)
+    ordering_string, chosen_ordering, proanima_chosen_ordering = \
+        determine_ordering(
+        "source", ordering)
 
     father_source = get_object_or_404(Source, pk=source_id)
     source_tuple = father_source.get_right_subclass()
@@ -215,12 +246,14 @@ def source_detail(request, source_id):
         raise Http404
     source = source_tuple[1]
 
-    if preview:  # in this case we're just returning a sub-template for info, before the user clicks on the actual
+    if preview:  # in this case we're just returning a sub-template for
+        # info, before the user clicks on the actual
         # page
 
-        return_str = render_block_to_string('pomsapp/record/record_source.html',
-                                            'preview_contents',
-                                            {'record': source, 'active_ordering': ordering_string, })
+        return_str = render_block_to_string(
+            'pomsapp/record/record_source.html',
+            'preview_contents',
+            {'record': source, 'active_ordering': ordering_string, })
         return HttpResponse(return_str)
 
     # ++++
@@ -243,18 +276,21 @@ def source_detail(request, source_id):
             try:
                 items = paginator.page(page)
             except (EmptyPage, InvalidPage):
-                # If page request is out of range, deliver last page of results.
+                # If page request is out of range, deliver last page of
+                # results.
                 items = paginator.page(paginator.num_pages)
             items.extrastuff = paginator_helper(page,
-                                                paginator.num_pages)  # add other useful paginator data to the object
+                                                paginator.num_pages)  # add
+            # other useful paginator data to the object
             items.ordering = ordering
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
-            return_str = render_block_to_string('pomsapp/record/record_source.html',
-                                                tab,
-                                                {'record': source, 'active_ordering': ordering_string,
-                                                 tab: items, })
+            return_str = render_block_to_string(
+                'pomsapp/record/record_source.html',
+                tab,
+                {'record': source, 'active_ordering': ordering_string,
+                 tab: items, })
             return HttpResponse(return_str)
 
     # IF NOT AJAX
@@ -262,9 +298,12 @@ def source_detail(request, source_id):
     vals = {}
 
     vals['possessionFact'] = source.get_factoids('possession', chosen_ordering)
-    vals['relationshipFact'] = source.get_factoids('relationship', chosen_ordering)
-    vals['titleFact'] = source.get_factoids('title/occupation', chosen_ordering)
-    vals['transactionFact'] = source.get_factoids('transaction', chosen_ordering)
+    vals['relationshipFact'] = source.get_factoids('relationship',
+                                                   chosen_ordering)
+    vals['titleFact'] = source.get_factoids('title/occupation',
+                                            chosen_ordering)
+    vals['transactionFact'] = source.get_factoids('transaction',
+                                                  chosen_ordering)
 
     # substitute the contents of the dict with the paginated values
     for k in vals.keys():
@@ -276,7 +315,8 @@ def source_detail(request, source_id):
             # If page request is out of range, deliver last page of results.
             vals[k] = paginator.page(paginator.num_pages)
         vals[k].extrastuff = paginator_helper(page,
-                                              paginator.num_pages)  # add other useful paginator data to the object
+                                              paginator.num_pages)  # add
+        # other useful paginator data to the object
         vals[k].ordering = ordering
         vals[k].tot = tot
         vals[k].type = k  # a string repr of the type, eg 'possessionFact'
@@ -301,16 +341,20 @@ def source_detail(request, source_id):
 
 def factoid_detail(request, factoid_id):
     """
-    View that shows a Factoid record, and the related people and possessions, organized by type.
+    View that shows a Factoid record, and the related people and
+    possessions, organized by type.
 
     No need for pagination here, because:
-    Factoids with more than 50 assocPeople: 24840, 47541, 27209, 10341, 47325  (max 80)
+    Factoids with more than 50 assocPeople: 24840, 47541, 27209, 10341,
+    47325  (max 80)
     Factoids with more than 50 witnesses: None
     Factoids with more than 50 proanima people: None
 
-    Factoids with more than 50 possesssions: haven't checked, but presumably None..
+    Factoids with more than 50 possesssions: haven't checked, but presumably
+    None..
 
-    <helper_inferred> is used on possessions associations to make sure we filter out the ones 'exploded',
+    <helper_inferred> is used on possessions associations to make sure we
+    filter out the ones 'exploded',
     ie inherited, so to
     speed up searches on hiearchical relations.
 
@@ -318,7 +362,8 @@ def factoid_detail(request, factoid_id):
     """
 
     page = request.GET.get('page', False)
-    tab = request.GET.get('tab', False)  # I put it here, but it's not necessary yet
+    tab = request.GET.get('tab',
+                          False)  # I put it here, but it's not necessary yet
     ordering = request.GET.get('ordering', False)
     preview = request.GET.get('preview', False)
     #
@@ -336,7 +381,9 @@ def factoid_detail(request, factoid_id):
         page = 1
         tab = 1
 
-    ordering_string, chosen_ordering, proanima_chosen_ordering = determine_ordering("factoid", ordering)
+    ordering_string, chosen_ordering, proanima_chosen_ordering = \
+        determine_ordering(
+        "factoid", ordering)
 
     f = get_object_or_404(Factoid, pk=factoid_id)
     real_f = f.get_right_subclass()
@@ -345,42 +392,57 @@ def factoid_detail(request, factoid_id):
 
     factoid = real_f[1]
 
-    if preview:  # in this case we're just returning a sub-template for info, before the user clicks on the actual
+    if preview:  # in this case we're just returning a sub-template for
+        # info, before the user clicks on the actual
         # page
 
-        return_str = render_block_to_string('pomsapp/record/record_factoid.html',
-                                            'preview_contents',
-                                            {'preview': preview, 'record': factoid, 'active_ordering': ordering_string,
-                                             'recordsubtype': real_f[0], })
+        return_str = render_block_to_string(
+            'pomsapp/record/record_factoid.html',
+            'preview_contents',
+            {'preview': preview, 'record': factoid,
+             'active_ordering': ordering_string,
+             'recordsubtype': real_f[0], })
         return HttpResponse(return_str)
 
     if ajax_flag:
         items = None
         if tab == 'assocfactoidperson_set':
-            items = AssocFactoidPerson.objects.filter(factoid=factoid).order_by(*chosen_ordering)
+            items = AssocFactoidPerson.objects.filter(
+                factoid=factoid).order_by(*chosen_ordering)
         if tab == 'assocfactoidwitness_set':
-            items = AssocFactoidWitness.objects.filter(factoid=factoid).order_by(*chosen_ordering)
+            items = AssocFactoidWitness.objects.filter(
+                factoid=factoid).order_by(*chosen_ordering)
         if tab == 'assocfactoidproanima_set':
-            items = factoid.assocfactoidproanima_set.all().order_by(*chosen_ordering)
+            items = factoid.assocfactoidproanima_set.all().order_by(
+                *chosen_ordering)
         # NOTE: no ordering for possessions as it'd require ad hoc field-choice
         if tab == 'assocfactoidposs_lands_set':
-            items = factoid.assocfactoidposs_lands_set.filter(helper_inferred=False)
+            items = factoid.assocfactoidposs_lands_set.filter(
+                helper_inferred=False)
         if tab == 'assocfactoidposs_alms_set':
-            items = factoid.assocfactoidposs_alms_set.filter(helper_inferred=False)
+            items = factoid.assocfactoidposs_alms_set.filter(
+                helper_inferred=False)
         if tab == 'assocfactoidposs_objects_set':
-            items = factoid.assocfactoidposs_objects_set.filter(helper_inferred=False)
+            items = factoid.assocfactoidposs_objects_set.filter(
+                helper_inferred=False)
         if tab == 'assocfactoidposs_office':
-            items = factoid.assocfactoidposs_office.filter(helper_inferred=False)
+            items = factoid.assocfactoidposs_office.filter(
+                helper_inferred=False)
         if tab == 'assocfactoidposs_pgeneral_set':
-            items = factoid.assocfactoidposs_pgeneral_set.filter(helper_inferred=False)
+            items = factoid.assocfactoidposs_pgeneral_set.filter(
+                helper_inferred=False)
         if tab == 'assocfactoidposs_revenuekind_set':
-            items = factoid.assocfactoidposs_revenuekind_set.filter(helper_inferred=False)
+            items = factoid.assocfactoidposs_revenuekind_set.filter(
+                helper_inferred=False)
         if tab == 'assocfactoidposs_revenuesilver_set':
-            items = factoid.assocfactoidposs_revenuesilver_set.filter(helper_inferred=False)
+            items = factoid.assocfactoidposs_revenuesilver_set.filter(
+                helper_inferred=False)
         if tab == 'assocfactoidposs_unfreep_set':
-            items = factoid.assocfactoidposs_unfreep_set.filter(helper_inferred=False)
+            items = factoid.assocfactoidposs_unfreep_set.filter(
+                helper_inferred=False)
         if tab == 'assocfactoidprivileges_set':
-            items = factoid.assocfactoidprivileges_set.filter(helper_inferred=False)
+            items = factoid.assocfactoidprivileges_set.filter(
+                helper_inferred=False)
 
         if items:
             paginator = Paginator(items, MAX_RESULTS_LENGTH)
@@ -388,40 +450,74 @@ def factoid_detail(request, factoid_id):
             try:
                 items = paginator.page(page)
             except (EmptyPage, InvalidPage):
-                # If page request is out of range, deliver last page of results.
+                # If page request is out of range, deliver last page of
+                # results.
                 items = paginator.page(paginator.num_pages)
             items.extrastuff = paginator_helper(page,
-                                                paginator.num_pages)  # add other useful paginator data to the object
+                                                paginator.num_pages)  # add
+            # other useful paginator data to the object
             items.ordering = ordering
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
-            return_str = render_block_to_string('pomsapp/record/record_factoid.html',
-                                                tab,
-                                                {'record': factoid, 'active_ordering': ordering_string,
-                                                 tab: items, })
+            return_str = render_block_to_string(
+                'pomsapp/record/record_factoid.html',
+                tab,
+                {'record': factoid, 'active_ordering': ordering_string,
+                 tab: items, })
             return HttpResponse(return_str)
 
     vals = {}
 
-    # vals['possessionFact'] = source.get_factoids('possession', chosen_ordering)
+    # vals['possessionFact'] = source.get_factoids('possession',
+    # chosen_ordering)
     # and the ORDERING?
-    vals['assocfactoidperson_set'] = AssocFactoidPerson.objects.filter(factoid=factoid).order_by(*chosen_ordering)
-    vals['assocfactoidwitness_set'] = AssocFactoidWitness.objects.filter(factoid=factoid).order_by(*chosen_ordering)
-    vals['assocfactoidproanima_set'] = factoid.assocfactoidproanima_set.all().order_by(*chosen_ordering)
+    vals['assocfactoidperson_set'] = AssocFactoidPerson.objects.filter(
+        factoid=factoid).order_by(*chosen_ordering)
+    vals['assocfactoidwitness_set'] = AssocFactoidWitness.objects.filter(
+        factoid=factoid).order_by(*chosen_ordering)
+    vals[
+        'assocfactoidproanima_set'] = factoid.assocfactoidproanima_set.all(
+
+    ).order_by(
+        *chosen_ordering)
 
     if real_f[0] in ['transaction', 'possession']:
-        vals['assocfactoidposs_lands_set'] = factoid.assocfactoidposs_lands_set.filter(helper_inferred=False)
-        vals['assocfactoidposs_alms_set'] = factoid.assocfactoidposs_alms_set.filter(helper_inferred=False)
-        vals['assocfactoidposs_objects_set'] = factoid.assocfactoidposs_objects_set.filter(helper_inferred=False)
-        vals['assocfactoidposs_office'] = factoid.assocfactoidpossoffice.filter(helper_inferred=False)
-        vals['assocfactoidposs_pgeneral_set'] = factoid.assocfactoidposs_pgeneral_set.filter(helper_inferred=False)
-        vals['assocfactoidposs_revenuekind_set'] = factoid.assocfactoidposs_revenuekind_set.filter(
+        vals[
+            'assocfactoidposs_lands_set'] = \
+            factoid.assocfactoidposs_lands_set.filter(
             helper_inferred=False)
-        vals['assocfactoidposs_revenuesilver_set'] = factoid.assocfactoidposs_revenuesilver_set.filter(
+        vals[
+            'assocfactoidposs_alms_set'] = \
+            factoid.assocfactoidposs_alms_set.filter(
             helper_inferred=False)
-        vals['assocfactoidposs_unfreep_set'] = factoid.assocfactoidposs_unfreep_set.filter(helper_inferred=False)
-        vals['assocfactoidprivileges_set'] = factoid.assocfactoidprivileges_set.filter(helper_inferred=False)
+        vals[
+            'assocfactoidposs_objects_set'] = \
+            factoid.assocfactoidposs_objects_set.filter(
+            helper_inferred=False)
+        vals[
+            'assocfactoidposs_office'] = factoid.assocfactoidpossoffice.filter(
+            helper_inferred=False)
+        vals[
+            'assocfactoidposs_pgeneral_set'] = \
+            factoid.assocfactoidposs_pgeneral_set.filter(
+            helper_inferred=False)
+        vals[
+            'assocfactoidposs_revenuekind_set'] = \
+            factoid.assocfactoidposs_revenuekind_set.filter(
+            helper_inferred=False)
+        vals[
+            'assocfactoidposs_revenuesilver_set'] = \
+            factoid.assocfactoidposs_revenuesilver_set.filter(
+            helper_inferred=False)
+        vals[
+            'assocfactoidposs_unfreep_set'] = \
+            factoid.assocfactoidposs_unfreep_set.filter(
+            helper_inferred=False)
+        vals[
+            'assocfactoidprivileges_set'] = \
+            factoid.assocfactoidprivileges_set.filter(
+            helper_inferred=False)
 
     # substitute the contents of the dict with the paginated values
     for k in vals.keys():
@@ -433,7 +529,8 @@ def factoid_detail(request, factoid_id):
             # If page request is out of range, deliver last page of results.
             vals[k] = paginator.page(paginator.num_pages)
         vals[k].extrastuff = paginator_helper(page,
-                                              paginator.num_pages)  # add other useful paginator data to the object
+                                              paginator.num_pages)  # add
+        # other useful paginator data to the object
         vals[k].ordering = ordering
         vals[k].tot = tot
         vals[k].type = k  # a string repr of the type, eg 'possessionFact'
@@ -443,19 +540,31 @@ def factoid_detail(request, factoid_id):
                    'permalink': request.get_host() + request.path,
                    'preview': preview,
                    'recordsubtype': real_f[0],
-                   'assocfactoidperson_set': vals.get('assocfactoidperson_set', None),
-                   'assocfactoidwitness_set': vals.get('assocfactoidwitness_set', None),
-                   'assocfactoidproanima_set': vals.get('assocfactoidproanima_set', None),
-                   'assocfactoidposs_lands_set': vals.get('assocfactoidposs_lands_set', None),
-                   'assocfactoidposs_alms_set': vals.get('assocfactoidposs_alms_set', None),
-                   'assocfactoidposs_objects_set': vals.get('assocfactoidposs_objects_set', None),
-                   'assocfactoidposs_office': vals.get('assocfactoidposs_office', None),
-                   'assocfactoidposs_pgeneral_set': vals.get('assocfactoidposs_pgeneral_set', None),
-                   'assocfactoidposs_revenuekind_set': vals.get('assocfactoidposs_revenuekind_set', None),
-                   'assocfactoidposs_revenuesilver_set': vals.get('assocfactoidposs_revenuesilver_set',
-                                                                  None),
-                   'assocfactoidposs_unfreep_set': vals.get('assocfactoidposs_unfreep_set', None),
-                   'assocfactoidprivileges_set': vals.get('assocfactoidprivileges_set', None),
+                   'assocfactoidperson_set': vals.get('assocfactoidperson_set',
+                                                      None),
+                   'assocfactoidwitness_set': vals.get(
+                       'assocfactoidwitness_set', None),
+                   'assocfactoidproanima_set': vals.get(
+                       'assocfactoidproanima_set', None),
+                   'assocfactoidposs_lands_set': vals.get(
+                       'assocfactoidposs_lands_set', None),
+                   'assocfactoidposs_alms_set': vals.get(
+                       'assocfactoidposs_alms_set', None),
+                   'assocfactoidposs_objects_set': vals.get(
+                       'assocfactoidposs_objects_set', None),
+                   'assocfactoidposs_office': vals.get(
+                       'assocfactoidposs_office', None),
+                   'assocfactoidposs_pgeneral_set': vals.get(
+                       'assocfactoidposs_pgeneral_set', None),
+                   'assocfactoidposs_revenuekind_set': vals.get(
+                       'assocfactoidposs_revenuekind_set', None),
+                   'assocfactoidposs_revenuesilver_set': vals.get(
+                       'assocfactoidposs_revenuesilver_set',
+                       None),
+                   'assocfactoidposs_unfreep_set': vals.get(
+                       'assocfactoidposs_unfreep_set', None),
+                   'assocfactoidprivileges_set': vals.get(
+                       'assocfactoidprivileges_set', None),
                    }
                   )
 
@@ -470,7 +579,8 @@ def place_detail(request, place_id):
     View that shows a place record
     """
     page = request.GET.get('page', False)
-    tab = request.GET.get('tab', False)  # I put it here, but it's not necessary yet
+    tab = request.GET.get('tab',
+                          False)  # I put it here, but it's not necessary yet
     ordering = request.GET.get('ordering', False)
     preview = request.GET.get('preview', False)
     ajax_flag = False
@@ -486,15 +596,20 @@ def place_detail(request, place_id):
         page = 1
         tab = 1
 
-    ordering_string, chosen_ordering, proanima_chosen_ordering = determine_ordering("place", ordering)
+    ordering_string, chosen_ordering, proanima_chosen_ordering = \
+        determine_ordering(
+        "place", ordering)
 
     obj = get_object_or_404(Place, pk=place_id)
 
-    if preview:  # in this case we're just returning a sub-template for info, before the user clicks on the actual
+    if preview:  # in this case we're just returning a sub-template for
+        # info, before the user clicks on the actual
         # page
         return_str = render_block_to_string('pomsapp/record/record_place.html',
                                             'preview_contents',
-                                            {'preview': preview, 'record': obj, 'active_ordering': ordering_string, })
+                                            {'preview': preview, 'record': obj,
+                                             'active_ordering':
+                                                 ordering_string, })
         return HttpResponse(return_str)
 
     # ++++
@@ -507,17 +622,22 @@ def place_detail(request, place_id):
         if tab == 'documentAssoc':
             items = obj.charter_set.all()
         # if tab ==  'possessionFact':
-        #	items = [x.factpossession for x in obj.helper_factoids.all() if x.inferred_type == "possession"]
+        #	items = [x.factpossession for x in obj.helper_factoids.all() if
+        # x.inferred_type == "possession"]
         # This function is returning invalid relations
         if tab == 'possessionFact':
-            items = [x.factpossession for x in obj.assoc_factoids() if x.inferred_type == "possession"]
+            items = [x.factpossession for x in obj.assoc_factoids() if
+                     x.inferred_type == "possession"]
         if tab == 'relationshipFact':
-            items = obj.factrelationship_set.all()  # in this case the rel to places is another FK
+            items = obj.factrelationship_set.all()  # in this case the rel
+            # to places is another FK
         # if tab ==  'transactionFact':
-        #	items = [x.facttransaction for x in obj.helper_factoids.all() if x.inferred_type == "transaction"]
+        #	items = [x.facttransaction for x in obj.helper_factoids.all() if
+        # x.inferred_type == "transaction"]
         # This function is returning invalid relations
         if tab == 'transactionFact':
-            items = [x.facttransaction for x in obj.assoc_factoids() if x.inferred_type == "transaction"]
+            items = [x.facttransaction for x in obj.assoc_factoids() if
+                     x.inferred_type == "transaction"]
 
         if items:
             paginator = Paginator(items, MAX_RESULTS_LENGTH)
@@ -525,18 +645,21 @@ def place_detail(request, place_id):
             try:
                 items = paginator.page(page)
             except (EmptyPage, InvalidPage):
-                # If page request is out of range, deliver last page of results.
+                # If page request is out of range, deliver last page of
+                # results.
                 items = paginator.page(paginator.num_pages)
             items.extrastuff = paginator_helper(page,
-                                                paginator.num_pages)  # add other useful paginator data to the object
+                                                paginator.num_pages)  # add
+            # other useful paginator data to the object
             items.ordering = ordering
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
-            return_str = render_block_to_string('pomsapp/record/record_place.html',
-                                                tab,
-                                                {'record': obj, 'active_ordering': ordering_string,
-                                                 tab: items, })
+            return_str = render_block_to_string(
+                'pomsapp/record/record_place.html',
+                tab,
+                {'record': obj, 'active_ordering': ordering_string,
+                 tab: items, })
             return HttpResponse(return_str)
 
     # IF NOT AJAX
@@ -546,14 +669,21 @@ def place_detail(request, place_id):
     # TODO: ordering??? ADD API AS WITH SOURCES?
     vals['peopleAssoc'] = obj.person_set.all()
     vals['documentAssoc'] = obj.charter_set.all()
-    # vals['possessionFact'] = [x.factpossession for x in obj.helper_factoids.all() if x.inferred_type == "possession"]
-    vals['possessionFact'] = [x.factpossession for x in obj.assoc_factoids() if x.inferred_type == "possession"]
-    vals['relationshipFact'] = obj.factrelationship_set.all()  # in this case the rel to places is another FK
-    # vals['transactionFact'] = [x.facttransaction for x in obj.helper_factoids.all() if x.inferred_type ==
+    # vals['possessionFact'] = [x.factpossession for x in
+    # obj.helper_factoids.all() if x.inferred_type == "possession"]
+    vals['possessionFact'] = [x.factpossession for x in obj.assoc_factoids() if
+                              x.inferred_type == "possession"]
+    vals[
+        'relationshipFact'] = obj.factrelationship_set.all()  # in this case
+    #  the rel to places is another FK
+    # vals['transactionFact'] = [x.facttransaction for x in
+    # obj.helper_factoids.all() if x.inferred_type ==
     # "transaction"]
-    vals['transactionFact'] = [x.facttransaction for x in obj.assoc_factoids() if x.inferred_type == "transaction"]
+    vals['transactionFact'] = [x.facttransaction for x in obj.assoc_factoids()
+                               if x.inferred_type == "transaction"]
 
-    if vals['peopleAssoc'] or vals['documentAssoc'] or vals['possessionFact'] or vals['relationshipFact'] or vals[
+    if vals['peopleAssoc'] or vals['documentAssoc'] or vals[
+        'possessionFact'] or vals['relationshipFact'] or vals[
         'transactionFact']:
         someRelatedValues = True  # flag for template
     else:
@@ -569,7 +699,8 @@ def place_detail(request, place_id):
             # If page request is out of range, deliver last page of results.
             vals[k] = paginator.page(paginator.num_pages)
         vals[k].extrastuff = paginator_helper(page,
-                                              paginator.num_pages)  # add other useful paginator data to the object
+                                              paginator.num_pages)  # add
+        # other useful paginator data to the object
         vals[k].ordering = ordering
         vals[k].tot = tot
         vals[k].type = k  # a string repr of the type, eg 'possessionFact'
@@ -618,24 +749,30 @@ def matrix_detail(request, matrix_id):
 # --------
 
 
-def determine_ordering(objtype, ordering_string, reverse_flag=False, facttype=""):
+def determine_ordering(objtype, ordering_string, reverse_flag=False,
+                       facttype=""):
     """
-    From a keyword, returns a list of model-attributes usable for ordering a resultsset
+    From a keyword, returns a list of model-attributes usable for ordering a
+    resultsset
     """
 
     if objtype == "person":
-        ORDERINGS = {'date1': ['factoid__from_year', 'factoid__from_month', 'factoid__from_day', 'factoid__to_year'],
+        ORDERINGS = {'date1': ['factoid__from_year', 'factoid__from_month',
+                               'factoid__from_day', 'factoid__to_year'],
                      'summary': ['factoid__shortdesc'],
                      'role': ['role__name'],
-                     'source': ['factoid__sourcekey__hammondnumber', 'factoid__sourcekey__hammondnumb2',
+                     'source': ['factoid__sourcekey__hammondnumber',
+                                'factoid__sourcekey__hammondnumb2',
                                 'factoid__sourcekey__hammondnumb3'],
                      }
         DEFAULT_ORDERING = "date1"
     elif objtype == "source":
         ORDERINGS = {'primary': ['facttransaction__isprimary', ],
-                     'date1': ['from_year', 'from_month', 'from_day', 'to_year'],
+                     'date1': ['from_year', 'from_month', 'from_day',
+                               'to_year'],
                      'summary': ['shortdesc'],
-                     'titleholder': ['assocfactoidperson__person__persondisplayname', ],
+                     'titleholder': [
+                         'assocfactoidperson__person__persondisplayname', ],
                      }
         DEFAULT_ORDERING = "date1"
 
@@ -664,7 +801,8 @@ def determine_ordering(objtype, ordering_string, reverse_flag=False, facttype=""
         chosen_ordering = ORDERINGS[ordering_string]
     # ProAnima FACTOIDS:
     # the exception!  'assocfactoidproanima_set' uses the property 'factoidtrans'...
-    proanima_chosen_ordering = [x.replace('factoid', 'factoidtrans') for x in chosen_ordering]
+    proanima_chosen_ordering = [x.replace('factoid', 'factoidtrans') for x in
+                                chosen_ordering]
 
     if reverse_flag:
         chosen_ordering = ["-" + x for x in chosen_ordering]

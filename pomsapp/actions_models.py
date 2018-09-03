@@ -301,12 +301,12 @@ def build_floruits(person_instance):
                     print("FLORUITS: witness in transaction %s" %
                                transaction)
                     candidates_from.append(transaction.from_year)
-                    if transaction.has_firmdate:
-                        candidates_to.append(transaction.from_year)
+                    if transaction.from_year:
+                            candidates_to.append(transaction.from_year)
                     else:
                         candidates_to.append(transaction.to_year)
     # now all the other AssocFactoid
-    for x in person_instance.assocfactoidperson_set.all():
+    for x in person_instance.assoc_factoid_person.all():
         if x.factoid.get_right_subclass():
             if x.factoid.get_right_subclass()[0] == "transaction":
                 if x.role:
@@ -321,31 +321,35 @@ def build_floruits(person_instance):
                             else:
                                 candidates_to.append(transaction.to_year)
 
-    #  filtering out 0 and None
-    candidates_from = filter(lambda x: x != 0, candidates_from)
-    candidates_from = filter(lambda x: x != None, candidates_from)
-    candidates_to = filter(lambda x: x != 0, candidates_to)
-    candidates_to = filter(lambda x: x != None, candidates_to)
+    if (len(candidates_from) > 0 and len(candidates_to) > 0):
+        #  filtering out 0 and None
+        """
+        candidates_from = filter(lambda x: x != 0, candidates_from)
+        candidates_from = filter(lambda x: x != None, candidates_from)
+        candidates_to = filter(lambda x: x != 0, candidates_to)
+        candidates_to = filter(lambda x: x != None, candidates_to)"""
 
-    # if empty, just put a 0 in:
-    if not candidates_from:
-        candidates_from.append(0)
-    if not candidates_to:
-        candidates_to.append(0)
-    print("====fromCandidates: = %s =	... highest is *%d*" %
-               (candidates_from, max(candidates_from)))
-    print("====toCandidates: = %s = ... lowest is *%d*" %
-               (candidates_to, min(candidates_to)))
+        candidates_from = [x for x in candidates_from if x is not None]
+        candidates_to = [x for x in candidates_to if x is not None]
+        # if empty, just put a 0 in:
+        if not candidates_from:
+            candidates_from.append(0)
+        if not candidates_to:
+            candidates_to.append(0)
+        print("====fromCandidates: = %s =	... highest is *%d*" %
+                   (candidates_from, max(candidates_from)))
+        print("====toCandidates: = %s = ... lowest is *%d*" %
+                   (candidates_to, min(candidates_to)))
 
-    if max(candidates_from) > min(candidates_to):
-        print("FLORUITS: swapping values!")
-        person_instance.floruitstartyr = min(candidates_to)
-        person_instance.floruitendyr = max(candidates_from)
-    else:
-        person_instance.floruitstartyr = max(candidates_from)
-        person_instance.floruitendyr = min(candidates_to)
+        if max(candidates_from) > min(candidates_to):
+            print("FLORUITS: swapping values!")
+            person_instance.floruitstartyr = min(candidates_to)
+            person_instance.floruitendyr = max(candidates_from)
+        else:
+            person_instance.floruitstartyr = max(candidates_from)
+            person_instance.floruitendyr = min(candidates_to)
 
-    #	the instance is saved in the main Person save() method
+        #	the instance is saved in the main Person save() method
     return person_instance
 
 

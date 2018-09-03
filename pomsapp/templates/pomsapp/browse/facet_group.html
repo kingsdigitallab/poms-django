@@ -1,23 +1,32 @@
 {% load pomsapp_tags %}
 {% for facet in facet_group_fields %}
-    {%  with facets.fields|get_item:facet as facet_terms %}
-    <span class="text-filter">
-        Text filter <input type="text" name="focus" required class="text-box" data-facet="{{ facet }}" id="{{ facet }}_facetfilter" />
+    {% with facets.fields|get_item:facet as facet_terms %}
+        <span class="text-filter">
+        Text filter <input type="text" name="focus" required class="text-box" data-facet="{{ facet }}"
+                           id="{{ facet }}_facetfilter"/>
         <button class="clear-icon" type="reset"></button>
     </span>
-    <ul class="u u1 {{ facet }}_choices">
-        {% for term in facet_terms %}
-            {% with value=term.0 count=term.1 %}
-                {% if count > 0 %}
+        <div class="chioce_container">
+        <ul class="u u1 {{ facet }}_choices">
+            {% for term in facet_terms %}
+                {% with value=term.0 count=term.1 %}
+                    {% if count > 0 %}
+                        <li>
+                            <input type="radio" id="{{ value }}-option" name="selector">
+                            <label for="{{ value }}-option">
+                            <a href="
+                                    {% url 'browse' %}{% add_facet_link querydict facet value %}&index_type={{ index_type }}">{{ value|facet_display_name }}
+                                ({{ count }})</a>
+                            </label>
 
-                <li>
-                    <a href="{% url 'browse' %}{% add_facet_link querydict facet value %}&index_type={{ index_type }}">{{ value|facet_display_name }} ({{ count }})</a>
-                </li>
-                {% endif %}
+                            <div class="check"></div>
+                        </li>
 
-            {% endwith %}
-        {% endfor %}
-    </ul>
+                    {% endif %}
 
+                {% endwith %}
+            {% endfor %}
+        </ul>
+</div>
     {% endwith %}
 {% endfor %}

@@ -96,6 +96,7 @@ var toggle_facet_icon = function (target) {
 
 $(function () {
 
+
     // Loading facet categories via async
     $('a.async').click(function (e) {
         e.preventDefault();

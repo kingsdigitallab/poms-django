@@ -9,13 +9,6 @@
     <h2>{% if selected_facets|length > 1 %}Matching Records{% else %}Showing All Records{% endif %} <dfn>(<span
             id="rec_num">{{ page_obj.paginator.count }} </span>)</dfn></h2>
 
-    <ul>
-        {# <li class="i1"><a href="#" title="Download these Results">Download these Results</a></li> #}
-        {% if user.is_superuser %}
-            <li><a href="javascript:showLogs();" title="Hi there superuser!">Log Query</a></li>
-        {% endif %}
-    </ul>
-
 
     {% else %}
     <h2>No matching records</h2>

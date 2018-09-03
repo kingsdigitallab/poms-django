@@ -4,8 +4,8 @@
   <ul class="pagination">
 	{% if page_obj.has_previous %}
 		{# <li><a onClick="reload_results('1')">&#8249;&#8249; First</a></li> #}
-		<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page=1"><i class="far fa-angle-double-left"></i> First</a></li>
-        <li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.previous_page_number }}"><i class="far fa-angle-left"></i> Previous</a></li>
+		<li><a href="{% url 'browse' %}?{{ querystring }}&amp;page=1"><i class="far fa-angle-double-left"></i> First</a></li>
+        <li><a href="{% url 'browse' %}?{{ querystring }}&amp;page={{ page_obj.previous_page_number }}"><i class="far fa-angle-left"></i> Previous</a></li>
 	{% else %}
 		<li><a href="#"><i class="far fa-angle-double-left"></i> First</a></li>
 		<li><a href="#"><i class="far fa-angle-left"></i> Previous</a></li>
@@ -18,14 +18,14 @@
 		{% ifequal el items.number %}
 			<li>{{ el }}</li>
 		{% else %}
-			<li><a href="search?query={{query}}&amp;basic_search_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ el }}">{{ el }}</a></li>
+			<li><a href="{% url 'browse' %}?query={{query}}&amp;browse_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ el }}">{{ el }}</a></li>
 		{% endifequal %}
 
 	{% endfor %}
 
 	{% if page_obj.has_next %}
-		<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.next_page_number }}" >Next <i class="far fa-angle-right"></i></a></li>
-		<li><a href="{% url 'basic_search' %}?{{ querystring }}&amp;page={{ page_obj.paginator.num_pages }}">Last <i class="far fa-angle-double-right"></i></a></li>
+		<li><a href="{% url 'browse' %}?{{ querystring }}&amp;page={{ page_obj.next_page_number }}" >Next <i class="far fa-angle-right"></i></a></li>
+		<li><a href="{% url 'browse' %}?{{ querystring }}&amp;page={{ page_obj.paginator.num_pages }}">Last <i class="far fa-angle-double-right"></i></a></li>
 	{% else %}
 		<li><a href="#">Next <i class="far fa-angle-right"></i></a></li>
 		<li><a href="#">Last <i class="far fa-angle-double-right"></i></a></li>

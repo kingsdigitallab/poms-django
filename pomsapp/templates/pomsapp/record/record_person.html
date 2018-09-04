@@ -3,13 +3,18 @@
 {% load extrafilters %}
 
 {% block permalink %}
-<ul class="utl m1 experimental">
-  <li><b>Experimental: </b></li>
-  <li class="labslink borderRight"><a href="/labs/connectionscloud/go?id={{record.id}}" title="Warning: this tool does not work correctly in all browsers. Please check the Labs section for more details." target="_blank">Connections Cloud</a></li>
-  <li class="labslink"><a href="/labs/relationships/go?id={{record.id}}" title="Warning: this tool does not work correctly in all browsers. Please check the Labs section for more details." target="_blank">Relationships Browser</a></li>
-</ul>
-{% endblock %}
+    <div id="citationContent" class="fancyview" style="display: none;">
 
+	<p>You can cite this record using this snippet:</p>
+
+	<div class="citationBorder">
+		<p>PoMS{{record|citation_format}} (<a href="{{permalink}}">http://{{permalink}}</a>; accessed {% now "d F Y" %})</p>
+	</div>
+
+
+</div>
+
+{% endblock %}
 
 
 {% block contents %}
@@ -20,8 +25,6 @@
     <!-- ######################### -->
    <div class="recordSummary">
     <div class="hdp">
-
-        {% include "pomsapp/record/snippet_buttons.html" %}
 
       <h1 class="record" {% if not preview %}{% if record.relatedplace.geom.y > 0 %}style="min-height:auto;"{% endif %}{% endif %}" ><span class="{{record|determinePersonIcon}}">[{{record|determinePersonIcon}}] </span>
         {% if user.is_staff %}
@@ -69,11 +72,13 @@
                 <dt>Biography</dt>
                 <dd>{{record.persondescription|poms_italic|safe|default:"&nbsp;"}}</dd>
             {% endif %}
+        {% if record.floruitstartyr > 0 %}
             <dt>Floruits</dt>
-            <dd> {{record.nice_floruits|safe}}</dd>
+            <dd>{{record.nice_floruits|safe}}</dd>
+        {% endif %}
             {% if record.relatedplace %}
                 <dt>Related Place</dt>
-                <dd><a class="no_extlink" href="{% url 'place_detail' record.relatedplace.id  %}" title="Show details">{{record.relatedplace.name}}</a></dd>
+                <dd><a  href="{% url 'place_detail' record.relatedplace.id  %}" title="Show details">{{record.relatedplace.name}}</a></dd>
             {% endif %}
             {% if record.matrix_set.all %}
             {% for m in record.matrix_set.all %}
@@ -201,10 +206,10 @@
 
                   <tr>
                     <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
-                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a  href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
                     <td>{{a.role}}</td>
                     <td>{{a.factoid.witnesses.all|printmany_withabsoluteurl|safe}}</td>
-                    <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                    <td><a  href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                   </tr>
 
                 {% endfor %}
@@ -259,9 +264,9 @@
 
                   <tr>
                     <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
-                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a  href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
                     <td>{{a.role}}</td>
-                    <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                    <td><a  href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                   </tr>
 
                 {% endfor %}
@@ -316,8 +321,8 @@
 
                   <tr>
                     <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
-                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
-                    <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                    <td><a  href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a  href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                   </tr>
 
                 {% endfor %}
@@ -374,9 +379,9 @@
 
                   <tr>
                     <td>{{a.factoid.firmdate|format_dates|default:"unavailable"}}</td>
-                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                    <td><a  href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
                     <td>{{a.role}}</td>
-                    <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                    <td><a  href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                   </tr>
 
                 {% endfor %}
@@ -430,9 +435,9 @@
 
                       <tr>
                         <td>{{a.factoidtrans.firmdate|default:"unavailable"}}</td>
-                        <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoidtrans.id %}" title="click to show">{{a.factoidtrans}}</a></td>
+                        <td><a  href="{% url 'factoid_detail' a.factoidtrans.id %}" title="click to show">{{a.factoidtrans}}</a></td>
                         <td>{{a.role}}</td>
-                        <td><a class="no_extlink" href="{% url 'source_detail' a.factoidtrans.sourcekey.id %}" title="click to show">{{a.factoidtrans.sourcekey|poms_italic|safe}}</a></td>
+                        <td><a  href="{% url 'source_detail' a.factoidtrans.sourcekey.id %}" title="click to show">{{a.factoidtrans.sourcekey|poms_italic|safe}}</a></td>
                       </tr>
 
                     {% endfor %}
@@ -481,9 +486,9 @@
 
                       <tr>
                         <td>{{a.factoid.firmdate|default:"unavailable"}}</td>
-                        <td><a class="no_extlink" href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
+                        <td><a  href="{% url 'factoid_detail' a.factoid.id %}" title="click to show">{{a.factoid}}</a></td>
                         {# <td>{{a.role}}</td> #}
-                        <td><a class="no_extlink" href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
+                        <td><a  href="{% url 'source_detail' a.factoid.sourcekey.id %}" title="click to show">{{a.factoid.sourcekey|poms_italic|safe}}</a></td>
                       </tr>
 
                     {% endfor %}

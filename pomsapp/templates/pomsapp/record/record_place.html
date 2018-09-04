@@ -15,7 +15,6 @@
 {% block preview_contents %}
 <div class="recordSummary">
     <div class="hdp">
-		{% include "pomsapp/record/snippet_buttons.html" %}
       <h1>Place: 
 		{% if record.get_ancestors %}
 			{% for p in record.get_ancestors %}
@@ -60,7 +59,7 @@
         	<dt>Contains</dt>
 			<dd>
 			{% for p in record.get_children_by_name %}
-				<a class="no_extlink" href="{% url 'place_detail' p.id  %}" title="Show details">{{p.name}}</a>{% if not forloop.last %},&nbsp;{% endif %}
+				<a  href="{% url 'place_detail' p.id  %}" title="Show details">{{p.name}}</a>{% if not forloop.last %},&nbsp;{% endif %}
 			{% endfor %}
 	        </dd>
         {% endif %}
@@ -143,7 +142,7 @@
 			{% for a in peopleAssoc.object_list  %}
 			
 			  <tr>
-			    <td><a class="no_extlink" href="{% url 'person_detail' a.id %}" title="click to show">{{a}}</a></td>
+			    <td><a  href="{% url 'person_detail' a.id %}" title="click to show">{{a}}</a></td>
 			    <td>{{a.nice_floruits|safe}}</td>
 			    <td>{{a.relatedplace.name}}</td>
 			  </tr>
@@ -199,7 +198,7 @@
 			{% for a in documentAssoc.object_list  %}
 			
 			  <tr>
-			    <td><a class="no_extlink" href="{% url 'source_detail' a.id %}" title="click to show">{{a|poms_italic|safe|default:"&nbsp;"}}</a></td>
+			    <td><a  href="{% url 'source_detail' a.id %}" title="click to show">{{a|poms_italic|safe|default:"&nbsp;"}}</a></td>
 			    <td>{{a.placefk.name}}</td>
 			  </tr>
 			
@@ -263,7 +262,7 @@
 			
 			  <tr>
 			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
-			    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+			    <td><a  href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
 			    <td>{{a.isprimary|yesno:"yes,no"}}</td>
 				<td>{{a.witnesses.all|printmany_withabsoluteurl|safe}}</td>
 			  </tr>
@@ -321,7 +320,7 @@
 			
 			  <tr>
 			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
-			    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+			    <td><a  href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
 			    <td>{{a.get_secondaryPersons|printmany_withabsoluteurl|safe}}</td>
 				<td>{{a.get_primaryPersons|printmany_withabsoluteurl|safe}}</td>
 			  </tr>
@@ -380,7 +379,7 @@
 			
 			  <tr>
 			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
-			    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+			    <td><a  href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
 				<td>{{a.get_primaryPersons|printmany_withabsoluteurl|safe}}</td>
 			    <td>{{a.get_secondaryPersons|printmany_withabsoluteurl|safe}}</td>
 			  </tr>

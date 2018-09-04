@@ -177,3 +177,31 @@ def local_menu(context, current_page=None):
 
 def has_menu_children(page):
     return page.get_children().live().in_menu().exists()
+
+
+@register.filter()
+def citation_format(obj):
+    """
+    Outputs a string usable as a citation of a given poms record
+    """
+    if obj.__class__.__name__ == 'Person':
+        return ", no. %d" % obj.id
+
+    elif obj.__class__.__name__ in ('Charter'):  # 'Source',
+        return ", H%d/%d/%d" % (
+        obj.hammondnumber or 0, obj.hammondnumb2 or 0, obj.hammondnumb3 or 0)
+
+    elif obj.__class__.__name__ in ('Matrix'):  # 'Source',
+        return " seal-matrix, no. %d" % obj.id
+
+    elif obj.__class__.__name__ in (
+    'FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship',
+    'FactReference'):
+        return " %s factoid, no. %d" % (obj.inferred_type, obj.id)
+
+    elif obj.__class__.__name__ in ('Place',):
+        return " place, no. %d" % obj.id
+
+    else:
+        return "<not available>"
+

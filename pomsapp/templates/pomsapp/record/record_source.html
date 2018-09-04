@@ -17,7 +17,7 @@
     {% block preview_contents %}
         <div class="recordSummary">
         <div class="hdp">
-            {% include "pomsapp/record/snippet_buttons.html" %}
+
             <h1 class="record"><span class="sourceicon">[sourceicon]</span>
                 {% if user.is_staff %}
                     <a href="{{ record.get_admin_url }}" target="_blank"
@@ -64,7 +64,7 @@
 
             {% if record.placefk %}
                 <dt>Related Place</dt>
-                <dd><a class="no_extlink" href="{% url 'place_detail' record.placefk.id %}"
+                <dd><a  href="{% url 'place_detail' record.placefk.id %}"
                        title="Show details">{{ record.placefk.name }}</a></dd>
             {% endif %}
 
@@ -215,7 +215,7 @@
 
                                 <tr>
                                     <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
-                                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
+                                    <td><a  href="{% url 'factoid_detail' a.id %}"
                                            title="click to show">{{ a.shortdesc }}</a></td>
                                     <td>{{ a.isprimary|yesno:"yes,no"}}</td>
                                     <td>{{ a.witnesses.all|printmany_withabsoluteurl|safe }}</td>
@@ -275,7 +275,7 @@
 
                                 <tr>
                                     <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
-                                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
+                                    <td><a  href="{% url 'factoid_detail' a.id %}"
                                            title="click to show">{{ a.shortdesc }}</a></td>
                                     <td>{{ a.get_secondaryPersons|printmany_withabsoluteurl|safe }}</td>
                                     <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
@@ -334,7 +334,7 @@
 
                                 <tr>
                                     <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
-                                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
+                                    <td><a  href="{% url 'factoid_detail' a.id %}"
                                            title="click to show">{{ a.shortdesc }}</a></td>
                                     <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
                                 </tr>
@@ -393,7 +393,7 @@
 
                                 <tr>
                                     <td>{{ a.firmdate|format_dates|default:"unavailable"}}</td>
-                                    <td><a class="no_extlink" href="{% url 'factoid_detail' a.id %}"
+                                    <td><a  href="{% url 'factoid_detail' a.id %}"
                                            title="click to show">{{ a.shortdesc }}</a></td>
                                     <td>{{ a.get_primaryPersons|printmany_withabsoluteurl|safe }}</td>
                                     <td>{{ a.get_secondaryPersons|printmany_withabsoluteurl|safe }}</td>

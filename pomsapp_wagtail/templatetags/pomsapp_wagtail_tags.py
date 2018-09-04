@@ -20,6 +20,17 @@ def main_menu(context, root, current_page=None):
     return {'request': context['request'], 'root': root,
             'current_page': current_page, 'menu_pages': menu_pages}
 
+@register.simple_tag()
+def get_menu_pages(page):
+    """Returns children of a page, or its siblings if no children"""
+    if page:
+        menu_pages = page.get_children().filter(live=True, show_in_menus=True)
+        if menu_pages.count() == 0 :
+            # siblings
+            menu_pages = page.get_siblings().public().live().in_menu()
+        return menu_pages
+    return None
+
 
 @register.assignment_tag(takes_context=True)
 def get_site_root(context):

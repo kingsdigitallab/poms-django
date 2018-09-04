@@ -1,25 +1,24 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags pomsapp_wagtail_tags %}
 
  {% block tabs_titles  %}
       {{ self.title }}
     {% endblock %}
 
 {% block small_links %}
-{% if self.get_children.specific %}
-
+{% get_menu_pages self as menu_pages %}
     {% if title %}
     <h3>{{ title }}</h3>
     {% endif %}
 
     <ul class="{% if class %}{{ class }}{% endif %}">
-    {% for page in self.get_children.specific %}
+    {% for page in menu_pages %}
         <li>
             <a href="{% pageurl page %}">{{ page.title }}</a>
         </li>
     {% endfor %}
     </ul>
-{% endif %}
+
 {% endblock %}
 
 {% block contents %}

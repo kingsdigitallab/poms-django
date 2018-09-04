@@ -1,0 +1,1852 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" version="1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd">
+  <meta lastmodifieddate="2016-08-12">
+    <creator>Gephi 0.9</creator>
+    <description></description>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static">
+    <attributes class="node" mode="static">
+      <attribute id="degree" title="Degree" type="integer">
+        <default>0</default>
+      </attribute>
+      <attribute id="eigencentrality" title="Eigenvector Centrality" type="double">
+        <default>0.0</default>
+      </attribute>
+      <attribute id="poms id" title="PoMS ID" type="string"></attribute>
+      <attribute id="name" title="Name" type="string"></attribute>
+      <attribute id="gender" title="Gender" type="string"></attribute>
+      <attribute id="eccentricity" title="Eccentricity" type="double">
+        <default>0.0</default>
+      </attribute>
+      <attribute id="closnesscentrality" title="Closeness Centrality" type="double">
+        <default>0.0</default>
+      </attribute>
+      <attribute id="harmonicclosnesscentrality" title="Harmonic Closeness Centrality" type="double">
+        <default>0.0</default>
+      </attribute>
+      <attribute id="betweenesscentrality" title="Betweenness Centrality" type="double">
+        <default>0.0</default>
+      </attribute>
+    </attributes>
+    <nodes>
+      <node id="2" label="Duncan (II), earl of Fife (d.1204)">
+        <attvalues>
+          <attvalue for="degree" value="585"></attvalue>
+          <attvalue for="eigencentrality" value="1.0"></attvalue>
+          <attvalue for="poms id" value="13"></attvalue>
+          <attvalue for="name" value="Duncan (II), earl of Fife (d.1204)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.39088772373892605"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.44130710100879156"></attvalue>
+          <attvalue for="betweenesscentrality" value="1096890.6959915606"></attvalue>
+        </attvalues>
+        <viz:size value="33.768307"></viz:size>
+        <viz:position x="-7729.3975" y="499.54352"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="4" label="Philip de Valognes, chamberlain (d.1215)">
+        <attvalues>
+          <attvalue for="degree" value="363"></attvalue>
+          <attvalue for="eigencentrality" value="0.7608619087957073"></attvalue>
+          <attvalue for="poms id" value="15"></attvalue>
+          <attvalue for="name" value="Philip de Valognes, chamberlain (d.1215)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.38785486836794186"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4285816153473656"></attvalue>
+          <attvalue for="betweenesscentrality" value="442079.9006893572"></attvalue>
+        </attvalues>
+        <viz:size value="15.234922"></viz:size>
+        <viz:position x="-5528.8594" y="12.276924"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="5" label="William Comyn, earl of Buchan (d.1233)">
+        <attvalues>
+          <attvalue for="degree" value="320"></attvalue>
+          <attvalue for="eigencentrality" value="0.6646178188004767"></attvalue>
+          <attvalue for="poms id" value="16"></attvalue>
+          <attvalue for="name" value="William Comyn, earl of Buchan (d.1233)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.39127680752873045"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4294392317519296"></attvalue>
+          <attvalue for="betweenesscentrality" value="366226.4313269065"></attvalue>
+        </attvalues>
+        <viz:size value="13.088009"></viz:size>
+        <viz:position x="-3790.9675" y="1074.0903"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="7" label="William Hay (I), lord of Errol (d.c.1201)">
+        <attvalues>
+          <attvalue for="degree" value="310"></attvalue>
+          <attvalue for="eigencentrality" value="0.7090397744248275"></attvalue>
+          <attvalue for="poms id" value="24"></attvalue>
+          <attvalue for="name" value="William Hay (I), lord of Errol (d.c.1201)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3702213279678068"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4099857935773969"></attvalue>
+          <attvalue for="betweenesscentrality" value="345483.60489966953"></attvalue>
+        </attvalues>
+        <viz:size value="12.5009165"></viz:size>
+        <viz:position x="-6649.6504" y="311.87436"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="14" label="Hugh de Sigillo, bishop of Dunkeld (d.1229 or 1230)">
+        <attvalues>
+          <attvalue for="degree" value="303"></attvalue>
+          <attvalue for="eigencentrality" value="0.6879255582837853"></attvalue>
+          <attvalue for="poms id" value="39"></attvalue>
+          <attvalue for="name" value="Hugh de Sigillo, bishop of Dunkeld (d.1229 or 1230)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3886916265899591"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.42658886172417965"></attvalue>
+          <attvalue for="betweenesscentrality" value="437685.95370679593"></attvalue>
+        </attvalues>
+        <viz:size value="15.110558"></viz:size>
+        <viz:position x="-4644.2915" y="432.74292"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="15" label="William del Bois, chancellor (d.1232)">
+        <attvalues>
+          <attvalue for="degree" value="476"></attvalue>
+          <attvalue for="eigencentrality" value="0.7245005091257842"></attvalue>
+          <attvalue for="poms id" value="42"></attvalue>
+          <attvalue for="name" value="William del Bois, chancellor (d.1232)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.409702482471101"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4527366635831285"></attvalue>
+          <attvalue for="betweenesscentrality" value="1317065.1964612459"></attvalue>
+        </attvalues>
+        <viz:size value="40.0"></viz:size>
+        <viz:position x="-2146.7866" y="1551.7087"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="33" label="William I, king of Scots (d.1214)">
+        <attvalues>
+          <attvalue for="degree" value="323"></attvalue>
+          <attvalue for="eigencentrality" value="0.7522474016353651"></attvalue>
+          <attvalue for="poms id" value="1"></attvalue>
+          <attvalue for="name" value="William I, king of Scots (d.1214)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3753798072749371"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.41608354257524094"></attvalue>
+          <attvalue for="betweenesscentrality" value="377213.2513063516"></attvalue>
+        </attvalues>
+        <viz:size value="13.398973"></viz:size>
+        <viz:position x="-7233.5615" y="187.92104"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="42" label="Matthew, bishop of Aberdeen (d.1199)">
+        <attvalues>
+          <attvalue for="degree" value="475"></attvalue>
+          <attvalue for="eigencentrality" value="0.8519171546330487"></attvalue>
+          <attvalue for="poms id" value="2"></attvalue>
+          <attvalue for="name" value="Matthew, bishop of Aberdeen (d.1199)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3689105025168501"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4151584731950394"></attvalue>
+          <attvalue for="betweenesscentrality" value="527119.4002332849"></attvalue>
+        </attvalues>
+        <viz:size value="17.64183"></viz:size>
+        <viz:position x="-8953.909" y="322.28464"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="47" label="Walter Stewart (I), son of Alan (d.1177)">
+        <attvalues>
+          <attvalue for="degree" value="316"></attvalue>
+          <attvalue for="eigencentrality" value="0.5337735803176048"></attvalue>
+          <attvalue for="poms id" value="3"></attvalue>
+          <attvalue for="name" value="Walter Stewart (I), son of Alan (d.1177)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.35647155812036274"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.39242103872078343"></attvalue>
+          <attvalue for="betweenesscentrality" value="574908.4398563141"></attvalue>
+        </attvalues>
+        <viz:size value="18.994423"></viz:size>
+        <viz:position x="-9959.616" y="-1885.6418"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="58" label="David, earl of Huntingdon (d.1219)">
+        <attvalues>
+          <attvalue for="degree" value="411"></attvalue>
+          <attvalue for="eigencentrality" value="0.869729719778059"></attvalue>
+          <attvalue for="poms id" value="142"></attvalue>
+          <attvalue for="name" value="David, earl of Huntingdon (d.1219)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3848858427166318"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.42874928417252556"></attvalue>
+          <attvalue for="betweenesscentrality" value="436369.55839576514"></attvalue>
+        </attvalues>
+        <viz:size value="15.073299"></viz:size>
+        <viz:position x="-6665.955" y="-268.75726"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="126" label="Gilbert or Gilla Brigte, earl of Strathearn (d.1223)">
+        <attvalues>
+          <attvalue for="degree" value="354"></attvalue>
+          <attvalue for="eigencentrality" value="0.7448012942097321"></attvalue>
+          <attvalue for="poms id" value="260"></attvalue>
+          <attvalue for="name" value="Gilbert or Gilla Brigte, earl of Strathearn (d.1223)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.38285815477244556"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.42348987930049725"></attvalue>
+          <attvalue for="betweenesscentrality" value="455802.6170535123"></attvalue>
+        </attvalues>
+        <viz:size value="15.6233225"></viz:size>
+        <viz:position x="-6557.218" y="1081.554"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="289" label="Jocelin, bishop of Glasgow (d.1199)">
+        <attvalues>
+          <attvalue for="degree" value="356"></attvalue>
+          <attvalue for="eigencentrality" value="0.6727857147862869"></attvalue>
+          <attvalue for="poms id" value="745"></attvalue>
+          <attvalue for="name" value="Jocelin, bishop of Glasgow (d.1199)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.37383823974408853"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.415260616272432"></attvalue>
+          <attvalue for="betweenesscentrality" value="505520.3460960827"></attvalue>
+        </attvalues>
+        <viz:size value="17.030504"></viz:size>
+        <viz:position x="-6529.061" y="-1550.1937"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="300" label="Robert, archdeacon of Glasgow (d.1222)">
+        <attvalues>
+          <attvalue for="degree" value="233"></attvalue>
+          <attvalue for="eigencentrality" value="0.4865496051256135"></attvalue>
+          <attvalue for="poms id" value="797"></attvalue>
+          <attvalue for="name" value="Robert, archdeacon of Glasgow (d.1222)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3667048297502438"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.40267306506323247"></attvalue>
+          <attvalue for="betweenesscentrality" value="289412.27291865816"></attvalue>
+        </attvalues>
+        <viz:size value="10.913906"></viz:size>
+        <viz:position x="-5171.59" y="-1186.939"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="309" label="John Scott, bishop of Dunkeld (d.1203)">
+        <attvalues>
+          <attvalue for="degree" value="337"></attvalue>
+          <attvalue for="eigencentrality" value="0.6758654415341483"></attvalue>
+          <attvalue for="poms id" value="850"></attvalue>
+          <attvalue for="name" value="John Scott, bishop of Dunkeld (d.1203)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.37528206908522826"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4159698361305907"></attvalue>
+          <attvalue for="betweenesscentrality" value="478257.93756000965"></attvalue>
+        </attvalues>
+        <viz:size value="16.258884"></viz:size>
+        <viz:position x="-7831.956" y="907.7826"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="323" label="Patrick (I), earl of Dunbar (d.1232)">
+        <attvalues>
+          <attvalue for="degree" value="343"></attvalue>
+          <attvalue for="eigencentrality" value="0.6892859146141334"></attvalue>
+          <attvalue for="poms id" value="444"></attvalue>
+          <attvalue for="name" value="Patrick (I), earl of Dunbar (d.1232)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.39961184788133636"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4368158341042508"></attvalue>
+          <attvalue for="betweenesscentrality" value="806373.9400916238"></attvalue>
+        </attvalues>
+        <viz:size value="25.54569"></viz:size>
+        <viz:position x="-4127.595" y="-652.88354"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="327" label="Bernard of Hadden, sheriff of Roxburgh">
+        <attvalues>
+          <attvalue for="degree" value="226"></attvalue>
+          <attvalue for="eigencentrality" value="0.33092360055095077"></attvalue>
+          <attvalue for="poms id" value="880"></attvalue>
+          <attvalue for="name" value="Bernard of Hadden, sheriff of Roxburgh"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3764746854729877"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4080866481653023"></attvalue>
+          <attvalue for="betweenesscentrality" value="387596.7402051512"></attvalue>
+        </attvalues>
+        <viz:size value="13.6928625"></viz:size>
+        <viz:position x="-1910.3835" y="-1642.1274"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="331" label="Richard de Prebenda, bishop of Dunkeld (d.1210)">
+        <attvalues>
+          <attvalue for="degree" value="347"></attvalue>
+          <attvalue for="eigencentrality" value="0.7806627983833645"></attvalue>
+          <attvalue for="poms id" value="798"></attvalue>
+          <attvalue for="name" value="Richard de Prebenda, bishop of Dunkeld (d.1210)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3831295410242779"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.42485435663629395"></attvalue>
+          <attvalue for="betweenesscentrality" value="375748.2804878968"></attvalue>
+        </attvalues>
+        <viz:size value="13.357511"></viz:size>
+        <viz:position x="-5783.7207" y="-146.7971"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="335" label="Simon, archdeacon of Glasgow (fl.1165x74-1195x96)">
+        <attvalues>
+          <attvalue for="degree" value="286"></attvalue>
+          <attvalue for="eigencentrality" value="0.4994101232884222"></attvalue>
+          <attvalue for="poms id" value="866"></attvalue>
+          <attvalue for="name" value="Simon, archdeacon of Glasgow (fl.1165x74-1195x96)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.36212888907499685"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4000644244747117"></attvalue>
+          <attvalue for="betweenesscentrality" value="310990.37873815285"></attvalue>
+        </attvalues>
+        <viz:size value="11.52464"></viz:size>
+        <viz:position x="-5766.3516" y="-2671.6196"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="339" label="Malcolm (I), earl of Fife (d.1229)">
+        <attvalues>
+          <attvalue for="degree" value="377"></attvalue>
+          <attvalue for="eigencentrality" value="0.7177775012459575"></attvalue>
+          <attvalue for="poms id" value="782"></attvalue>
+          <attvalue for="name" value="Malcolm (I), earl of Fife (d.1229)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.39533714285714283"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.43579137482932734"></attvalue>
+          <attvalue for="betweenesscentrality" value="724271.0408065837"></attvalue>
+        </attvalues>
+        <viz:size value="23.221897"></viz:size>
+        <viz:position x="-4621.2783" y="944.1241"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="345" label="Walter Lindsay (III), son of William (II) (d.c.1222)">
+        <attvalues>
+          <attvalue for="degree" value="293"></attvalue>
+          <attvalue for="eigencentrality" value="0.4709075232585606"></attvalue>
+          <attvalue for="poms id" value="2115"></attvalue>
+          <attvalue for="name" value="Walter Lindsay (III), son of William (II) (d.c.1222)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.38184387142352527"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.41772086031454986"></attvalue>
+          <attvalue for="betweenesscentrality" value="553270.3408009157"></attvalue>
+        </attvalues>
+        <viz:size value="18.381992"></viz:size>
+        <viz:position x="-858.1473" y="-3899.94"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="346" label="David Hay, lord of Errol (d.1237x41)">
+        <attvalues>
+          <attvalue for="degree" value="256"></attvalue>
+          <attvalue for="eigencentrality" value="0.5012023232493431"></attvalue>
+          <attvalue for="poms id" value="66"></attvalue>
+          <attvalue for="name" value="David Hay, lord of Errol (d.1237x41)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3786339754816112"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4132254636359906"></attvalue>
+          <attvalue for="betweenesscentrality" value="351387.800721272"></attvalue>
+        </attvalues>
+        <viz:size value="12.668026"></viz:size>
+        <viz:position x="-3642.8452" y="2230.4082"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="382" label="William Malveisin, bishop of St Andrews (d.1238)">
+        <attvalues>
+          <attvalue for="degree" value="379"></attvalue>
+          <attvalue for="eigencentrality" value="0.6825925120893985"></attvalue>
+          <attvalue for="poms id" value="40"></attvalue>
+          <attvalue for="name" value="William Malveisin, bishop of St Andrews (d.1238)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.40236356022891173"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.44215618254704936"></attvalue>
+          <attvalue for="betweenesscentrality" value="904283.4573182601"></attvalue>
+        </attvalues>
+        <viz:size value="28.316864"></viz:size>
+        <viz:position x="-3855.5078" y="288.91492"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="399" label="Walter of St Albans, bishop of Glasgow (d.1232)">
+        <attvalues>
+          <attvalue for="degree" value="380"></attvalue>
+          <attvalue for="eigencentrality" value="0.67174488475864"></attvalue>
+          <attvalue for="poms id" value="858"></attvalue>
+          <attvalue for="name" value="Walter of St Albans, bishop of Glasgow (d.1232)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.40089004264787687"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.44080712303425235"></attvalue>
+          <attvalue for="betweenesscentrality" value="723716.6435593332"></attvalue>
+        </attvalues>
+        <viz:size value="23.206205"></viz:size>
+        <viz:position x="-3239.3396" y="140.52094"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="467" label="David de Bonville, marischal (fl.late 12C-mid13C)">
+        <attvalues>
+          <attvalue for="degree" value="228"></attvalue>
+          <attvalue for="eigencentrality" value="0.43746115230431887"></attvalue>
+          <attvalue for="poms id" value="1135"></attvalue>
+          <attvalue for="name" value="David de Bonville, marischal (fl.late 12C-mid13C)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.38888389243637017"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.42134983040397334"></attvalue>
+          <attvalue for="betweenesscentrality" value="322802.63779692835"></attvalue>
+        </attvalues>
+        <viz:size value="11.858968"></viz:size>
+        <viz:position x="-780.2266" y="474.65256"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="496" label="John of Huntingdon, master, official of Glasgow (fl.1179x1208)">
+        <attvalues>
+          <attvalue for="degree" value="251"></attvalue>
+          <attvalue for="eigencentrality" value="0.35100303438296443"></attvalue>
+          <attvalue for="poms id" value="776"></attvalue>
+          <attvalue for="name" value="John of Huntingdon, master, official of Glasgow (fl.1179x1208)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3610554442217769"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.39645197348136557"></attvalue>
+          <attvalue for="betweenesscentrality" value="372228.9572086353"></attvalue>
+        </attvalues>
+        <viz:size value="13.257901"></viz:size>
+        <viz:position x="-3131.0137" y="-1958.9698"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="499" label="John of Stirling, knight, sheriff of Stirling">
+        <attvalues>
+          <attvalue for="degree" value="120"></attvalue>
+          <attvalue for="eigencentrality" value="0.17281869359398852"></attvalue>
+          <attvalue for="poms id" value="1228"></attvalue>
+          <attvalue for="name" value="John of Stirling, knight, sheriff of Stirling"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3642336688708251"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.38857346592664077"></attvalue>
+          <attvalue for="betweenesscentrality" value="281442.53464029345"></attvalue>
+        </attvalues>
+        <viz:size value="10.688334"></viz:size>
+        <viz:position x="2630.0378" y="513.1853"></viz:position>
+      </node>
+      <node id="525" label="John Maxwell, chamberlain, sheriff of Roxburgh (d.1241)">
+        <attvalues>
+          <attvalue for="degree" value="277"></attvalue>
+          <attvalue for="eigencentrality" value="0.38726845035971785"></attvalue>
+          <attvalue for="poms id" value="1281"></attvalue>
+          <attvalue for="name" value="John Maxwell, chamberlain, sheriff of Roxburgh (d.1241)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.39312664787707974"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.42659767190875353"></attvalue>
+          <attvalue for="betweenesscentrality" value="605638.7726122027"></attvalue>
+        </attvalues>
+        <viz:size value="19.864199"></viz:size>
+        <viz:position x="-192.42636" y="272.8301"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="538" label="Walter Oliphant, justiciar of Lothian (son of Walter) (d.1242)">
+        <attvalues>
+          <attvalue for="degree" value="327"></attvalue>
+          <attvalue for="eigencentrality" value="0.56102837108735"></attvalue>
+          <attvalue for="poms id" value="1285"></attvalue>
+          <attvalue for="name" value="Walter Oliphant, justiciar of Lothian (son of Walter) (d.1242)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.4047741633512755"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4394869719395899"></attvalue>
+          <attvalue for="betweenesscentrality" value="795569.8318887963"></attvalue>
+        </attvalues>
+        <viz:size value="25.239897"></viz:size>
+        <viz:position x="-1771.0836" y="719.9491"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="558" label="Walter Comyn, earl of Menteith (d.1258)">
+        <attvalues>
+          <attvalue for="degree" value="209"></attvalue>
+          <attvalue for="eigencentrality" value="0.30771190057018566"></attvalue>
+          <attvalue for="poms id" value="1357"></attvalue>
+          <attvalue for="name" value="Walter Comyn, earl of Menteith (d.1258)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.38401420959147425"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.41361393771202826"></attvalue>
+          <attvalue for="betweenesscentrality" value="404083.9165469859"></attvalue>
+        </attvalues>
+        <viz:size value="14.159506"></viz:size>
+        <viz:position x="1320.3722" y="1582.0756"></viz:position>
+      </node>
+      <node id="574" label="John Hay (I), lord of Naughton (d.xOct.1266)">
+        <attvalues>
+          <attvalue for="degree" value="234"></attvalue>
+          <attvalue for="eigencentrality" value="0.29689325617198314"></attvalue>
+          <attvalue for="poms id" value="1389"></attvalue>
+          <attvalue for="name" value="John Hay (I), lord of Naughton (d.xOct.1266)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.38664103366566815"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4175551187172698"></attvalue>
+          <attvalue for="betweenesscentrality" value="650864.5927513081"></attvalue>
+        </attvalues>
+        <viz:size value="21.144243"></viz:size>
+        <viz:position x="1118.9187" y="2377.7358"></viz:position>
+      </node>
+      <node id="788" label="Henry of Stirling, son of Earl David">
+        <attvalues>
+          <attvalue for="degree" value="191"></attvalue>
+          <attvalue for="eigencentrality" value="0.21925627953135166"></attvalue>
+          <attvalue for="poms id" value="64"></attvalue>
+          <attvalue for="name" value="Henry of Stirling, son of Earl David"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3713181623014169"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4002987203207217"></attvalue>
+          <attvalue for="betweenesscentrality" value="388528.7479725434"></attvalue>
+        </attvalues>
+        <viz:size value="13.719241"></viz:size>
+        <viz:position x="421.8895" y="2917.6226"></viz:position>
+      </node>
+      <node id="813" label="Elias of Partick, clerk, canon (son of Fulbert)">
+        <attvalues>
+          <attvalue for="degree" value="188"></attvalue>
+          <attvalue for="eigencentrality" value="0.28150685687104865"></attvalue>
+          <attvalue for="poms id" value="926"></attvalue>
+          <attvalue for="name" value="Elias of Partick, clerk, canon (son of Fulbert)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.34947062151458824"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3825362869477297"></attvalue>
+          <attvalue for="betweenesscentrality" value="265468.7393099575"></attvalue>
+        </attvalues>
+        <viz:size value="10.236222"></viz:size>
+        <viz:position x="-5771.3037" y="-3507.4998"></viz:position>
+      </node>
+      <node id="894" label="William of Bondington, bishop of Glasgow (d.1258)">
+        <attvalues>
+          <attvalue for="degree" value="188"></attvalue>
+          <attvalue for="eigencentrality" value="0.2078140254346434"></attvalue>
+          <attvalue for="poms id" value="435"></attvalue>
+          <attvalue for="name" value="William of Bondington, bishop of Glasgow (d.1258)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3700787401574803"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.398201896392262"></attvalue>
+          <attvalue for="betweenesscentrality" value="287883.87955467595"></attvalue>
+        </attvalues>
+        <viz:size value="10.870647"></viz:size>
+        <viz:position x="2693.5952" y="1961.7714"></viz:position>
+      </node>
+      <node id="904" label="Robert Menzies (d.1267)">
+        <attvalues>
+          <attvalue for="degree" value="151"></attvalue>
+          <attvalue for="eigencentrality" value="0.1444060369070929"></attvalue>
+          <attvalue for="poms id" value="2065"></attvalue>
+          <attvalue for="name" value="Robert Menzies (d.1267)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3606789840263586"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3878006475485932"></attvalue>
+          <attvalue for="betweenesscentrality" value="318966.38746400265"></attvalue>
+        </attvalues>
+        <viz:size value="11.750388"></viz:size>
+        <viz:position x="4340.22" y="1128.196"></viz:position>
+      </node>
+      <node id="908" label="Thomas Randolph (d.c.1296)">
+        <attvalues>
+          <attvalue for="degree" value="132"></attvalue>
+          <attvalue for="eigencentrality" value="0.08351178215827157"></attvalue>
+          <attvalue for="poms id" value="2139"></attvalue>
+          <attvalue for="name" value="Thomas Randolph (d.c.1296)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3514589937413639"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.37576125501081936"></attvalue>
+          <attvalue for="betweenesscentrality" value="369858.46762600105"></attvalue>
+        </attvalues>
+        <viz:size value="13.190808"></viz:size>
+        <viz:position x="6099.1855" y="388.8398"></viz:position>
+      </node>
+      <node id="912" label="Alexander Comyn, earl of Buchan (d.1289)">
+        <attvalues>
+          <attvalue for="degree" value="172"></attvalue>
+          <attvalue for="eigencentrality" value="0.09559471751580077"></attvalue>
+          <attvalue for="poms id" value="1981"></attvalue>
+          <attvalue for="name" value="Alexander Comyn, earl of Buchan (d.1289)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.34448693435309113"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.37256398396548884"></attvalue>
+          <attvalue for="betweenesscentrality" value="410428.647629495"></attvalue>
+        </attvalues>
+        <viz:size value="14.339083"></viz:size>
+        <viz:position x="6794.893" y="1668.9846"></viz:position>
+      </node>
+      <node id="927" label="Alan Durward (d.1275)">
+        <attvalues>
+          <attvalue for="degree" value="145"></attvalue>
+          <attvalue for="eigencentrality" value="0.1268777899878164"></attvalue>
+          <attvalue for="poms id" value="1971"></attvalue>
+          <attvalue for="name" value="Alan Durward (d.1275)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.359270491462756"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.38594472710456257"></attvalue>
+          <attvalue for="betweenesscentrality" value="306696.70924060955"></attvalue>
+        </attvalues>
+        <viz:size value="11.403114"></viz:size>
+        <viz:position x="4575.6045" y="2173.2083"></viz:position>
+      </node>
+      <node id="936" label="Gamelin, bishop of St Andrews (d.1271)">
+        <attvalues>
+          <attvalue for="degree" value="143"></attvalue>
+          <attvalue for="eigencentrality" value="0.07270619065264484"></attvalue>
+          <attvalue for="poms id" value="456"></attvalue>
+          <attvalue for="name" value="Gamelin, bishop of St Andrews (d.1271)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3383941148849585"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3640090194264787"></attvalue>
+          <attvalue for="betweenesscentrality" value="266656.6925831956"></attvalue>
+        </attvalues>
+        <viz:size value="10.269845"></viz:size>
+        <viz:position x="6393.9253" y="1411.1926"></viz:position>
+      </node>
+      <node id="949" label="William Soulis, knight, justiciar of Lothian (d.1292/3)">
+        <attvalues>
+          <attvalue for="degree" value="75"></attvalue>
+          <attvalue for="eigencentrality" value="0.05418607118552121"></attvalue>
+          <attvalue for="poms id" value="2138"></attvalue>
+          <attvalue for="name" value="William Soulis, knight, justiciar of Lothian (d.1292/3)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.34079445145018916"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3613791793313325"></attvalue>
+          <attvalue for="betweenesscentrality" value="373766.0096812366"></attvalue>
+        </attvalues>
+        <viz:size value="13.301405"></viz:size>
+        <viz:position x="7937.0425" y="-103.44827"></viz:position>
+      </node>
+      <node id="955" label="Walter Stewart, earl of Menteith (d.c.1293)">
+        <attvalues>
+          <attvalue for="degree" value="113"></attvalue>
+          <attvalue for="eigencentrality" value="0.06646492412316025"></attvalue>
+          <attvalue for="poms id" value="2151"></attvalue>
+          <attvalue for="name" value="Walter Stewart, earl of Menteith (d.c.1293)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.34700264826257926"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.36968855997535555"></attvalue>
+          <attvalue for="betweenesscentrality" value="455937.6358505027"></attvalue>
+        </attvalues>
+        <viz:size value="15.627144"></viz:size>
+        <viz:position x="6246.4995" y="-196.09515"></viz:position>
+      </node>
+      <node id="987" label="David Graham, lord of Lovat (d.c.1272)">
+        <attvalues>
+          <attvalue for="degree" value="133"></attvalue>
+          <attvalue for="eigencentrality" value="0.08979695692711853"></attvalue>
+          <attvalue for="poms id" value="2005"></attvalue>
+          <attvalue for="name" value="David Graham, lord of Lovat (d.c.1272)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3447753458517721"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.37015494912120644"></attvalue>
+          <attvalue for="betweenesscentrality" value="303825.6416833294"></attvalue>
+        </attvalues>
+        <viz:size value="11.321854"></viz:size>
+        <viz:position x="5243.053" y="-2851.1973"></viz:position>
+      </node>
+      <node id="1006" label="David of Torthorwald, knight (d.c.1296)">
+        <attvalues>
+          <attvalue for="degree" value="59"></attvalue>
+          <attvalue for="eigencentrality" value="0.012124415826619678"></attvalue>
+          <attvalue for="poms id" value="2381"></attvalue>
+          <attvalue for="name" value="David of Torthorwald, knight (d.c.1296)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.2843520862788939"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.29929160609664845"></attvalue>
+          <attvalue for="betweenesscentrality" value="257122.68684992363"></attvalue>
+        </attvalues>
+        <viz:size value="10.0"></viz:size>
+        <viz:position x="8758.943" y="-1255.7657"></viz:position>
+      </node>
+      <node id="1183" label="William of Lincoln, master">
+        <attvalues>
+          <attvalue for="degree" value="31"></attvalue>
+          <attvalue for="eigencentrality" value="0.005505877152962317"></attvalue>
+          <attvalue for="poms id" value="2655"></attvalue>
+          <attvalue for="name" value="William of Lincoln, master"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.23261694058154236"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.24160664728426912"></attvalue>
+          <attvalue for="betweenesscentrality" value="327180.0"></attvalue>
+        </attvalues>
+        <viz:size value="11.9828615"></viz:size>
+        <viz:position x="15680.538" y="9835.8"></viz:position>
+      </node>
+      <node id="1272" label="Henry, archdeacon of Dunkeld (fl.1183x1203-1220x25)">
+        <attvalues>
+          <attvalue for="degree" value="175"></attvalue>
+          <attvalue for="eigencentrality" value="0.14141655570753445"></attvalue>
+          <attvalue for="poms id" value="2762"></attvalue>
+          <attvalue for="name" value="Henry, archdeacon of Dunkeld (fl.1183x1203-1220x25)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3495836365106314"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.37765957446810944"></attvalue>
+          <attvalue for="betweenesscentrality" value="365390.6281030526"></attvalue>
+        </attvalues>
+        <viz:size value="13.064353"></viz:size>
+        <viz:position x="-2425.242" y="5647.229"></viz:position>
+      </node>
+      <node id="1386" label="Roger of Howden">
+        <attvalues>
+          <attvalue for="degree" value="71"></attvalue>
+          <attvalue for="eigencentrality" value="0.14073798387455042"></attvalue>
+          <attvalue for="poms id" value="2908"></attvalue>
+          <attvalue for="name" value="Roger of Howden"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.325872334011606"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3506998590370582"></attvalue>
+          <attvalue for="betweenesscentrality" value="404330.1490035878"></attvalue>
+        </attvalues>
+        <viz:size value="14.166475"></viz:size>
+        <viz:position x="3662.023" y="-3478.864"></viz:position>
+      </node>
+      <node id="1444" label="William Francis (the Frenchman)">
+        <attvalues>
+          <attvalue for="degree" value="140"></attvalue>
+          <attvalue for="eigencentrality" value="0.12485545424292299"></attvalue>
+          <attvalue for="poms id" value="5226"></attvalue>
+          <attvalue for="name" value="William Francis (the Frenchman)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.34388420550341975"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3705423219241609"></attvalue>
+          <attvalue for="betweenesscentrality" value="317712.41834764066"></attvalue>
+        </attvalues>
+        <viz:size value="11.714897"></viz:size>
+        <viz:position x="-1285.9657" y="-3512.5474"></viz:position>
+      </node>
+      <node id="1655" label="Walter de Mortimer, dean of Glasgow (d.1270x71)">
+        <attvalues>
+          <attvalue for="degree" value="109"></attvalue>
+          <attvalue for="eigencentrality" value="0.04507997665861925"></attvalue>
+          <attvalue for="poms id" value="2044"></attvalue>
+          <attvalue for="name" value="Walter de Mortimer, dean of Glasgow (d.1270x71)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.32889632615805886"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.351264261486296"></attvalue>
+          <attvalue for="betweenesscentrality" value="280430.3261057795"></attvalue>
+        </attvalues>
+        <viz:size value="10.659686"></viz:size>
+        <viz:position x="4074.2302" y="1782.8029"></viz:position>
+      </node>
+      <node id="1720" label="Adam of Makerstoun, master, provost (d.1280x86)">
+        <attvalues>
+          <attvalue for="degree" value="155"></attvalue>
+          <attvalue for="eigencentrality" value="0.07305742415916408"></attvalue>
+          <attvalue for="poms id" value="3350"></attvalue>
+          <attvalue for="name" value="Adam of Makerstoun, master, provost (d.1280x86)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="5.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3432699559401421"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3686709836571296"></attvalue>
+          <attvalue for="betweenesscentrality" value="429127.6596359216"></attvalue>
+        </attvalues>
+        <viz:size value="14.868329"></viz:size>
+        <viz:position x="5686.282" y="2443.9626"></viz:position>
+      </node>
+      <node id="1757" label="Walter Stewart (II), son of Alan (d.1241)">
+        <attvalues>
+          <attvalue for="degree" value="253"></attvalue>
+          <attvalue for="eigencentrality" value="0.2819646715642475"></attvalue>
+          <attvalue for="poms id" value="1378"></attvalue>
+          <attvalue for="name" value="Walter Stewart (II), son of Alan (d.1241)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.38676207513416816"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.41810245143389163"></attvalue>
+          <attvalue for="betweenesscentrality" value="698592.927768923"></attvalue>
+        </attvalues>
+        <viz:size value="22.49512"></viz:size>
+        <viz:position x="1934.1338" y="1359.2123"></viz:position>
+      </node>
+      <node id="1760" label="Thomas Crook, knight">
+        <attvalues>
+          <attvalue for="degree" value="110"></attvalue>
+          <attvalue for="eigencentrality" value="0.05459252203403248"></attvalue>
+          <attvalue for="poms id" value="3432"></attvalue>
+          <attvalue for="name" value="Thomas Crook, knight"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3376146788990826"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.358776595744704"></attvalue>
+          <attvalue for="betweenesscentrality" value="282025.2183550354"></attvalue>
+        </attvalues>
+        <viz:size value="10.704826"></viz:size>
+        <viz:position x="5427.885" y="169.04094"></viz:position>
+      </node>
+      <node id="1775" label="Geoffrey de Liberatione, bishop of Dunkeld (d.1249)">
+        <attvalues>
+          <attvalue for="degree" value="156"></attvalue>
+          <attvalue for="eigencentrality" value="0.20927572679042325"></attvalue>
+          <attvalue for="poms id" value="2039"></attvalue>
+          <attvalue for="name" value="Geoffrey de Liberatione, bishop of Dunkeld (d.1249)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.372694363040855"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.40037002775211145"></attvalue>
+          <attvalue for="betweenesscentrality" value="263445.44031169935"></attvalue>
+        </attvalues>
+        <viz:size value="10.178955"></viz:size>
+        <viz:position x="1429.9868" y="2797.7107"></viz:position>
+      </node>
+      <node id="1835" label="William of Greenlaw, master (d.1247)">
+        <attvalues>
+          <attvalue for="degree" value="164"></attvalue>
+          <attvalue for="eigencentrality" value="0.1746294426389791"></attvalue>
+          <attvalue for="poms id" value="768"></attvalue>
+          <attvalue for="name" value="William of Greenlaw, master (d.1247)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3658206429780034"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3934840425532192"></attvalue>
+          <attvalue for="betweenesscentrality" value="302294.99267194385"></attvalue>
+        </attvalues>
+        <viz:size value="11.278531"></viz:size>
+        <viz:position x="1612.8666" y="395.7284"></viz:position>
+      </node>
+      <node id="1837" label="Peter de Alinton, archdeacon of Teviotdale (d.1242)">
+        <attvalues>
+          <attvalue for="degree" value="19"></attvalue>
+          <attvalue for="eigencentrality" value="0.01040419965206463"></attvalue>
+          <attvalue for="poms id" value="409"></attvalue>
+          <attvalue for="name" value="Peter de Alinton, archdeacon of Teviotdale (d.1242)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.2907183917705987"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3047910884983045"></attvalue>
+          <attvalue for="betweenesscentrality" value="263656.2237363763"></attvalue>
+        </attvalues>
+        <viz:size value="10.184921"></viz:size>
+        <viz:position x="6436.487" y="2533.1152"></viz:position>
+      </node>
+      <node id="1898" label="Alan, son of Cospatric of Swinton">
+        <attvalues>
+          <attvalue for="degree" value="236"></attvalue>
+          <attvalue for="eigencentrality" value="0.22290994693088464"></attvalue>
+          <attvalue for="poms id" value="1287"></attvalue>
+          <attvalue for="name" value="Alan, son of Cospatric of Swinton"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.34840061236000325"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3786702678296334"></attvalue>
+          <attvalue for="betweenesscentrality" value="319259.14755417936"></attvalue>
+        </attvalues>
+        <viz:size value="11.758675"></viz:size>
+        <viz:position x="1630.5197" y="-7021.732"></viz:position>
+      </node>
+      <node id="1985" label="Laurence of Thornton, archdeacon of St Andrews (d.1238x40)">
+        <attvalues>
+          <attvalue for="degree" value="233"></attvalue>
+          <attvalue for="eigencentrality" value="0.29921607654201626"></attvalue>
+          <attvalue for="poms id" value="835"></attvalue>
+          <attvalue for="name" value="Laurence of Thornton, archdeacon of St Andrews (d.1238x40)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.37580392838519033"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4091639685476672"></attvalue>
+          <attvalue for="betweenesscentrality" value="392573.39862812206"></attvalue>
+        </attvalues>
+        <viz:size value="13.833719"></viz:size>
+        <viz:position x="-580.79474" y="2252.2532"></viz:position>
+      </node>
+      <node id="2047" label="William of Ednam, master, archdeacon of Dunkeld (d.1251x57)">
+        <attvalues>
+          <attvalue for="degree" value="183"></attvalue>
+          <attvalue for="eigencentrality" value="0.18107020731639875"></attvalue>
+          <attvalue for="poms id" value="1969"></attvalue>
+          <attvalue for="name" value="William of Ednam, master, archdeacon of Dunkeld (d.1251x57)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.362751677852349"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.39174182855383494"></attvalue>
+          <attvalue for="betweenesscentrality" value="285140.7111641545"></attvalue>
+        </attvalues>
+        <viz:size value="10.793006"></viz:size>
+        <viz:position x="155.84723" y="2132.6414"></viz:position>
+      </node>
+      <node id="2056" label="Andrew Murray, bishop of Moray (d.1242)">
+        <attvalues>
+          <attvalue for="degree" value="273"></attvalue>
+          <attvalue for="eigencentrality" value="0.3413948758126006"></attvalue>
+          <attvalue for="poms id" value="788"></attvalue>
+          <attvalue for="name" value="Andrew Murray, bishop of Moray (d.1242)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3809691629955947"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.41525979031763843"></attvalue>
+          <attvalue for="betweenesscentrality" value="691160.047638739"></attvalue>
+        </attvalues>
+        <viz:size value="22.284742"></viz:size>
+        <viz:position x="52.474346" y="3568.2476"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="2408" label="Patrick (II), earl of Dunbar (d.1248)">
+        <attvalues>
+          <attvalue for="degree" value="260"></attvalue>
+          <attvalue for="eigencentrality" value="0.3526207044651812"></attvalue>
+          <attvalue for="poms id" value="445"></attvalue>
+          <attvalue for="name" value="Patrick (II), earl of Dunbar (d.1248)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3900766801984664"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.4227316527906539"></attvalue>
+          <attvalue for="betweenesscentrality" value="519901.79855409655"></attvalue>
+        </attvalues>
+        <viz:size value="17.437548"></viz:size>
+        <viz:position x="613.06506" y="-507.98734"></viz:position>
+        <viz:color r="0" g="245" b="32"></viz:color>
+      </node>
+      <node id="2409" label="William, son of Earl Patrick (I) (d.1253)">
+        <attvalues>
+          <attvalue for="degree" value="140"></attvalue>
+          <attvalue for="eigencentrality" value="0.11451101464534266"></attvalue>
+          <attvalue for="poms id" value="4427"></attvalue>
+          <attvalue for="name" value="William, son of Earl Patrick (I) (d.1253)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.35655974272284985"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.38245837187791665"></attvalue>
+          <attvalue for="betweenesscentrality" value="379803.9587676121"></attvalue>
+        </attvalues>
+        <viz:size value="13.4723"></viz:size>
+        <viz:position x="2511.4956" y="-1963.6586"></viz:position>
+      </node>
+      <node id="2410" label="William Lindsay (IV), son of Walter (III) (d.c.1247)">
+        <attvalues>
+          <attvalue for="degree" value="169"></attvalue>
+          <attvalue for="eigencentrality" value="0.2109965313345304"></attvalue>
+          <attvalue for="poms id" value="4425"></attvalue>
+          <attvalue for="name" value="William Lindsay (IV), son of Walter (III) (d.c.1247)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3721170395869191"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.40004818069691406"></attvalue>
+          <attvalue for="betweenesscentrality" value="326325.01188007527"></attvalue>
+        </attvalues>
+        <viz:size value="11.958663"></viz:size>
+        <viz:position x="2388.8618" y="-2519.4448"></viz:position>
+      </node>
+      <node id="2425" label="Robert Mowat, knight, justiciar, sheriff of Forfar">
+        <attvalues>
+          <attvalue for="degree" value="153"></attvalue>
+          <attvalue for="eigencentrality" value="0.09424048225440622"></attvalue>
+          <attvalue for="poms id" value="2190"></attvalue>
+          <attvalue for="name" value="Robert Mowat, knight, justiciar, sheriff of Forfar"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3506609358527289"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3757940178847037"></attvalue>
+          <attvalue for="betweenesscentrality" value="366526.0376988328"></attvalue>
+        </attvalues>
+        <viz:size value="13.096489"></viz:size>
+        <viz:position x="3950.7397" y="2956.3645"></viz:position>
+      </node>
+      <node id="2436" label="Laurence Abernethy (fl.1180sx1230s)">
+        <attvalues>
+          <attvalue for="degree" value="162"></attvalue>
+          <attvalue for="eigencentrality" value="0.32354250718039346"></attvalue>
+          <attvalue for="poms id" value="4040"></attvalue>
+          <attvalue for="name" value="Laurence Abernethy (fl.1180sx1230s)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3827226057709329"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.41094087264881496"></attvalue>
+          <attvalue for="betweenesscentrality" value="257236.95643941054"></attvalue>
+        </attvalues>
+        <viz:size value="10.003234"></viz:size>
+        <viz:position x="-773.053" y="1704.6378"></viz:position>
+      </node>
+      <node id="2482" label="Philip Melville, justiciar of Scotia">
+        <attvalues>
+          <attvalue for="degree" value="150"></attvalue>
+          <attvalue for="eigencentrality" value="0.15754258864968057"></attvalue>
+          <attvalue for="poms id" value="1233"></attvalue>
+          <attvalue for="name" value="Philip Melville, justiciar of Scotia"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.36009327115256495"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.38604879740983566"></attvalue>
+          <attvalue for="betweenesscentrality" value="277159.25365611445"></attvalue>
+        </attvalues>
+        <viz:size value="10.567103"></viz:size>
+        <viz:position x="475.48294" y="4359.2993"></viz:position>
+      </node>
+      <node id="2519" label="John Cameron, sheriff of Perth">
+        <attvalues>
+          <attvalue for="degree" value="136"></attvalue>
+          <attvalue for="eigencentrality" value="0.07693358904036277"></attvalue>
+          <attvalue for="poms id" value="5364"></attvalue>
+          <attvalue for="name" value="John Cameron, sheriff of Perth"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="7.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.34032505607807645"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.36616255891813265"></attvalue>
+          <attvalue for="betweenesscentrality" value="290408.54271943873"></attvalue>
+        </attvalues>
+        <viz:size value="10.942103"></viz:size>
+        <viz:position x="4723.283" y="4395.2803"></viz:position>
+      </node>
+      <node id="2633" label="Luke, chaplain of Paisley">
+        <attvalues>
+          <attvalue for="degree" value="148"></attvalue>
+          <attvalue for="eigencentrality" value="0.10532580895790988"></attvalue>
+          <attvalue for="poms id" value="5071"></attvalue>
+          <attvalue for="name" value="Luke, chaplain of Paisley"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3479520399130925"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3727817607154112"></attvalue>
+          <attvalue for="betweenesscentrality" value="297092.25860858674"></attvalue>
+        </attvalues>
+        <viz:size value="11.131275"></viz:size>
+        <viz:position x="2119.6194" y="-1743.3168"></viz:position>
+      </node>
+      <node id="2929" label="Henry, son of Geoffrey de Liberatione of Perth">
+        <attvalues>
+          <attvalue for="degree" value="151"></attvalue>
+          <attvalue for="eigencentrality" value="0.1455467966836333"></attvalue>
+          <attvalue for="poms id" value="5330"></attvalue>
+          <attvalue for="name" value="Henry, son of Geoffrey de Liberatione of Perth"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3443909043845327"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3705442491520403"></attvalue>
+          <attvalue for="betweenesscentrality" value="364875.2462186317"></attvalue>
+        </attvalues>
+        <viz:size value="13.049767"></viz:size>
+        <viz:position x="-154.22719" y="7585.408"></viz:position>
+      </node>
+      <node id="3064" label="Roger de Merlay (II) (d.c.1239)">
+        <attvalues>
+          <attvalue for="degree" value="166"></attvalue>
+          <attvalue for="eigencentrality" value="0.20860950017212057"></attvalue>
+          <attvalue for="poms id" value="5781"></attvalue>
+          <attvalue for="name" value="Roger de Merlay (II) (d.c.1239)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.35979364286902976"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.38818802035155"></attvalue>
+          <attvalue for="betweenesscentrality" value="373262.0904248105"></attvalue>
+        </attvalues>
+        <viz:size value="13.287143"></viz:size>
+        <viz:position x="163.74037" y="-3054.4204"></viz:position>
+      </node>
+      <node id="3182" label="Alan of Harcarse, knight">
+        <attvalues>
+          <attvalue for="degree" value="121"></attvalue>
+          <attvalue for="eigencentrality" value="0.056368763441446625"></attvalue>
+          <attvalue for="poms id" value="5954"></attvalue>
+          <attvalue for="name" value="Alan of Harcarse, knight"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.33689131281651735"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3590618254702626"></attvalue>
+          <attvalue for="betweenesscentrality" value="338000.43500033434"></attvalue>
+        </attvalues>
+        <viz:size value="12.289117"></viz:size>
+        <viz:position x="5913.895" y="-3816.6167"></viz:position>
+      </node>
+      <node id="3769" label="Ralph Noble, father">
+        <attvalues>
+          <attvalue for="degree" value="93"></attvalue>
+          <attvalue for="eigencentrality" value="0.07056028259198878"></attvalue>
+          <attvalue for="poms id" value="6729"></attvalue>
+          <attvalue for="name" value="Ralph Noble, father"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="6.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.3437475157007711"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.3661752235584547"></attvalue>
+          <attvalue for="betweenesscentrality" value="350724.23940590763"></attvalue>
+        </attvalues>
+        <viz:size value="12.649244"></viz:size>
+        <viz:position x="3405.4941" y="-5150.1826"></viz:position>
+      </node>
+      <node id="5990" label="Alan, clerk (13C)">
+        <attvalues>
+          <attvalue for="degree" value="22"></attvalue>
+          <attvalue for="eigencentrality" value="0.0037388255583850317"></attvalue>
+          <attvalue for="poms id" value="11393"></attvalue>
+          <attvalue for="name" value="Alan, clerk (13C)"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="eccentricity" value="8.0"></attvalue>
+          <attvalue for="closnesscentrality" value="0.2248277655011049"></attvalue>
+          <attvalue for="harmonicclosnesscentrality" value="0.23427795031057375"></attvalue>
+          <attvalue for="betweenesscentrality" value="306708.2262944187"></attvalue>
+        </attvalues>
+        <viz:size value="11.40344"></viz:size>
+        <viz:position x="9801.211" y="-4802.4077"></viz:position>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="322401" source="2" target="2929"></edge>
+      <edge id="322374" source="2" target="2436" weight="2.0"></edge>
+      <edge id="322369" source="2" target="2056"></edge>
+      <edge id="322366" source="2" target="1985"></edge>
+      <edge id="322234" source="2" target="538" weight="6.0"></edge>
+      <edge id="322226" source="2" target="496"></edge>
+      <edge id="322179" source="2" target="399" weight="5.0"></edge>
+      <edge id="322163" source="2" target="382" weight="5.0"></edge>
+      <edge id="322133" source="2" target="346" weight="10.0"></edge>
+      <edge id="322132" source="2" target="345" weight="2.0"></edge>
+      <edge id="322126" source="2" target="339" weight="40.0"></edge>
+      <edge id="322122" source="2" target="335" weight="6.0"></edge>
+      <edge id="322118" source="2" target="331" weight="30.0"></edge>
+      <edge id="322112" source="2" target="323" weight="16.0"></edge>
+      <edge id="322098" source="2" target="309" weight="20.0"></edge>
+      <edge id="322090" source="2" target="300" weight="12.0"></edge>
+      <edge id="322079" source="2" target="289" weight="30.0"></edge>
+      <edge id="322040" source="2" target="126" weight="78.0"></edge>
+      <edge id="321999" source="2" target="58" weight="35.0"></edge>
+      <edge id="321988" source="2" target="47" weight="21.0"></edge>
+      <edge id="321984" source="2" target="42" weight="66.0"></edge>
+      <edge id="321976" source="2" target="33" weight="10.0"></edge>
+      <edge id="321972" source="2" target="15"></edge>
+      <edge id="321971" source="2" target="14" weight="8.0"></edge>
+      <edge id="321964" source="2" target="7" weight="57.0"></edge>
+      <edge id="321962" source="2" target="5" weight="35.0"></edge>
+      <edge id="321961" source="2" target="4" weight="39.0"></edge>
+      <edge id="323062" source="4" target="2929"></edge>
+      <edge id="322998" source="4" target="558" weight="5.0"></edge>
+      <edge id="322993" source="4" target="538" weight="8.0"></edge>
+      <edge id="322983" source="4" target="525" weight="8.0"></edge>
+      <edge id="322969" source="4" target="499" weight="3.0"></edge>
+      <edge id="322953" source="4" target="467" weight="9.0"></edge>
+      <edge id="322912" source="4" target="399" weight="18.0"></edge>
+      <edge id="322903" source="4" target="382" weight="12.0"></edge>
+      <edge id="322886" source="4" target="346" weight="15.0"></edge>
+      <edge id="322885" source="4" target="345" weight="2.0"></edge>
+      <edge id="322880" source="4" target="339" weight="20.0"></edge>
+      <edge id="322876" source="4" target="335" weight="2.0"></edge>
+      <edge id="322872" source="4" target="331" weight="22.0"></edge>
+      <edge id="322868" source="4" target="327" weight="3.0"></edge>
+      <edge id="322864" source="4" target="323" weight="17.0"></edge>
+      <edge id="322851" source="4" target="309" weight="8.0"></edge>
+      <edge id="322843" source="4" target="300" weight="9.0"></edge>
+      <edge id="322833" source="4" target="289" weight="14.0"></edge>
+      <edge id="322818" source="4" target="126" weight="21.0"></edge>
+      <edge id="322798" source="4" target="58" weight="24.0"></edge>
+      <edge id="322793" source="4" target="47" weight="10.0"></edge>
+      <edge id="322792" source="4" target="42" weight="18.0"></edge>
+      <edge id="322786" source="4" target="33" weight="4.0"></edge>
+      <edge id="322783" source="4" target="15" weight="37.0"></edge>
+      <edge id="322782" source="4" target="14" weight="15.0"></edge>
+      <edge id="322775" source="4" target="7" weight="37.0"></edge>
+      <edge id="322773" source="4" target="5" weight="43.0"></edge>
+      <edge id="323388" source="5" target="2929"></edge>
+      <edge id="323379" source="5" target="2482" weight="2.0"></edge>
+      <edge id="323366" source="5" target="2436" weight="2.0"></edge>
+      <edge id="323360" source="5" target="2408"></edge>
+      <edge id="323345" source="5" target="2056" weight="3.0"></edge>
+      <edge id="323335" source="5" target="1775" weight="2.0"></edge>
+      <edge id="323334" source="5" target="1757" weight="8.0"></edge>
+      <edge id="323313" source="5" target="788" weight="4.0"></edge>
+      <edge id="323303" source="5" target="574" weight="13.0"></edge>
+      <edge id="323298" source="5" target="558" weight="11.0"></edge>
+      <edge id="323290" source="5" target="538" weight="16.0"></edge>
+      <edge id="323283" source="5" target="525" weight="15.0"></edge>
+      <edge id="323268" source="5" target="499" weight="3.0"></edge>
+      <edge id="323257" source="5" target="467" weight="9.0"></edge>
+      <edge id="323232" source="5" target="399" weight="17.0"></edge>
+      <edge id="323224" source="5" target="382" weight="18.0"></edge>
+      <edge id="323207" source="5" target="346" weight="15.0"></edge>
+      <edge id="323206" source="5" target="345" weight="12.0"></edge>
+      <edge id="323200" source="5" target="339" weight="37.0"></edge>
+      <edge id="323197" source="5" target="335"></edge>
+      <edge id="323193" source="5" target="331" weight="17.0"></edge>
+      <edge id="323187" source="5" target="323" weight="18.0"></edge>
+      <edge id="323180" source="5" target="309" weight="5.0"></edge>
+      <edge id="323172" source="5" target="300" weight="11.0"></edge>
+      <edge id="323166" source="5" target="289" weight="5.0"></edge>
+      <edge id="323158" source="5" target="126" weight="23.0"></edge>
+      <edge id="323153" source="5" target="58" weight="8.0"></edge>
+      <edge id="323152" source="5" target="42" weight="13.0"></edge>
+      <edge id="323147" source="5" target="33" weight="4.0"></edge>
+      <edge id="323143" source="5" target="15" weight="48.0"></edge>
+      <edge id="323142" source="5" target="14" weight="16.0"></edge>
+      <edge id="323135" source="5" target="7" weight="33.0"></edge>
+      <edge id="323133" source="5" target="5" weight="2.0"></edge>
+      <edge id="323825" source="7" target="813" weight="2.0"></edge>
+      <edge id="323808" source="7" target="538" weight="7.0"></edge>
+      <edge id="323758" source="7" target="399" weight="7.0"></edge>
+      <edge id="323747" source="7" target="382" weight="5.0"></edge>
+      <edge id="323732" source="7" target="346" weight="8.0"></edge>
+      <edge id="323731" source="7" target="345"></edge>
+      <edge id="323726" source="7" target="339" weight="25.0"></edge>
+      <edge id="323723" source="7" target="335" weight="2.0"></edge>
+      <edge id="323719" source="7" target="331" weight="25.0"></edge>
+      <edge id="323712" source="7" target="323" weight="9.0"></edge>
+      <edge id="323701" source="7" target="309" weight="7.0"></edge>
+      <edge id="323693" source="7" target="300" weight="13.0"></edge>
+      <edge id="323682" source="7" target="289" weight="9.0"></edge>
+      <edge id="323656" source="7" target="126" weight="34.0"></edge>
+      <edge id="323631" source="7" target="58" weight="18.0"></edge>
+      <edge id="323623" source="7" target="47" weight="11.0"></edge>
+      <edge id="323622" source="7" target="42" weight="23.0"></edge>
+      <edge id="323616" source="7" target="33" weight="4.0"></edge>
+      <edge id="323613" source="7" target="15" weight="2.0"></edge>
+      <edge id="323612" source="7" target="14" weight="7.0"></edge>
+      <edge id="324727" source="14" target="2436" weight="2.0"></edge>
+      <edge id="324718" source="14" target="2047"></edge>
+      <edge id="324709" source="14" target="1985" weight="2.0"></edge>
+      <edge id="324706" source="14" target="1898"></edge>
+      <edge id="324701" source="14" target="1775"></edge>
+      <edge id="324677" source="14" target="1386" weight="2.0"></edge>
+      <edge id="324653" source="14" target="813" weight="2.0"></edge>
+      <edge id="324637" source="14" target="558" weight="2.0"></edge>
+      <edge id="324629" source="14" target="538" weight="3.0"></edge>
+      <edge id="324625" source="14" target="525" weight="3.0"></edge>
+      <edge id="324609" source="14" target="499"></edge>
+      <edge id="324606" source="14" target="496" weight="3.0"></edge>
+      <edge id="324599" source="14" target="467"></edge>
+      <edge id="324583" source="14" target="399" weight="12.0"></edge>
+      <edge id="324579" source="14" target="382" weight="7.0"></edge>
+      <edge id="324569" source="14" target="346" weight="2.0"></edge>
+      <edge id="324568" source="14" target="345"></edge>
+      <edge id="324564" source="14" target="339"></edge>
+      <edge id="324562" source="14" target="335" weight="2.0"></edge>
+      <edge id="324560" source="14" target="331" weight="13.0"></edge>
+      <edge id="324558" source="14" target="327"></edge>
+      <edge id="324554" source="14" target="323" weight="3.0"></edge>
+      <edge id="324546" source="14" target="309" weight="5.0"></edge>
+      <edge id="324540" source="14" target="300" weight="7.0"></edge>
+      <edge id="324529" source="14" target="289" weight="5.0"></edge>
+      <edge id="324523" source="14" target="126" weight="4.0"></edge>
+      <edge id="324509" source="14" target="58" weight="12.0"></edge>
+      <edge id="324507" source="14" target="42" weight="5.0"></edge>
+      <edge id="324502" source="14" target="33" weight="6.0"></edge>
+      <edge id="324496" source="14" target="15" weight="40.0"></edge>
+      <edge id="325140" source="15" target="3064" weight="2.0"></edge>
+      <edge id="325096" source="15" target="2482"></edge>
+      <edge id="325083" source="15" target="2436" weight="3.0"></edge>
+      <edge id="325079" source="15" target="2425"></edge>
+      <edge id="325074" source="15" target="2410"></edge>
+      <edge id="325073" source="15" target="2408" weight="3.0"></edge>
+      <edge id="325039" source="15" target="2056"></edge>
+      <edge id="325036" source="15" target="2047"></edge>
+      <edge id="325014" source="15" target="1985" weight="17.0"></edge>
+      <edge id="325000" source="15" target="1898"></edge>
+      <edge id="324997" source="15" target="1835"></edge>
+      <edge id="324989" source="15" target="1775"></edge>
+      <edge id="324988" source="15" target="1757" weight="4.0"></edge>
+      <edge id="324969" source="15" target="1386" weight="2.0"></edge>
+      <edge id="324930" source="15" target="813" weight="2.0"></edge>
+      <edge id="324925" source="15" target="788" weight="2.0"></edge>
+      <edge id="324923" source="15" target="574" weight="15.0"></edge>
+      <edge id="324912" source="15" target="558" weight="16.0"></edge>
+      <edge id="324902" source="15" target="538" weight="12.0"></edge>
+      <edge id="324895" source="15" target="525" weight="29.0"></edge>
+      <edge id="324874" source="15" target="499" weight="3.0"></edge>
+      <edge id="324871" source="15" target="496" weight="5.0"></edge>
+      <edge id="324862" source="15" target="467" weight="18.0"></edge>
+      <edge id="324845" source="15" target="399" weight="26.0"></edge>
+      <edge id="324841" source="15" target="382" weight="13.0"></edge>
+      <edge id="324833" source="15" target="346" weight="5.0"></edge>
+      <edge id="324832" source="15" target="345" weight="23.0"></edge>
+      <edge id="324830" source="15" target="339" weight="27.0"></edge>
+      <edge id="324827" source="15" target="335" weight="2.0"></edge>
+      <edge id="324825" source="15" target="331" weight="5.0"></edge>
+      <edge id="324823" source="15" target="327" weight="2.0"></edge>
+      <edge id="324819" source="15" target="323" weight="10.0"></edge>
+      <edge id="324814" source="15" target="309" weight="3.0"></edge>
+      <edge id="324812" source="15" target="300"></edge>
+      <edge id="324806" source="15" target="289"></edge>
+      <edge id="324805" source="15" target="126" weight="3.0"></edge>
+      <edge id="324803" source="15" target="58" weight="10.0"></edge>
+      <edge id="324802" source="15" target="42"></edge>
+      <edge id="324799" source="15" target="33" weight="10.0"></edge>
+      <edge id="326942" source="33" target="3064" weight="2.0"></edge>
+      <edge id="326918" source="33" target="2436"></edge>
+      <edge id="326917" source="33" target="2408" weight="3.0"></edge>
+      <edge id="326881" source="33" target="1386" weight="3.0"></edge>
+      <edge id="326860" source="33" target="813" weight="3.0"></edge>
+      <edge id="326833" source="33" target="538" weight="2.0"></edge>
+      <edge id="326821" source="33" target="496" weight="3.0"></edge>
+      <edge id="326817" source="33" target="467" weight="4.0"></edge>
+      <edge id="326806" source="33" target="399" weight="5.0"></edge>
+      <edge id="326803" source="33" target="382" weight="4.0"></edge>
+      <edge id="326793" source="33" target="346" weight="3.0"></edge>
+      <edge id="326791" source="33" target="339" weight="6.0"></edge>
+      <edge id="326789" source="33" target="335" weight="3.0"></edge>
+      <edge id="326788" source="33" target="331" weight="5.0"></edge>
+      <edge id="326786" source="33" target="327"></edge>
+      <edge id="326782" source="33" target="323" weight="6.0"></edge>
+      <edge id="326775" source="33" target="309" weight="11.0"></edge>
+      <edge id="326763" source="33" target="289" weight="8.0"></edge>
+      <edge id="326725" source="33" target="126" weight="6.0"></edge>
+      <edge id="326679" source="33" target="58" weight="24.0"></edge>
+      <edge id="326669" source="33" target="47" weight="7.0"></edge>
+      <edge id="326665" source="33" target="42" weight="9.0"></edge>
+      <edge id="326656" source="33" target="33"></edge>
+      <edge id="328377" source="42" target="2436"></edge>
+      <edge id="328194" source="42" target="538" weight="3.0"></edge>
+      <edge id="328139" source="42" target="346" weight="2.0"></edge>
+      <edge id="328137" source="42" target="339" weight="11.0"></edge>
+      <edge id="328136" source="42" target="335"></edge>
+      <edge id="328133" source="42" target="331" weight="9.0"></edge>
+      <edge id="328127" source="42" target="323" weight="7.0"></edge>
+      <edge id="328114" source="42" target="309" weight="19.0"></edge>
+      <edge id="328106" source="42" target="300" weight="9.0"></edge>
+      <edge id="328095" source="42" target="289" weight="11.0"></edge>
+      <edge id="328054" source="42" target="126" weight="28.0"></edge>
+      <edge id="328005" source="42" target="58" weight="15.0"></edge>
+      <edge id="327994" source="42" target="47" weight="32.0"></edge>
+      <edge id="327989" source="42" target="42"></edge>
+      <edge id="328972" source="47" target="2633" weight="2.0"></edge>
+      <edge id="328962" source="47" target="955"></edge>
+      <edge id="328882" source="47" target="335" weight="3.0"></edge>
+      <edge id="328880" source="47" target="331"></edge>
+      <edge id="328879" source="47" target="323" weight="2.0"></edge>
+      <edge id="328870" source="47" target="300"></edge>
+      <edge id="328867" source="47" target="289" weight="2.0"></edge>
+      <edge id="328793" source="47" target="126" weight="2.0"></edge>
+      <edge id="328732" source="47" target="58" weight="10.0"></edge>
+      <edge id="328721" source="47" target="47"></edge>
+      <edge id="330625" source="58" target="3064" weight="3.0"></edge>
+      <edge id="330607" source="58" target="2436"></edge>
+      <edge id="330605" source="58" target="2408" weight="4.0"></edge>
+      <edge id="330568" source="58" target="1386" weight="3.0"></edge>
+      <edge id="330543" source="58" target="813" weight="3.0"></edge>
+      <edge id="330539" source="58" target="788"></edge>
+      <edge id="330494" source="58" target="538" weight="6.0"></edge>
+      <edge id="330479" source="58" target="496" weight="4.0"></edge>
+      <edge id="330472" source="58" target="467" weight="4.0"></edge>
+      <edge id="330447" source="58" target="399" weight="5.0"></edge>
+      <edge id="330438" source="58" target="382" weight="7.0"></edge>
+      <edge id="330418" source="58" target="346" weight="4.0"></edge>
+      <edge id="330417" source="58" target="345"></edge>
+      <edge id="330412" source="58" target="339" weight="15.0"></edge>
+      <edge id="330410" source="58" target="335" weight="8.0"></edge>
+      <edge id="330407" source="58" target="331" weight="13.0"></edge>
+      <edge id="330403" source="58" target="327"></edge>
+      <edge id="330399" source="58" target="323" weight="9.0"></edge>
+      <edge id="330389" source="58" target="309" weight="11.0"></edge>
+      <edge id="330382" source="58" target="300" weight="2.0"></edge>
+      <edge id="330373" source="58" target="289" weight="16.0"></edge>
+      <edge id="330355" source="58" target="126" weight="18.0"></edge>
+      <edge id="330328" source="58" target="58"></edge>
+      <edge id="335297" source="126" target="2929"></edge>
+      <edge id="335281" source="126" target="2436" weight="2.0"></edge>
+      <edge id="335224" source="126" target="1272"></edge>
+      <edge id="335186" source="126" target="558"></edge>
+      <edge id="335181" source="126" target="538" weight="5.0"></edge>
+      <edge id="335174" source="126" target="496"></edge>
+      <edge id="335166" source="126" target="467"></edge>
+      <edge id="335145" source="126" target="399"></edge>
+      <edge id="335135" source="126" target="382" weight="5.0"></edge>
+      <edge id="335122" source="126" target="346" weight="7.0"></edge>
+      <edge id="335121" source="126" target="345" weight="4.0"></edge>
+      <edge id="335116" source="126" target="339" weight="25.0"></edge>
+      <edge id="335113" source="126" target="335" weight="3.0"></edge>
+      <edge id="335110" source="126" target="331" weight="22.0"></edge>
+      <edge id="335105" source="126" target="323" weight="13.0"></edge>
+      <edge id="335091" source="126" target="309" weight="16.0"></edge>
+      <edge id="335083" source="126" target="300" weight="9.0"></edge>
+      <edge id="335072" source="126" target="289" weight="23.0"></edge>
+      <edge id="338898" source="289" target="1386"></edge>
+      <edge id="338875" source="289" target="813" weight="3.0"></edge>
+      <edge id="338849" source="289" target="538" weight="4.0"></edge>
+      <edge id="338844" source="289" target="496" weight="7.0"></edge>
+      <edge id="338822" source="289" target="399" weight="2.0"></edge>
+      <edge id="338818" source="289" target="382" weight="2.0"></edge>
+      <edge id="338806" source="289" target="346" weight="2.0"></edge>
+      <edge id="338805" source="289" target="345"></edge>
+      <edge id="338800" source="289" target="339" weight="12.0"></edge>
+      <edge id="338798" source="289" target="335" weight="20.0"></edge>
+      <edge id="338795" source="289" target="331" weight="6.0"></edge>
+      <edge id="338792" source="289" target="327"></edge>
+      <edge id="338788" source="289" target="323" weight="8.0"></edge>
+      <edge id="338777" source="289" target="309" weight="12.0"></edge>
+      <edge id="338769" source="289" target="300" weight="4.0"></edge>
+      <edge id="340354" source="300" target="2047"></edge>
+      <edge id="340346" source="300" target="1835" weight="2.0"></edge>
+      <edge id="340334" source="300" target="1272"></edge>
+      <edge id="340311" source="300" target="496" weight="5.0"></edge>
+      <edge id="340288" source="300" target="382" weight="3.0"></edge>
+      <edge id="340276" source="300" target="346"></edge>
+      <edge id="340275" source="300" target="345"></edge>
+      <edge id="340270" source="300" target="339" weight="13.0"></edge>
+      <edge id="340268" source="300" target="335"></edge>
+      <edge id="340264" source="300" target="331" weight="14.0"></edge>
+      <edge id="340261" source="300" target="327" weight="3.0"></edge>
+      <edge id="340257" source="300" target="323"></edge>
+      <edge id="341223" source="309" target="2929"></edge>
+      <edge id="341214" source="309" target="2436"></edge>
+      <edge id="341208" source="309" target="1775"></edge>
+      <edge id="341110" source="309" target="1386" weight="3.0"></edge>
+      <edge id="341084" source="309" target="813" weight="3.0"></edge>
+      <edge id="341068" source="309" target="538"></edge>
+      <edge id="341066" source="309" target="499"></edge>
+      <edge id="341063" source="309" target="496" weight="4.0"></edge>
+      <edge id="341052" source="309" target="399" weight="3.0"></edge>
+      <edge id="341046" source="309" target="382" weight="5.0"></edge>
+      <edge id="341035" source="309" target="346" weight="4.0"></edge>
+      <edge id="341032" source="309" target="339" weight="8.0"></edge>
+      <edge id="341030" source="309" target="335" weight="5.0"></edge>
+      <edge id="341026" source="309" target="331" weight="6.0"></edge>
+      <edge id="341022" source="309" target="323" weight="7.0"></edge>
+      <edge id="342706" source="323" target="3182"></edge>
+      <edge id="342685" source="323" target="3064" weight="6.0"></edge>
+      <edge id="342666" source="323" target="2436"></edge>
+      <edge id="342661" source="323" target="2410"></edge>
+      <edge id="342660" source="323" target="2409" weight="3.0"></edge>
+      <edge id="342659" source="323" target="2408" weight="18.0"></edge>
+      <edge id="342649" source="323" target="2056"></edge>
+      <edge id="342646" source="323" target="1985" weight="2.0"></edge>
+      <edge id="342643" source="323" target="1898" weight="2.0"></edge>
+      <edge id="342637" source="323" target="1757" weight="5.0"></edge>
+      <edge id="342621" source="323" target="1272" weight="2.0"></edge>
+      <edge id="342616" source="323" target="894"></edge>
+      <edge id="342595" source="323" target="574" weight="3.0"></edge>
+      <edge id="342590" source="323" target="558"></edge>
+      <edge id="342585" source="323" target="538" weight="9.0"></edge>
+      <edge id="342580" source="323" target="525" weight="13.0"></edge>
+      <edge id="342560" source="323" target="467" weight="4.0"></edge>
+      <edge id="342538" source="323" target="399" weight="5.0"></edge>
+      <edge id="342532" source="323" target="382" weight="8.0"></edge>
+      <edge id="342521" source="323" target="346"></edge>
+      <edge id="342520" source="323" target="345" weight="7.0"></edge>
+      <edge id="342515" source="323" target="339" weight="9.0"></edge>
+      <edge id="342513" source="323" target="331" weight="8.0"></edge>
+      <edge id="342510" source="323" target="327" weight="5.0"></edge>
+      <edge id="343321" source="327" target="3064"></edge>
+      <edge id="343308" source="327" target="2410" weight="4.0"></edge>
+      <edge id="343307" source="327" target="2408" weight="4.0"></edge>
+      <edge id="343297" source="327" target="2047" weight="3.0"></edge>
+      <edge id="343289" source="327" target="1444"></edge>
+      <edge id="343285" source="327" target="908"></edge>
+      <edge id="343282" source="327" target="894"></edge>
+      <edge id="343273" source="327" target="538" weight="9.0"></edge>
+      <edge id="343272" source="327" target="525" weight="21.0"></edge>
+      <edge id="343265" source="327" target="467" weight="4.0"></edge>
+      <edge id="343257" source="327" target="399" weight="3.0"></edge>
+      <edge id="343249" source="327" target="345"></edge>
+      <edge id="343246" source="327" target="339"></edge>
+      <edge id="343245" source="327" target="335"></edge>
+      <edge id="343244" source="327" target="331"></edge>
+      <edge id="343742" source="331" target="2056"></edge>
+      <edge id="343738" source="331" target="1985" weight="2.0"></edge>
+      <edge id="343737" source="331" target="1898" weight="3.0"></edge>
+      <edge id="343707" source="331" target="1386" weight="2.0"></edge>
+      <edge id="343703" source="331" target="1272"></edge>
+      <edge id="343675" source="331" target="813" weight="2.0"></edge>
+      <edge id="343653" source="331" target="538"></edge>
+      <edge id="343648" source="331" target="496" weight="2.0"></edge>
+      <edge id="343642" source="331" target="467" weight="2.0"></edge>
+      <edge id="343616" source="331" target="399" weight="13.0"></edge>
+      <edge id="343605" source="331" target="382" weight="12.0"></edge>
+      <edge id="343575" source="331" target="346" weight="8.0"></edge>
+      <edge id="343574" source="331" target="345" weight="3.0"></edge>
+      <edge id="343568" source="331" target="339" weight="18.0"></edge>
+      <edge id="343564" source="331" target="335" weight="4.0"></edge>
+      <edge id="344137" source="335" target="1444" weight="2.0"></edge>
+      <edge id="344126" source="335" target="1386" weight="3.0"></edge>
+      <edge id="344092" source="335" target="813" weight="12.0"></edge>
+      <edge id="344078" source="335" target="496" weight="16.0"></edge>
+      <edge id="344068" source="335" target="399" weight="2.0"></edge>
+      <edge id="344065" source="335" target="382" weight="3.0"></edge>
+      <edge id="344057" source="335" target="339" weight="4.0"></edge>
+      <edge id="344651" source="339" target="2482"></edge>
+      <edge id="344648" source="339" target="2436" weight="3.0"></edge>
+      <edge id="344629" source="339" target="2056"></edge>
+      <edge id="344612" source="339" target="1760" weight="2.0"></edge>
+      <edge id="344611" source="339" target="1757" weight="3.0"></edge>
+      <edge id="344575" source="339" target="788" weight="2.0"></edge>
+      <edge id="344557" source="339" target="574" weight="5.0"></edge>
+      <edge id="344553" source="339" target="558" weight="5.0"></edge>
+      <edge id="344545" source="339" target="538" weight="9.0"></edge>
+      <edge id="344542" source="339" target="525" weight="14.0"></edge>
+      <edge id="344534" source="339" target="496"></edge>
+      <edge id="344526" source="339" target="467" weight="8.0"></edge>
+      <edge id="344506" source="339" target="399" weight="7.0"></edge>
+      <edge id="344493" source="339" target="382" weight="12.0"></edge>
+      <edge id="344475" source="339" target="346" weight="7.0"></edge>
+      <edge id="344474" source="339" target="345" weight="13.0"></edge>
+      <edge id="345161" source="345" target="3064" weight="4.0"></edge>
+      <edge id="345128" source="345" target="2436"></edge>
+      <edge id="345127" source="345" target="2410"></edge>
+      <edge id="345126" source="345" target="2408" weight="5.0"></edge>
+      <edge id="345109" source="345" target="2047" weight="2.0"></edge>
+      <edge id="345105" source="345" target="1985"></edge>
+      <edge id="345103" source="345" target="1898" weight="16.0"></edge>
+      <edge id="345098" source="345" target="1835" weight="3.0"></edge>
+      <edge id="345094" source="345" target="1775"></edge>
+      <edge id="345093" source="345" target="1757"></edge>
+      <edge id="345083" source="345" target="574" weight="4.0"></edge>
+      <edge id="345076" source="345" target="558" weight="5.0"></edge>
+      <edge id="345072" source="345" target="538" weight="3.0"></edge>
+      <edge id="345068" source="345" target="525" weight="12.0"></edge>
+      <edge id="345058" source="345" target="467" weight="6.0"></edge>
+      <edge id="345049" source="345" target="399" weight="3.0"></edge>
+      <edge id="345047" source="345" target="382" weight="5.0"></edge>
+      <edge id="345038" source="345" target="346" weight="3.0"></edge>
+      <edge id="345413" source="346" target="2929" weight="2.0"></edge>
+      <edge id="345402" source="346" target="2436"></edge>
+      <edge id="345388" source="346" target="1775"></edge>
+      <edge id="345344" source="346" target="788" weight="2.0"></edge>
+      <edge id="345339" source="346" target="574" weight="4.0"></edge>
+      <edge id="345335" source="346" target="558"></edge>
+      <edge id="345329" source="346" target="538"></edge>
+      <edge id="345328" source="346" target="525"></edge>
+      <edge id="345317" source="346" target="467" weight="3.0"></edge>
+      <edge id="345303" source="346" target="399" weight="2.0"></edge>
+      <edge id="345298" source="346" target="382" weight="2.0"></edge>
+      <edge id="347197" source="382" target="2436"></edge>
+      <edge id="347169" source="382" target="2056" weight="2.0"></edge>
+      <edge id="347168" source="382" target="2047" weight="2.0"></edge>
+      <edge id="347157" source="382" target="1985" weight="7.0"></edge>
+      <edge id="347153" source="382" target="1898"></edge>
+      <edge id="347150" source="382" target="1835"></edge>
+      <edge id="347145" source="382" target="1757" weight="4.0"></edge>
+      <edge id="347108" source="382" target="1444"></edge>
+      <edge id="347102" source="382" target="1386" weight="2.0"></edge>
+      <edge id="347096" source="382" target="1272"></edge>
+      <edge id="347072" source="382" target="813" weight="2.0"></edge>
+      <edge id="347069" source="382" target="788" weight="3.0"></edge>
+      <edge id="347055" source="382" target="574" weight="4.0"></edge>
+      <edge id="347049" source="382" target="558"></edge>
+      <edge id="347047" source="382" target="538" weight="7.0"></edge>
+      <edge id="347042" source="382" target="525" weight="5.0"></edge>
+      <edge id="347037" source="382" target="496" weight="4.0"></edge>
+      <edge id="347030" source="382" target="467"></edge>
+      <edge id="347019" source="382" target="399" weight="9.0"></edge>
+      <edge id="348030" source="399" target="2633" weight="4.0"></edge>
+      <edge id="348014" source="399" target="2482"></edge>
+      <edge id="348007" source="399" target="2410"></edge>
+      <edge id="347998" source="399" target="2056"></edge>
+      <edge id="347996" source="399" target="2047" weight="2.0"></edge>
+      <edge id="347987" source="399" target="1985" weight="2.0"></edge>
+      <edge id="347984" source="399" target="1898"></edge>
+      <edge id="347973" source="399" target="1835"></edge>
+      <edge id="347969" source="399" target="1757" weight="2.0"></edge>
+      <edge id="347948" source="399" target="1444"></edge>
+      <edge id="347942" source="399" target="1386" weight="2.0"></edge>
+      <edge id="347935" source="399" target="1272"></edge>
+      <edge id="347918" source="399" target="894"></edge>
+      <edge id="347911" source="399" target="813" weight="2.0"></edge>
+      <edge id="347903" source="399" target="574"></edge>
+      <edge id="347895" source="399" target="538" weight="5.0"></edge>
+      <edge id="347892" source="399" target="525" weight="3.0"></edge>
+      <edge id="347881" source="399" target="499"></edge>
+      <edge id="347878" source="399" target="496" weight="3.0"></edge>
+      <edge id="347869" source="399" target="467" weight="3.0"></edge>
+      <edge id="350098" source="467" target="3769" weight="3.0"></edge>
+      <edge id="350089" source="467" target="3064" weight="5.0"></edge>
+      <edge id="350049" source="467" target="2436" weight="2.0"></edge>
+      <edge id="350046" source="467" target="2410" weight="9.0"></edge>
+      <edge id="350045" source="467" target="2408" weight="13.0"></edge>
+      <edge id="350031" source="467" target="2056" weight="5.0"></edge>
+      <edge id="350030" source="467" target="2047" weight="3.0"></edge>
+      <edge id="350027" source="467" target="1898" weight="2.0"></edge>
+      <edge id="350024" source="467" target="1835" weight="3.0"></edge>
+      <edge id="350022" source="467" target="1775" weight="3.0"></edge>
+      <edge id="350021" source="467" target="1757" weight="16.0"></edge>
+      <edge id="350010" source="467" target="927" weight="4.0"></edge>
+      <edge id="350007" source="467" target="904" weight="3.0"></edge>
+      <edge id="350005" source="467" target="894" weight="10.0"></edge>
+      <edge id="350002" source="467" target="788" weight="2.0"></edge>
+      <edge id="349999" source="467" target="574" weight="6.0"></edge>
+      <edge id="349994" source="467" target="558" weight="15.0"></edge>
+      <edge id="349986" source="467" target="538" weight="18.0"></edge>
+      <edge id="349982" source="467" target="525" weight="17.0"></edge>
+      <edge id="349969" source="467" target="499" weight="4.0"></edge>
+      <edge id="349967" source="467" target="496"></edge>
+      <edge id="351118" source="496" target="3064"></edge>
+      <edge id="351106" source="496" target="2408"></edge>
+      <edge id="351078" source="496" target="2047" weight="2.0"></edge>
+      <edge id="351045" source="496" target="1444" weight="3.0"></edge>
+      <edge id="351035" source="496" target="1386" weight="3.0"></edge>
+      <edge id="351019" source="496" target="813" weight="8.0"></edge>
+      <edge id="351371" source="499" target="2408"></edge>
+      <edge id="351363" source="499" target="2047"></edge>
+      <edge id="351362" source="499" target="1775"></edge>
+      <edge id="351361" source="499" target="1760" weight="3.0"></edge>
+      <edge id="351360" source="499" target="1757" weight="2.0"></edge>
+      <edge id="351349" source="499" target="912"></edge>
+      <edge id="351347" source="499" target="908"></edge>
+      <edge id="351343" source="499" target="894"></edge>
+      <edge id="351341" source="499" target="538"></edge>
+      <edge id="351339" source="499" target="525"></edge>
+      <edge id="351333" source="499" target="499"></edge>
+      <edge id="352377" source="525" target="3064"></edge>
+      <edge id="352345" source="525" target="2436" weight="3.0"></edge>
+      <edge id="352338" source="525" target="2410" weight="8.0"></edge>
+      <edge id="352337" source="525" target="2409"></edge>
+      <edge id="352336" source="525" target="2408" weight="8.0"></edge>
+      <edge id="352308" source="525" target="2056" weight="2.0"></edge>
+      <edge id="352306" source="525" target="2047"></edge>
+      <edge id="352299" source="525" target="1985"></edge>
+      <edge id="352295" source="525" target="1898" weight="2.0"></edge>
+      <edge id="352287" source="525" target="1835" weight="2.0"></edge>
+      <edge id="352283" source="525" target="1775" weight="3.0"></edge>
+      <edge id="352282" source="525" target="1757" weight="15.0"></edge>
+      <edge id="352279" source="525" target="1444"></edge>
+      <edge id="352276" source="525" target="949"></edge>
+      <edge id="352273" source="525" target="927"></edge>
+      <edge id="352271" source="525" target="908"></edge>
+      <edge id="352269" source="525" target="904" weight="2.0"></edge>
+      <edge id="352266" source="525" target="894" weight="10.0"></edge>
+      <edge id="352261" source="525" target="788" weight="6.0"></edge>
+      <edge id="352259" source="525" target="574" weight="14.0"></edge>
+      <edge id="352252" source="525" target="558" weight="14.0"></edge>
+      <edge id="352246" source="525" target="538" weight="32.0"></edge>
+      <edge id="352904" source="538" target="3769"></edge>
+      <edge id="352898" source="538" target="3064" weight="2.0"></edge>
+      <edge id="352894" source="538" target="2633" weight="3.0"></edge>
+      <edge id="352870" source="538" target="2482"></edge>
+      <edge id="352848" source="538" target="2436" weight="2.0"></edge>
+      <edge id="352841" source="538" target="2410" weight="9.0"></edge>
+      <edge id="352840" source="538" target="2409" weight="3.0"></edge>
+      <edge id="352839" source="538" target="2408" weight="21.0"></edge>
+      <edge id="352823" source="538" target="2056" weight="8.0"></edge>
+      <edge id="352818" source="538" target="1775" weight="7.0"></edge>
+      <edge id="352817" source="538" target="1757" weight="43.0"></edge>
+      <edge id="352812" source="538" target="1444"></edge>
+      <edge id="352804" source="538" target="949"></edge>
+      <edge id="352801" source="538" target="927" weight="10.0"></edge>
+      <edge id="352798" source="538" target="904" weight="3.0"></edge>
+      <edge id="352795" source="538" target="894" weight="16.0"></edge>
+      <edge id="352770" source="538" target="788" weight="6.0"></edge>
+      <edge id="352741" source="538" target="574" weight="15.0"></edge>
+      <edge id="352735" source="538" target="558" weight="23.0"></edge>
+      <edge id="353728" source="558" target="2519" weight="2.0"></edge>
+      <edge id="353715" source="558" target="2482" weight="2.0"></edge>
+      <edge id="353691" source="558" target="2436" weight="2.0"></edge>
+      <edge id="353688" source="558" target="2425" weight="4.0"></edge>
+      <edge id="353683" source="558" target="2410" weight="2.0"></edge>
+      <edge id="353682" source="558" target="2408" weight="10.0"></edge>
+      <edge id="353657" source="558" target="2056" weight="5.0"></edge>
+      <edge id="353649" source="558" target="1775" weight="11.0"></edge>
+      <edge id="353648" source="558" target="1757" weight="28.0"></edge>
+      <edge id="353636" source="558" target="987" weight="2.0"></edge>
+      <edge id="353628" source="558" target="936"></edge>
+      <edge id="353626" source="558" target="927" weight="17.0"></edge>
+      <edge id="353623" source="558" target="912" weight="5.0"></edge>
+      <edge id="353621" source="558" target="908" weight="2.0"></edge>
+      <edge id="353619" source="558" target="904" weight="5.0"></edge>
+      <edge id="353612" source="558" target="894" weight="10.0"></edge>
+      <edge id="353608" source="558" target="788" weight="9.0"></edge>
+      <edge id="353607" source="558" target="574" weight="15.0"></edge>
+      <edge id="354280" source="574" target="2929"></edge>
+      <edge id="354259" source="574" target="2519" weight="2.0"></edge>
+      <edge id="354250" source="574" target="2482"></edge>
+      <edge id="354239" source="574" target="2436" weight="5.0"></edge>
+      <edge id="354232" source="574" target="2410"></edge>
+      <edge id="354231" source="574" target="2408" weight="3.0"></edge>
+      <edge id="354207" source="574" target="2056" weight="6.0"></edge>
+      <edge id="354188" source="574" target="1775" weight="7.0"></edge>
+      <edge id="354187" source="574" target="1757" weight="16.0"></edge>
+      <edge id="354184" source="574" target="1720"></edge>
+      <edge id="354170" source="574" target="949"></edge>
+      <edge id="354162" source="574" target="927" weight="4.0"></edge>
+      <edge id="354155" source="574" target="904"></edge>
+      <edge id="354151" source="574" target="894" weight="6.0"></edge>
+      <edge id="354145" source="574" target="788" weight="3.0"></edge>
+      <edge id="356581" source="788" target="2436" weight="3.0"></edge>
+      <edge id="356578" source="788" target="2410" weight="3.0"></edge>
+      <edge id="356577" source="788" target="2408"></edge>
+      <edge id="356565" source="788" target="2056" weight="2.0"></edge>
+      <edge id="356556" source="788" target="1757" weight="8.0"></edge>
+      <edge id="356554" source="788" target="1655"></edge>
+      <edge id="356547" source="788" target="927"></edge>
+      <edge id="356544" source="788" target="904"></edge>
+      <edge id="356541" source="788" target="894" weight="6.0"></edge>
+      <edge id="357264" source="813" target="1444" weight="3.0"></edge>
+      <edge id="357252" source="813" target="1386" weight="3.0"></edge>
+      <edge id="357225" source="813" target="813"></edge>
+      <edge id="359080" source="894" target="3769"></edge>
+      <edge id="359043" source="894" target="2482" weight="4.0"></edge>
+      <edge id="359027" source="894" target="2436" weight="3.0"></edge>
+      <edge id="359024" source="894" target="2425"></edge>
+      <edge id="359021" source="894" target="2410" weight="4.0"></edge>
+      <edge id="359020" source="894" target="2408" weight="10.0"></edge>
+      <edge id="359004" source="894" target="2056" weight="6.0"></edge>
+      <edge id="358996" source="894" target="1837"></edge>
+      <edge id="358994" source="894" target="1835" weight="2.0"></edge>
+      <edge id="358991" source="894" target="1775" weight="5.0"></edge>
+      <edge id="358990" source="894" target="1757" weight="26.0"></edge>
+      <edge id="358980" source="894" target="987"></edge>
+      <edge id="358976" source="894" target="936"></edge>
+      <edge id="358974" source="894" target="927" weight="5.0"></edge>
+      <edge id="358972" source="894" target="912" weight="2.0"></edge>
+      <edge id="358970" source="894" target="908"></edge>
+      <edge id="358968" source="894" target="904" weight="11.0"></edge>
+      <edge id="359673" source="904" target="3769"></edge>
+      <edge id="359653" source="904" target="2519" weight="2.0"></edge>
+      <edge id="359639" source="904" target="2482" weight="2.0"></edge>
+      <edge id="359632" source="904" target="2436"></edge>
+      <edge id="359630" source="904" target="2425" weight="2.0"></edge>
+      <edge id="359627" source="904" target="2410" weight="2.0"></edge>
+      <edge id="359626" source="904" target="2409" weight="2.0"></edge>
+      <edge id="359602" source="904" target="1775"></edge>
+      <edge id="359601" source="904" target="1757" weight="4.0"></edge>
+      <edge id="359590" source="904" target="987" weight="3.0"></edge>
+      <edge id="359587" source="904" target="955" weight="3.0"></edge>
+      <edge id="359582" source="904" target="936" weight="2.0"></edge>
+      <edge id="359578" source="904" target="927" weight="8.0"></edge>
+      <edge id="359574" source="904" target="912" weight="6.0"></edge>
+      <edge id="359571" source="904" target="908" weight="2.0"></edge>
+      <edge id="360018" source="908" target="3182"></edge>
+      <edge id="360006" source="908" target="2410"></edge>
+      <edge id="359995" source="908" target="1760"></edge>
+      <edge id="359985" source="908" target="987"></edge>
+      <edge id="359978" source="908" target="955"></edge>
+      <edge id="359974" source="908" target="949" weight="4.0"></edge>
+      <edge id="359964" source="908" target="936" weight="2.0"></edge>
+      <edge id="359961" source="908" target="927" weight="2.0"></edge>
+      <edge id="359953" source="908" target="912" weight="3.0"></edge>
+      <edge id="360258" source="912" target="2482"></edge>
+      <edge id="360255" source="912" target="2425" weight="2.0"></edge>
+      <edge id="360254" source="912" target="2410"></edge>
+      <edge id="360244" source="912" target="1760"></edge>
+      <edge id="360243" source="912" target="1757"></edge>
+      <edge id="360225" source="912" target="987" weight="2.0"></edge>
+      <edge id="360209" source="912" target="955" weight="5.0"></edge>
+      <edge id="360206" source="912" target="949"></edge>
+      <edge id="360195" source="912" target="936" weight="5.0"></edge>
+      <edge id="360188" source="912" target="927" weight="6.0"></edge>
+      <edge id="360178" source="912" target="912"></edge>
+      <edge id="361118" source="927" target="2519" weight="5.0"></edge>
+      <edge id="361103" source="927" target="2425" weight="2.0"></edge>
+      <edge id="361098" source="927" target="2408" weight="5.0"></edge>
+      <edge id="361085" source="927" target="2056"></edge>
+      <edge id="361083" source="927" target="1985"></edge>
+      <edge id="361080" source="927" target="1775" weight="3.0"></edge>
+      <edge id="361079" source="927" target="1760"></edge>
+      <edge id="361078" source="927" target="1757" weight="17.0"></edge>
+      <edge id="361063" source="927" target="955" weight="2.0"></edge>
+      <edge id="361061" source="927" target="949"></edge>
+      <edge id="361056" source="927" target="936"></edge>
+      <edge id="361539" source="936" target="2410"></edge>
+      <edge id="361538" source="936" target="2409"></edge>
+      <edge id="361525" source="936" target="1720"></edge>
+      <edge id="361505" source="936" target="987" weight="2.0"></edge>
+      <edge id="361494" source="936" target="955" weight="2.0"></edge>
+      <edge id="362092" source="949" target="2408"></edge>
+      <edge id="362088" source="949" target="1775"></edge>
+      <edge id="362087" source="949" target="1757"></edge>
+      <edge id="362074" source="949" target="955"></edge>
+      <edge id="362274" source="955" target="2633"></edge>
+      <edge id="362273" source="955" target="2425"></edge>
+      <edge id="362271" source="955" target="2409" weight="2.0"></edge>
+      <edge id="362262" source="955" target="1760" weight="4.0"></edge>
+      <edge id="362257" source="955" target="987" weight="2.0"></edge>
+      <edge id="363179" source="987" target="3769" weight="6.0"></edge>
+      <edge id="363156" source="987" target="3182" weight="5.0"></edge>
+      <edge id="363153" source="987" target="3064"></edge>
+      <edge id="363142" source="987" target="2410"></edge>
+      <edge id="363141" source="987" target="2409" weight="3.0"></edge>
+      <edge id="363140" source="987" target="2408"></edge>
+      <edge id="363134" source="987" target="2047"></edge>
+      <edge id="363120" source="987" target="1835" weight="2.0"></edge>
+      <edge id="366077" source="1183" target="1837"></edge>
+      <edge id="367497" source="1272" target="2409"></edge>
+      <edge id="367496" source="1272" target="2408" weight="2.0"></edge>
+      <edge id="367472" source="1272" target="2047" weight="3.0"></edge>
+      <edge id="367449" source="1272" target="1985"></edge>
+      <edge id="367440" source="1272" target="1835"></edge>
+      <edge id="373434" source="1655" target="1985" weight="2.0"></edge>
+      <edge id="373413" source="1655" target="1720" weight="5.0"></edge>
+      <edge id="374326" source="1720" target="3769"></edge>
+      <edge id="374296" source="1720" target="2929"></edge>
+      <edge id="374289" source="1720" target="2436"></edge>
+      <edge id="374288" source="1720" target="2409"></edge>
+      <edge id="374267" source="1720" target="1775"></edge>
+      <edge id="374941" source="1757" target="2633" weight="2.0"></edge>
+      <edge id="374916" source="1757" target="2519"></edge>
+      <edge id="374902" source="1757" target="2482" weight="6.0"></edge>
+      <edge id="374886" source="1757" target="2436" weight="6.0"></edge>
+      <edge id="374881" source="1757" target="2425"></edge>
+      <edge id="374877" source="1757" target="2410" weight="6.0"></edge>
+      <edge id="374876" source="1757" target="2408" weight="16.0"></edge>
+      <edge id="374859" source="1757" target="2056" weight="10.0"></edge>
+      <edge id="374849" source="1757" target="1835"></edge>
+      <edge id="374847" source="1757" target="1775" weight="8.0"></edge>
+      <edge id="374840" source="1757" target="1760" weight="3.0"></edge>
+      <edge id="375054" source="1760" target="2482" weight="2.0"></edge>
+      <edge id="375328" source="1775" target="2929" weight="3.0"></edge>
+      <edge id="375319" source="1775" target="2519"></edge>
+      <edge id="375310" source="1775" target="2482"></edge>
+      <edge id="375298" source="1775" target="2436" weight="4.0"></edge>
+      <edge id="375294" source="1775" target="2410" weight="4.0"></edge>
+      <edge id="375293" source="1775" target="2408" weight="4.0"></edge>
+      <edge id="375272" source="1775" target="2056" weight="4.0"></edge>
+      <edge id="375269" source="1775" target="2047" weight="2.0"></edge>
+      <edge id="375267" source="1775" target="1985"></edge>
+      <edge id="376426" source="1835" target="3064" weight="4.0"></edge>
+      <edge id="376414" source="1835" target="2409"></edge>
+      <edge id="376413" source="1835" target="2408"></edge>
+      <edge id="376379" source="1835" target="2056"></edge>
+      <edge id="376376" source="1835" target="2047" weight="9.0"></edge>
+      <edge id="376368" source="1835" target="1985" weight="2.0"></edge>
+      <edge id="376359" source="1835" target="1837" weight="3.0"></edge>
+      <edge id="378110" source="1898" target="3769"></edge>
+      <edge id="378079" source="1898" target="3064" weight="2.0"></edge>
+      <edge id="378046" source="1898" target="2410" weight="13.0"></edge>
+      <edge id="378045" source="1898" target="2408" weight="6.0"></edge>
+      <edge id="380142" source="1985" target="3064"></edge>
+      <edge id="380122" source="1985" target="2519"></edge>
+      <edge id="380120" source="1985" target="2482"></edge>
+      <edge id="380117" source="1985" target="2408" weight="2.0"></edge>
+      <edge id="380077" source="1985" target="2056" weight="10.0"></edge>
+      <edge id="380073" source="1985" target="2047" weight="2.0"></edge>
+      <edge id="381587" source="2047" target="3064" weight="5.0"></edge>
+      <edge id="381570" source="2047" target="2409"></edge>
+      <edge id="381569" source="2047" target="2408"></edge>
+      <edge id="381531" source="2047" target="2047"></edge>
+      <edge id="381993" source="2056" target="2519"></edge>
+      <edge id="381979" source="2056" target="2436" weight="4.0"></edge>
+      <edge id="381977" source="2056" target="2425"></edge>
+      <edge id="381975" source="2056" target="2410" weight="3.0"></edge>
+      <edge id="381974" source="2056" target="2408" weight="3.0"></edge>
+      <edge id="386333" source="2408" target="3064" weight="12.0"></edge>
+      <edge id="386298" source="2408" target="2436"></edge>
+      <edge id="386292" source="2408" target="2410" weight="5.0"></edge>
+      <edge id="386291" source="2408" target="2409" weight="10.0"></edge>
+      <edge id="386481" source="2409" target="3182" weight="2.0"></edge>
+      <edge id="386465" source="2409" target="3064" weight="7.0"></edge>
+      <edge id="386455" source="2409" target="2436"></edge>
+      <edge id="386451" source="2409" target="2410"></edge>
+      <edge id="386588" source="2410" target="2633"></edge>
+      <edge id="386566" source="2410" target="2436" weight="4.0"></edge>
+      <edge id="386558" source="2410" target="2410"></edge>
+      <edge id="386922" source="2425" target="2519" weight="3.0"></edge>
+      <edge id="386916" source="2425" target="2482"></edge>
+      <edge id="387336" source="2436" target="3064"></edge>
+      <edge id="387331" source="2436" target="2929"></edge>
+      <edge id="395956" source="3064" target="3182"></edge>
+      <edge id="397432" source="3182" target="3769" weight="2.0"></edge>
+    </edges>
+  </graph>
+</gexf>

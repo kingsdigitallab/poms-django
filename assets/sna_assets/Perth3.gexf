@@ -1,0 +1,1932 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.3" version="1.3" xmlns:viz="http://www.gexf.net/1.3/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.3 http://www.gexf.net/1.3/gexf.xsd">
+  <meta lastmodifieddate="2017-01-30">
+    <creator>Gephi 0.9</creator>
+    <description></description>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static">
+    <attributes class="node" mode="static">
+      <attribute id="eigencentrality" title="Eigenvector Centrality" type="double">
+        <default>0.0</default>
+      </attribute>
+      <attribute id="gender" title="Gender" type="string"></attribute>
+      <attribute id="poms id" title="PoMS ID" type="string"></attribute>
+      <attribute id="name" title="Name" type="string"></attribute>
+      <attribute id="degree" title="Degree" type="integer">
+        <default>0</default>
+      </attribute>
+    </attributes>
+    <nodes>
+      <node id="15" label="Henry, son of Geoffrey de Liberatione of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="1.0"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="5330"></attvalue>
+          <attvalue for="name" value="Henry, son of Geoffrey de Liberatione of Perth"></attvalue>
+          <attvalue for="degree" value="56"></attvalue>
+        </attvalues>
+        <viz:size value="71.62548"></viz:size>
+        <viz:position x="771.21924" y="-260.65033"></viz:position>
+        <viz:color r="8" g="104" b="172"></viz:color>
+      </node>
+      <node id="35" label="Osbern/Osbert Redbeard, brother of Geoffrey Redbeard">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.82856299"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="9008"></attvalue>
+          <attvalue for="name" value="Osbern/Osbert Redbeard, brother of Geoffrey Redbeard"></attvalue>
+          <attvalue for="degree" value="40"></attvalue>
+        </attvalues>
+        <viz:size value="59.77676"></viz:size>
+        <viz:position x="-359.0522" y="-729.8675"></viz:position>
+        <viz:color r="81" g="168" b="187"></viz:color>
+      </node>
+      <node id="27" label="Robert, son of Fulk, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.753298127"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="9000"></attvalue>
+          <attvalue for="name" value="Robert, son of Fulk, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="36"></attvalue>
+        </attvalues>
+        <viz:size value="54.574894"></viz:size>
+        <viz:position x="-41.409782" y="-814.4252"></viz:position>
+        <viz:color r="99" g="184" b="191"></viz:color>
+      </node>
+      <node id="40" label="David Yeap">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.75298457"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14744"></attvalue>
+          <attvalue for="name" value="David Yeap"></attvalue>
+          <attvalue for="degree" value="38"></attvalue>
+        </attvalues>
+        <viz:size value="54.553226"></viz:size>
+        <viz:position x="196.51822" y="-795.07544"></viz:position>
+        <viz:color r="90" g="176" b="189"></viz:color>
+      </node>
+      <node id="34" label="Alan Redbeard, brother of Geoffrey Redbeard">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.715518793"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="9007"></attvalue>
+          <attvalue for="name" value="Alan Redbeard, brother of Geoffrey Redbeard"></attvalue>
+          <attvalue for="degree" value="34"></attvalue>
+        </attvalues>
+        <viz:size value="51.963806"></viz:size>
+        <viz:position x="535.0566" y="610.66156"></viz:position>
+        <viz:color r="109" g="192" b="193"></viz:color>
+      </node>
+      <node id="4" label="John, son of Leve">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.661816297"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3472"></attvalue>
+          <attvalue for="name" value="John, son of Leve"></attvalue>
+          <attvalue for="degree" value="40"></attvalue>
+        </attvalues>
+        <viz:size value="48.25221"></viz:size>
+        <viz:position x="-289.2031" y="759.7612"></viz:position>
+        <viz:color r="81" g="168" b="187"></viz:color>
+      </node>
+      <node id="46" label="William of Dundee">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.616106211"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14751"></attvalue>
+          <attvalue for="name" value="William of Dundee"></attvalue>
+          <attvalue for="degree" value="42"></attvalue>
+        </attvalues>
+        <viz:size value="45.092995"></viz:size>
+        <viz:position x="-796.47296" y="171.11261"></viz:position>
+        <viz:color r="72" g="160" b="185"></viz:color>
+      </node>
+      <node id="20" label="Henry Bald, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.592841341"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="1138"></attvalue>
+          <attvalue for="name" value="Henry Bald, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="28"></attvalue>
+        </attvalues>
+        <viz:size value="43.48506"></viz:size>
+        <viz:position x="317.78275" y="743.72626"></viz:position>
+        <viz:color r="137" g="209" b="200"></viz:color>
+      </node>
+      <node id="22" label="William, son of Serlo ">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.592841341"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8997"></attvalue>
+          <attvalue for="name" value="William, son of Serlo "></attvalue>
+          <attvalue for="degree" value="28"></attvalue>
+        </attvalues>
+        <viz:size value="43.48506"></viz:size>
+        <viz:position x="344.03574" y="-758.63293"></viz:position>
+        <viz:color r="137" g="209" b="200"></viz:color>
+      </node>
+      <node id="23" label="Richard, son of Andrew, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.582752397"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8998"></attvalue>
+          <attvalue for="name" value="Richard, son of Andrew, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="27"></attvalue>
+        </attvalues>
+        <viz:size value="42.787777"></viz:size>
+        <viz:position x="755.053" y="297.56317"></viz:position>
+        <viz:color r="141" g="211" b="201"></viz:color>
+      </node>
+      <node id="24" label="John, son of David, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.582752397"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14731"></attvalue>
+          <attvalue for="name" value="John, son of David, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="27"></attvalue>
+        </attvalues>
+        <viz:size value="42.787777"></viz:size>
+        <viz:position x="36.62556" y="814.24164"></viz:position>
+        <viz:color r="141" g="211" b="201"></viz:color>
+      </node>
+      <node id="36" label="William Loveproud, burgess">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.543386039"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14740"></attvalue>
+          <attvalue for="name" value="William Loveproud, burgess"></attvalue>
+          <attvalue for="degree" value="24"></attvalue>
+        </attvalues>
+        <viz:size value="40.067"></viz:size>
+        <viz:position x="-460.27536" y="668.7503"></viz:position>
+        <viz:color r="155" g="216" b="206"></viz:color>
+      </node>
+      <node id="1" label="John Cockin, grieve of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.533255985"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3469"></attvalue>
+          <attvalue for="name" value="John Cockin, grieve of Perth"></attvalue>
+          <attvalue for="degree" value="37"></attvalue>
+        </attvalues>
+        <viz:size value="39.36687"></viz:size>
+        <viz:position x="813.69275" y="-107.918335"></viz:position>
+        <viz:color r="95" g="180" b="190"></viz:color>
+      </node>
+      <node id="18" label="James, son of Uhtred, grieve of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.512269885"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8995"></attvalue>
+          <attvalue for="name" value="James, son of Uhtred, grieve of Perth"></attvalue>
+          <attvalue for="degree" value="25"></attvalue>
+        </attvalues>
+        <viz:size value="37.916435"></viz:size>
+        <viz:position x="-576.915" y="-581.63873"></viz:position>
+        <viz:color r="151" g="214" b="204"></viz:color>
+      </node>
+      <node id="55" label="William, dyer (PER)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.477519991"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14755"></attvalue>
+          <attvalue for="name" value="William, dyer (PER)"></attvalue>
+          <attvalue for="degree" value="23"></attvalue>
+        </attvalues>
+        <viz:size value="35.514725"></viz:size>
+        <viz:position x="-681.14923" y="-464.72946"></viz:position>
+        <viz:color r="160" g="218" b="207"></viz:color>
+      </node>
+      <node id="26" label="Serlo, tailor (talliator) (father of William)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="9012"></attvalue>
+          <attvalue for="name" value="Serlo, tailor (talliator) (father of William)"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="530.50507" y="-619.9484"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="28" label="William, son of Uhtred, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14736"></attvalue>
+          <attvalue for="name" value="William, son of Uhtred, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="682.85114" y="428.9646"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="29" label="Peter, son of David, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8999"></attvalue>
+          <attvalue for="name" value="Peter, son of David, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="-650.7447" y="476.9739"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="30" label="Robert, smith, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14737"></attvalue>
+          <attvalue for="name" value="Robert, smith, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="435.25482" y="678.64044"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="31" label="Benedict, son of Walter of St Edmunds">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14738"></attvalue>
+          <attvalue for="name" value="Benedict, son of Walter of St Edmunds"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="-803.3344" y="-89.80707"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="32" label="Henry, son of Walter of St Edmunds">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14739"></attvalue>
+          <attvalue for="name" value="Henry, son of Walter of St Edmunds"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="682.3943" y="-422.2341"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="33" label="Geoffrey Redbeard ">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="9009"></attvalue>
+          <attvalue for="name" value="Geoffrey Redbeard "></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="808.4666" y="103.99916"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="37" label="Serlo, son of William Loveproud">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14741"></attvalue>
+          <attvalue for="name" value="Serlo, son of William Loveproud"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="443.56406" y="-699.98615"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="38" label="Robert of Stanford, burgess">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14742"></attvalue>
+          <attvalue for="name" value="Robert of Stanford, burgess"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="-782.63696" y="-205.63828"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="39" label="William Whitebeard">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.470233402"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14743"></attvalue>
+          <attvalue for="name" value="William Whitebeard"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="35.011116"></viz:size>
+        <viz:position x="80.214165" y="-837.337"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="14" label="John of Perth, master, vicar of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.449594195"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3846"></attvalue>
+          <attvalue for="name" value="John of Perth, master, vicar of Perth"></attvalue>
+          <attvalue for="degree" value="22"></attvalue>
+        </attvalues>
+        <viz:size value="33.584656"></viz:size>
+        <viz:position x="-729.05145" y="-374.70734"></viz:position>
+        <viz:color r="165" g="220" b="208"></viz:color>
+      </node>
+      <node id="2" label="Michael, son of Serlo">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.434796567"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3470"></attvalue>
+          <attvalue for="name" value="Michael, son of Serlo"></attvalue>
+          <attvalue for="degree" value="26"></attvalue>
+        </attvalues>
+        <viz:size value="32.56193"></viz:size>
+        <viz:position x="821.2846" y="9.007041"></viz:position>
+        <viz:color r="146" g="213" b="203"></viz:color>
+      </node>
+      <node id="62" label="John [Albot] White, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.431131217"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14703"></attvalue>
+          <attvalue for="name" value="John [Albot] White, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="33"></attvalue>
+        </attvalues>
+        <viz:size value="32.308605"></viz:size>
+        <viz:position x="644.82886" y="-509.407"></viz:position>
+        <viz:color r="113" g="196" b="194"></viz:color>
+      </node>
+      <node id="3" label="John Bell">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.389060851"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3471"></attvalue>
+          <attvalue for="name" value="John Bell"></attvalue>
+          <attvalue for="degree" value="22"></attvalue>
+        </attvalues>
+        <viz:size value="29.400944"></viz:size>
+        <viz:position x="-776.32684" y="-300.1502"></viz:position>
+        <viz:color r="165" g="220" b="208"></viz:color>
+      </node>
+      <node id="45" label="Richard of Leicester, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.375535331"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3067"></attvalue>
+          <attvalue for="name" value="Richard of Leicester, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="18"></attvalue>
+        </attvalues>
+        <viz:size value="28.46614"></viz:size>
+        <viz:position x="219.1901" y="795.67883"></viz:position>
+        <viz:color r="183" g="227" b="214" a="0.99607843"></viz:color>
+      </node>
+      <node id="47" label="James, son of James son of Uhtred">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.375535331"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8996"></attvalue>
+          <attvalue for="name" value="James, son of James son of Uhtred"></attvalue>
+          <attvalue for="degree" value="18"></attvalue>
+        </attvalues>
+        <viz:size value="28.46614"></viz:size>
+        <viz:position x="-831.2506" y="-7.083333"></viz:position>
+        <viz:color r="183" g="227" b="214" a="0.99607843"></viz:color>
+      </node>
+      <node id="48" label="William Spear">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.375535331"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14750"></attvalue>
+          <attvalue for="name" value="William Spear"></attvalue>
+          <attvalue for="degree" value="18"></attvalue>
+        </attvalues>
+        <viz:size value="28.46614"></viz:size>
+        <viz:position x="-182.65758" y="789.7606"></viz:position>
+        <viz:color r="183" g="227" b="214" a="0.99607843"></viz:color>
+      </node>
+      <node id="60" label="John de Bataille ">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.351623752"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="9002"></attvalue>
+          <attvalue for="name" value="John de Bataille "></attvalue>
+          <attvalue for="degree" value="17"></attvalue>
+        </attvalues>
+        <viz:size value="26.813513"></viz:size>
+        <viz:position x="-489.50864" y="-628.3178"></viz:position>
+        <viz:color r="188" g="229" b="216"></viz:color>
+      </node>
+      <node id="51" label="Elias, dean of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.348780193"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3465"></attvalue>
+          <attvalue for="name" value="Elias, dean of Perth"></attvalue>
+          <attvalue for="degree" value="17"></attvalue>
+        </attvalues>
+        <viz:size value="26.616985"></viz:size>
+        <viz:position x="634.1669" y="500.99164"></viz:position>
+        <viz:color r="188" g="229" b="216"></viz:color>
+      </node>
+      <node id="16" label="Simon de Camera, grieve of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.341353411"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8990"></attvalue>
+          <attvalue for="name" value="Simon de Camera, grieve of Perth"></attvalue>
+          <attvalue for="degree" value="16"></attvalue>
+        </attvalues>
+        <viz:size value="26.103685"></viz:size>
+        <viz:position x="782.884" y="190.17186"></viz:position>
+        <viz:color r="193" g="231" b="217"></viz:color>
+      </node>
+      <node id="17" label="William, son of Joel, grieve of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.341353411"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8993"></attvalue>
+          <attvalue for="name" value="William, son of Joel, grieve of Perth"></attvalue>
+          <attvalue for="degree" value="16"></attvalue>
+        </attvalues>
+        <viz:size value="26.103685"></viz:size>
+        <viz:position x="-806.2627" y="66.35826"></viz:position>
+        <viz:color r="193" g="231" b="217"></viz:color>
+      </node>
+      <node id="21" label="William of Lynn, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.341353411"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="2188"></attvalue>
+          <attvalue for="name" value="William of Lynn, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="16"></attvalue>
+        </attvalues>
+        <viz:size value="26.103685"></viz:size>
+        <viz:position x="-393.37122" y="741.78516"></viz:position>
+        <viz:color r="193" g="231" b="217"></viz:color>
+      </node>
+      <node id="57" label="Walter, son of Robert of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.332785632"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14757"></attvalue>
+          <attvalue for="name" value="Walter, son of Robert of Perth"></attvalue>
+          <attvalue for="degree" value="15"></attvalue>
+        </attvalues>
+        <viz:size value="25.511536"></viz:size>
+        <viz:position x="-583.68536" y="550.6402"></viz:position>
+        <viz:color r="197" g="232" b="219"></viz:color>
+      </node>
+      <node id="58" label="Robert, son of Robert of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.332785632"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14758"></attvalue>
+          <attvalue for="name" value="Robert, son of Robert of Perth"></attvalue>
+          <attvalue for="degree" value="15"></attvalue>
+        </attvalues>
+        <viz:size value="25.511536"></viz:size>
+        <viz:position x="-107.76263" y="810.1073"></viz:position>
+        <viz:color r="197" g="232" b="219"></viz:color>
+      </node>
+      <node id="6" label="Henry of Bedford">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.332221185"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14789"></attvalue>
+          <attvalue for="name" value="Henry of Bedford"></attvalue>
+          <attvalue for="degree" value="23"></attvalue>
+        </attvalues>
+        <viz:size value="25.472525"></viz:size>
+        <viz:position x="136.67392" y="823.31134"></viz:position>
+        <viz:color r="160" g="218" b="207"></viz:color>
+      </node>
+      <node id="54" label="Roger of Dunning, clerk">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.317915054"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14756"></attvalue>
+          <attvalue for="name" value="Roger of Dunning, clerk"></attvalue>
+          <attvalue for="degree" value="14"></attvalue>
+        </attvalues>
+        <viz:size value="24.483768"></viz:size>
+        <viz:position x="-188.03969" y="-808.8065"></viz:position>
+        <viz:color r="202" g="234" b="220"></viz:color>
+      </node>
+      <node id="56" label="Robert of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.317915054"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14606"></attvalue>
+          <attvalue for="name" value="Robert of Perth"></attvalue>
+          <attvalue for="degree" value="14"></attvalue>
+        </attvalues>
+        <viz:size value="24.483768"></viz:size>
+        <viz:position x="-240.47293" y="-746.49713"></viz:position>
+        <viz:color r="202" g="234" b="220"></viz:color>
+      </node>
+      <node id="59" label="Thomas, son of Gilbert the Small">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.317915054"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14759"></attvalue>
+          <attvalue for="name" value="Thomas, son of Gilbert the Small"></attvalue>
+          <attvalue for="degree" value="14"></attvalue>
+        </attvalues>
+        <viz:size value="24.483768"></viz:size>
+        <viz:position x="763.1251" y="-397.98367"></viz:position>
+        <viz:color r="202" g="234" b="220"></viz:color>
+      </node>
+      <node id="50" label="Robert of Leicester/Craigie, dean of Aberdeen (d.1277x88)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.30801052"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="2231"></attvalue>
+          <attvalue for="name" value="Robert of Leicester/Craigie, dean of Aberdeen (d.1277x88)"></attvalue>
+          <attvalue for="degree" value="14"></attvalue>
+        </attvalues>
+        <viz:size value="23.799223"></viz:size>
+        <viz:position x="-758.0102" y="270.60947"></viz:position>
+        <viz:color r="202" g="234" b="220"></viz:color>
+      </node>
+      <node id="82" label="Dernulf, dyer">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.281721305"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15021"></attvalue>
+          <attvalue for="name" value="Dernulf, dyer"></attvalue>
+          <attvalue for="degree" value="12"></attvalue>
+        </attvalues>
+        <viz:size value="21.982264"></viz:size>
+        <viz:position x="-478.52286" y="-711.2689"></viz:position>
+        <viz:color r="211" g="238" b="223"></viz:color>
+      </node>
+      <node id="83" label="William Cockin">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.281721305"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15023"></attvalue>
+          <attvalue for="name" value="William Cockin"></attvalue>
+          <attvalue for="degree" value="12"></attvalue>
+        </attvalues>
+        <viz:size value="21.982264"></viz:size>
+        <viz:position x="-594.0921" y="-498.15915"></viz:position>
+        <viz:color r="211" g="238" b="223"></viz:color>
+      </node>
+      <node id="13" label="Denis, dean of Angus and Forfar (fl.1211x14-1225x39)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.248111542"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="759"></attvalue>
+          <attvalue for="name" value="Denis, dean of Angus and Forfar (fl.1211x14-1225x39)"></attvalue>
+          <attvalue for="degree" value="12"></attvalue>
+        </attvalues>
+        <viz:size value="19.659359"></viz:size>
+        <viz:position x="604.2368" y="-574.9555"></viz:position>
+        <viz:color r="211" g="238" b="223"></viz:color>
+      </node>
+      <node id="19" label="James, son of Ketell of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.248111542"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="5332"></attvalue>
+          <attvalue for="name" value="James, son of Ketell of Perth"></attvalue>
+          <attvalue for="degree" value="12"></attvalue>
+        </attvalues>
+        <viz:size value="19.659359"></viz:size>
+        <viz:position x="-684.5536" y="404.01672"></viz:position>
+        <viz:color r="211" g="238" b="223"></viz:color>
+      </node>
+      <node id="25" label="Richard, nepos of Master John of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.248111542"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14732"></attvalue>
+          <attvalue for="name" value="Richard, nepos of Master John of Perth"></attvalue>
+          <attvalue for="degree" value="12"></attvalue>
+        </attvalues>
+        <viz:size value="19.659359"></viz:size>
+        <viz:position x="-553.42426" y="643.0158"></viz:position>
+        <viz:color r="211" g="238" b="223"></viz:color>
+      </node>
+      <node id="41" label="Gilbert of Craig">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.244874325"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14747"></attvalue>
+          <attvalue for="name" value="Gilbert of Craig"></attvalue>
+          <attvalue for="degree" value="10"></attvalue>
+        </attvalues>
+        <viz:size value="19.435617"></viz:size>
+        <viz:position x="-762.6109" y="338.0092"></viz:position>
+        <viz:color r="221" g="241" b="226"></viz:color>
+      </node>
+      <node id="10" label="Nicholas of Scarborough">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.241337894"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14792"></attvalue>
+          <attvalue for="name" value="Nicholas of Scarborough"></attvalue>
+          <attvalue for="degree" value="19"></attvalue>
+        </attvalues>
+        <viz:size value="19.191204"></viz:size>
+        <viz:position x="-531.986" y="588.91003"></viz:position>
+        <viz:color r="179" g="225" b="213"></viz:color>
+      </node>
+      <node id="44" label="Geoffrey de Liberatione, bishop of Dunkeld (d.1249)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.22137796"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="2039"></attvalue>
+          <attvalue for="name" value="Geoffrey de Liberatione, bishop of Dunkeld (d.1249)"></attvalue>
+          <attvalue for="degree" value="17"></attvalue>
+        </attvalues>
+        <viz:size value="17.811691"></viz:size>
+        <viz:position x="638.8156" y="570.746"></viz:position>
+        <viz:color r="188" g="229" b="216"></viz:color>
+      </node>
+      <node id="11" label="Michael of Scone">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.211966559"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3479"></attvalue>
+          <attvalue for="name" value="Michael of Scone"></attvalue>
+          <attvalue for="degree" value="18"></attvalue>
+        </attvalues>
+        <viz:size value="17.161228"></viz:size>
+        <viz:position x="-846.8732" y="-164.51282"></viz:position>
+        <viz:color r="183" g="227" b="214" a="0.99607843"></viz:color>
+      </node>
+      <node id="52" label="Simon of Crieff">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.211045381"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14752"></attvalue>
+          <attvalue for="name" value="Simon of Crieff"></attvalue>
+          <attvalue for="degree" value="9"></attvalue>
+        </attvalues>
+        <viz:size value="17.09756"></viz:size>
+        <viz:position x="-142.90385" y="-849.2915"></viz:position>
+        <viz:color r="225" g="243" b="227"></viz:color>
+      </node>
+      <node id="53" label="Ralph, clerk, sheriff of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.211045381"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14753"></attvalue>
+          <attvalue for="name" value="Ralph, clerk, sheriff of Perth"></attvalue>
+          <attvalue for="degree" value="9"></attvalue>
+        </attvalues>
+        <viz:size value="17.09756"></viz:size>
+        <viz:position x="754.80176" y="391.22552"></viz:position>
+        <viz:color r="225" g="243" b="227"></viz:color>
+      </node>
+      <node id="42" label="Walter of Newton, knight">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.209379738"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14749"></attvalue>
+          <attvalue for="name" value="Walter of Newton, knight"></attvalue>
+          <attvalue for="degree" value="10"></attvalue>
+        </attvalues>
+        <viz:size value="16.982439"></viz:size>
+        <viz:position x="-135.15881" y="-759.2555"></viz:position>
+        <viz:color r="221" g="241" b="226"></viz:color>
+      </node>
+      <node id="43" label="Henry of Abernyte">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.209379738"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="12110"></attvalue>
+          <attvalue for="name" value="Henry of Abernyte"></attvalue>
+          <attvalue for="degree" value="10"></attvalue>
+        </attvalues>
+        <viz:size value="16.982439"></viz:size>
+        <viz:position x="402.30972" y="752.26825"></viz:position>
+        <viz:color r="221" g="241" b="226"></viz:color>
+      </node>
+      <node id="49" label="Richard of Lynn">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.209379738"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="9006"></attvalue>
+          <attvalue for="name" value="Richard of Lynn"></attvalue>
+          <attvalue for="degree" value="10"></attvalue>
+        </attvalues>
+        <viz:size value="16.982439"></viz:size>
+        <viz:position x="-656.86285" y="-559.1793"></viz:position>
+        <viz:color r="221" g="241" b="226"></viz:color>
+      </node>
+      <node id="63" label="Andrew Teket/Cheket">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.164574206"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14791"></attvalue>
+          <attvalue for="name" value="Andrew Teket/Cheket"></attvalue>
+          <attvalue for="degree" value="18"></attvalue>
+        </attvalues>
+        <viz:size value="13.885748"></viz:size>
+        <viz:position x="-280.01144" y="-815.40546"></viz:position>
+        <viz:color r="183" g="227" b="214" a="0.99607843"></viz:color>
+      </node>
+      <node id="5" label="Henry de Birie">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.156759501"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3473"></attvalue>
+          <attvalue for="name" value="Henry de Birie"></attvalue>
+          <attvalue for="degree" value="11"></attvalue>
+        </attvalues>
+        <viz:size value="13.34564"></viz:size>
+        <viz:position x="-724.71313" y="444.38147"></viz:position>
+        <viz:color r="216" g="240" b="224"></viz:color>
+      </node>
+      <node id="7" label="William de Gragin (Cragie?)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.156759501"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3475"></attvalue>
+          <attvalue for="name" value="William de Gragin (Cragie?)"></attvalue>
+          <attvalue for="degree" value="11"></attvalue>
+        </attvalues>
+        <viz:size value="13.34564"></viz:size>
+        <viz:position x="163.21928" y="762.50885"></viz:position>
+        <viz:color r="216" g="240" b="224"></viz:color>
+      </node>
+      <node id="8" label="Thomas Thirithec">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.156759501"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3476"></attvalue>
+          <attvalue for="name" value="Thomas Thirithec"></attvalue>
+          <attvalue for="degree" value="11"></attvalue>
+        </attvalues>
+        <viz:size value="13.34564"></viz:size>
+        <viz:position x="-713.47253" y="352.51602"></viz:position>
+        <viz:color r="216" g="240" b="224"></viz:color>
+      </node>
+      <node id="9" label="Laurence, son of Guy, judex of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.156759501"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="4036"></attvalue>
+          <attvalue for="name" value="Laurence, son of Guy, judex of Perth"></attvalue>
+          <attvalue for="degree" value="11"></attvalue>
+        </attvalues>
+        <viz:size value="13.34564"></viz:size>
+        <viz:position x="451.98096" y="-617.9591"></viz:position>
+        <viz:color r="216" g="240" b="224"></viz:color>
+      </node>
+      <node id="12" label="Richard, son of Maud/Matilda">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.156759501"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3480"></attvalue>
+          <attvalue for="name" value="Richard, son of Maud/Matilda"></attvalue>
+          <attvalue for="degree" value="11"></attvalue>
+        </attvalues>
+        <viz:size value="13.34564"></viz:size>
+        <viz:position x="-651.0391" y="556.2324"></viz:position>
+        <viz:color r="216" g="240" b="224"></viz:color>
+      </node>
+      <node id="61" label="Geoffrey of Lynn">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.143046349"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14788"></attvalue>
+          <attvalue for="name" value="Geoffrey of Lynn"></attvalue>
+          <attvalue for="degree" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="12.397866"></viz:size>
+        <viz:position x="-41.238228" y="810.3791"></viz:position>
+        <viz:color r="240" g="249" b="232"></viz:color>
+      </node>
+      <node id="79" label="Roger Clerk, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.139450578"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8628"></attvalue>
+          <attvalue for="name" value="Roger Clerk, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="17"></attvalue>
+        </attvalues>
+        <viz:size value="12.149347"></viz:size>
+        <viz:position x="844.4767" y="165.86807"></viz:position>
+        <viz:color r="188" g="229" b="216"></viz:color>
+      </node>
+      <node id="64" label="Richard of Berwick">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.122272899"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14790"></attvalue>
+          <attvalue for="name" value="Richard of Berwick"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="10.96213"></viz:size>
+        <viz:position x="819.6921" y="239.45699"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="84" label="Richard of Welles, brother">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.087656088"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15453"></attvalue>
+          <attvalue for="name" value="Richard of Welles, brother"></attvalue>
+          <attvalue for="degree" value="8"></attvalue>
+        </attvalues>
+        <viz:size value="8.569616"></viz:size>
+        <viz:position x="-746.67944" y="379.06668"></viz:position>
+        <viz:color r="230" g="245" b="229"></viz:color>
+      </node>
+      <node id="85" label="Hugh de l'Isle">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.087656088"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15455"></attvalue>
+          <attvalue for="name" value="Hugh de l'Isle"></attvalue>
+          <attvalue for="degree" value="8"></attvalue>
+        </attvalues>
+        <viz:size value="8.569616"></viz:size>
+        <viz:position x="-852.08954" y="104.57676"></viz:position>
+        <viz:color r="230" g="245" b="229"></viz:color>
+      </node>
+      <node id="86" label="Walter of Perth, brother of Robert de l'Isle">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.087656088"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15452"></attvalue>
+          <attvalue for="name" value="Walter of Perth, brother of Robert de l'Isle"></attvalue>
+          <attvalue for="degree" value="8"></attvalue>
+        </attvalues>
+        <viz:size value="8.569616"></viz:size>
+        <viz:position x="-43.19652" y="856.5485"></viz:position>
+        <viz:color r="230" g="245" b="229"></viz:color>
+      </node>
+      <node id="87" label="Simon of Lynn, burgess of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.087656088"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="5086"></attvalue>
+          <attvalue for="name" value="Simon of Lynn, burgess of Perth"></attvalue>
+          <attvalue for="degree" value="8"></attvalue>
+        </attvalues>
+        <viz:size value="8.569616"></viz:size>
+        <viz:position x="581.109" y="530.97925"></viz:position>
+        <viz:color r="230" g="245" b="229"></viz:color>
+      </node>
+      <node id="88" label="Adam, son of Ketell">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.087656088"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15454"></attvalue>
+          <attvalue for="name" value="Adam, son of Ketell"></attvalue>
+          <attvalue for="degree" value="8"></attvalue>
+        </attvalues>
+        <viz:size value="8.569616"></viz:size>
+        <viz:position x="-227.91101" y="823.9431"></viz:position>
+        <viz:color r="230" g="245" b="229"></viz:color>
+      </node>
+      <node id="72" label="John of Perth (13C)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.072601453"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14801"></attvalue>
+          <attvalue for="name" value="John of Perth (13C)"></attvalue>
+          <attvalue for="degree" value="15"></attvalue>
+        </attvalues>
+        <viz:size value="7.529127"></viz:size>
+        <viz:position x="380.14783" y="-691.86285"></viz:position>
+        <viz:color r="197" g="232" b="219"></viz:color>
+      </node>
+      <node id="65" label="Martin of Lynn">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.070261126"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14793"></attvalue>
+          <attvalue for="name" value="Martin of Lynn"></attvalue>
+          <attvalue for="degree" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="7.3673797"></viz:size>
+        <viz:position x="-32.976036" y="766.474"></viz:position>
+        <viz:color r="240" g="249" b="232"></viz:color>
+      </node>
+      <node id="66" label="Henry Tendeman, merchant of Leith">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.070261126"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14542"></attvalue>
+          <attvalue for="name" value="Henry Tendeman, merchant of Leith"></attvalue>
+          <attvalue for="degree" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="7.3673797"></viz:size>
+        <viz:position x="737.71405" y="224.01945"></viz:position>
+        <viz:color r="240" g="249" b="232"></viz:color>
+      </node>
+      <node id="67" label="Malise Threepence">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.070261126"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14794"></attvalue>
+          <attvalue for="name" value="Malise Threepence"></attvalue>
+          <attvalue for="degree" value="6"></attvalue>
+        </attvalues>
+        <viz:size value="7.3673797"></viz:size>
+        <viz:position x="-765.69836" y="-140.44057"></viz:position>
+        <viz:color r="240" g="249" b="232"></viz:color>
+      </node>
+      <node id="75" label="Philip Oliphant, knight (13C)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.058509477"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="7030"></attvalue>
+          <attvalue for="name" value="Philip Oliphant, knight (13C)"></attvalue>
+          <attvalue for="degree" value="9"></attvalue>
+        </attvalues>
+        <viz:size value="6.5551744"></viz:size>
+        <viz:position x="852.5312" y="-51.847862"></viz:position>
+        <viz:color r="225" g="243" b="227"></viz:color>
+      </node>
+      <node id="76" label="William of Kellie">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.058509477"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14918"></attvalue>
+          <attvalue for="name" value="William of Kellie"></attvalue>
+          <attvalue for="degree" value="9"></attvalue>
+        </attvalues>
+        <viz:size value="6.5551744"></viz:size>
+        <viz:position x="576.7137" y="-527.1243"></viz:position>
+        <viz:color r="225" g="243" b="227"></viz:color>
+      </node>
+      <node id="77" label="Henry of Scone, clerk">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.058509477"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14919"></attvalue>
+          <attvalue for="name" value="Henry of Scone, clerk"></attvalue>
+          <attvalue for="degree" value="9"></attvalue>
+        </attvalues>
+        <viz:size value="6.5551744"></viz:size>
+        <viz:position x="504.74527" y="-685.6374"></viz:position>
+        <viz:color r="225" g="243" b="227"></viz:color>
+      </node>
+      <node id="78" label="Alexander of Moncur">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.058509477"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="5236"></attvalue>
+          <attvalue for="name" value="Alexander of Moncur"></attvalue>
+          <attvalue for="degree" value="9"></attvalue>
+        </attvalues>
+        <viz:size value="6.5551744"></viz:size>
+        <viz:position x="-67.21411" y="841.8081"></viz:position>
+        <viz:color r="225" g="243" b="227"></viz:color>
+      </node>
+      <node id="80" label="William Redbeard">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.058509477"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14917"></attvalue>
+          <attvalue for="name" value="William Redbeard"></attvalue>
+          <attvalue for="degree" value="9"></attvalue>
+        </attvalues>
+        <viz:size value="6.5551744"></viz:size>
+        <viz:position x="503.59222" y="686.2571"></viz:position>
+        <viz:color r="225" g="243" b="227"></viz:color>
+      </node>
+      <node id="81" label="Hugh, clerk (TRA3)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.058509477"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="10127"></attvalue>
+          <attvalue for="name" value="Hugh, clerk (TRA3)"></attvalue>
+          <attvalue for="degree" value="9"></attvalue>
+        </attvalues>
+        <viz:size value="6.5551744"></viz:size>
+        <viz:position x="-813.0935" y="247.53133"></viz:position>
+        <viz:color r="225" g="243" b="227"></viz:color>
+      </node>
+      <node id="68" label="Robert de Prebenda, bishop of Dunblane (d.1284)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.037138634"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="2120"></attvalue>
+          <attvalue for="name" value="Robert de Prebenda, bishop of Dunblane (d.1284)"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="5.0781474"></viz:size>
+        <viz:position x="647.0627" y="-574.51843"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="69" label="William Murray, knight (mid-13C)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.037138634"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="9392"></attvalue>
+          <attvalue for="name" value="William Murray, knight (mid-13C)"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="5.0781474"></viz:size>
+        <viz:position x="-62.56076" y="782.44727"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="70" label="Christian de l'Isle, sheriff of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.037138634"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="3449"></attvalue>
+          <attvalue for="name" value="Christian de l'Isle, sheriff of Perth"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="5.0781474"></viz:size>
+        <viz:position x="756.98914" y="146.71913"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="71" label="Thomas de l'Isle, chaplain">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.037138634"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="8357"></attvalue>
+          <attvalue for="name" value="Thomas de l'Isle, chaplain"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="5.0781474"></viz:size>
+        <viz:position x="-646.3417" y="-520.40344"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="73" label="William, son of Wimarc">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.037138634"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="14802"></attvalue>
+          <attvalue for="name" value="William, son of Wimarc"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="5.0781474"></viz:size>
+        <viz:position x="859.2389" y="-168.63258"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="74" label="John, son of Richard, constable of Perth">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.037138634"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="5753"></attvalue>
+          <attvalue for="name" value="John, son of Richard, constable of Perth"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="5.0781474"></viz:size>
+        <viz:position x="682.66626" y="489.56375"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="89" label="William of Perth, master">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.021539115"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15675"></attvalue>
+          <attvalue for="name" value="William of Perth, master"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-779.0059" y="24.056398"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="90" label="William of Nydie, clerk">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.021539115"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="50"></attvalue>
+          <attvalue for="name" value="William of Nydie, clerk"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="477.01678" y="-597.3121"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="91" label="John of Everley, archdeacon of Dunkeld (d.a.1265x72)">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.021539115"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="1966"></attvalue>
+          <attvalue for="name" value="John of Everley, archdeacon of Dunkeld (d.a.1265x72)"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="528.9953" y="-683.2408"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="92" label="Maurice, clerk of Glenisla ">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.021539115"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15676"></attvalue>
+          <attvalue for="name" value="Maurice, clerk of Glenisla "></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="268.74307" y="804.6516"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="93" label="Duncan, clerk of the bishop of St Andrews">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.021539115"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15677"></attvalue>
+          <attvalue for="name" value="Duncan, clerk of the bishop of St Andrews"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="775.3505" y="-43.540596"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="94" label="Druet, chaplain">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.021539115"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="15679"></attvalue>
+          <attvalue for="name" value="Druet, chaplain"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="490.46725" y="-661.7145"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+      <node id="95" label="Thomas, clerk of the livery">
+        <attvalues>
+          <attvalue for="eigencentrality" value="0.021539115"></attvalue>
+          <attvalue for="gender" value="M"></attvalue>
+          <attvalue for="poms id" value="4430"></attvalue>
+          <attvalue for="name" value="Thomas, clerk of the livery"></attvalue>
+          <attvalue for="degree" value="7"></attvalue>
+        </attvalues>
+        <viz:size value="4.0"></viz:size>
+        <viz:position x="-389.31384" y="681.59235"></viz:position>
+        <viz:color r="235" g="247" b="230" a="0.99607843"></viz:color>
+      </node>
+    </nodes>
+    <edges>
+      <edge id="3375" source="1" target="2" weight="4.0"></edge>
+      <edge id="3376" source="1" target="3" weight="2.0"></edge>
+      <edge id="3377" source="1" target="4" weight="4.0"></edge>
+      <edge id="3378" source="1" target="5"></edge>
+      <edge id="3379" source="1" target="6" weight="3.0"></edge>
+      <edge id="3380" source="1" target="7"></edge>
+      <edge id="3381" source="1" target="8"></edge>
+      <edge id="3382" source="1" target="9"></edge>
+      <edge id="3383" source="1" target="10" weight="2.0"></edge>
+      <edge id="3384" source="1" target="11" weight="2.0"></edge>
+      <edge id="3385" source="1" target="12"></edge>
+      <edge id="3386" source="1" target="15" weight="4.0"></edge>
+      <edge id="3387" source="1" target="34" weight="2.0"></edge>
+      <edge id="3388" source="1" target="35" weight="2.0"></edge>
+      <edge id="3389" source="1" target="40"></edge>
+      <edge id="3390" source="1" target="46" weight="4.0"></edge>
+      <edge id="3391" source="1" target="50" weight="2.0"></edge>
+      <edge id="3392" source="1" target="51" weight="2.0"></edge>
+      <edge id="3393" source="1" target="52"></edge>
+      <edge id="3394" source="1" target="53"></edge>
+      <edge id="3395" source="1" target="54"></edge>
+      <edge id="3396" source="1" target="55"></edge>
+      <edge id="3397" source="1" target="56"></edge>
+      <edge id="3398" source="1" target="57" weight="2.0"></edge>
+      <edge id="3399" source="1" target="58" weight="2.0"></edge>
+      <edge id="3400" source="1" target="59"></edge>
+      <edge id="3401" source="1" target="60" weight="3.0"></edge>
+      <edge id="3402" source="1" target="61"></edge>
+      <edge id="3403" source="1" target="62"></edge>
+      <edge id="3404" source="1" target="63"></edge>
+      <edge id="3405" source="1" target="64"></edge>
+      <edge id="3406" source="1" target="79"></edge>
+      <edge id="3407" source="1" target="84"></edge>
+      <edge id="3408" source="1" target="85"></edge>
+      <edge id="3409" source="1" target="86"></edge>
+      <edge id="3410" source="1" target="87"></edge>
+      <edge id="3411" source="1" target="88"></edge>
+      <edge id="3412" source="2" target="3" weight="2.0"></edge>
+      <edge id="3413" source="2" target="4" weight="4.0"></edge>
+      <edge id="3414" source="2" target="5"></edge>
+      <edge id="3415" source="2" target="6"></edge>
+      <edge id="3416" source="2" target="7"></edge>
+      <edge id="3417" source="2" target="8"></edge>
+      <edge id="3418" source="2" target="9"></edge>
+      <edge id="3419" source="2" target="10"></edge>
+      <edge id="3420" source="2" target="11"></edge>
+      <edge id="3421" source="2" target="12"></edge>
+      <edge id="3422" source="2" target="15" weight="3.0"></edge>
+      <edge id="3423" source="2" target="34" weight="2.0"></edge>
+      <edge id="3424" source="2" target="35" weight="2.0"></edge>
+      <edge id="3425" source="2" target="46" weight="2.0"></edge>
+      <edge id="3426" source="2" target="50"></edge>
+      <edge id="3427" source="2" target="51" weight="2.0"></edge>
+      <edge id="3428" source="2" target="52"></edge>
+      <edge id="3429" source="2" target="53"></edge>
+      <edge id="3430" source="2" target="54"></edge>
+      <edge id="3431" source="2" target="55"></edge>
+      <edge id="3432" source="2" target="56"></edge>
+      <edge id="3433" source="2" target="57" weight="2.0"></edge>
+      <edge id="3434" source="2" target="58" weight="2.0"></edge>
+      <edge id="3435" source="2" target="59"></edge>
+      <edge id="3436" source="2" target="60"></edge>
+      <edge id="3437" source="3" target="4" weight="2.0"></edge>
+      <edge id="3438" source="3" target="5"></edge>
+      <edge id="3439" source="3" target="6"></edge>
+      <edge id="3440" source="3" target="7"></edge>
+      <edge id="3441" source="3" target="8"></edge>
+      <edge id="3442" source="3" target="9"></edge>
+      <edge id="3443" source="3" target="10"></edge>
+      <edge id="3444" source="3" target="11"></edge>
+      <edge id="3445" source="3" target="12"></edge>
+      <edge id="3446" source="3" target="15"></edge>
+      <edge id="3447" source="3" target="34"></edge>
+      <edge id="3448" source="3" target="35"></edge>
+      <edge id="3449" source="3" target="46"></edge>
+      <edge id="3450" source="3" target="51"></edge>
+      <edge id="3451" source="3" target="54"></edge>
+      <edge id="3452" source="3" target="55"></edge>
+      <edge id="3453" source="3" target="56"></edge>
+      <edge id="3454" source="3" target="57"></edge>
+      <edge id="3455" source="3" target="58"></edge>
+      <edge id="3456" source="3" target="59"></edge>
+      <edge id="3457" source="4" target="5"></edge>
+      <edge id="3458" source="4" target="6"></edge>
+      <edge id="3459" source="4" target="7"></edge>
+      <edge id="3460" source="4" target="8"></edge>
+      <edge id="3461" source="4" target="9"></edge>
+      <edge id="3462" source="4" target="10"></edge>
+      <edge id="3463" source="4" target="11"></edge>
+      <edge id="3464" source="4" target="12"></edge>
+      <edge id="3465" source="4" target="14"></edge>
+      <edge id="3466" source="4" target="15" weight="6.0"></edge>
+      <edge id="3467" source="4" target="18"></edge>
+      <edge id="3468" source="4" target="27" weight="2.0"></edge>
+      <edge id="3469" source="4" target="34" weight="2.0"></edge>
+      <edge id="3470" source="4" target="35" weight="3.0"></edge>
+      <edge id="3471" source="4" target="40"></edge>
+      <edge id="3472" source="4" target="42"></edge>
+      <edge id="3473" source="4" target="43"></edge>
+      <edge id="3474" source="4" target="44"></edge>
+      <edge id="3475" source="4" target="45" weight="2.0"></edge>
+      <edge id="3476" source="4" target="46" weight="4.0"></edge>
+      <edge id="3477" source="4" target="47" weight="2.0"></edge>
+      <edge id="3478" source="4" target="48" weight="2.0"></edge>
+      <edge id="3479" source="4" target="49"></edge>
+      <edge id="3480" source="4" target="50" weight="2.0"></edge>
+      <edge id="3481" source="4" target="51" weight="2.0"></edge>
+      <edge id="3482" source="4" target="52"></edge>
+      <edge id="3483" source="4" target="53"></edge>
+      <edge id="3484" source="4" target="54"></edge>
+      <edge id="3485" source="4" target="55" weight="2.0"></edge>
+      <edge id="3486" source="4" target="56"></edge>
+      <edge id="3487" source="4" target="57" weight="2.0"></edge>
+      <edge id="3488" source="4" target="58" weight="2.0"></edge>
+      <edge id="3489" source="4" target="59"></edge>
+      <edge id="3490" source="4" target="60" weight="2.0"></edge>
+      <edge id="3491" source="4" target="62"></edge>
+      <edge id="3492" source="4" target="82"></edge>
+      <edge id="3493" source="4" target="83"></edge>
+      <edge id="3494" source="5" target="6"></edge>
+      <edge id="3495" source="5" target="7"></edge>
+      <edge id="3496" source="5" target="8"></edge>
+      <edge id="3497" source="5" target="9"></edge>
+      <edge id="3498" source="5" target="10"></edge>
+      <edge id="3499" source="5" target="11"></edge>
+      <edge id="3500" source="5" target="12"></edge>
+      <edge id="3501" source="6" target="7"></edge>
+      <edge id="3502" source="6" target="8"></edge>
+      <edge id="3503" source="6" target="9"></edge>
+      <edge id="3504" source="6" target="10" weight="3.0"></edge>
+      <edge id="3505" source="6" target="11"></edge>
+      <edge id="3506" source="6" target="12"></edge>
+      <edge id="3507" source="6" target="15"></edge>
+      <edge id="3508" source="6" target="40"></edge>
+      <edge id="3509" source="6" target="46" weight="2.0"></edge>
+      <edge id="3510" source="6" target="50"></edge>
+      <edge id="3511" source="6" target="60" weight="2.0"></edge>
+      <edge id="3512" source="6" target="61"></edge>
+      <edge id="3513" source="6" target="62"></edge>
+      <edge id="3514" source="6" target="63" weight="2.0"></edge>
+      <edge id="3515" source="6" target="64"></edge>
+      <edge id="3516" source="6" target="65"></edge>
+      <edge id="3517" source="6" target="66"></edge>
+      <edge id="3518" source="6" target="67"></edge>
+      <edge id="3519" source="7" target="8"></edge>
+      <edge id="3520" source="7" target="9"></edge>
+      <edge id="3521" source="7" target="10"></edge>
+      <edge id="3522" source="7" target="11"></edge>
+      <edge id="3523" source="7" target="12"></edge>
+      <edge id="3524" source="8" target="9"></edge>
+      <edge id="3525" source="8" target="10"></edge>
+      <edge id="3526" source="8" target="11"></edge>
+      <edge id="3527" source="8" target="12"></edge>
+      <edge id="3528" source="9" target="10"></edge>
+      <edge id="3529" source="9" target="11"></edge>
+      <edge id="3530" source="9" target="12"></edge>
+      <edge id="3531" source="10" target="11"></edge>
+      <edge id="3532" source="10" target="12"></edge>
+      <edge id="3533" source="10" target="46" weight="2.0"></edge>
+      <edge id="3534" source="10" target="60"></edge>
+      <edge id="3535" source="10" target="62"></edge>
+      <edge id="3536" source="10" target="63" weight="2.0"></edge>
+      <edge id="3537" source="10" target="64"></edge>
+      <edge id="3538" source="10" target="65"></edge>
+      <edge id="3539" source="10" target="66"></edge>
+      <edge id="3540" source="10" target="67"></edge>
+      <edge id="3541" source="11" target="12"></edge>
+      <edge id="3542" source="11" target="46"></edge>
+      <edge id="3543" source="11" target="79"></edge>
+      <edge id="3544" source="11" target="84"></edge>
+      <edge id="3545" source="11" target="85"></edge>
+      <edge id="3546" source="11" target="86"></edge>
+      <edge id="3547" source="11" target="87"></edge>
+      <edge id="3548" source="11" target="88"></edge>
+      <edge id="3549" source="13" target="14"></edge>
+      <edge id="3550" source="13" target="15"></edge>
+      <edge id="3551" source="13" target="16"></edge>
+      <edge id="3552" source="13" target="17"></edge>
+      <edge id="3553" source="13" target="18"></edge>
+      <edge id="3554" source="13" target="19"></edge>
+      <edge id="3555" source="13" target="20"></edge>
+      <edge id="3556" source="13" target="21"></edge>
+      <edge id="3557" source="13" target="22"></edge>
+      <edge id="3558" source="13" target="23"></edge>
+      <edge id="3559" source="13" target="24"></edge>
+      <edge id="3560" source="13" target="25"></edge>
+      <edge id="3561" source="14" target="15" weight="2.0"></edge>
+      <edge id="3562" source="14" target="16"></edge>
+      <edge id="3563" source="14" target="17"></edge>
+      <edge id="3564" source="14" target="18" weight="2.0"></edge>
+      <edge id="3565" source="14" target="19"></edge>
+      <edge id="3566" source="14" target="20"></edge>
+      <edge id="3567" source="14" target="21"></edge>
+      <edge id="3568" source="14" target="22"></edge>
+      <edge id="3569" source="14" target="23"></edge>
+      <edge id="3570" source="14" target="24"></edge>
+      <edge id="3571" source="14" target="25"></edge>
+      <edge id="3572" source="14" target="27"></edge>
+      <edge id="3573" source="14" target="35"></edge>
+      <edge id="3574" source="14" target="45"></edge>
+      <edge id="3575" source="14" target="47"></edge>
+      <edge id="3576" source="14" target="48"></edge>
+      <edge id="3577" source="14" target="55"></edge>
+      <edge id="3578" source="14" target="62"></edge>
+      <edge id="3579" source="14" target="82"></edge>
+      <edge id="3580" source="14" target="83"></edge>
+      <edge id="3581" source="15" target="16" weight="2.0"></edge>
+      <edge id="3582" source="15" target="17" weight="2.0"></edge>
+      <edge id="3583" source="15" target="18" weight="3.0"></edge>
+      <edge id="3584" source="15" target="19"></edge>
+      <edge id="3585" source="15" target="20" weight="3.0"></edge>
+      <edge id="3586" source="15" target="21" weight="2.0"></edge>
+      <edge id="3587" source="15" target="22" weight="3.0"></edge>
+      <edge id="3588" source="15" target="23" weight="2.0"></edge>
+      <edge id="3589" source="15" target="24" weight="2.0"></edge>
+      <edge id="3590" source="15" target="25"></edge>
+      <edge id="3591" source="15" target="26"></edge>
+      <edge id="3592" source="15" target="27" weight="4.0"></edge>
+      <edge id="3593" source="15" target="28"></edge>
+      <edge id="3594" source="15" target="29"></edge>
+      <edge id="3595" source="15" target="30"></edge>
+      <edge id="3596" source="15" target="31"></edge>
+      <edge id="3597" source="15" target="32"></edge>
+      <edge id="3598" source="15" target="33"></edge>
+      <edge id="3599" source="15" target="34" weight="3.0"></edge>
+      <edge id="3600" source="15" target="35" weight="4.0"></edge>
+      <edge id="3601" source="15" target="36" weight="2.0"></edge>
+      <edge id="3602" source="15" target="37"></edge>
+      <edge id="3603" source="15" target="38"></edge>
+      <edge id="3604" source="15" target="39"></edge>
+      <edge id="3605" source="15" target="40" weight="4.0"></edge>
+      <edge id="3606" source="15" target="41"></edge>
+      <edge id="3607" source="15" target="42"></edge>
+      <edge id="3608" source="15" target="43"></edge>
+      <edge id="3609" source="15" target="44"></edge>
+      <edge id="3610" source="15" target="45" weight="2.0"></edge>
+      <edge id="3611" source="15" target="46" weight="4.0"></edge>
+      <edge id="3612" source="15" target="47" weight="2.0"></edge>
+      <edge id="3613" source="15" target="48" weight="2.0"></edge>
+      <edge id="3614" source="15" target="49"></edge>
+      <edge id="3615" source="15" target="50" weight="3.0"></edge>
+      <edge id="3616" source="15" target="51" weight="2.0"></edge>
+      <edge id="3617" source="15" target="52"></edge>
+      <edge id="3618" source="15" target="53"></edge>
+      <edge id="3619" source="15" target="54"></edge>
+      <edge id="3620" source="15" target="55" weight="2.0"></edge>
+      <edge id="3621" source="15" target="56"></edge>
+      <edge id="3622" source="15" target="57" weight="2.0"></edge>
+      <edge id="3623" source="15" target="58" weight="2.0"></edge>
+      <edge id="3624" source="15" target="59"></edge>
+      <edge id="3625" source="15" target="60" weight="3.0"></edge>
+      <edge id="3626" source="15" target="61"></edge>
+      <edge id="3627" source="15" target="62"></edge>
+      <edge id="3628" source="15" target="82"></edge>
+      <edge id="3629" source="15" target="83"></edge>
+      <edge id="3630" source="16" target="17" weight="2.0"></edge>
+      <edge id="3631" source="16" target="18" weight="2.0"></edge>
+      <edge id="3632" source="16" target="19"></edge>
+      <edge id="3633" source="16" target="20" weight="2.0"></edge>
+      <edge id="3634" source="16" target="21" weight="2.0"></edge>
+      <edge id="3635" source="16" target="22" weight="2.0"></edge>
+      <edge id="3636" source="16" target="23"></edge>
+      <edge id="3637" source="16" target="24"></edge>
+      <edge id="3638" source="16" target="25"></edge>
+      <edge id="3639" source="16" target="27"></edge>
+      <edge id="3640" source="16" target="36"></edge>
+      <edge id="3641" source="16" target="40"></edge>
+      <edge id="3642" source="16" target="41"></edge>
+      <edge id="3643" source="17" target="18" weight="2.0"></edge>
+      <edge id="3644" source="17" target="19"></edge>
+      <edge id="3645" source="17" target="20" weight="2.0"></edge>
+      <edge id="3646" source="17" target="21" weight="2.0"></edge>
+      <edge id="3647" source="17" target="22" weight="2.0"></edge>
+      <edge id="3648" source="17" target="23"></edge>
+      <edge id="3649" source="17" target="24"></edge>
+      <edge id="3650" source="17" target="25"></edge>
+      <edge id="3651" source="17" target="27"></edge>
+      <edge id="3652" source="17" target="36"></edge>
+      <edge id="3653" source="17" target="40"></edge>
+      <edge id="3654" source="17" target="41"></edge>
+      <edge id="3655" source="18" target="19"></edge>
+      <edge id="3656" source="18" target="20" weight="2.0"></edge>
+      <edge id="3657" source="18" target="21" weight="2.0"></edge>
+      <edge id="3658" source="18" target="22" weight="2.0"></edge>
+      <edge id="3659" source="18" target="23"></edge>
+      <edge id="3660" source="18" target="24"></edge>
+      <edge id="3661" source="18" target="25"></edge>
+      <edge id="3662" source="18" target="27" weight="2.0"></edge>
+      <edge id="3663" source="18" target="35"></edge>
+      <edge id="3664" source="18" target="36"></edge>
+      <edge id="3665" source="18" target="40"></edge>
+      <edge id="3666" source="18" target="41"></edge>
+      <edge id="3667" source="18" target="45"></edge>
+      <edge id="3668" source="18" target="47"></edge>
+      <edge id="3669" source="18" target="48"></edge>
+      <edge id="3670" source="18" target="55"></edge>
+      <edge id="3671" source="18" target="62"></edge>
+      <edge id="3672" source="18" target="82"></edge>
+      <edge id="3673" source="18" target="83"></edge>
+      <edge id="3674" source="19" target="20"></edge>
+      <edge id="3675" source="19" target="21"></edge>
+      <edge id="3676" source="19" target="22"></edge>
+      <edge id="3677" source="19" target="23"></edge>
+      <edge id="3678" source="19" target="24"></edge>
+      <edge id="3679" source="19" target="25"></edge>
+      <edge id="3680" source="20" target="21" weight="2.0"></edge>
+      <edge id="3681" source="20" target="22" weight="3.0"></edge>
+      <edge id="3682" source="20" target="23" weight="2.0"></edge>
+      <edge id="3683" source="20" target="24" weight="2.0"></edge>
+      <edge id="3684" source="20" target="25"></edge>
+      <edge id="3685" source="20" target="26"></edge>
+      <edge id="3686" source="20" target="27" weight="2.0"></edge>
+      <edge id="3687" source="20" target="28"></edge>
+      <edge id="3688" source="20" target="29"></edge>
+      <edge id="3689" source="20" target="30"></edge>
+      <edge id="3690" source="20" target="31"></edge>
+      <edge id="3691" source="20" target="32"></edge>
+      <edge id="3692" source="20" target="33"></edge>
+      <edge id="3693" source="20" target="34"></edge>
+      <edge id="3694" source="20" target="35"></edge>
+      <edge id="3695" source="20" target="36" weight="2.0"></edge>
+      <edge id="3696" source="20" target="37"></edge>
+      <edge id="3697" source="20" target="38"></edge>
+      <edge id="3698" source="20" target="39"></edge>
+      <edge id="3699" source="20" target="40" weight="2.0"></edge>
+      <edge id="3700" source="20" target="41"></edge>
+      <edge id="3701" source="21" target="22" weight="2.0"></edge>
+      <edge id="3702" source="21" target="23"></edge>
+      <edge id="3703" source="21" target="24"></edge>
+      <edge id="3704" source="21" target="25"></edge>
+      <edge id="3705" source="21" target="27"></edge>
+      <edge id="3706" source="21" target="36"></edge>
+      <edge id="3707" source="21" target="40"></edge>
+      <edge id="3708" source="21" target="41"></edge>
+      <edge id="3709" source="22" target="23" weight="2.0"></edge>
+      <edge id="3710" source="22" target="24" weight="2.0"></edge>
+      <edge id="3711" source="22" target="25"></edge>
+      <edge id="3712" source="22" target="26"></edge>
+      <edge id="3713" source="22" target="27" weight="2.0"></edge>
+      <edge id="3714" source="22" target="28"></edge>
+      <edge id="3715" source="22" target="29"></edge>
+      <edge id="3716" source="22" target="30"></edge>
+      <edge id="3717" source="22" target="31"></edge>
+      <edge id="3718" source="22" target="32"></edge>
+      <edge id="3719" source="22" target="33"></edge>
+      <edge id="3720" source="22" target="34"></edge>
+      <edge id="3721" source="22" target="35"></edge>
+      <edge id="3722" source="22" target="36" weight="2.0"></edge>
+      <edge id="3723" source="22" target="37"></edge>
+      <edge id="3724" source="22" target="38"></edge>
+      <edge id="3725" source="22" target="39"></edge>
+      <edge id="3726" source="22" target="40" weight="2.0"></edge>
+      <edge id="3727" source="22" target="41"></edge>
+      <edge id="3728" source="23" target="24" weight="2.0"></edge>
+      <edge id="3729" source="23" target="25"></edge>
+      <edge id="3730" source="23" target="26"></edge>
+      <edge id="3731" source="23" target="27"></edge>
+      <edge id="3732" source="23" target="28"></edge>
+      <edge id="3733" source="23" target="29"></edge>
+      <edge id="3734" source="23" target="30"></edge>
+      <edge id="3735" source="23" target="31"></edge>
+      <edge id="3736" source="23" target="32"></edge>
+      <edge id="3737" source="23" target="33"></edge>
+      <edge id="3738" source="23" target="34"></edge>
+      <edge id="3739" source="23" target="35"></edge>
+      <edge id="3740" source="23" target="36"></edge>
+      <edge id="3741" source="23" target="37"></edge>
+      <edge id="3742" source="23" target="38"></edge>
+      <edge id="3743" source="23" target="39"></edge>
+      <edge id="3744" source="23" target="40"></edge>
+      <edge id="3745" source="24" target="25"></edge>
+      <edge id="3746" source="24" target="26"></edge>
+      <edge id="3747" source="24" target="27"></edge>
+      <edge id="3748" source="24" target="28"></edge>
+      <edge id="3749" source="24" target="29"></edge>
+      <edge id="3750" source="24" target="30"></edge>
+      <edge id="3751" source="24" target="31"></edge>
+      <edge id="3752" source="24" target="32"></edge>
+      <edge id="3753" source="24" target="33"></edge>
+      <edge id="3754" source="24" target="34"></edge>
+      <edge id="3755" source="24" target="35"></edge>
+      <edge id="3756" source="24" target="36"></edge>
+      <edge id="3757" source="24" target="37"></edge>
+      <edge id="3758" source="24" target="38"></edge>
+      <edge id="3759" source="24" target="39"></edge>
+      <edge id="3760" source="24" target="40"></edge>
+      <edge id="3761" source="26" target="27"></edge>
+      <edge id="3762" source="26" target="28"></edge>
+      <edge id="3763" source="26" target="29"></edge>
+      <edge id="3764" source="26" target="30"></edge>
+      <edge id="3765" source="26" target="31"></edge>
+      <edge id="3766" source="26" target="32"></edge>
+      <edge id="3767" source="26" target="33"></edge>
+      <edge id="3768" source="26" target="34"></edge>
+      <edge id="3769" source="26" target="35"></edge>
+      <edge id="3770" source="26" target="36"></edge>
+      <edge id="3771" source="26" target="37"></edge>
+      <edge id="3772" source="26" target="38"></edge>
+      <edge id="3773" source="26" target="39"></edge>
+      <edge id="3774" source="26" target="40"></edge>
+      <edge id="3775" source="27" target="28"></edge>
+      <edge id="3776" source="27" target="29"></edge>
+      <edge id="3777" source="27" target="30"></edge>
+      <edge id="3778" source="27" target="31"></edge>
+      <edge id="3779" source="27" target="32"></edge>
+      <edge id="3780" source="27" target="33"></edge>
+      <edge id="3781" source="27" target="34"></edge>
+      <edge id="3782" source="27" target="35" weight="2.0"></edge>
+      <edge id="3783" source="27" target="36" weight="2.0"></edge>
+      <edge id="3784" source="27" target="37"></edge>
+      <edge id="3785" source="27" target="38"></edge>
+      <edge id="3786" source="27" target="39"></edge>
+      <edge id="3787" source="27" target="40" weight="2.0"></edge>
+      <edge id="3788" source="27" target="41"></edge>
+      <edge id="3789" source="27" target="45"></edge>
+      <edge id="3790" source="27" target="46"></edge>
+      <edge id="3791" source="27" target="47"></edge>
+      <edge id="3792" source="27" target="48"></edge>
+      <edge id="3793" source="27" target="50"></edge>
+      <edge id="3794" source="27" target="55"></edge>
+      <edge id="3795" source="27" target="60"></edge>
+      <edge id="3796" source="27" target="62"></edge>
+      <edge id="3797" source="27" target="82"></edge>
+      <edge id="3798" source="27" target="83"></edge>
+      <edge id="3799" source="28" target="29"></edge>
+      <edge id="3800" source="28" target="30"></edge>
+      <edge id="3801" source="28" target="31"></edge>
+      <edge id="3802" source="28" target="32"></edge>
+      <edge id="3803" source="28" target="33"></edge>
+      <edge id="3804" source="28" target="34"></edge>
+      <edge id="3805" source="28" target="35"></edge>
+      <edge id="3806" source="28" target="36"></edge>
+      <edge id="3807" source="28" target="37"></edge>
+      <edge id="3808" source="28" target="38"></edge>
+      <edge id="3809" source="28" target="39"></edge>
+      <edge id="3810" source="28" target="40"></edge>
+      <edge id="3811" source="29" target="30"></edge>
+      <edge id="3812" source="29" target="31"></edge>
+      <edge id="3813" source="29" target="32"></edge>
+      <edge id="3814" source="29" target="33"></edge>
+      <edge id="3815" source="29" target="34"></edge>
+      <edge id="3816" source="29" target="35"></edge>
+      <edge id="3817" source="29" target="36"></edge>
+      <edge id="3818" source="29" target="37"></edge>
+      <edge id="3819" source="29" target="38"></edge>
+      <edge id="3820" source="29" target="39"></edge>
+      <edge id="3821" source="29" target="40"></edge>
+      <edge id="3822" source="30" target="31"></edge>
+      <edge id="3823" source="30" target="32"></edge>
+      <edge id="3824" source="30" target="33"></edge>
+      <edge id="3825" source="30" target="34"></edge>
+      <edge id="3826" source="30" target="35"></edge>
+      <edge id="3827" source="30" target="36"></edge>
+      <edge id="3828" source="30" target="37"></edge>
+      <edge id="3829" source="30" target="38"></edge>
+      <edge id="3830" source="30" target="39"></edge>
+      <edge id="3831" source="30" target="40"></edge>
+      <edge id="3832" source="31" target="32"></edge>
+      <edge id="3833" source="31" target="33"></edge>
+      <edge id="3834" source="31" target="34"></edge>
+      <edge id="3835" source="31" target="35"></edge>
+      <edge id="3836" source="31" target="36"></edge>
+      <edge id="3837" source="31" target="37"></edge>
+      <edge id="3838" source="31" target="38"></edge>
+      <edge id="3839" source="31" target="39"></edge>
+      <edge id="3840" source="31" target="40"></edge>
+      <edge id="3841" source="32" target="33"></edge>
+      <edge id="3842" source="32" target="34"></edge>
+      <edge id="3843" source="32" target="35"></edge>
+      <edge id="3844" source="32" target="36"></edge>
+      <edge id="3845" source="32" target="37"></edge>
+      <edge id="3846" source="32" target="38"></edge>
+      <edge id="3847" source="32" target="39"></edge>
+      <edge id="3848" source="32" target="40"></edge>
+      <edge id="3849" source="33" target="34"></edge>
+      <edge id="3850" source="33" target="35"></edge>
+      <edge id="3851" source="33" target="36"></edge>
+      <edge id="3852" source="33" target="37"></edge>
+      <edge id="3853" source="33" target="38"></edge>
+      <edge id="3854" source="33" target="39"></edge>
+      <edge id="3855" source="33" target="40"></edge>
+      <edge id="3856" source="34" target="35" weight="2.0"></edge>
+      <edge id="3857" source="34" target="36"></edge>
+      <edge id="3858" source="34" target="37"></edge>
+      <edge id="3859" source="34" target="38"></edge>
+      <edge id="3860" source="34" target="39"></edge>
+      <edge id="3861" source="34" target="40"></edge>
+      <edge id="3862" source="34" target="46" weight="2.0"></edge>
+      <edge id="3863" source="34" target="50"></edge>
+      <edge id="3864" source="34" target="51" weight="2.0"></edge>
+      <edge id="3865" source="34" target="52"></edge>
+      <edge id="3866" source="34" target="53"></edge>
+      <edge id="3867" source="34" target="54"></edge>
+      <edge id="3868" source="34" target="55"></edge>
+      <edge id="3869" source="34" target="56"></edge>
+      <edge id="3870" source="34" target="57"></edge>
+      <edge id="3871" source="34" target="58"></edge>
+      <edge id="3872" source="34" target="59"></edge>
+      <edge id="3873" source="35" target="36"></edge>
+      <edge id="3874" source="35" target="37"></edge>
+      <edge id="3875" source="35" target="38"></edge>
+      <edge id="3876" source="35" target="39"></edge>
+      <edge id="3877" source="35" target="40"></edge>
+      <edge id="3878" source="35" target="45"></edge>
+      <edge id="3879" source="35" target="46"></edge>
+      <edge id="3880" source="35" target="47"></edge>
+      <edge id="3881" source="35" target="48"></edge>
+      <edge id="3882" source="35" target="51"></edge>
+      <edge id="3883" source="35" target="54"></edge>
+      <edge id="3884" source="35" target="55" weight="2.0"></edge>
+      <edge id="3885" source="35" target="56"></edge>
+      <edge id="3886" source="35" target="57" weight="2.0"></edge>
+      <edge id="3887" source="35" target="58" weight="2.0"></edge>
+      <edge id="3888" source="35" target="59"></edge>
+      <edge id="3889" source="35" target="60"></edge>
+      <edge id="3890" source="35" target="62"></edge>
+      <edge id="3891" source="35" target="82"></edge>
+      <edge id="3892" source="35" target="83"></edge>
+      <edge id="3893" source="36" target="37"></edge>
+      <edge id="3894" source="36" target="38"></edge>
+      <edge id="3895" source="36" target="39"></edge>
+      <edge id="3896" source="36" target="40" weight="2.0"></edge>
+      <edge id="3897" source="36" target="41"></edge>
+      <edge id="3898" source="37" target="38"></edge>
+      <edge id="3899" source="37" target="39"></edge>
+      <edge id="3900" source="37" target="40"></edge>
+      <edge id="3901" source="38" target="39"></edge>
+      <edge id="3902" source="38" target="40"></edge>
+      <edge id="3903" source="39" target="40"></edge>
+      <edge id="3904" source="40" target="41"></edge>
+      <edge id="3905" source="40" target="42"></edge>
+      <edge id="3906" source="40" target="43"></edge>
+      <edge id="3907" source="40" target="44"></edge>
+      <edge id="3908" source="40" target="45"></edge>
+      <edge id="3909" source="40" target="46"></edge>
+      <edge id="3910" source="40" target="47"></edge>
+      <edge id="3911" source="40" target="48"></edge>
+      <edge id="3912" source="40" target="49"></edge>
+      <edge id="3913" source="40" target="50"></edge>
+      <edge id="3914" source="40" target="60"></edge>
+      <edge id="3915" source="40" target="61"></edge>
+      <edge id="3916" source="42" target="43"></edge>
+      <edge id="3917" source="42" target="44"></edge>
+      <edge id="3918" source="42" target="45"></edge>
+      <edge id="3919" source="42" target="46"></edge>
+      <edge id="3920" source="42" target="47"></edge>
+      <edge id="3921" source="42" target="48"></edge>
+      <edge id="3922" source="42" target="49"></edge>
+      <edge id="3923" source="43" target="44"></edge>
+      <edge id="3924" source="43" target="45"></edge>
+      <edge id="3925" source="43" target="46"></edge>
+      <edge id="3926" source="43" target="47"></edge>
+      <edge id="3927" source="43" target="48"></edge>
+      <edge id="3928" source="43" target="49"></edge>
+      <edge id="3929" source="44" target="45"></edge>
+      <edge id="3930" source="44" target="46"></edge>
+      <edge id="3931" source="44" target="47"></edge>
+      <edge id="3932" source="44" target="48"></edge>
+      <edge id="3933" source="44" target="49"></edge>
+      <edge id="3934" source="44" target="89"></edge>
+      <edge id="3935" source="44" target="90"></edge>
+      <edge id="3936" source="44" target="91"></edge>
+      <edge id="3937" source="44" target="92"></edge>
+      <edge id="3938" source="44" target="93"></edge>
+      <edge id="3939" source="44" target="94"></edge>
+      <edge id="3940" source="44" target="95"></edge>
+      <edge id="3941" source="45" target="46"></edge>
+      <edge id="3942" source="45" target="47" weight="2.0"></edge>
+      <edge id="3943" source="45" target="48" weight="2.0"></edge>
+      <edge id="3944" source="45" target="49"></edge>
+      <edge id="3945" source="45" target="55"></edge>
+      <edge id="3946" source="45" target="62"></edge>
+      <edge id="3947" source="45" target="82"></edge>
+      <edge id="3948" source="45" target="83"></edge>
+      <edge id="3949" source="46" target="47"></edge>
+      <edge id="3950" source="46" target="48"></edge>
+      <edge id="3951" source="46" target="49"></edge>
+      <edge id="3952" source="46" target="50" weight="2.0"></edge>
+      <edge id="3953" source="46" target="51" weight="2.0"></edge>
+      <edge id="3954" source="46" target="52"></edge>
+      <edge id="3955" source="46" target="53"></edge>
+      <edge id="3956" source="46" target="54"></edge>
+      <edge id="3957" source="46" target="55"></edge>
+      <edge id="3958" source="46" target="56"></edge>
+      <edge id="3959" source="46" target="57"></edge>
+      <edge id="3960" source="46" target="58"></edge>
+      <edge id="3961" source="46" target="59"></edge>
+      <edge id="3962" source="46" target="60" weight="2.0"></edge>
+      <edge id="3963" source="46" target="62"></edge>
+      <edge id="3964" source="46" target="63" weight="2.0"></edge>
+      <edge id="3965" source="46" target="64"></edge>
+      <edge id="3966" source="46" target="65"></edge>
+      <edge id="3967" source="46" target="66"></edge>
+      <edge id="3968" source="46" target="67"></edge>
+      <edge id="3969" source="46" target="79"></edge>
+      <edge id="3970" source="46" target="84"></edge>
+      <edge id="3971" source="46" target="85"></edge>
+      <edge id="3972" source="46" target="86"></edge>
+      <edge id="3973" source="46" target="87"></edge>
+      <edge id="3974" source="46" target="88"></edge>
+      <edge id="3975" source="47" target="48" weight="2.0"></edge>
+      <edge id="3976" source="47" target="49"></edge>
+      <edge id="3977" source="47" target="55"></edge>
+      <edge id="3978" source="47" target="62"></edge>
+      <edge id="3979" source="47" target="82"></edge>
+      <edge id="3980" source="47" target="83"></edge>
+      <edge id="3981" source="48" target="49"></edge>
+      <edge id="3982" source="48" target="55"></edge>
+      <edge id="3983" source="48" target="62"></edge>
+      <edge id="3984" source="48" target="82"></edge>
+      <edge id="3985" source="48" target="83"></edge>
+      <edge id="3986" source="50" target="51"></edge>
+      <edge id="3987" source="50" target="52"></edge>
+      <edge id="3988" source="50" target="53"></edge>
+      <edge id="3989" source="50" target="60" weight="2.0"></edge>
+      <edge id="3990" source="50" target="61"></edge>
+      <edge id="3991" source="51" target="52"></edge>
+      <edge id="3992" source="51" target="53"></edge>
+      <edge id="3993" source="51" target="54"></edge>
+      <edge id="3994" source="51" target="55"></edge>
+      <edge id="3995" source="51" target="56"></edge>
+      <edge id="3996" source="51" target="57"></edge>
+      <edge id="3997" source="51" target="58"></edge>
+      <edge id="3998" source="51" target="59"></edge>
+      <edge id="3999" source="52" target="53"></edge>
+      <edge id="4000" source="54" target="55"></edge>
+      <edge id="4001" source="54" target="56"></edge>
+      <edge id="4002" source="54" target="57"></edge>
+      <edge id="4003" source="54" target="58"></edge>
+      <edge id="4004" source="54" target="59"></edge>
+      <edge id="4005" source="55" target="56"></edge>
+      <edge id="4006" source="55" target="57"></edge>
+      <edge id="4007" source="55" target="58"></edge>
+      <edge id="4008" source="55" target="59"></edge>
+      <edge id="4009" source="55" target="62"></edge>
+      <edge id="4010" source="55" target="82"></edge>
+      <edge id="4011" source="55" target="83"></edge>
+      <edge id="4012" source="56" target="57"></edge>
+      <edge id="4013" source="56" target="58"></edge>
+      <edge id="4014" source="56" target="59"></edge>
+      <edge id="4015" source="57" target="58" weight="2.0"></edge>
+      <edge id="4016" source="57" target="59"></edge>
+      <edge id="4017" source="57" target="60"></edge>
+      <edge id="4018" source="58" target="59"></edge>
+      <edge id="4019" source="58" target="60"></edge>
+      <edge id="4020" source="60" target="61"></edge>
+      <edge id="4021" source="60" target="62"></edge>
+      <edge id="4022" source="60" target="63"></edge>
+      <edge id="4023" source="60" target="64"></edge>
+      <edge id="4024" source="62" target="63" weight="2.0"></edge>
+      <edge id="4025" source="62" target="64"></edge>
+      <edge id="4026" source="62" target="68"></edge>
+      <edge id="4027" source="62" target="69"></edge>
+      <edge id="4028" source="62" target="70"></edge>
+      <edge id="4029" source="62" target="71"></edge>
+      <edge id="4030" source="62" target="72" weight="2.0"></edge>
+      <edge id="4031" source="62" target="73"></edge>
+      <edge id="4032" source="62" target="74"></edge>
+      <edge id="4033" source="62" target="75"></edge>
+      <edge id="4034" source="62" target="76"></edge>
+      <edge id="4035" source="62" target="77"></edge>
+      <edge id="4036" source="62" target="78"></edge>
+      <edge id="4037" source="62" target="79"></edge>
+      <edge id="4038" source="62" target="80"></edge>
+      <edge id="4039" source="62" target="81"></edge>
+      <edge id="4040" source="62" target="82"></edge>
+      <edge id="4041" source="62" target="83"></edge>
+      <edge id="4042" source="63" target="64"></edge>
+      <edge id="4043" source="63" target="65"></edge>
+      <edge id="4044" source="63" target="66"></edge>
+      <edge id="4045" source="63" target="67"></edge>
+      <edge id="4046" source="63" target="72"></edge>
+      <edge id="4047" source="63" target="75"></edge>
+      <edge id="4048" source="63" target="76"></edge>
+      <edge id="4049" source="63" target="77"></edge>
+      <edge id="4050" source="63" target="78"></edge>
+      <edge id="4051" source="63" target="79"></edge>
+      <edge id="4052" source="63" target="80"></edge>
+      <edge id="4053" source="63" target="81"></edge>
+      <edge id="4054" source="65" target="66"></edge>
+      <edge id="4055" source="65" target="67"></edge>
+      <edge id="4056" source="66" target="67"></edge>
+      <edge id="4057" source="68" target="69"></edge>
+      <edge id="4058" source="68" target="70"></edge>
+      <edge id="4059" source="68" target="71"></edge>
+      <edge id="4060" source="68" target="72"></edge>
+      <edge id="4061" source="68" target="73"></edge>
+      <edge id="4062" source="68" target="74"></edge>
+      <edge id="4063" source="69" target="70"></edge>
+      <edge id="4064" source="69" target="71"></edge>
+      <edge id="4065" source="69" target="72"></edge>
+      <edge id="4066" source="69" target="73"></edge>
+      <edge id="4067" source="69" target="74"></edge>
+      <edge id="4068" source="70" target="71"></edge>
+      <edge id="4069" source="70" target="72"></edge>
+      <edge id="4070" source="70" target="73"></edge>
+      <edge id="4071" source="70" target="74"></edge>
+      <edge id="4072" source="71" target="72"></edge>
+      <edge id="4073" source="71" target="73"></edge>
+      <edge id="4074" source="71" target="74"></edge>
+      <edge id="4075" source="72" target="73"></edge>
+      <edge id="4076" source="72" target="74"></edge>
+      <edge id="4077" source="72" target="75"></edge>
+      <edge id="4078" source="72" target="76"></edge>
+      <edge id="4079" source="72" target="77"></edge>
+      <edge id="4080" source="72" target="78"></edge>
+      <edge id="4081" source="72" target="79"></edge>
+      <edge id="4082" source="72" target="80"></edge>
+      <edge id="4083" source="72" target="81"></edge>
+      <edge id="4084" source="73" target="74"></edge>
+      <edge id="4085" source="75" target="76"></edge>
+      <edge id="4086" source="75" target="77"></edge>
+      <edge id="4087" source="75" target="78"></edge>
+      <edge id="4088" source="75" target="79"></edge>
+      <edge id="4089" source="75" target="80"></edge>
+      <edge id="4090" source="75" target="81"></edge>
+      <edge id="4091" source="76" target="77"></edge>
+      <edge id="4092" source="76" target="78"></edge>
+      <edge id="4093" source="76" target="79"></edge>
+      <edge id="4094" source="76" target="80"></edge>
+      <edge id="4095" source="76" target="81"></edge>
+      <edge id="4096" source="77" target="78"></edge>
+      <edge id="4097" source="77" target="79"></edge>
+      <edge id="4098" source="77" target="80"></edge>
+      <edge id="4099" source="77" target="81"></edge>
+      <edge id="4100" source="78" target="79"></edge>
+      <edge id="4101" source="78" target="80"></edge>
+      <edge id="4102" source="78" target="81"></edge>
+      <edge id="4103" source="79" target="80"></edge>
+      <edge id="4104" source="79" target="81"></edge>
+      <edge id="4105" source="79" target="84"></edge>
+      <edge id="4106" source="79" target="85"></edge>
+      <edge id="4107" source="79" target="86"></edge>
+      <edge id="4108" source="79" target="87"></edge>
+      <edge id="4109" source="79" target="88"></edge>
+      <edge id="4110" source="80" target="81"></edge>
+      <edge id="4111" source="82" target="83"></edge>
+      <edge id="4112" source="84" target="85"></edge>
+      <edge id="4113" source="84" target="86"></edge>
+      <edge id="4114" source="84" target="87"></edge>
+      <edge id="4115" source="84" target="88"></edge>
+      <edge id="4116" source="85" target="86"></edge>
+      <edge id="4117" source="85" target="87"></edge>
+      <edge id="4118" source="85" target="88"></edge>
+      <edge id="4119" source="86" target="87"></edge>
+      <edge id="4120" source="86" target="88"></edge>
+      <edge id="4121" source="87" target="88"></edge>
+      <edge id="4122" source="89" target="90"></edge>
+      <edge id="4123" source="89" target="91"></edge>
+      <edge id="4124" source="89" target="92"></edge>
+      <edge id="4125" source="89" target="93"></edge>
+      <edge id="4126" source="89" target="94"></edge>
+      <edge id="4127" source="89" target="95"></edge>
+      <edge id="4128" source="90" target="91"></edge>
+      <edge id="4129" source="90" target="92"></edge>
+      <edge id="4130" source="90" target="93"></edge>
+      <edge id="4131" source="90" target="94"></edge>
+      <edge id="4132" source="90" target="95"></edge>
+      <edge id="4133" source="91" target="92"></edge>
+      <edge id="4134" source="91" target="93"></edge>
+      <edge id="4135" source="91" target="94"></edge>
+      <edge id="4136" source="91" target="95"></edge>
+      <edge id="4137" source="92" target="93"></edge>
+      <edge id="4138" source="92" target="94"></edge>
+      <edge id="4139" source="92" target="95"></edge>
+      <edge id="4140" source="93" target="94"></edge>
+      <edge id="4141" source="93" target="95"></edge>
+      <edge id="4142" source="94" target="95"></edge>
+    </edges>
+  </graph>
+</gexf>

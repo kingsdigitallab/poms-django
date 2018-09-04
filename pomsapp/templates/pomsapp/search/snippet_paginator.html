@@ -12,16 +12,7 @@
     {% endif %}
 
 
-	<!-- EH Don't know what this is, left it in for the minute-->
-	{% for el in items.extrastuff %}
 
-		{% ifequal el items.number %}
-			<li>{{ el }}</li>
-		{% else %}
-			<li><a href="{% url 'browse' %}?query={{query}}&amp;browse_type={{active_result_type}}&amp;ordering={{active_ordering}}&amp;show_all={{show_all}}&amp;years={{active_years}}&amp;page={{ el }}">{{ el }}</a></li>
-		{% endifequal %}
-
-	{% endfor %}
 
 	{% if page_obj.has_next %}
 		<li><a href="{% url 'browse' %}?{{ querystring }}&amp;page={{ page_obj.next_page_number }}" >Next <i class="far fa-angle-right"></i></a></li>

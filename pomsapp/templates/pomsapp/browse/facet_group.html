@@ -12,14 +12,10 @@
                 {% with value=term.0 count=term.1 %}
                     {% if count > 0 %}
                         <li>
-                            <input type="radio" id="{{ value }}-option" name="selector">
-                            <label for="{{ value }}-option">
+
                             <a href="
                                     {% url 'browse' %}{% add_facet_link querydict facet value %}&index_type={{ index_type }}">{{ value|facet_display_name }}
                                 ({{ count }})</a>
-                            </label>
-
-                            <div class="check"></div>
                         </li>
 
                     {% endif %}

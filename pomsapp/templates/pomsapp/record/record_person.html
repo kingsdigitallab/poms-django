@@ -137,9 +137,11 @@
     </div><!-- ends content ct -->
     </div><!-- ends record summary -->
 
+     <h2>Total number of associated factoids: {{ record.how_many_factoids}}</h2>
+
         <div id="tabs" class="tsb recordTabs">
 
-        <h2>Total number of associated factoids: {{ record.how_many_factoids}}</h2>
+
 
         <!-- Tab Headers -->
         {% if transactionFact.object_list  %}
@@ -154,7 +156,7 @@
 
         {% if titleFact.object_list  %}
         <input id="tab3" type="radio" name="tabs" checked>
-        <label for="tab3">Transaction factoids <span>({{ transactionFact.tot}})</span></label>
+        <label for="tab3">Title factoids <span>({{ titleFact.tot}})</span></label>
         {% endif %}
 
         {% if possessionFact.object_list  %}

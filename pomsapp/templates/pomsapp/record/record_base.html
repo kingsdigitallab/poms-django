@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{%  load static pomsapp_tags %}
+{%  load static pomsapp_tags pomsapp_wagtail_tags %}
 
 {% block titlepage  %}
 	<title>POMS: record</title>
@@ -89,7 +89,18 @@ $(document).ready(function() {
    {# </ul>		 #}
 {% endblock %}
 
+{% block subnav %}
 
+{% endblock %}
+
+
+{% block breadcrumbs %}
+        <div id="breadcrumbs">
+        {% get_wagtail_page 'browse' as wagtail_page %}
+            {% breadcrumbs current_page=wagtail_page extra=record %}
+
+        </div>
+    {% endblock %}
 
 
 

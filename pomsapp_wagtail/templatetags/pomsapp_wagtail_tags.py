@@ -1,6 +1,7 @@
 from django import template
 
 from wagtail.wagtailcore.models import Page
+from pomsapp_wagtail.models import IndexPage,RichTextPage
 
 register = template.Library()
 

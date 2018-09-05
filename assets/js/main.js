@@ -113,7 +113,7 @@ $(function () {
             if (selected_facets && selected_facets.length > 0) {
                 url += selected_facets;
             }
-            console.log(url);
+
             if ($('div.' + facet_group + '__' + facet_name).html().length < 1) {
                 $.get(url, function (data) {
                     var div = $('div.' + facet_group + '__' + facet_name);

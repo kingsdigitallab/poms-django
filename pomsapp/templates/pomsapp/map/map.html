@@ -1,140 +1,146 @@
 {% extends "base.html" %}
-{% load extrafilters %}
+{% load extrafilters pomsapp_tags pomsapp_wagtail_tags %}
 
-{% block titlepage  %}
-	<title>POMS: Map</title>
+{% block titlepage %}
+    <title>POMS: Map</title>
 {% endblock %}
 
 
-{% block load_css  %}
-	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/a.css"/>
-	<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/s.css"/>
-	<link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}css/p.css"/>
+{% block load_css %}
+    <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/a.css"/>
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/s.css"/>
+    <link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}css/p.css"/>
 
-	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/jquery.qtip.min.css" />	
-	{# eventually this must be put in its own file! #}	
-	<style type="text/css" media="screen">
+    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/jquery.qtip.min.css"/>
+    {# eventually this must be put in its own file! #}
+    <style type="text/css" media="screen">
 
-	.ui-tooltip{
-		min-width: 550px;
-		overflow: auto;
-		max-height: 400px;
-		margin-top: 150px;
-	}
-	
-	.ui-tooltip-bootstrap .ui-tooltip-titlebar {
-		font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
-	}
-	
-	#ui-tooltip-modal{
-		max-width: 420px;
+        .ui-tooltip {
+            min-width: 550px;
+            overflow: auto;
+            max-height: 400px;
+            margin-top: 150px;
+        }
 
-		-moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-		-webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-		box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-	}
+        .ui-tooltip-bootstrap .ui-tooltip-titlebar {
+            font-size: 14px;
+            font-weight: bold;
+            background: #294C81;
+            color: #fff;
+        }
 
-	#ui-tooltip-modal .ui-tooltip-content{
-		padding: 10px;
-	}
-	
-	
-	</style>
-	
+        #ui-tooltip-modal {
+            max-width: 420px;
+
+            -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
+            -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
+            box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
+        }
+
+        #ui-tooltip-modal .ui-tooltip-content {
+            padding: 10px;
+        }
+
+
+    </style>
+
 {% endblock %}
 
+{% block breadcrumbs %}
+    <div id="breadcrumbs">
+        {% get_wagtail_page 'map' as wagtail_page %}
+        {% breadcrumbs current_page=wagtail_page extra=record %}
 
-{% block load_js  %}
+    </div>
+{% endblock %}
 
-<script type="text/javascript" src="{{ STATIC_URL }}js/functions_record.js"></script>
-<!--<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-src.js"></script>-->
+{% block subnav %}
+{% endblock %}
 
-<script>
-	L_PREFER_CANVAS = true
-</script>
+{% block load_js %}
 
-<script type="text/javascript" src="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.js"></script>
-<!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.css"></link>-->
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.css"></link>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/functions_record.js"></script>
+    <!--<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-src.js"></script>-->
 
-<script type="text/javascript" src="{{ STATIC_URL }}js/turf.js"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/hex_grid.js"></script>
+    <script>
+        L_PREFER_CANVAS = true
+    </script>
 
-<script type="text/javascript" src="{{ STATIC_URL }}js/leaflet-image.js"></script>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL}}css/meyerweb-reset.css"></link>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.css"></link>-->
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.css"></link>
 
-<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-overlap.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/turf.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/hex_grid.js"></script>
 
-<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
-<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet' />
-<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet' />
+    <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet-image.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/meyerweb-reset.css"></link>
 
+    <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet-overlap.js"></script>
 
-<script type="text/javascript" src="{{ STATIC_URL}}js/LeafletFunctionButton.js"></script>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.draw.css"></link>
-<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet.draw.js"></script>
-
-<script type="text/javascript" src="{{ STATIC_URL}}js/spin.min.js"></script>
-
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet.awesome-markers.min.js"></script>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.awesome-markers.css"></link>
-
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css'
+          rel='stylesheet'/>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css'
+          rel='stylesheet'/>
 
 
-<script> 
-$(document).ready(function() {
-	var maskWidth = $(window).width();   // returns height of browser viewport
-	var maskHeight = $(window).height();   // returns height of browser viewport
+    <script type="text/javascript" src="{{ STATIC_URL }}js/LeafletFunctionButton.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.draw.css"></link>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet.draw.js"></script>
 
-	qtip_history();
-	qtip_citation();
-	qtip_previews("{{STATIC_URL}}");
+    <script type="text/javascript" src="{{ STATIC_URL }}js/spin.min.js"></script>
 
-	// qtip_labs();  // disabled for now		
-	// tips for splash page :: add again once the qTip class is fixed
-	// $('span.x6[title]').qtip();
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet.awesome-markers.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.awesome-markers.css"></link>
+
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+
+
+    <script>
+        $(document).ready(function () {
+            var maskWidth = $(window).width();   // returns height of browser viewport
+            var maskHeight = $(window).height();   // returns height of browser viewport
+
+            qtip_history();
+            qtip_citation();
+            qtip_previews("{{STATIC_URL}}");
+
+            // qtip_labs();  // disabled for now
+            // tips for splash page :: add again once the qTip class is fixed
+            // $('span.x6[title]').qtip();
 // 	final parenthesis
-});
+        });
 
-function printMap() {
-	leafletImage(map, function(err, canvas) {
-		var img = document.createElement('img');
-		var dimensions = map.getSize();
-        img.width = (dimensions.x);
-        img.height = (dimensions.y);
-		img.src = canvas.toDataURL();
-		document.getElementById('map-image').innerHTML = '';
-		document.getElementById('map-image').appendChild(img);
-	});
-	
-	$('#map-image-details').find('h3').remove();
-	$('#map-image-details').find('dl').remove();	
-	
-	$.each($('.result-container.ui-tabs-panel'),function(){
-		if ( $(this).find('dl').length > 0){
-			$('#map-image-details').append('<h3>'+ toTitleCase(($(this).attr('id')).replace('-results','')) +'</h3>')
-			$(this).find('dl').clone().appendTo('#map-image-details')
-		}
-	})
-};
+        function printMap() {
+            leafletImage(map, function (err, canvas) {
+                var img = document.createElement('img');
+                var dimensions = map.getSize();
+                img.width = (dimensions.x);
+                img.height = (dimensions.y);
+                img.src = canvas.toDataURL();
+                document.getElementById('map-image').innerHTML = '';
+                document.getElementById('map-image').appendChild(img);
+            });
 
-</script>
+            $('#map-image-details').find('h3').remove();
+            $('#map-image-details').find('dl').remove();
+
+            $.each($('.result-container.ui-tabs-panel'), function () {
+                if ($(this).find('dl').length > 0) {
+                    $('#map-image-details').append('<h3>' + toTitleCase(($(this).attr('id')).replace('-results', '')) + '</h3>')
+                    $(this).find('dl').clone().appendTo('#map-image-details')
+                }
+            })
+        };
+
+    </script>
 {% endblock %}
 
 
-{% block tabs_titles  %}
-   <ul class="nvl">
-     <li class="i1"><a href="/search">Search</a></li>
-     <li class="i1"><a href="/browse">Browse</a></li>
-     <li class="i1"><a href="/record/">Record</a></li>
-       <li class="i1"><a href="/sna/all/">Social Network Analysis</a></li>
+{% block tabs_titles %}
 
-     <li class="s1"><a href="/map/browse/">Map</a></li>	 
-     <li class="i1"><a href="/familytrees">Family Trees</a></li>
-     <li class="i1"><a href="/labs">Labs</a></li>
-   </ul>		
 {% endblock %}
 
 
@@ -145,532 +151,543 @@ function printMap() {
 
 {% block contents %}
 
-	<div>
+    <div>
 
-<!--
-<div id="map-modal"><input type="button" value="Print map"></input></div>
--->
+        <!--
+        <div id="map-modal"><input type="button" value="Print map"></input></div>
+        -->
 
-<div id="map">
+        <div id="map">
 
-</div>
+        </div>
 
 
+    </div>
 
-</div>
+    <script>
 
-<script>
+        var geomQry = '';
+        var parentID = '';
+        var storedJSON = new Object();
+        storedJSON.place = new Array();
+        storedJSON.charter = new Array();
+        storedJSON.person = new Array();
 
-var geomQry = '';
-var parentID = '';
-var storedJSON = new Object();
-storedJSON.place = new Array();
-storedJSON.charter = new Array();
-storedJSON.person = new Array();
-
-L.SpinMapMixin = {
-    spin: function (state, options) {
-        if (!!state) {
-            // start spinning !
-            if (!this._spinner) {
-                this._spinner = new Spinner(options).spin(this._container);
-                this._spinning = 0;
-            }
-            this._spinning++;
-        }
-        else {
-            this._spinning--;
-            if (this._spinning <= 0) {
-                // end spinning !
-                if (this._spinner) {
-                    this._spinner.stop();
-                    this._spinner = null;
+        L.SpinMapMixin = {
+            spin: function (state, options) {
+                if (!!state) {
+                    // start spinning !
+                    if (!this._spinner) {
+                        this._spinner = new Spinner(options).spin(this._container);
+                        this._spinning = 0;
+                    }
+                    this._spinning++;
+                }
+                else {
+                    this._spinning--;
+                    if (this._spinning <= 0) {
+                        // end spinning !
+                        if (this._spinner) {
+                            this._spinner.stop();
+                            this._spinner = null;
+                        }
+                    }
                 }
             }
-        }
-    }
-};
+        };
 
-L.Map.include(L.SpinMapMixin);
+        L.Map.include(L.SpinMapMixin);
 
-L.Map.addInitHook(function () {
-    this.on('layeradd', function (e) {
-        // If added layer is currently loading, spin !
-        if (e.layer.loading) this.spin(true);
-        if (typeof e.layer.on != 'function') return;
-        e.layer.on('data:loading', function () { this.spin(true); }, this);
-        e.layer.on('data:loaded',  function () { this.spin(false); }, this);
-    }, this);
-    this.on('layerremove', function (e) {
-        // Clean-up
-        if (e.layer.loading) this.spin(false);
-        if (typeof e.layer.on != 'function') return;
-        e.layer.off('data:loaded');
-        e.layer.off('data:loading');
-    }, this);
-});
-
-
-
-var oms;
+        L.Map.addInitHook(function () {
+            this.on('layeradd', function (e) {
+                // If added layer is currently loading, spin !
+                if (e.layer.loading) this.spin(true);
+                if (typeof e.layer.on != 'function') return;
+                e.layer.on('data:loading', function () {
+                    this.spin(true);
+                }, this);
+                e.layer.on('data:loaded', function () {
+                    this.spin(false);
+                }, this);
+            }, this);
+            this.on('layerremove', function (e) {
+                // Clean-up
+                if (e.layer.loading) this.spin(false);
+                if (typeof e.layer.on != 'function') return;
+                e.layer.off('data:loaded');
+                e.layer.off('data:loading');
+            }, this);
+        });
 
 
-
-var personMarker = L.AwesomeMarkers.icon({
-    icon: 'male',
-    markerColor: 'red',
-    prefix: 'fa'
-  });
-
-var personCharterMarker = L.AwesomeMarkers.icon({
-    icon: 'male',
-    markerColor: 'green',
-    prefix: 'fa'
-  });
-
-var charterMarker = L.AwesomeMarkers.icon({
-    icon: 'legal',
-    markerColor: 'green',
-    prefix: 'fa'
-  });
-
-var plainMarker = L.AwesomeMarkers.icon({
-    icon: 'university',
-    markerColor: 'blue',
-    prefix: 'fa'
-  });
+        var oms;
 
 
-//var personMarker = L.circleMarker();
+        var personMarker = L.AwesomeMarkers.icon({
+            icon: 'male',
+            markerColor: 'red',
+            prefix: 'fa'
+        });
 
-//var personCharterMarker = L.circleMarker();
+        var personCharterMarker = L.AwesomeMarkers.icon({
+            icon: 'male',
+            markerColor: 'green',
+            prefix: 'fa'
+        });
 
-//var charterMarker = L.circleMarker();
+        var charterMarker = L.AwesomeMarkers.icon({
+            icon: 'legal',
+            markerColor: 'green',
+            prefix: 'fa'
+        });
 
-//var plainMarker = L.circleMarker();
+        var plainMarker = L.AwesomeMarkers.icon({
+            icon: 'university',
+            markerColor: 'blue',
+            prefix: 'fa'
+        });
 
 
+        //var personMarker = L.circleMarker();
 
-$(document).ready(function(){
-		var  mapHeight = $(window).height()
-		$('#map').height(mapHeight)
-		map =  new L.map('map',{crs:L.CRS.EPSG3857,scrollWheelZoom:false});
-		layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
-		        {attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'}).addTo(map);
-                modern  = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}")
-		regions = new 	L.tileLayer.wms('/geoserver/gwc/service/wms?',{
-				layers:'PDE_Postgres:scotland_regions_simple',
-				format:'image/png',
-				transparent:true,
-				attribution:'Orndnance Survey BoundaryLine'}
-		);
-		land_use = new 	L.tileLayer.wms('/geoserver/gwc/service/wms?',{
-				layers:'PoMS:scottish_medieval_landuse_2015_08',
-				format:'image/png',
-				transparent:true,
-				attribution:'<a href="http://hla.rcahms.gov.uk/">Historic Environment Scotland</a>'}
-		);
-        os_1st_ed = new L.TileLayer('http://geo.nls.uk/maps/os/1inch_2nd_ed/{z}/{x}/{y}.png',{tms:false,attribtution:'<a href="http://maps.nls.uk/">National Library of Scotland</a>'})
+        //var personCharterMarker = L.circleMarker();
 
-		geology = new L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/WMSServer?',{
-			layers:'BGS.50k.Bedrock',
-			format :'image/png',
-			crs:L.CRS.EPSG3857,
-			minZoom:13,
-			opacity:0.5,
-			transparent:true,
-			attribution:'BGS:50k'});
-		superficial = new L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/WMSServer?',{
-			layers:'BGS.50k.Superficial.deposits',
-			format :'image/png',
-			crs:L.CRS.EPSG3857,
-			minZoom:13,
-			opacity:0.5,
-			transparent:true,
-			attribution:'BGS:50k'}
-			);
-		map.setView([56.3926,-3.724],7);
+        //var charterMarker = L.circleMarker();
 
-/* 'https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/' */
+        //var plainMarker = L.circleMarker();
+
+
+        $(document).ready(function () {
+            var mapHeight = $(window).height()
+            $('#map').height(mapHeight)
+            map = new L.map('map', {crs: L.CRS.EPSG3857, scrollWheelZoom: false});
+            layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+                {attribution: 'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'}).addTo(map);
+            modern = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}")
+            regions = new L.tileLayer.wms('/geoserver/gwc/service/wms?', {
+                    layers: 'PDE_Postgres:scotland_regions_simple',
+                    format: 'image/png',
+                    transparent: true,
+                    attribution: 'Orndnance Survey BoundaryLine'
+                }
+            );
+            land_use = new L.tileLayer.wms('/geoserver/gwc/service/wms?', {
+                    layers: 'PoMS:scottish_medieval_landuse_2015_08',
+                    format: 'image/png',
+                    transparent: true,
+                    attribution: '<a href="http://hla.rcahms.gov.uk/">Historic Environment Scotland</a>'
+                }
+            );
+            os_1st_ed = new L.TileLayer('http://geo.nls.uk/maps/os/1inch_2nd_ed/{z}/{x}/{y}.png', {
+                tms: false,
+                attribtution: '<a href="http://maps.nls.uk/">National Library of Scotland</a>'
+            })
+
+            geology = new L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/WMSServer?', {
+                layers: 'BGS.50k.Bedrock',
+                format: 'image/png',
+                crs: L.CRS.EPSG3857,
+                minZoom: 13,
+                opacity: 0.5,
+                transparent: true,
+                attribution: 'BGS:50k'
+            });
+            superficial = new L.tileLayer.wms('https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/WMSServer?', {
+                    layers: 'BGS.50k.Superficial.deposits',
+                    format: 'image/png',
+                    crs: L.CRS.EPSG3857,
+                    minZoom: 13,
+                    opacity: 0.5,
+                    transparent: true,
+                    attribution: 'BGS:50k'
+                }
+            );
+            map.setView([56.3926, -3.724], 7);
+
+            /* 'https://map.bgs.ac.uk/arcgis/services/BGS_Detailed_Geology/MapServer/' */
 
 // Initialise the FeatureGroup to store editable layers
-drawnItems = new L.FeatureGroup();
-map.addLayer(drawnItems);
-oms = new OverlappingMarkerSpiderfier(map);
+            drawnItems = new L.FeatureGroup();
+            map.addLayer(drawnItems);
+            oms = new OverlappingMarkerSpiderfier(map);
 
 //oms = new L.MarkerClusterGroup();
 
-switcher = new L.control.layers({'Terrain':layer,'Modern':modern},{'Modern regions':regions,'OS 1st Ed. 1885-1990 (1 inch)':os_1st_ed,'Medieval Land use':land_use,'Bedrock (Zoom 13+)':geology,'Superficial (Zoom 13+)':superficial}).addTo(map)
+            switcher = new L.control.layers({'Terrain': layer, 'Modern': modern}, {
+                'Modern regions': regions,
+                'OS 1st Ed. 1885-1990 (1 inch)': os_1st_ed,
+                'Medieval Land use': land_use,
+                'Bedrock (Zoom 13+)': geology,
+                'Superficial (Zoom 13+)': superficial
+            }).addTo(map)
 
-	$('.leaflet-control-layers-overlays label input:checkbox').click(function() {
-        if (	$(this).next().html()  ==  ' Bedrock (Zoom 13+)'   ){
-			if ( $(this).attr('checked') ){
-				map.on('click',getBGSBedrock)
-			}
-			else {
-				map.off('click',getBGSBedrock)
-					//do nothing
-			}
-			}
-	})
+            $('.leaflet-control-layers-overlays label input:checkbox').click(function () {
+                if ($(this).next().html() == ' Bedrock (Zoom 13+)') {
+                    if ($(this).attr('checked')) {
+                        map.on('click', getBGSBedrock)
+                    }
+                    else {
+                        map.off('click', getBGSBedrock)
+                        //do nothing
+                    }
+                }
+            })
 
-	$('.leaflet-control-layers-overlays label input:checkbox').click(function() {
-        if (	$(this).next().html()  ==  ' Superficial (Zoom 13+)'   ){
-			if ( $(this).attr('checked') ){
-				map.on('click',getBGSSuperficial)
-			}
-			else {
-				map.off('click',getBGSSuperficial)
-					//do nothing
-			}
-		}
-	})
+            $('.leaflet-control-layers-overlays label input:checkbox').click(function () {
+                if ($(this).next().html() == ' Superficial (Zoom 13+)') {
+                    if ($(this).attr('checked')) {
+                        map.on('click', getBGSSuperficial)
+                    }
+                    else {
+                        map.off('click', getBGSSuperficial)
+                        //do nothing
+                    }
+                }
+            })
 
-    // Initialise model???
-		$('#map-modal').qtip({
-			content: {
-				text: 'Loading...',
-				title: {
-					// Give the tooltip box a title
-					// text: $(this).attr('title'),
-					text: "Right click on image to download", // - <a href='" + $(this).attr('href') + "#'>click to show the full map</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>",
-					button: true
-				}
-			},
-			style: {
-				classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map'
-			},
-			show: {
-				event: 'click',
-				delay: 10,
-				solo: true // Only show one tooltip at a time
-			},
-			position: {
-				my: 'center', // ...at the center of the viewport
-				at: 'center',
-				target: $(window),
-			},
-			hide: 'unfocus',
-		})
+            // Initialise model???
+            $('#map-modal').qtip({
+                content: {
+                    text: 'Loading...',
+                    title: {
+                        // Give the tooltip box a title
+                        // text: $(this).attr('title'),
+                        text: "Right click on image to download", // - <a href='" + $(this).attr('href') + "#'>click to show the full map</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>",
+                        button: true
+                    }
+                },
+                style: {
+                    classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map'
+                },
+                show: {
+                    event: 'click',
+                    delay: 10,
+                    solo: true // Only show one tooltip at a time
+                },
+                position: {
+                    my: 'center', // ...at the center of the viewport
+                    at: 'center',
+                    target: $(window),
+                },
+                hide: 'unfocus',
+            })
 
 
+            $('#map-modal').click(printMap);
 
-	$('#map-modal').click(printMap);
+            function getBGSBedrock(e) {
+                if (map.getZoom() >= 13) {
+                    map.spin(true)
+                    $.ajax('/bgs/WMSServer?version=1.3.0&request=GetFeatureInfo&layers=BGS.50k.Bedrock' +
+                        '&query_layers=BGS.50k.Bedrock&crs=CRS:84&info_format=text/html&i='
+                        + e.containerPoint.x + '&j='
+                        + e.containerPoint.y + '&radius=0'
+                        + 'SRS=EPSG:4326&BBOX='
+                        + map.getBounds()._southWest.lng
+                        + ','
+                        + map.getBounds()._southWest.lat
+                        + ','
+                        + map.getBounds()._northEast.lng
+                        + ','
+                        + map.getBounds()._northEast.lat
+                        + '&WIDTH='
+                        + map.getSize().x
+                        + '&HEIGHT=' + map.getSize().y
+                        + '&styles=default',
+                        {
+                            success: function (data) {
+                                map.spin(false)
+                                var popup = L.popup().setLatLng([e.latlng.lat, e.latlng.lng]).setContent(
+                                    '<h3>' + $(data).find('td:nth-child(5)').html() + '</h3><p>' + $(data).find('td:nth-child(22)').html() + '</p>').openOn(map);
+                            },
+                            type: 'html'
+                        })
+                }
+            }
 
-function getBGSBedrock(e){
-		if (map.getZoom() >= 13){
-					map.spin(true)
-						$.ajax('/bgs/WMSServer?version=1.3.0&request=GetFeatureInfo&layers=BGS.50k.Bedrock'+
-						'&query_layers=BGS.50k.Bedrock&crs=CRS:84&info_format=text/html&i='
-						+ e.containerPoint.x + '&j='
-						+ e.containerPoint.y +'&radius=0'
-						+ 'SRS=EPSG:4326&BBOX='
-						+ map.getBounds()._southWest.lng
-						+','
-						+ map.getBounds()._southWest.lat
-						+','
-						+ map.getBounds()._northEast.lng
-						+','
-						+ map.getBounds()._northEast.lat
-						+ '&WIDTH='
-						+ map.getSize().x
-						+ '&HEIGHT='+ map.getSize().y
-						+ '&styles=default',
-						{success: function(data){
-										map.spin(false)
-								var popup = L.popup().setLatLng([ e.latlng.lat,e.latlng.lng]).setContent(
-									'<h3>' + $(data).find('td:nth-child(5)').html() + '</h3><p>' + $(data).find('td:nth-child(22)').html() + '</p>' ).openOn(map);
-							},
-						type:'html'
-						})
-		}
-}
-
-function getBGSSuperficial(e){
-	if (map.getZoom() >= 13){
-		map.spin(true)
-						$.ajax('/bgs/WMSServer?version=1.3.0&request=GetFeatureInfo&layers=BGS.50k.Superficial.deposits'+
-						'&query_layers=BGS.50k.Superficial.deposits&crs=CRS:84&info_format=text/html&i='
-						+ e.containerPoint.x + '&j='
-						+ e.containerPoint.y +'&radius=0'
-						+ 'SRS=EPSG:4326&BBOX='
-						+ map.getBounds()._southWest.lng
-						+','
-						+ map.getBounds()._southWest.lat
-						+','
-						+ map.getBounds()._northEast.lng
-						+','
-						+ map.getBounds()._northEast.lat
-						+ '&WIDTH='
-						+ map.getSize().x
-						+ '&HEIGHT='+ map.getSize().y
-						+ '&styles=default',
-						{success: function(data){
-								map.spin(false)
-								if ( $(data).find('td').length!=0 )  {
-									var popup = L.popup().setLatLng([ e.latlng.lat,e.latlng.lng]).setContent(
-									'<h3>' + $(data).find('td:nth-child(5)').html() + '</h3><p>' + $(data).find('td:nth-child(26)').html() + '</p>' ).openOn(map);
-								}
-							},
-						type:'html'
-						})
-		}
-}
+            function getBGSSuperficial(e) {
+                if (map.getZoom() >= 13) {
+                    map.spin(true)
+                    $.ajax('/bgs/WMSServer?version=1.3.0&request=GetFeatureInfo&layers=BGS.50k.Superficial.deposits' +
+                        '&query_layers=BGS.50k.Superficial.deposits&crs=CRS:84&info_format=text/html&i='
+                        + e.containerPoint.x + '&j='
+                        + e.containerPoint.y + '&radius=0'
+                        + 'SRS=EPSG:4326&BBOX='
+                        + map.getBounds()._southWest.lng
+                        + ','
+                        + map.getBounds()._southWest.lat
+                        + ','
+                        + map.getBounds()._northEast.lng
+                        + ','
+                        + map.getBounds()._northEast.lat
+                        + '&WIDTH='
+                        + map.getSize().x
+                        + '&HEIGHT=' + map.getSize().y
+                        + '&styles=default',
+                        {
+                            success: function (data) {
+                                map.spin(false)
+                                if ($(data).find('td').length != 0) {
+                                    var popup = L.popup().setLatLng([e.latlng.lat, e.latlng.lng]).setContent(
+                                        '<h3>' + $(data).find('td:nth-child(5)').html() + '</h3><p>' + $(data).find('td:nth-child(26)').html() + '</p>').openOn(map);
+                                }
+                            },
+                            type: 'html'
+                        })
+                }
+            }
 
 // Initialise the draw control and pass it the FeatureGroup of editable layers
 
-var drawControl = new L.Control.Draw({
-    edit: {
-        featureGroup: drawnItems,
-	edit:false
-    },
-    draw:
-        {
-        polyline:false,
-        circle:false,
-        rectangle:true,
-        polygon:false,
-        marker:false,
-		position:'bottomleft'
+            var drawControl = new L.Control.Draw({
+                edit: {
+                    featureGroup: drawnItems,
+                    edit: false
+                },
+                draw:
+                    {
+                        polyline: false,
+                        circle: false,
+                        rectangle: true,
+                        polygon: false,
+                        marker: false,
+                        position: 'bottomleft'
+                    }
+            }).addTo(map);
+
+            map.on('draw:created', function (e) {
+                drawnItems.clearLayers();
+                var type = e.layerType,
+                    layer = e.layer;
+                drawnItems.addLayer(layer);
+                geomQry = '&selected_geom=' + JSON.stringify(e.layer.toGeoJSON().geometry.coordinates)
+                updateResults();
+            })
+
+            map.on('draw:deleted', function (e) {
+                geomQry = ''
+            })
+
+
+            $('.leaflet-control-zoom-in').after('<a id="zoom-level">7</a>');
+
+            map.on('zoomend', function (e) {
+                $('#zoom-level').html(map.getZoom());
+            })
+
+            $.ajax('hierarchy/', {
+                    success: function (data) {
+                        $('.leaflet-control-container').append(data);
+                        $('#parent-places input').click('', function () {
+                            if (this.checked) {
+                                drawnItems.clearLayers()
+                                geomQry = '';
+                                parentID = $(this).data('place-id');
+                                updateResults();
+                            }
+                            else {
+                                drawnItems.clearLayers()
+                                parentID = ''
+                                map.spin(false);
+                                geoJSON.clearLayers();
+                            }
+                        })
+                        $($('#parent-places label')[0]).before('<img src="{{ STATIC_URL }}images/map_key.png"></img>')
+                    }
+                }
+            )
+        });
+
+        function updateResults() {
+            map.spin(true);
+            if (geomQry != '') {
+                $.ajax('search/?' + geomQry, {
+                    dataType: "jsonp"
+                }).done(function () {
+                    map.spin(false);
+                }).error(function () {
+                    map.spin(false);
+                });
+            }
+            else if (parentID != '') {
+                $.ajax('search-by-parent/?id=' + parentID, {
+                    dataType: "jsonp",
+                    complete: function () {
+                        map.spin(false);
+                    }
+
+                });
+            }
+        };
+
+
+        var neil;
+
+        function parseMapResults(data) {
+            //oms.clearLayers()
+            geoJSON.clearLayers();
+
+
+            geoJSON.addData(data).addTo(map);
+
+            //map.addLayer(oms)
+            // Store the data for use in TURF
+            neil = data;
+        };
+
+        var geoJSON = new L.geoJson(null,
+            {
+                onEachFeature: function (feature, layer) {
+                    var props = feature.properties
+                    layer.bindPopup(getPopup(props), {minWidth: '300'})
+                },
+                pointToLayer: function (feature, latlng) {
+                    if (feature.properties.people.length > 0) {
+                        marker = new L.marker(latlng, {icon: personMarker});
+                        //{ marker =  new L.circleMarker(latlng);
+                        feature.properties['style'] = 'person';
+                        // Are there charters as well?
+                        if (feature.properties.charters.length > 0) {
+                            marker = new L.marker(latlng, {icon: personCharterMarker});
+                            //marker = new L.circleMarker(latlng)
+                        }
+                    }
+                    else if (feature.properties.charters.length > 0) {
+                        marker = new L.marker(latlng, {icon: charterMarker});
+                        //  marker = new L.circleMarker(latlng)
+                        feature.properties['style'] = 'charter'
+                    }
+                    else {
+                        marker = new L.marker(latlng, {icon: plainMarker});
+                        //marker = new L.circleMarker(latlng)
+                        feature.properties['style'] = 'place'
+                    }
+
+                    oms.addMarker(marker);
+                    //oms.addLayer(marker);
+                    return marker
+                }
+            }
+        );
+
+        function getPopup(props) {
+            str = '<table class="simple headersX"><tbody><tr><th><a href="/record/place/' + props.id + '">' + props.name + '</a></th></tr>';
+            str += '<tr><th>' + props.parent + '</th></tr>';
+            if (props.place_types.length > 0) {
+                str += '<tr><th>Possessions:</th></tr>';
+                str += '<tr><td>'
+                for (p in props.placetypes) {
+                    str += props.placetypes[p] + ', '
+                }
+                str += '</td></tr>'
+            }
+
+
+            if (props.people.length > 0) {
+                str += '<tr><th>People:</th></tr>';
+                for (p in props.people) {
+                    str += '<tr><td><a href="/record/person/' + props.people[p].id + '">' + props.people[p].name + '</a></td></tr>'
+                }
+            }
+            if (props.charters.length > 0) {
+                str += '<tr><th>Charters:</th></tr>';
+                for (c in props.charters) {
+                    str += '<tr><td><a href="/record/source/' + props.charters[c].id + '">' + props.charters[c].name + '</a></td></tr>'
+                }
+            }
+            str += '</tbody></table>'
+            return str;
+        };
+
+        function removeType(filterString) {
+            for (i in geoJSON._layers) {
+                if (geoJSON._layers[i].feature.properties.style == filterString) {
+                    // store removed data
+                    storedJSON[filterString].push(JSON.stringify(geoJSON._layers[i].toGeoJSON()));
+                    geoJSON.removeLayer(geoJSON._layers[i])
+                }
+            }
         }
-    }).addTo(map);
 
-    map.on('draw:created', function (e) {
-         drawnItems.clearLayers();
-            var type = e.layerType,
-            layer = e.layer;
-            drawnItems.addLayer(layer);
-    	    geomQry = '&selected_geom=' + JSON.stringify(e.layer.toGeoJSON().geometry.coordinates)
-            updateResults();
-    })
-
-    map.on('draw:deleted', function (e) {
-     geomQry = ''
-    })
+        function replaceType(filterString) {
+            for (i in storedJSON[filterString]) {
+                feature = eval('(' + storedJSON[filterString][i] + ')')
+                geoJSON.addData(feature)
+            }
+            storedJSON[filterString] = new Array();
+        };
 
 
-	$('.leaflet-control-zoom-in').after('<a id="zoom-level">7</a>');
+        function printMap() {
 
-	map.on('zoomend',function(e){
-		$('#zoom-level').html(map.getZoom());
-	})
+            map.removeLayer(oms)
+            map.addLayer(geoJSON)
 
-	$.ajax('hierarchy/',{
-		success:function(data){
-		        $('.leaflet-control-container').append(data);
-				$('#parent-places input').click('',function(){
-					if (this.checked) {
-						drawnItems.clearLayers()
-						geomQry = '';
-						parentID = $(this).data('place-id');
-						updateResults();
-					}
-					else {
-						drawnItems.clearLayers()
-						parentID = ''
-						map.spin(false);
-		                geoJSON.clearLayers();
-					}
-				})
-                $($('#parent-places label')[0]).before('<img src="{{ STATIC_URL }}images/map_key.png"></img>')
-		    }
-		}
-	)
-});
+            // Open the overlay qtip
+            $('#map-modal').qtip({
+                content: {
+                    text: 'Loading...',
+                    title: {
+                        // Give the tooltip box a title
+                        // text: $(this).attr('title'),
+                        text: "Right click on image to download", // - <a href='" + $(this).attr('href') + "#'>click to show the full map</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>",
+                        button: true
+                    }
+                },
+                style: {
+                    classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map',
+                    width: '80%'
+                },
+                show: {
+                    event: 'click',
+                    delay: 10,
+                    solo: true // Only show one tooltip at a time
+                },
+                position: {
+                    my: 'center', // ...at the center of the viewport
+                    at: 'center',
+                    target: $(window),
+                },
+                hide: 'unfocus',
+            })
 
-	function updateResults(){
-		map.spin(true);
-		if (geomQry != ''){
-		$.ajax('search/?'+ geomQry ,{
-			dataType:"jsonp"
-			}).done(function() {
-				map.spin(false);
-				}).error(function () {
-				map.spin(false);
-				});
-		}
-		else if ( parentID != ''){
-		$.ajax('search-by-parent/?id='+ parentID ,{
-			     dataType:"jsonp",
-			     complete: function() {
-					   map.spin(false);
-			     }
-                 
-			});
-		}
-	};
+            $('#map-modal').qtip()
 
-
-var neil;
-
-function parseMapResults(data){
-    //oms.clearLayers()
-    geoJSON.clearLayers();
+            leafletImage(map, function (err, canvas) {
+                var img = document.createElement('img');
+                var dimensions = map.getSize();
+                img.width = (dimensions.x);
+                img.height = (dimensions.y);
+                img.src = canvas.toDataURL();
+                $.ajax({
+                    type: "POST",
+                    url: '/map/map-image/',
+                    data: {
+                        "image": img.src,
+                        "csrfmiddlewaretoken": '{{ csrf_token }}'
+                    },
+                    success: openMapImage
+                });
+            });
+        };
 
 
-    geoJSON.addData(data).addTo(map);
-
-    //map.addLayer(oms)
-    // Store the data for use in TURF
-    neil = data;
-};
-
-var geoJSON = new L.geoJson(null,
-	{
-		onEachFeature: function(feature,layer){
-			var props = feature.properties
-			layer.bindPopup( getPopup(props ),{minWidth:'300'})
-		},
-		pointToLayer: function(feature, latlng) {
-			if ( feature.properties.people.length > 0)
-		    		{ marker =  new L.marker(latlng,{icon:personMarker});
-		    		//{ marker =  new L.circleMarker(latlng);
-					  feature.properties['style'] = 'person';
-					  // Are there charters as well?
-					  if (feature.properties.charters.length > 0 ){
-						marker =  new L.marker(latlng,{icon:personCharterMarker});
-						//marker = new L.circleMarker(latlng)
-					  }
-					}
-		    else if ( feature.properties.charters.length > 0)
-		    		{
-		    		marker =  new L.marker(latlng,{icon:charterMarker});
-		    		//  marker = new L.circleMarker(latlng)
-					  feature.properties['style'] = 'charter'
-					}
-		    else {
-		    	marker = new L.marker(latlng,{icon:plainMarker});
-		    	//marker = new L.circleMarker(latlng)
-				feature.properties['style'] = 'place'
-		    }
-
-            oms.addMarker(marker);
-            //oms.addLayer(marker);
-        	return marker
-		}
-	}
-);
-
-function getPopup(props){
-	str = '<table class="simple headersX"><tbody><tr><th><a href="/record/place/' + props.id + '">' + props.name + '</a></th></tr>';
-	str += '<tr><th>' + props.parent + '</th></tr>';
-	if (props.place_types.length > 0){
-		str += '<tr><th>Possessions:</th></tr>';
-		str += '<tr><td>'
-		for (p in props.placetypes ){
-			str += props.placetypes[p] + ', '
-		}
-		str += '</td></tr>'
-	}
+        function openMapImage(data) {
+            $('.ui-tooltip-content').html(data)
+            map.addLayer(oms)
+            map.removeLayer(geoJSON)
+        };
 
 
-
-	if (props.people.length > 0){
-		str += '<tr><th>People:</th></tr>';
-		for (p in props.people ){
-			str += '<tr><td><a href="/record/person/'+ props.people[p].id +'">' + props.people[p].name + '</a></td></tr>'
-		}
-	}
-	if (props.charters.length > 0){
-		str += '<tr><th>Charters:</th></tr>';
-		for (c in props.charters ){
-			str += '<tr><td><a href="/record/source/' + props.charters[c].id + '">' + props.charters[c].name + '</a></td></tr>'
-		}
-	}
-	str += '</tbody></table>'
-	return str;
-};
-
-function removeType(filterString){
-	for (i in geoJSON._layers){
-		if (geoJSON._layers[i].feature.properties.style == filterString) {
-			// store removed data
-			storedJSON[filterString].push( JSON.stringify( geoJSON._layers[i].toGeoJSON()) );
-			geoJSON.removeLayer(geoJSON._layers[i])
-		}
-	}
-}
-
-function replaceType(filterString){
-	for (i in storedJSON[filterString]) {
-		feature = eval('('+storedJSON[filterString][i]+')')
-		geoJSON.addData( feature )
-	}
-	storedJSON[filterString] = new Array();
-};
+    </script>
 
 
-
-function printMap() {
-
-    map.removeLayer(oms)
-    map.addLayer(geoJSON)
-
-	// Open the overlay qtip
-		$('#map-modal').qtip({
-			content: {
-				text: 'Loading...',
-				title: {
-					// Give the tooltip box a title
-					// text: $(this).attr('title'),
-					text: "Right click on image to download", // - <a href='" + $(this).attr('href') + "#'>click to show the full map</a> <small>(<a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)</small>",
-					button: true
-				}
-			},
-			style: {
-				classes: 'ui-tooltip-bootstrap ui-tooltip-shadow ui-map',
-                width: '80%'
-			},
-			show: {
-				event: 'click',
-				delay: 10,
-				solo: true // Only show one tooltip at a time
-			},
-			position: {
-				my: 'center', // ...at the center of the viewport
-				at: 'center',
-				target: $(window),
-			},
-			hide: 'unfocus',
-			})
-
-        $('#map-modal').qtip()
-
-        leafletImage(map, function(err, canvas) {
-        var img = document.createElement('img');
-        var dimensions = map.getSize();
-        img.width = (dimensions.x);
-        img.height = (dimensions.y);
-        img.src = canvas.toDataURL();
-        $.ajax({
-            type: "POST",
-            url: '/map/map-image/',
-            data: {
-                    "image" : img.src,
-                    "csrfmiddlewaretoken": '{{ csrf_token }}'
-                  },
-            success: openMapImage
-        });
-        });
-};
-
-
-function openMapImage(data){
-	$('.ui-tooltip-content').html(data)
-    map.addLayer(oms)
-    map.removeLayer(geoJSON)
-};
-
-
-</script>
-	
-	
 {% endblock %}
-	
-	
-	
+
+
+
 {% block body_closing %}
-	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.qtip.min.js"></script>
-	{% include "pomsapp/snippet_history.html" %}
-	{% include "pomsapp/record/snippet_citation.html" %}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.qtip.min.js"></script>
+    {% include "pomsapp/snippet_history.html" %}
+    {% include "pomsapp/record/snippet_citation.html" %}
 {% endblock %}	

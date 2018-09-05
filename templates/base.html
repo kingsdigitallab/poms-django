@@ -47,11 +47,13 @@
 
 {# Elliott, we should rename these <div> IDs for better semantic - Ginestra #}
 <div id="wagtail-wrapper"{% if djfacet_splashpage %} class="splash"{% endif %}>
-    <div id="breadcrumbs">
+    {% block breadcrumbs %}
+        <div id="breadcrumbs">
 
-        {% breadcrumbs current_page=self %}
+            {% breadcrumbs current_page=self %}
 
-    </div>
+        </div>
+    {% endblock %}
     <div id="secondary-nav">
 
         {% block small_links %}
@@ -60,7 +62,7 @@
 
     <div id="wagtail-content">
         {% block tabs_titles %}
-        {% endblock %} >
+        {% endblock %}
 
 
         {% block permalink %}

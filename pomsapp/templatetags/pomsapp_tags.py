@@ -1,5 +1,7 @@
 from django import template
 from pomsapp_wagtail.models import HomePage
+from wagtail.wagtailcore.models import Page
+from django.utils.safestring import SafeText
 
 register = template.Library()
 
@@ -184,8 +186,11 @@ def breadcrumbs(context, current_page, extra=None):
     """Returns the pages that are part of the breadcrumb trail of the current
     page, up to the root page."""
     root = context['request'].site.root_page
-    pages = current_page.get_ancestors(
-        inclusive=True).descendant_of(root).filter(live=True)
+    if current_page:
+        pages = current_page.get_ancestors(
+            inclusive=True).descendant_of(root).filter(live=True)
+    else:
+        pages = None
 
     return {'request': context['request'], 'root': root,
             'current_page': current_page, 'pages': pages, 'extra': extra}

@@ -104,11 +104,17 @@
 {% endblock %}
 
 {% block subnav %}
-    {% get_wagtail_page 'db' as wagtail_page %}
-    {% local_menu wagtail_page %}
-
 
 {% endblock %}
+
+{% block breadcrumbs %}
+        <div id="breadcrumbs">
+        {% get_wagtail_page 'browse' as wagtail_page %}
+            {% breadcrumbs current_page=wagtail_page extra=record %}
+
+        </div>
+    {% endblock %}
+
 
 {% block tabs_titles %}
 {% endblock %}

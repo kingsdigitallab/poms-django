@@ -109,7 +109,7 @@ $(function () {
             // Load the facet choices
             var selected_facets = $(this).data('selected_facets');
             var title = this;
-            var url = "/db/browse/" + facet_group + "/" + facet_name + "/?";
+            var url = "/browse/" + facet_group + "/" + facet_name + "/?";
             if (selected_facets && selected_facets.length > 0) {
                 url += selected_facets;
             }

@@ -46,17 +46,18 @@
 {% endblock %}
 
 {# Elliott, we should rename these <div> IDs for better semantic - Ginestra #}
-<div id="gw"{% if djfacet_splashpage %} class="splash"{% endif %}>
-  <div id="ss">
-    <!-- TO: Removing as interfering with subnav
-    {% block tabs_titles  %}
-    {% endblock %}-->
-
+<div id="wagtail-wrapper"{% if djfacet_splashpage %} class="splash"{% endif %}>
+  <div id="breadcrumbs">
+    {% block tabs_titles  %} 
+    {% endblock %} > Ecclesiastical Charter Witnesses > Priors of St Andrews (H2/97/)
+  </div>
+  <div id="secondary-nav">
+    
     {% block small_links %}
     {% endblock %}
   </div>
 
-  <div id="cs">
+  <div id="wagtail-content">
     {% block permalink %}
     {% endblock %}
 
@@ -75,7 +76,27 @@
   ga('send', 'pageview');
 </script>
 
-
+<!-- TO: Elliot tried to move this to footer.html but failed so leaving it here for you to -->
+<footer>
+  <div class="logos">
+    <a href="https://ahrc.ukri.org">
+      <img src="{% static 'images/ahrc-logo.png' %}" alt="Arts and Humanities Research Council">
+    </a>
+    <a href="https://ahrc.ukri.org">
+      <img src="{% static 'images/KCL-logo-blackbg.svg' %}" alt="King's College London">
+    </a>
+    <a href="https://ahrc.ukri.org">
+      <img src="{% static 'images/cch-logo.jpg' %}" alt="Centre for Computing in the Humanities">
+    </a>
+    <a href="https://ahrc.ukri.org">
+      <img src="{% static 'images/UoG-logo.png' %}" alt="University of Glasgow">
+    </a>
+    <a href="https://ahrc.ukri.org">
+      <img src="{% static 'images/UoE-logo.jpg' %}" alt="University of Edinburgh">
+    </a>
+  </div>
+  <p>Developed and maintained by <a href="//www.kdl.kcl.ac.uk/" title="King's Digital Lab">King's Digital Lab</a>
+</footer>
 
 {% block body_closing %}
 {% endblock %}

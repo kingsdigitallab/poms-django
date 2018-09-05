@@ -126,7 +126,7 @@ h1 {
 h2{
     font-size: 1.3em;
 }
-.top-header {
+header {
     h1 {
         color: $beige;
         font-size: 28px;
@@ -162,7 +162,38 @@ h2{
 
 /* Navigation */
 
-.menu {
+.primary-nav {
+    background: $primary-color;
+    text-transform: uppercase;
+    padding:0 2%;
+    ul{
+        margin: 0 0  0 -56px;
+        
+        li {
+        display: inline-block;
+        list-style: none;
+        padding: 8px 16px;
+            
+            &:hover { 
+                a{
+                    text-decoration: none;
+                    color: lighten($primary-color, 40%);
+                }
+            }
+
+            &.active {
+                background: darken($primary-color, 20%);
+            }
+            a {
+            color: white;
+
+            }
+        }
+    }
+
+}
+
+/*.menu {
     margin: 0;
     padding: 0;
 
@@ -180,12 +211,45 @@ h2{
         list-style: none;
         padding: 8px 0;
     }
-}
+}*/
 
 
-#gw{
-    #ss{
+#wagtail-wrapper{
+    margin:2% 2%;
+    #secondary-nav{
+        width:23%;
+        float:left;
+        margin-right:2%;
         ul{
+            margin-left:-40px;
+            list-style-type: none;
+            li{
+                padding:8px 16px;
+                background: lighten($gray,57%);
+
+                a{
+                    color: $black;
+                }
+
+                &:hover{
+                    background: $primary-color;
+
+                    a{
+                        text-decoration: none;
+                        color: $white;
+                    }
+                }
+
+                &.active {
+                    background: darken($primary-color, 20%);
+                    a{
+                        color: $white;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        /*ul{
             background: #eff3fa;
             margin: 0 0 0 -40px;
             font-family: "EB_Garamond";
@@ -214,10 +278,21 @@ h2{
                     }
                 }
             }
-        }
+        }*/
+    }
+    #wagtail-content{
+        width:75%;
+        float:left;
     }
 }
 
+#breadcrumbs{
+    font-size: 0.8rem;
+    color: $gray;
+    border-bottom: 1px solid lighten($gray,50%);
+    padding: 4px 0;
+    margin-bottom: 16px;
+}
 nav {
     font-family: "EB_Garamond";
 }
@@ -243,19 +318,6 @@ nav {
     }
 }
 
-.top-nav {
-    background: $primary-color;
-    text-transform: uppercase;
-    padding:0 8px;
-    a {
-        color: white;
-
-        &.active {
-            background: lighten($primary-color, 60%);
-            color: darken($primary-color,20%);
-        }
-    }
-}
 
 
 /* Main content */
@@ -567,6 +629,7 @@ tr:nth-child(even) {
 
     >section{
         border: 1px solid lighten($gray,48%);
+        width:100%;
         &.pseudo-tabcontent{
             float: left;
             ul {
@@ -894,6 +957,36 @@ ul.active_facets{
 
 
 /* Footer */
+
+footer{
+    border-top: 3px solid $primary-color;
+    float:left;
+    width:100%;
+    padding: 2%;
+    text-align: center;
+    .logos{
+        a{ 
+            img{
+                height:4rem;
+                display: inline-block;
+                padding:0 1%;
+                text-decoration: none;
+                background: $white;
+                &:hover{
+                    opacity: 0.7;
+                }
+            }
+            &:hover{
+                 text-decoration: none;
+            }
+        }  
+    }
+    p{
+        margin: 2% 0 0 0;
+        font-size: 0.8rem;
+        color: $gray;
+    }
+}
 
 /* Import FontAwesome */
 @import '../fonts/FontAwesome/scss/fontawesome.scss';

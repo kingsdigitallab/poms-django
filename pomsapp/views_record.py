@@ -91,7 +91,7 @@ def person_detail(request, person_id):
 
     ordering_string, chosen_ordering, proanima_chosen_ordering = \
         determine_ordering(
-        "person", ordering)
+            "person", ordering)
 
     person = get_object_or_404(Person, pk=person_id)
     if (person.floruitstartyr == 0
@@ -149,7 +149,7 @@ def person_detail(request, person_id):
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
-            return_str = render(request, 'pomsapp/record/record_person.html',
+            return_str = render(request, 'pomsapp/includes/person_tabs.html',
                                 {'record': person,
                                  'active_ordering': ordering_string,
                                  tab: items, })
@@ -238,7 +238,7 @@ def source_detail(request, source_id):
 
     ordering_string, chosen_ordering, proanima_chosen_ordering = \
         determine_ordering(
-        "source", ordering)
+            "source", ordering)
 
     father_source = get_object_or_404(Source, pk=source_id)
     source_tuple = father_source.get_right_subclass()
@@ -286,9 +286,8 @@ def source_detail(request, source_id):
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
-            return_str = render_block_to_string(
+            return_str = render(request,
                 'pomsapp/record/record_source.html',
-                tab,
                 {'record': source, 'active_ordering': ordering_string,
                  tab: items, })
             return HttpResponse(return_str)
@@ -383,7 +382,7 @@ def factoid_detail(request, factoid_id):
 
     ordering_string, chosen_ordering, proanima_chosen_ordering = \
         determine_ordering(
-        "factoid", ordering)
+            "factoid", ordering)
 
     f = get_object_or_404(Factoid, pk=factoid_id)
     real_f = f.get_right_subclass()
@@ -486,38 +485,38 @@ def factoid_detail(request, factoid_id):
         vals[
             'assocfactoidposs_lands_set'] = \
             factoid.assocfactoidposs_lands_set.filter(
-            helper_inferred=False)
+                helper_inferred=False)
         vals[
             'assocfactoidposs_alms_set'] = \
             factoid.assocfactoidposs_alms_set.filter(
-            helper_inferred=False)
+                helper_inferred=False)
         vals[
             'assocfactoidposs_objects_set'] = \
             factoid.assocfactoidposs_objects_set.filter(
-            helper_inferred=False)
+                helper_inferred=False)
         vals[
             'assocfactoidposs_office'] = factoid.assocfactoidpossoffice.filter(
             helper_inferred=False)
         vals[
             'assocfactoidposs_pgeneral_set'] = \
             factoid.assocfactoidposs_pgeneral_set.filter(
-            helper_inferred=False)
+                helper_inferred=False)
         vals[
             'assocfactoidposs_revenuekind_set'] = \
             factoid.assocfactoidposs_revenuekind_set.filter(
-            helper_inferred=False)
+                helper_inferred=False)
         vals[
             'assocfactoidposs_revenuesilver_set'] = \
             factoid.assocfactoidposs_revenuesilver_set.filter(
-            helper_inferred=False)
+                helper_inferred=False)
         vals[
             'assocfactoidposs_unfreep_set'] = \
             factoid.assocfactoidposs_unfreep_set.filter(
-            helper_inferred=False)
+                helper_inferred=False)
         vals[
             'assocfactoidprivileges_set'] = \
             factoid.assocfactoidprivileges_set.filter(
-            helper_inferred=False)
+                helper_inferred=False)
 
     # substitute the contents of the dict with the paginated values
     for k in vals.keys():
@@ -598,7 +597,7 @@ def place_detail(request, place_id):
 
     ordering_string, chosen_ordering, proanima_chosen_ordering = \
         determine_ordering(
-        "place", ordering)
+            "place", ordering)
 
     obj = get_object_or_404(Place, pk=place_id)
 
@@ -654,12 +653,12 @@ def place_detail(request, place_id):
             items.ordering = ordering
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
-
-            return_str = render_block_to_string(
-                'pomsapp/record/record_place.html',
-                tab,
-                {'record': obj, 'active_ordering': ordering_string,
-                 tab: items, })
+            context = {'record': obj, 'active_ordering': ordering_string,
+                       tab: items, }
+            return_str = render(
+                request,
+                'pomsapp/includes/place_tabs.html',
+                context)
             return HttpResponse(return_str)
 
     # IF NOT AJAX
@@ -780,7 +779,8 @@ def determine_ordering(objtype, ordering_string, reverse_flag=False,
         ORDERINGS = {'personame': ['person__persondisplayname', ],
                      'personrole': ['role__name', ],
                      'orderno': ['orderno', ],
-                     # 'posstype' : ['orderno', ] , NO ORDERING FOR POSSESSIONS AT THE MOMENT
+                     # 'posstype' : ['orderno', ] , NO ORDERING FOR
+                     # POSSESSIONS AT THE MOMENT
                      # 'possname' : ['orderno', ] ,
                      }
         DEFAULT_ORDERING = "orderno"
@@ -800,7 +800,8 @@ def determine_ordering(objtype, ordering_string, reverse_flag=False,
         ordering_string = DEFAULT_ORDERING  # by default
         chosen_ordering = ORDERINGS[ordering_string]
     # ProAnima FACTOIDS:
-    # the exception!  'assocfactoidproanima_set' uses the property 'factoidtrans'...
+    # the exception!  'assocfactoidproanima_set' uses the property
+    # 'factoidtrans'...
     proanima_chosen_ordering = [x.replace('factoid', 'factoidtrans') for x in
                                 chosen_ordering]
 

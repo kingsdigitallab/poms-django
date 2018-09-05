@@ -56,6 +56,8 @@ function ajax_update_tabs(divname, ajaxcall, tab, page, ordering) {
     $.get(ajaxcall,
         {tab: tab, page: page, ordering: ordering},
         function (data) {
+            d = data;
+            dname = divname;
             $(divname).empty().append($(data).find(divname).html());
             $(divname + ' a.paginate').on("click", paginate);
             // reload qtips

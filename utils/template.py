@@ -43,11 +43,13 @@ def render_block_to_string(template_name, block, dictionary=None, context_instan
     """
     dictionary = dictionary or {}
     t = get_template(template_name)
+    """
     if context_instance:
         context_instance.update(dictionary)
     else:
         context_instance = Context(dictionary)
-    t.render(context_instance)
+    """
+    t.render(dictionary)
     return render_template_block(t, block, context_instance)
 
 # todo remove if not used

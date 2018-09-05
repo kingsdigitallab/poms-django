@@ -287,9 +287,10 @@ def source_detail(request, source_id):
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
             return_str = render(request,
-                'pomsapp/record/record_source.html',
-                {'record': source, 'active_ordering': ordering_string,
-                 tab: items, })
+                                'pomsapp/includes/source_tabs.html',
+                                {'record': source,
+                                 'active_ordering': ordering_string,
+                                 tab: items, })
             return HttpResponse(return_str)
 
     # IF NOT AJAX
@@ -459,11 +460,12 @@ def factoid_detail(request, factoid_id):
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
-            return_str = render_block_to_string(
-                'pomsapp/record/record_factoid.html',
-                tab,
-                {'record': factoid, 'active_ordering': ordering_string,
-                 tab: items, })
+            return_str = render(request,
+                                'pomsapp/includes/factoid_tabs.html',
+                                tab,
+                                {'record': factoid,
+                                 'active_ordering': ordering_string,
+                                 tab: items, })
             return HttpResponse(return_str)
 
     vals = {}

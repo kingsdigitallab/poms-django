@@ -26,7 +26,7 @@
    <div class="recordSummary">
     <div class="hdp">
 
-      <h1 class="record" {% if not preview %}{% if record.relatedplace.geom.y > 0 %}style="min-height:auto;"{% endif %}{% endif %}" ><span class="{{record|determinePersonIcon}}">[{{record|determinePersonIcon}}] </span>
+      <h1 class="record" {% if not preview %}{% if record.relatedplace.geom.y > 0 %}style="min-height:auto;"{% endif %}{% endif %}" ><!--<span class="{{record|determinePersonIcon}}">[{{record|determinePersonIcon}}] </span>-->
         {% if user.is_staff %}
             <a href="{{record.get_admin_url}}" target="_blank" title="Welcome administrator! Click to edit this item in the data entry section." style="color: red;">{{record.persondisplayname}}</a>
         {% else   %}

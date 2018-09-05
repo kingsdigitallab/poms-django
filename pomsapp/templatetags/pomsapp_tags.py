@@ -178,6 +178,18 @@ def local_menu(context, current_page=None):
 def has_menu_children(page):
     return page.get_children().live().in_menu().exists()
 
+@register.inclusion_tag('pomsapp/tags/breadcrumbs.html',
+                        takes_context=True)
+def breadcrumbs(context, current_page, extra=None):
+    """Returns the pages that are part of the breadcrumb trail of the current
+    page, up to the root page."""
+    root = context['request'].site.root_page
+    pages = current_page.get_ancestors(
+        inclusive=True).descendant_of(root).filter(live=True)
+
+    return {'request': context['request'], 'root': root,
+            'current_page': current_page, 'pages': pages, 'extra': extra}
+
 
 @register.filter()
 def citation_format(obj):

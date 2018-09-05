@@ -10,7 +10,7 @@
         {% if forloop.last and not extra %}
         > {{ page.title }}
         {% else %}
-        <a href="{% pageurl page %}"> > {{ page.title }} ></a>
+        <a href="{% pageurl page %}"> > {{ page.title }}</a>
         {% endif %}
     </li>
     {% endfor %}

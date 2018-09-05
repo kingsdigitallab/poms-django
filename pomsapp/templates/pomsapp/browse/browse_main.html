@@ -34,8 +34,14 @@
 
 <div class="wrapper">
     {% block contents %}
-        <div id="tabs">
+        <div id="pseudo-tabs">
             <!-- Tab Headers -->
+
+            <input id="tab3" type="radio" name="tabs" {% if index_type == 'person' %}checked{% endif %}>
+            <label for="tab3"><a href="
+
+                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions
+                <span>({{ index_type_counts.person }})</span></a></label>
 
             <input id="tab1" type="radio" name="tabs" {% if index_type == 'factoid' %}checked{% endif %}>
             <label for="tab1"><a href="
@@ -49,11 +55,7 @@
                         {% url 'browse' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources
                 <span>({{ index_type_counts.source }})</span></a></label>
 
-            <input id="tab3" type="radio" name="tabs" {% if index_type == 'person' %}checked{% endif %}>
-            <label for="tab3"><a href="
 
-                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions
-                <span>({{ index_type_counts.person }})</span></a></label>
 
             <input id="tab4" type="radio" name="tabs" {% if index_type == 'place' %}checked{% endif %}>
             <label for="tab4"><a href="
@@ -63,7 +65,7 @@
             <!-- end Tab Headers -->
 
             <!-- Tab Content -->
-            <section id="content3" class="pseudo-tabcontent">
+            <section id="content" class="pseudo-tabcontent">
                 {% block sidebar %}
                     <div class="facet-sidebar">
 

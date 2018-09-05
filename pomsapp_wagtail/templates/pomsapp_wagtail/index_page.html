@@ -2,7 +2,7 @@
 {% load wagtailcore_tags pomsapp_wagtail_tags %}
 
  {% block tabs_titles  %}
-      {{ self.title }}
+      <h2>{{ self.title }}</h2>
     {% endblock %}
 
 {% block small_links %}
@@ -21,7 +21,10 @@
 
 {% endblock %}
 
+
 {% block contents %}
+<div id="wagtail-content">
     {{ self.content | richtext }}
+</div>
     {% endblock %}
 

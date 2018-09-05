@@ -217,6 +217,13 @@ header {
 
 #wagtail-wrapper{
     margin:2% 2%;
+    h2{
+        font-size: 1.5em;;
+        margin: 1rem 0 0.5rem 0;
+        border-bottom: 1px solid $gray;
+        float: left;
+        }
+
     #secondary-nav{
         width:23%;
         float:left;
@@ -650,8 +657,10 @@ tr:nth-child(even) {
                     display: block;
                 }
             }
+            h2{
+                float:none;
+            }
         }
-
         h4{
             display: inline-block;
             width:50%;
@@ -725,6 +734,98 @@ tr:nth-child(even) {
     }
 }
 
+#pseudo-tabs{
+    font-family: 'EB_Garamond', serif;
+
+    >input, section {
+        clear: both;
+        padding-top: 10px;
+        display: none;
+    }
+
+    >section{
+        border: 1px solid lighten($gray,48%);
+        width:100%;
+        &.pseudo-tabcontent{
+            float: left;
+            ul {
+                width: 100%;
+                text-align: left;
+                margin-left: 0;
+                >li{
+                    padding:8px;
+                    display: block;
+                }
+            }
+            h2{
+                float:none;
+            }
+        }
+
+        h4{
+            display: inline-block;
+            width:50%;
+            text-align: left;
+            color: $black;
+        }
+        ul {
+            padding-left:0;
+            display: inline-block;
+            width:49%;
+            text-align: right;
+            color: $black;
+        }
+
+        li{
+            list-style-type: none;
+            display: inline;
+
+                &:nth-child(-n+2){
+                padding-right:16px;
+                }
+                &:nth-last-child(-n+2){
+                padding-left:16px;
+                }
+
+            }
+        
+    }
+    label {
+        display: inline-block;
+        margin: 4px 0 0 0;
+        padding: 10px 20px;
+        text-align: center;
+        color: $gray;
+        background: lighten($gray,48%);
+    }
+
+    label:hover {
+      color: $primary-color;
+      cursor: pointer;
+    }
+
+    label span{
+        font-size:10px;
+    }
+
+    #tab1:checked ~ #content,
+    #tab2:checked ~ #content,
+    #tab3:checked ~ #content,
+    #tab4:checked ~ #content{
+      display: block;
+      padding: 20px;
+      background: #fff;
+      color: $gray;
+    }
+
+    [id^="tab"]:checked + label {
+      color: $white;
+      background: $primary-color;
+      a{
+        color: $white;
+      }
+    }
+}
 
 
 /* Facets */
@@ -1018,6 +1119,7 @@ ul.active_facets{
             line-height: 1.7;
             border-bottom:1px solid lighten($gray,20%);
             border-top:1px solid lighten($gray,20%);
+            float:none;
         }
         ul{
             list-style-type: none;

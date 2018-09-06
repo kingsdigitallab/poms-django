@@ -136,7 +136,7 @@ def selected_facet(context, selected_facet_string):
     label=''
     value=''
     if selected_facet_string:
-        facet, value = selected_facet_string.split(':')
+        facet, value = selected_facet_string.split(':', 1)
         label=facet.replace('_exact','')
         if label in facet_display_names:
             label = facet_display_names[label]

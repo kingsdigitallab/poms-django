@@ -420,6 +420,16 @@ fieldset {
         &:last-child{
             vertical-align: bottom;
         }
+        a{
+            color: lighten($primary-color,50%);
+            text-align: center;
+            display: block;
+            text-decoration: underline;
+            font-size:0.9rem;
+            &:hover{
+                color: white;
+            }
+        }
     }
     #mode{
         input{
@@ -947,7 +957,7 @@ tr:nth-child(even) {
                     }
                     .clear-icon:after {
                         content: "✖";
-                        color: lighten($gray,30%);
+                        color: $white;
                     }
                     .text-box:not(:valid) ~ .clear-icon {
                         display: none;
@@ -955,11 +965,27 @@ tr:nth-child(even) {
                     ul{
                         li{
                             font-size: 0.9em;
-                            padding:0;
+                            padding:0.5rem;
+                            background: lighten($gray,57%);
+                            margin:0.2rem 0;
+                            border-left: 8px solid $primary-color;
                             a{
-                                color: $black;
+                                color: $gray;
+                                text-decoration: none;
                             }
-
+                            &:hover{
+                                background: lighten($gray,47%);
+                                border-left: 8px solid darken($primary-color,10%);
+                                a{
+                                    color: $black;
+                                }
+                            }
+                            .active{
+                                background: $primary-color;
+                                a{
+                                    color: $white;
+                                }
+                            }
                         }
                     }
                 }
@@ -1142,7 +1168,7 @@ ul.active_facets{
                     float: left;
                     h4{
                         margin: 0.5rem 0 0 0;
-                        font-size: 1.3rem;
+                        font-size: 1.1rem;
                         
                     }
                     p{

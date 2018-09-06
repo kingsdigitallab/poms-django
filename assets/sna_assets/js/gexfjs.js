@@ -204,7 +204,7 @@ function displayNode(_nodeIndex, _recentre) {
             });
         if (typeof _d.attributes['PoMS ID'] != "undefined" ){
                 curr_id = _d.attributes['PoMS ID']
-                _str += '<h3><a href="http://db.poms.ac.uk/record/person/'+curr_id+'/#"><div class="largepill" style="background: ' + _d.color.base +'"></div></a>' + _d.label + '</h3>';
+                _str += '<h3><a href="/record/person/'+curr_id+'/#"><div class="largepill" style="background: ' + _d.color.base +'"></div></a>' + _d.label + '</h3>';
                 _str += '<h4>' + strLang("nodeAttr") + '</h4>';
                 _str += '<ul><li><b>id</b> : ' + curr_id + '</li>';
                 for (var i in _d.attributes) {
@@ -216,7 +216,7 @@ function displayNode(_nodeIndex, _recentre) {
                     var _e = GexfJS.graph.edgeList[i]
                     if ( _e.target == _nodeIndex ) {
                         var _n = GexfJS.graph.nodeList[_e.source];
-                        _str += '<li><a href="http://db.poms.ac.uk/record/person/'+_n.attributes['PoMS ID'] +'/#"><div class="smallpill" style="background: ' + _n.color.base +'"></div></a><a href="#" onmouseover="GexfJS.params.activeNode = ' + _e.source + '" onclick="displayNode(' + _e.source + ', true); return false;">' + _n.label + '</a>' + ( GexfJS.params.showEdgeWeight && _e.weight ? ' [' + _e.weight + ']' : '') + '</li>';
+                        _str += '<li><a href="/record/person/'+_n.attributes['PoMS ID'] +'/#"><div class="smallpill" style="background: ' + _n.color.base +'"></div></a><a href="#" onmouseover="GexfJS.params.activeNode = ' + _e.source + '" onclick="displayNode(' + _e.source + ', true); return false;">' + _n.label + '</a>' + ( GexfJS.params.showEdgeWeight && _e.weight ? ' [' + _e.weight + ']' : '') + '</li>';
                     }
                 }
                 if (GexfJS.graph.directed) _str += '</ul><h4>' + strLang("outLinks") + '</h4><ul>';
@@ -224,14 +224,14 @@ function displayNode(_nodeIndex, _recentre) {
                     var _e = GexfJS.graph.edgeList[i]
                     if ( _e.source == _nodeIndex ) {
                         var _n = GexfJS.graph.nodeList[_e.target];
-                        _str += '<li><a href="http://db.poms.ac.uk/record/person/'+ _n.attributes['PoMS ID'] +'/#"><div class="smallpill" style="background: ' + _n.color.base +'"></div></a><a href="#" onmouseover="GexfJS.params.activeNode = ' + _e.target + '" onclick="displayNode(' + _e.target + ', true); return false;">' + _n.label + '</a>' + ( GexfJS.params.showEdgeWeight && _e.weight ? ' [' + _e.weight + ']' : '') + '</li>';
+                        _str += '<li><a href="/record/person/'+ _n.attributes['PoMS ID'] +'/#"><div class="smallpill" style="background: ' + _n.color.base +'"></div></a><a href="#" onmouseover="GexfJS.params.activeNode = ' + _e.target + '" onclick="displayNode(' + _e.target + ', true); return false;">' + _n.label + '</a>' + ( GexfJS.params.showEdgeWeight && _e.weight ? ' [' + _e.weight + ']' : '') + '</li>';
                     }
                 }            
             
         }
             
         else {
-                _str += '<h3><a href="http://db.poms.ac.uk/record/person/'+_d.id+'/#"><div class="largepill" style="background: ' + _d.color.base +'"></div></a>' + _d.label + '</h3>';
+                _str += '<h3><a href="/record/person/'+_d.id+'/#"><div class="largepill" style="background: ' + _d.color.base +'"></div></a>' + _d.label + '</h3>';
                 _str += '<h4>' + strLang("nodeAttr") + '</h4>';
                 _str += '<ul><li><b>id</b> : ' + _d.id + '</li>';
                 for (var i in _d.attributes) {
@@ -243,7 +243,7 @@ function displayNode(_nodeIndex, _recentre) {
                     var _e = GexfJS.graph.edgeList[i]
                     if ( _e.target == _nodeIndex ) {
                         var _n = GexfJS.graph.nodeList[_e.source];
-                        _str += '<li><a href="http://db.poms.ac.uk/record/person/'+_n.id+'/#"><div class="smallpill" style="background: ' + _n.color.base +'"></div></a><a href="#" onmouseover="GexfJS.params.activeNode = ' + _e.source + '" onclick="displayNode(' + _e.source + ', true); return false;">' + _n.label + '</a>' + ( GexfJS.params.showEdgeWeight && _e.weight ? ' [' + _e.weight + ']' : '') + '</li>';
+                        _str += '<li><a href="/record/person/'+_n.id+'/#"><div class="smallpill" style="background: ' + _n.color.base +'"></div></a><a href="#" onmouseover="GexfJS.params.activeNode = ' + _e.source + '" onclick="displayNode(' + _e.source + ', true); return false;">' + _n.label + '</a>' + ( GexfJS.params.showEdgeWeight && _e.weight ? ' [' + _e.weight + ']' : '') + '</li>';
                     }
                 }
                 if (GexfJS.graph.directed) _str += '</ul><h4>' + strLang("outLinks") + '</h4><ul>';
@@ -251,7 +251,7 @@ function displayNode(_nodeIndex, _recentre) {
                     var _e = GexfJS.graph.edgeList[i]
                     if ( _e.source == _nodeIndex ) {
                         var _n = GexfJS.graph.nodeList[_e.target];
-                        _str += '<li><a href="http://db.poms.ac.uk/record/person/'+_n.id+'/#"><div class="smallpill" style="background: ' + _n.color.base +'"></div></a><a href="#" onmouseover="GexfJS.params.activeNode = ' + _e.target + '" onclick="displayNode(' + _e.target + ', true); return false;">' + _n.label + '</a>' + ( GexfJS.params.showEdgeWeight && _e.weight ? ' [' + _e.weight + ']' : '') + '</li>';
+                        _str += '<li><a href="/record/person/'+_n.id+'/#"><div class="smallpill" style="background: ' + _n.color.base +'"></div></a><a href="#" onmouseover="GexfJS.params.activeNode = ' + _e.target + '" onclick="displayNode(' + _e.target + ', true); return false;">' + _n.label + '</a>' + ( GexfJS.params.showEdgeWeight && _e.weight ? ' [' + _e.weight + ']' : '') + '</li>';
                     }
                 }
         }

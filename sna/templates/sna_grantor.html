@@ -1,7 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html class="cufon-active j cufon-ready" xmlns="http://www.w3.org/1999/xhtml"><head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+{% extends "base.html" %}
+{% load extrafilters static %}
+
+{% block titlepage  %}
 <title>POMS SNA: Grantor / Benefactor relationships </title>
+{% endblock %}
+
+
+{% block breadcrumb %}
+{% endblock %}
+
+{% block small_links %}
+{% endblock %}
+
+
+
+
+{% block load_css  %}
 
 <link rel="stylesheet" type="text/css" media="all" href="/media/static/sna_assets/a.css">
 <link rel="stylesheet" type="text/css" media="screen, projection" href="/media/static/sna_assets/s.css">
@@ -34,6 +48,16 @@ padding: 10px;
 }
 </style>
 
+<link rel="stylesheet" type="text/css" href="/media/static/sna_assets/styles/gexfjs.css" />
+<link rel="stylesheet" type="text/css" href="/media/static/sna_assets/styles/jquery-ui-1.10.3.custom.min.css" />
+{% endblock %}
+
+
+
+
+
+{% block load_js  %}
+
 <script src="/media/static/sna_assets/analytics.js" async=""></script>
 
 <script type="text/javascript" src="/media/static/sna_assets/jquery-1.js"></script>
@@ -44,13 +68,6 @@ padding: 10px;
 <script type="text/javascript" src="/media/static/sna_assets/agaramondpro.js"></script>
 <script type="text/javascript" src="/media/static/sna_assets/functions_record.js"></script>
 
-
-<meta http-equiv="X-UA-Compatible" content="IE=8">
-
-<!-- ###materials from gexfjs  (JB) ##### -->
-
-<link rel="stylesheet" type="text/css" href="/media/static/sna_assets/styles/gexfjs.css" />
-<link rel="stylesheet" type="text/css" href="/media/static/sna_assets/styles/jquery-ui-1.10.3.custom.min.css" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
 <script type="text/javascript">
    // Fallback in case JQuery CDN isn't available
@@ -62,68 +79,32 @@ padding: 10px;
 <script type="text/javascript" src="/media/static/sna_assets/js/jquery-ui-1.10.3.custom.min.js"></script>
 <script type="text/javascript" src="/media/static/sna_assets/js/gexfjs.js"></script>
 <script type="text/javascript" src="/media/static/sna_assets/config_gran-ben.js"></script>
-</head>
+<script type="text/javascript" src="/media/static/sna_assets/jquery_002.js"></script>
+{% endblock %}
 
-<body>
+
+
+
+{% block permalink %}
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block contents %}
+
 <div id="gw">
-     <div id="hs">
-          <div id="bs">
-               <h3 title="Paradox of Medieval Scotland 1093 - 1314">Paradox of Medieval Scotland 1093 - 1314</h3>
-          <div class="gx gx1" title="[Image: Seal Palimpsest]">[Image: Seal Palimpsest]</div> <!-- div id="bs" -->
-          </div> <!-- div class="gx gx1" title="[Image: Seal Palimpsest]" -->
-          <div id="ns">
-               <ul class="nvg">
-                  <li class="i1">
-                    <a href="http://www.poms.ac.uk/"><b><cufon style="width: 42px; height: 16px;" alt="Home" class="cufon cufon-canvas"><canvas style="width: 53px; height: 17px; top: 0px; left: -1px;" height="17" width="53"></canvas><cufontext>Home</cufontext></cufon></b></a>
-                  </li>
-                  <li>
-                    <a href="http://www.poms.ac.uk/about"><b><cufon style="width: 38px; height: 16px;" alt="About" class="cufon cufon-canvas"><canvas style="width: 50px; height: 17px; top: 0px; left: -1px;" height="17" width="50"></canvas><cufontext>About</cufontext></cufon></b></a>
-                  </li>
-                  <li class="i1">
-                    <a href="http://db.poms.ac.uk/"><b><cufon style="width: 59px; height: 16px;" alt="Database" class="cufon cufon-canvas"><canvas style="width: 70px; height: 17px; top: 0px; left: -1px;" height="17" width="70"></canvas><cufontext>Database</cufontext></cufon></b></a>
-                  </li>
-                  <li>
-                    <a href="http://www.poms.ac.uk/information"><b><cufon style="width: 79px; height: 16px;" alt="Information" class="cufon cufon-canvas"><canvas style="width: 87px; height: 17px; top: 0px; left: -1px;" height="17" width="87"></canvas><cufontext>Information</cufontext></cufon></b></a>
-                  </li>
-                  <li>
-                    <a href="http://www.poms.ac.uk/schools"><b><cufon style="width: 49px; height: 16px;" alt="Schools" class="cufon cufon-canvas"><canvas style="width: 62px; height: 17px; top: 0px; left: -1px;" height="17" width="62"></canvas><cufontext>Schools</cufontext></cufon></b></a>
-                  </li>
-                  <li>
-                    <a href="http://www.poms.ac.uk/news"><b><cufon style="width: 36px; height: 16px;" alt="News" class="cufon cufon-canvas"><canvas style="width: 49px; height: 17px; top: 0px; left: -1px;" height="17" width="49"></canvas><cufontext>News</cufontext></cufon></b></a>
-                  </li>
-                  <li>
-                    <a href="http://www.poms.ac.uk/contact"><b><cufon style="width: 52px; height: 16px;" alt="Contact" class="cufon cufon-canvas"><canvas style="width: 65px; height: 17px; top: 0px; left: -1px;" height="17" width="65"></canvas><cufontext>Contact</cufontext></cufon></b></a>
-                  </li>
-                  <li class="s1">
-                    <a href="/social-network-analysis/""><b><cufon style="width: 52px; height: 16px;" alt="Social Network Analysis" class="cufon cufon-canvas"><canvas style="width: 65px; height: 17px; top: 0px; left: -1px;" height="17" width="65"></canvas><cufontext>SNA Views</cufontext></cufon></b></a>
-                  </li>
-                  <li class="ix">
-                    <a href="http://www.poms.ac.uk/help"><b><cufon style="width: 33px; height: 16px;" alt="Help" class="cufon cufon-canvas"><canvas style="width: 42px; height: 17px; top: 0px; left: -1px;" height="17" width="42"></canvas><cufontext>Help</cufontext></cufon></b></a>
-                  </li>
-               </ul>
-          </div> <!-- div id="ns" -->
-     </div> <!-- div id="hs" -->
-
-     <div id="ss">
-     
-     <ul class="nvl">
-     <li class="i1"><a href="http://db.poms.ac.uk/search"><cufon style="width: 57px; height: 14px;" alt="Search" class="cufon cufon-canvas"><canvas style="width: 60px; height: 15px; top: 0px; left: -1px;" height="15" width="60"></canvas><cufontext>Search</cufontext></cufon></a></li>
-     <li class="i1"><a href="http://db.poms.ac.uk/browse"><cufon style="width: 60px; height: 14px;" alt="Browse" class="cufon cufon-canvas"><canvas style="width: 67px; height: 15px; top: 0px; left: -1px;" height="15" width="67"></canvas><cufontext>Browse</cufontext></cufon></a></li>
-     <li class="i1"><a href="http://db.poms.ac.uk/record/"><cufon style="width: 61px; height: 14px;" alt="Record" class="cufon cufon-canvas"><canvas style="width: 66px; height: 15px; top: 0px; left: -1px;" height="15" width="66"></canvas><cufontext>Record</cufontext></cufon></a></li>
-     <li class="s1"><a href="http://db.poms.ac.uk/sna/"><cufon style="width: 61px; height: 14px;" alt="Social Network Analysis" class="cufon cufon-canvas"><canvas style="width: 66px; height: 15px; top: 0px; left: -1px;" height="15" width="66"></canvas><cufontext>Social Network Analysis</cufontext></cufon></a></li>
-     <li class="i1"><a href="http://db.poms.ac.uk/map/browse/"><cufon style="width: 31px; height: 14px;" alt="Map" class="cufon cufon-canvas"><canvas style="width: 39px; height: 15px; top: 0px; left: -1px;" height="15" width="39"></canvas><cufontext>Map</cufontext></cufon></a></li>
-     <li class="i1"><a href="http://db.poms.ac.uk/familytrees"><cufon style="width: 56px; height: 14px;" alt="Family " class="cufon cufon-canvas"><canvas style="width: 68px; height: 15px; top: 0px; left: -1px;" height="15" width="68"></canvas><cufontext>Family </cufontext></cufon><cufon style="width: 44px; height: 14px;" alt="Trees" class="cufon cufon-canvas"><canvas style="width: 52px; height: 15px; top: 0px; left: -1px;" height="15" width="52"></canvas><cufontext>Trees</cufontext></cufon></a></li>
-     <li class="i1"><a href="http://db.poms.ac.uk/labs"><cufon style="width: 33px; height: 14px;" alt="Labs" class="cufon cufon-canvas"><canvas style="width: 41px; height: 15px; top: 0px; left: -1px;" height="15" width="41"></canvas><cufontext>Labs</cufontext></cufon></a></li>
-     </ul>
-     
-     </div>
 
      <div id="cs">
           <!-- ######################### -->
           <div class="hdp">
                <table width="100%">
                  <tr>
-			{% include "sna_selector_form.html" %}
+      {% include "sna_selector_form.html" %}
 
                      <td align="right">
                       <form id="recherche" align="right">Locate an individual:
@@ -132,7 +113,7 @@ padding: 10px;
                       </form>
                      </td>
                   </tr>
-		
+    
                  <tr>
                   
                  <td colspan="2" align="right">(Powered by Raphael Velt's <a href="https://github.com/raphv/gexf-js">gexf-js</a> software.)</td></tr>
@@ -169,17 +150,17 @@ padding: 10px;
      <!-- end from gexf-js -->
 </div> <!-- div id="gexfjsContent" -->
 <div id="autocomplete"></div>
+{% endblock %}
 
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-ga('create', 'UA-68207578-1', 'auto');
-ga('send', 'pageview');
 
-</script>
-	<script type="text/javascript" src="/media/static/sna_assets/jquery_002.js"></script>
 
-</body></html>
+
+
+  
+{% block body_closing %}
+  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.qtip.min.js"></script>
+  {% include "pomsapp/snippet_history.html" %}
+  {% include "pomsapp/record/snippet_citation.html" %}
+{% endblock %}  
+

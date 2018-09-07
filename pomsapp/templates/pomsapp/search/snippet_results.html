@@ -142,7 +142,7 @@
                             <tr>
                                 <td><a href="{% url 'person_detail' result.object_id %}">
                                     {{ result.persondisplayname|truncatewords:15|poms_italic|safe }}</a></td>
-                                
+
                                 <td>{{ record.nice_floruits|safe }}</td>
                             </tr>
                         {% endwith %}

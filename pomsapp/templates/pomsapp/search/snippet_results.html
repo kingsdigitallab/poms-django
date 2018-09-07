@@ -132,7 +132,7 @@
 
                 {% if 'person' in index_type %}
                     <tr>
-                        <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "persondisplayname" %}">Full Name</a></th>
+                        <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "persondisplayname_exact" %}">Full Name</a></th>
 
                         <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "startdate" %}">Floruit</a></th>
                     </tr>

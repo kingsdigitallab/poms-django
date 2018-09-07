@@ -242,13 +242,13 @@ def printmany_withabsoluteurl(lst, object_label = None):
 		if object_label:
 			for x in range(n - 1):
 				label = getattr(lst[x], object_label) or getattr(lst[x], 'id')
-				e += "<a class='no_extlink' href=\"%s\">%s</a>; " % (lst[x].get_absolute_url(), label)
+				e += "<a  href=\"%s\">%s</a>; " % (lst[x].get_absolute_url(), label)
 			label = getattr(lst[n - 1], object_label) or getattr(lst[n - 1], 'id')	
-			e += "<a class='no_extlink' href=\"%s\">%s</a>" % (lst[n - 1].get_absolute_url(), getattr(lst[n - 1], object_label))
+			e += "<a  href=\"%s\">%s</a>" % (lst[n - 1].get_absolute_url(), getattr(lst[n - 1], object_label))
 		else:
 			for x in range(n - 1):
-				e += "<a class='no_extlink' href=\"%s\">%s</a>; " % (lst[x].get_absolute_url(), lst[x])
-			e += "<a class='no_extlink' href=\"%s\">%s</a>" % (lst[n - 1].get_absolute_url(), lst[n - 1])
+				e += "<a  href=\"%s\">%s</a>; " % (lst[x].get_absolute_url(), lst[x])
+			e += "<a  href=\"%s\">%s</a>" % (lst[n - 1].get_absolute_url(), lst[n - 1])
 		# e += "%s" % (lst[n -1])
 	return e
 

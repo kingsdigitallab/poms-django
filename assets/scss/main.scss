@@ -231,10 +231,10 @@ header {
         width:23%;
         float:left;
         margin-right:2%;
-        ul{
+        >ul{
             margin-left:-40px;
             list-style-type: none;
-            li{
+            >li{
                 padding:8px 16px;
                 background: lighten($gray,57%);
 
@@ -257,7 +257,73 @@ header {
                         color: $white;
                         text-decoration: none;
                     }
+                    
+                    >ul{ /* 3rd level */
+                        margin: 8px -16px -8px -16px;
+                        list-style-type: none;
+                        background: $white;
+                        border-left:2px solid darken($primary-color, 20%);
+                        border-bottom:2px solid darken($primary-color, 20%);
+                        >li{
+                            background: lighten($gray,57%);
+                            padding: 8px 8px 8px 40px;
+                            margin-left: -40px;
+                            &.active{
+                                >a{
+                                    text-decoration: underline;
+                                }
+                                >ul{
+                                    >li{
+                                        border-left:0;
+                                    }
+                                }
+                            }
+                            >a{
+                                color: $black;
+                            }
+                            >ul{ /* 4th level */
+
+                                >li{
+                                    padding: 8px 8px 8px 0;
+                                    >a{
+                                    color: $black;
+                                    }
+                                    &:hover{
+                                    color: $white;
+                                        >a{
+                                            text-decoration: underline;
+                                            color: $white;
+                                        }
+                                    }
+                                }
+                            }
+                        
+                            &:hover{
+                                background: $primary-color;
+                                >a{
+                                    color: $white;
+                                }
+                                >ul{
+                                    >li{
+                                        color: $white;
+                                        >a{ 
+                                            color: $white;
+                                        }
+                                    }
+                                }
+
+                            }
+
+
+
+
+
+
+                        }
+                    }
                 }
+
+
             }
         }
         /*ul{

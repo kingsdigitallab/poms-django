@@ -133,10 +133,7 @@
                 {% if 'person' in index_type %}
                     <tr>
                         <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "persondisplayname" %}">Full Name</a></th>
-                        <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "forename" %}">Forename</a></th>
-                        <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "surname" %}">Surname</a></th>
-                        <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "standardmedievalname" %}">Medieval Gaelic Name</a></th>
-                        <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "moderngaelicname" %}">Modern Gaelic Name</a></th>
+
                         <th><a href="{% url search_template %}{% add_facet_link querydict 'order_by' value %}&order_by={% get_order_by "startdate" %}">Floruit</a></th>
                     </tr>
 
@@ -145,10 +142,7 @@
                             <tr>
                                 <td><a href="{% url 'person_detail' result.object_id %}">
                                     {{ result.persondisplayname|truncatewords:15|poms_italic|safe }}</a></td>
-                                <td>{{ record.forename|truncatewords:15|poms_italic|safe }}</td>
-                                <td>{{ result.surname|truncatewords:15|poms_italic|safe }}</td>
-                                <td>{{ result.standardmedievalname|default:"" }}</td>
-                                <td>{{ result.moderngaelicname|default:"" }}</td>
+                                
                                 <td>{{ record.nice_floruits|safe }}</td>
                             </tr>
                         {% endwith %}

@@ -1,53 +1,52 @@
 from django import template
 from pomsapp_wagtail.models import HomePage
-from wagtail.wagtailcore.models import Page
-from django.utils.safestring import SafeText
 
 register = template.Library()
 
 facet_display_names = {
-        'person': 'People and Institutions',
-        'source': 'Sources',
-        'termsoftenure': 'Terms of tenure',
-        'gender': 'gender/type',
-        'titles': 'Titles/occupations',
-        'medievalgaelicforename': 'Medieval Gaelic forename',
-        'medievalgaelicsurname': 'Medieval Gaelic surname',
-        'moderngaelicforename': 'Modern Gaelic forename',
-        'moderngaelicsurname': 'Modern Gaelic surame',
-        'documenttype': 'Document type',
-        'documentcategory': 'Document category',
-        'grantorcategory': 'Grantor category',
-        'placedatemodern': 'Place date modern',
-        'relationshiptypes': 'Relationship types',
-        'spiritualbenefites': 'Spiritual benefites',
-        'transactiontypes': 'Transaction types',
-        'possoffice': 'offices',
-        'possunfreepersons': 'Unfree persons',
-        'posslands': 'Possession lands',
-        'possrevkind': 'Revenues in kind',
-        'possrevsilver': 'Revenues in silver',
-        'tenendasoptions': 'Tenendas options',
-        'exemptionoptions': 'Exemption options',
-        'sicutclause': 'Sicut clause',
-        'returnsrenders': 'Returns/renders',
-        'nominalrenders': 'Nominal renders',
-        'renderdates ': 'Render dates',
-        'returnsmilitary': 'Returns military',
-        'commonburdens': 'Common burdens',
-        'renderdates': 'Render dates',
-        'index_type': 'Result type',
-        "legalpertinents": "Legal Pertinents",
-        "transfeatures": "Transaction Features"
+    'person': 'People and Institutions',
+    'source': 'Sources',
+    'termsoftenure': 'Terms of tenure',
+    'gender': 'gender/type',
+    'titles': 'Titles/occupations',
+    'medievalgaelicforename': 'Medieval Gaelic forename',
+    'medievalgaelicsurname': 'Medieval Gaelic surname',
+    'moderngaelicforename': 'Modern Gaelic forename',
+    'moderngaelicsurname': 'Modern Gaelic surame',
+    'documenttype': 'Document type',
+    'documentcategory': 'Document category',
+    'grantorcategory': 'Grantor category',
+    'placedatemodern': 'Place date modern',
+    'relationshiptypes': 'Relationship types',
+    'spiritualbenefites': 'Spiritual benefites',
+    'transactiontypes': 'Transaction types',
+    'possoffice': 'offices',
+    'possunfreepersons': 'Unfree persons',
+    'posslands': 'Possession lands',
+    'possrevkind': 'Revenues in kind',
+    'possrevsilver': 'Revenues in silver',
+    'tenendasoptions': 'Tenendas options',
+    'exemptionoptions': 'Exemption options',
+    'sicutclause': 'Sicut clause',
+    'returnsrenders': 'Returns/renders',
+    'nominalrenders': 'Nominal renders',
+    'renderdates ': 'Render dates',
+    'returnsmilitary': 'Returns military',
+    'commonburdens': 'Common burdens',
+    'renderdates': 'Render dates',
+    'index_type': 'Result type',
+    "legalpertinents": "Legal Pertinents",
+    "transfeatures": "Transaction Features"
 
-    }
+}
 
 
 # From DPRR
 @register.simple_tag
 def add_facet_link(qd, facet=None, value=None):
-    q = filter_querystring(qd,facet,value)
+    q = filter_querystring(qd, facet, value)
     return '?{0}'.format(q.urlencode())
+
 
 @register.simple_tag()
 def filter_querystring(qd, facet=None, value=None):
@@ -95,6 +94,7 @@ def filter_querystring(qd, facet=None, value=None):
         q.setlist('selected_facets', facets)
     return q
 
+
 @register.simple_tag
 def add_reset_link(qd, facet=None, value=None):
     """ Filters out date and general query from get string
@@ -109,7 +109,6 @@ def add_reset_link(qd, facet=None, value=None):
     return '?{0}'.format(q.urlencode())
 
 
-
 @register.simple_tag
 def split_selected_facet(selected_facet):
     # surnames_exact%3AAbraham
@@ -120,13 +119,18 @@ def split_selected_facet(selected_facet):
 
 @register.simple_tag(takes_context=True)
 def get_order_by(context, order_by):
-    if 'order_by' in context:
-        if order_by in context['order_by']:
-            if '-' in order_by:
-                # toggle
-                return order_by.replace('-', '')
-            else:
-                return "-{}".format(order_by)
+    field = 'order_by'
+
+    if field in context:
+        context_order_by = context[field][1:] if context[
+            field][0] == '-' else context[field]
+
+        if order_by == context_order_by:
+            if context[field][0] != '-':
+                order_by = '-{}'.format(order_by)
+
+    context[field] = order_by
+
     return order_by
 
 
@@ -137,18 +141,19 @@ def get_item(dictionary, key):
 
     return None
 
-@register.inclusion_tag('pomsapp/tags/selected_facet.html',takes_context=True)
+
+@register.inclusion_tag('pomsapp/tags/selected_facet.html', takes_context=True)
 def selected_facet(context, selected_facet_string):
-    facet=''
-    label=''
-    value=''
+    facet = ''
+    label = ''
+    value = ''
     if selected_facet_string:
         facet, value = selected_facet_string.split(':', 1)
-        label=facet.replace('_exact','')
+        label = facet.replace('_exact', '')
         if label in facet_display_names:
             label = facet_display_names[label]
-    return {'label':label,'facet':facet,'value':value, 'querydict':context['querydict']}
-
+    return {'label': label, 'facet': facet, 'value': value,
+            'querydict': context['querydict']}
 
 
 @register.filter
@@ -158,7 +163,9 @@ def facet_display_name(facet):
     else:
         return facet
 
-@register.inclusion_tag('pomsapp/includes/db_navigation.html', takes_context=True)
+
+@register.inclusion_tag('pomsapp/includes/db_navigation.html',
+                        takes_context=True)
 def local_menu(context, current_page=None):
     """Retrieves the secondary links for the 'also in this section' links -
     either the children or siblings of the current page."""
@@ -187,6 +194,7 @@ def local_menu(context, current_page=None):
 def has_menu_children(page):
     return page.get_children().live().in_menu().exists()
 
+
 @register.inclusion_tag('pomsapp/tags/breadcrumbs.html',
                         takes_context=True)
 def breadcrumbs(context, current_page, extra=None):
@@ -213,14 +221,15 @@ def citation_format(obj):
 
     elif obj.__class__.__name__ in ('Charter'):  # 'Source',
         return ", H%d/%d/%d" % (
-        obj.hammondnumber or 0, obj.hammondnumb2 or 0, obj.hammondnumb3 or 0)
+            obj.hammondnumber or 0, obj.hammondnumb2 or 0,
+            obj.hammondnumb3 or 0)
 
     elif obj.__class__.__name__ in ('Matrix'):  # 'Source',
         return " seal-matrix, no. %d" % obj.id
 
     elif obj.__class__.__name__ in (
-    'FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship',
-    'FactReference'):
+        'FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship',
+            'FactReference'):
         return " %s factoid, no. %d" % (obj.inferred_type, obj.id)
 
     elif obj.__class__.__name__ in ('Place',):
@@ -228,4 +237,3 @@ def citation_format(obj):
 
     else:
         return "<not available>"
-

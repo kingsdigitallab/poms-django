@@ -49,7 +49,7 @@ def add_facet_link(qd, facet=None, value=None):
     q = filter_querystring(qd,facet,value)
     return '?{0}'.format(q.urlencode())
 
-@register.simple_tag
+@register.simple_tag()
 def filter_querystring(qd, facet=None, value=None):
     """Returns a URL with `facet` and its `value` added to the query
         parameters in `qd`.
@@ -70,7 +70,14 @@ def filter_querystring(qd, facet=None, value=None):
     # if 'index_type' in facet:
     #
     # else:
-    if 'index_type' in facet:
+    if 'order_by' in facet:
+        if 'order_by' in q:
+            del(q['order_by'])
+        if 'page' in q:
+            del(q['page'])
+    elif 'page' in facet:
+        q['page'] = value
+    elif 'index_type' in facet:
         q['index_type'] = value
     elif 'clear_all' in facet:
         # Remove all selected facets
@@ -83,7 +90,7 @@ def filter_querystring(qd, facet=None, value=None):
             for f in facets:
                 if facet in f:
                     facets.remove(f)
-            if len(value) > 0 and 'clear' not in value:
+            if len(str(value)) > 0 and 'clear' not in str(value):
                 facets.append(facet_value)
         q.setlist('selected_facets', facets)
     return q

@@ -273,6 +273,7 @@ class PomsFacetedBrowse(FacetedSearchView):
                 'facet_group_fields'] = self.facet_group_fields
 
         context['querydict'] = qs.copy()
+        context['querystring'] = qs.urlencode()
         context['result_types'] = self.result_types
         form = context['form']
         if 'min_date' in self.request.GET:

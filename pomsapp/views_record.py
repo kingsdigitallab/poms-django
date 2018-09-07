@@ -94,10 +94,7 @@ def person_detail(request, person_id):
             "person", ordering)
 
     person = get_object_or_404(Person, pk=person_id)
-    if (person.floruitstartyr == 0
-            or person.floruitendyr == 0):
-        person = build_floruits(person)
-        person.save()
+
     if preview:  # in this case we're just returning a sub-template for
         # info, before the user clicks on the actual
         # page

@@ -295,9 +295,9 @@
                             );
                         }
 
-
+                        var m;
                         try {
-                            var m = new L.newCircleMarker(
+                            m = new L.newCircleMarker(
                                 [parseFloat(geoArray[r].places[p].coordinates.split(',')[0]),
                                     parseFloat(geoArray[r].places[p].coordinates.split(',')[1])]
                                 , {

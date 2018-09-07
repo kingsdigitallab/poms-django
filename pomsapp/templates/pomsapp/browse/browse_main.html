@@ -108,6 +108,7 @@
                                                             <a href="#" class="async"
                                                                data-facet_group="{{ facet_group_names }}"
                                                                data-selected_facets="{% for selected_facet in selected_facets %}selected_facets={{ selected_facet }}&{% endfor %}"
+
                                                                data-facet_name="{{ facet_name }}"
                                                                data-index_type="{{ index_type }}">
                                                                 <strong
@@ -138,6 +139,10 @@
                                 {% for facet in selected_facets %}
                                     <input type="hidden" name="selected_facets" value="{{ facet }}">
                                 {% endfor %}
+                            {% endif %}
+
+                            {% if index_type %}
+                                <input type="hidden" name="index_type" value="{{ index_type }}">
                             {% endif %}
                             <fieldset>
                                 <label for="bs_input">

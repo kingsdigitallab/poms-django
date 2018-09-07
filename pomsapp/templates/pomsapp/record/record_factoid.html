@@ -1,6 +1,6 @@
 {% extends "pomsapp/record/record_base.html" %}
 
-{% load extrafilters %}
+{% load extrafilters pomsapp_tags pomsapp_wagtail_tags %}
 
 {% block permalink %}
     {% ifequal recordsubtype "transaction" %}
@@ -15,6 +15,13 @@
     {% endifequal %}
 {% endblock %}
 
+{% block breadcrumbs %}
+        <div id="breadcrumbs">
+        {% get_wagtail_page 'browse' as wagtail_page %}
+            {% breadcrumbs current_page=wagtail_page extra=record.shortdesc %}
+
+        </div>
+    {% endblock %}
 
 {% block contents %}
 

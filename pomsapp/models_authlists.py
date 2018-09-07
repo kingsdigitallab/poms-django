@@ -440,6 +440,8 @@ class Sicutclausetype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+    def __str__(self):
+        return self.name
     table_group = 'Authority lists'
 
 
@@ -453,6 +455,9 @@ class Tenendasclauseoptions(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.name
     table_group = 'Authority lists'
 
 
@@ -465,6 +470,9 @@ class Transactiontype(mymodels.PomsAuthorityList):
         ordering = ['name']
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
     table_group = 'Authority lists'
 
@@ -543,6 +551,9 @@ class Language(mymodels.PomsAuthorityList):
         ordering = ['name']
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
     table_group = 'Authority lists'
 

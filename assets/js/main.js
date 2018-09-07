@@ -109,10 +109,11 @@ $(function () {
             // Load the facet choices
             var selected_facets = $(this).data('selected_facets');
             var title = this;
-            var url = "/browse/" + facet_group + "/" + facet_name + "/?";
-            if (selected_facets && selected_facets.length > 0) {
+            var url = "/browse/" + facet_group + "/" + facet_name + "/?"+$('#search_form').serialize();
+            /*if (selected_facets && selected_facets.length > 0) {
                 url += selected_facets;
-            }
+            }*/
+
 
             if ($('div.' + facet_group + '__' + facet_name).html().length < 1) {
                 $.get(url, function (data) {

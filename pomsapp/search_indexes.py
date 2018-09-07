@@ -1,34 +1,33 @@
 """Haystack search indexes to replace DJFacet"""
-from haystack import indexes
-
 import pomsapp.models as poms_models
+from django.conf import settings as settings
+from haystack import indexes
 
 """
 Replacing the result types with four indexes:
 
-#	label = interface name / uniquename = internal name / infospace: a Model 
+#   label = interface name / uniquename = internal name / infospace: a Model
 or a QuerySet instance
 result_types = [{'label': 'factoid__sourcekeys',
                  'uniquename': 'factoid',
                  'infospace': Factoid},
 
                 {'label': 'Sources',
-                 'uniquename': 'source',  # at the moment the name can't be 
+                 'uniquename': 'source',  # at the moment the name can't be
                  changed cause the js uses iT!
                  'infospace': Source},
 
                 {'label': 'People and Institutions',
                  'uniquename': 'people',
                  'infospace': Person,
-                 'isdefault': True	},
+                 'isdefault': True  },
 
-                    {	'label' : 'Places',
+                    {   'label' : 'Places',
                          'uniquename' : 'place',
-                         'infospace' : Place	},
+                         'infospace' : Place    },
                     ]
 """
 
-from django.conf import settings as settings
 
 """
     Use this to limit how many records will be indexed in a partial index
@@ -51,7 +50,7 @@ class PomsIndex(indexes.SearchIndex):
     # Person
     surname = indexes.CharField(null=True, default='')
     forename = indexes.CharField(null=True, default='')
-    persondisplayname = indexes.CharField(null=True, default='')
+    persondisplayname = indexes.CharField(faceted=True, null=True, default='')
     standardmedievalname = indexes.CharField(null=True, default='')
     moderngaelicname = indexes.CharField(null=True, default='')
 
@@ -210,7 +209,7 @@ class PomsIndex(indexes.SearchIndex):
         null=True
     )
     # Not sure this is relevant ->
-    #  'querypath' : 'helper_places__name',	 #if using the explosded version..
+    #  'querypath' : 'helper_places__name',  #if using the explosded version..
     places = indexes.MultiValueField(
 
         faceted=True,
@@ -304,8 +303,8 @@ class PersonIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
-            facttitle__people=obj
-        ).distinct().values_list('name', flat=True))
+                facttitle__people=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'surnames'
@@ -466,7 +465,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         return list(poms_models.TransTickboxes.objects.filter(
             facttransaction__people=obj
         ).distinct().values_list('name', flat=True)
-                    )
+        )
 
     def prepare_possoffice(self, obj):
         return list(
@@ -486,7 +485,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         return list(poms_models.Exemptiontype.objects.filter(
             facttransaction__people=obj
         ).distinct().values_list('name', flat=True)
-                    )
+        )
 
     def prepare_sicutclause(self, obj):
         return list(poms_models.Sicutclausetype.objects.filter(
@@ -597,8 +596,8 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
-            facttitle=obj
-        ).distinct().values_list('name', flat=True))
+                facttitle=obj
+            ).distinct().values_list('name', flat=True))
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
@@ -710,8 +709,8 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'transfeatures'] = list(poms_models.TransTickboxes.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'possoffice'] = list(
@@ -736,8 +735,8 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'returnsrenders'] = list(
@@ -753,8 +752,8 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'renderdates'] = list(poms_models.Renderdate.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'returnsmilitary'] = list(
@@ -770,8 +769,8 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'commonburdens'] = list(poms_models.CommonBurdens.objects.filter(
-            facttransaction=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction=obj
+            ).distinct().values_list('name', flat=True))
 
         return self.prepared_data
 
@@ -838,8 +837,8 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
-            facttitle__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+                facttitle__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
@@ -951,8 +950,8 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'transfeatures'] = list(poms_models.TransTickboxes.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'possoffice'] = list(
@@ -977,8 +976,8 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'returnsrenders'] = list(
@@ -994,8 +993,8 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'renderdates'] = list(poms_models.Renderdate.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'returnsmilitary'] = list(
@@ -1011,8 +1010,8 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'commonburdens'] = list(poms_models.CommonBurdens.objects.filter(
-            facttransaction__sourcekey=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction__sourcekey=obj
+            ).distinct().values_list('name', flat=True))
 
         return self.prepared_data
 
@@ -1116,8 +1115,8 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
-            facttitle__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+                facttitle__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
@@ -1229,8 +1228,8 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'transfeatures'] = list(poms_models.TransTickboxes.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'possoffice'] = list(
@@ -1255,8 +1254,8 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'sicutclause'] = list(poms_models.Sicutclausetype.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'returnsrenders'] = list(
@@ -1272,8 +1271,8 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'renderdates'] = list(poms_models.Renderdate.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
             'returnsmilitary'] = list(
@@ -1289,8 +1288,8 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         self.prepared_data[
             'commonburdens'] = list(poms_models.CommonBurdens.objects.filter(
-            facttransaction__helper_places=obj
-        ).distinct().values_list('name', flat=True))
+                facttransaction__helper_places=obj
+            ).distinct().values_list('name', flat=True))
 
         return self.prepared_data
 

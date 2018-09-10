@@ -129,7 +129,7 @@ def get_order_by(context, order_by):
             if context[field][0] != '-':
                 order_by = '-{}'.format(order_by)
 
-    context[field] = order_by
+        # context[field] = order_by
 
     return order_by
 

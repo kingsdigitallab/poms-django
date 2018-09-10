@@ -1,4 +1,9 @@
 {% load extrafilters %}
+<!-- Tab Content -->
+	{# ----------- #}
+	{# ASSOC PEOPLE #}
+	{# ----------- #}
+
 	{% if peopleAssoc.object_list %}
 	<section id="content1" class="tab-content">
 	    <div id="{{peopleAssoc.type}}">
@@ -256,7 +261,6 @@
 				<th>Holder</th>
 				<th>Lord</th>
 			  </tr>
-			
 
 			{% for a in possessionFact.object_list  %}
 			
@@ -283,3 +287,4 @@
 		{# end of fragment1 #} 
 	</section>
 	{% endif %}
+<!-- end Tab Content -->

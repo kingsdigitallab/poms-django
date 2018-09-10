@@ -1,6 +1,7 @@
 from django import forms
 from haystack.forms import FacetedSearchForm
 from haystack.query import SearchQuerySet
+import re
 
 RESULT_TYPES = [
     ('factoid', 'Factoid'),
@@ -108,10 +109,16 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
         if self.is_bound:
             data = self.data
 
-            # Force text search to an all keywords behaviour
+
             if 'q' in data:
-                q_and = ' AND '.join(data['q'].split(' '))
-                sqs = sqs.narrow('text:{}'.format(q_and))
+                q = data['q']
+                m = re.search(r"(\d+/\d+/\d+)",q)
+                if m:
+                    hNumber = m.group(1)
+                    q = q.replace(hNumber,r'"{}"'.format(hNumber))
+                # Force text search to an all keywords behaviour
+                q_query = ' AND '.join(q.split(' '))
+                sqs = sqs.narrow('text:{}'.format(q_query))
 
             # Don't apply dating to place
             if 'min_date' in data and self.index_type != 'place':

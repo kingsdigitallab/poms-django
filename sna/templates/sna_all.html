@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load extrafilters static %}
+{% load extrafilters pomsapp_tags pomsapp_wagtail_tags static %}
 
 {% block titlepage  %}
   <title>POMS SNA: {{ viz.description }}</title>
@@ -7,6 +7,12 @@
 
 
 {% block breadcrumb %}
+
+    <div id="breadcrumbs">
+    {% get_wagtail_page 'sna' as wagtail_page %}
+        {% breadcrumbs current_page=wagtail_page extra=record %}
+
+    </div>
 {% endblock %}
 
 {% block small_links %}

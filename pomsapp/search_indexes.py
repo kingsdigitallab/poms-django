@@ -61,6 +61,10 @@ class PomsIndex(indexes.SearchIndex):
 
     # source
     calendar_number = indexes.CharField(null=True, default='')
+    hammondnumber = indexes.IntegerField(null=True)
+    hammondnumb2 = indexes.IntegerField(null=True)
+    hammondnumb3 = indexes.IntegerField(null=True)
+
     # place
     place_name = indexes.CharField(null=True, default='')
     place_parent = indexes.CharField(null=True, default='')
@@ -786,6 +790,9 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         self.prepared_data['index_type'] = 'source'
         self.prepared_data['calendar_number'] = obj.hammondnumber
         self.prepared_data['description'] = obj.description
+        self.prepared_data['hammondnumber'] = obj.hammondnumber
+        self.prepared_data['hammondnumb2'] = obj.hammondnumb2
+        self.prepared_data['hammondnumb3'] = obj.hammondnumb3
 
         self.prepared_data[
             'surnames'

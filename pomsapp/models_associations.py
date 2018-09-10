@@ -99,6 +99,9 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
 
+    def __str__(self):
+        return self.__unicode__()
+
 
 class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
     #factoidpersonkey = models.IntegerField()
@@ -135,6 +138,9 @@ class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 # 16 Apr: added the role:40 (might not be in the local DB)
@@ -175,6 +181,9 @@ class AssocFactoidProanima(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 ##################
@@ -249,6 +258,9 @@ class AssocHelperPerson(mymodels.TimeStampedHiddenModel):
     def __unicode__(self):
         return "%s %s" % ("AssocHelperPerson:", self.id)
 
+    def __str__(self):
+        return self.__unicode__()
+
 
 #  ====================================
 
@@ -271,6 +283,9 @@ class AssocFactoidPoss_alms(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 
@@ -301,6 +316,9 @@ class AssocFactoidPoss_unfreep(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 
@@ -330,6 +348,9 @@ class AssocFactoidPoss_revenuesilver(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 
@@ -359,6 +380,9 @@ class AssocFactoidPoss_revenuekind(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 
@@ -388,6 +412,9 @@ class AssocFactoidPoss_pgeneral(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 
@@ -419,6 +446,9 @@ class AssocFactoidPoss_office(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 
@@ -447,6 +477,9 @@ class AssocFactoidPoss_objects(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 
@@ -475,6 +508,9 @@ class AssocFactoidPoss_lands(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 
@@ -503,6 +539,9 @@ class AssocFactoidPrivileges(mymodels.TimeStampedHiddenModel):
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
+
+    def __str__(self):
+        return self.__unicode__()
 # inline definition
 
 

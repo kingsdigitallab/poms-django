@@ -27,6 +27,9 @@ class DocTickboxes(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -43,6 +46,9 @@ class TransTickboxes(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -59,6 +65,9 @@ class GrantorCategory(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -72,6 +81,9 @@ class MatrixShape(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -85,6 +97,9 @@ class SealColor(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -98,6 +113,9 @@ class AttachmentType(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -333,6 +351,9 @@ class Relationshiptype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -346,6 +367,9 @@ class Referencetype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -359,6 +383,9 @@ class Occupationtype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -373,6 +400,9 @@ class Exemptiontype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -387,6 +417,9 @@ class Nominalrendertype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -407,6 +440,9 @@ class Proanimagenerictypes(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -420,6 +456,9 @@ class Renderdate(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 #  check if these fields are still needed....
@@ -492,6 +531,9 @@ class LegalPertinents(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -507,6 +549,9 @@ class Returns_military(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -522,6 +567,9 @@ class Returns_renders(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -537,6 +585,9 @@ class CommonBurdens(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -582,6 +633,9 @@ class MedievalGaelicForename(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 
@@ -598,6 +652,9 @@ class ModernGaelicForename(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Authority lists'
 
 #

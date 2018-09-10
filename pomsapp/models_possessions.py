@@ -77,6 +77,9 @@ class Privileges(mymodels.PomsModel):
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 3
 
+    def __str__(self):
+        return self.__unicode__()
+
 
 # doesn't appear in the admin!
 # 2010-11-12: added the helper_name field, although we still dont use it!
@@ -160,6 +163,9 @@ class PossessionNew(mymodels.PomsModel):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.__unicode__()
+
 
 class Poss_Alms(PossessionNew):
     """(Poss Alms description)"""
@@ -186,6 +192,9 @@ class Poss_Alms(PossessionNew):
 
     def __unicode__(self):
         return self.__nameandparent__()
+
+    def __str__(self):
+            return self.__unicode__()
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 4
@@ -216,6 +225,9 @@ class Poss_Lands(PossessionNew):
 
     def __unicode__(self):
         return self.__nameandparent__()
+
+    def __str__(self):
+            return self.__unicode__()
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 5
@@ -247,6 +259,8 @@ class Poss_Objects(PossessionNew):
     def __unicode__(self):
         return self.__nameandparent__()
         # return self.show_ancestors_tree()
+    def __str__(self):
+        return self.__unicode__()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 6
 
@@ -276,6 +290,9 @@ class Poss_Revenues_silver(PossessionNew):
 
     def __unicode__(self):
         return self.__nameandparent__()
+
+    def __str__(self):
+            return self.__unicode__()
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 7
@@ -306,6 +323,9 @@ class Poss_Revenues_kind(PossessionNew):
 
     def __unicode__(self):
         return self.__nameandparent__()
+
+    def __str__(self):
+            return self.__unicode__()
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 8
@@ -339,6 +359,8 @@ class Poss_General(PossessionNew):
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 9
+    def __str__(self):
+        return self.__unicode__()
 
 
 class Poss_Office(PossessionNew):
@@ -369,6 +391,8 @@ class Poss_Office(PossessionNew):
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 10
+    def __str__(self):
+        return self.__unicode__()
 
 
 class Poss_Unfree_persons(PossessionNew):
@@ -399,6 +423,8 @@ class Poss_Unfree_persons(PossessionNew):
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 11
+    def __str__(self):
+        return self.__unicode__()
 
 
 mptt.register(Poss_Alms,)

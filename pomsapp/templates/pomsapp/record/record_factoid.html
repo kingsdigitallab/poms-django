@@ -2,18 +2,6 @@
 
 {% load extrafilters pomsapp_tags pomsapp_wagtail_tags %}
 
-{% block permalink %}
-    {% ifequal recordsubtype "transaction" %}
-        {% if assocfactoidwitness_set.object_list %}
-            <ul class="utl m1 experimental">
-                <li><b>Experimental:</b></li>
-                <li class="labslink"><a href="/labs/witnesses/go?id={{ record.id }}"
-                                        title="Warning: this tool does not work correctly in all browsers. Please check the Labs section for more details."
-                                        target="_blank">Witnesses Networks Graph</a></li>
-            </ul>
-        {% endif %}
-    {% endifequal %}
-{% endblock %}
 
 {% block breadcrumbs %}
         <div id="breadcrumbs">

@@ -117,6 +117,7 @@ class PomsFacetedBrowse(FacetedSearchView):
     DATE_MAXIMUM = 1300
 
     facet_group_fields = {
+        "hidden": ['startdate'],
         "person": [
             "surnames",
             "forenames",
@@ -126,8 +127,7 @@ class PomsFacetedBrowse(FacetedSearchView):
             'medievalgaelicforename',
             'medievalgaelicsurname',
             'moderngaelicforename',
-            'moderngaelicsurname',
-            'startdate'
+
         ],
         "source": [
             "documenttype",
@@ -135,7 +135,7 @@ class PomsFacetedBrowse(FacetedSearchView):
             "grantorcategory",
             "placedatemodern",
             "language",
-            'sourcesfeatures'
+            "sourcesfeatures"
         ],
         "relationship": [
             "relationshiptypes",
@@ -245,9 +245,19 @@ class PomsFacetedBrowse(FacetedSearchView):
         self.form_class.max_date = max_date
 
         if 'order_by' in self.request.GET:
-            return queryset.order_by(
-                self.request.GET['order_by']
-            )
+            # 'Calendar numbers is 3 hammond numbers
+            if 'calendar_number' in self.request.GET['order_by']:
+                if '-' in  self.request.GET['order_by']:
+                    return queryset.order_by(
+                        '-hammondnumber', '-hammondnumb2', '-hammondnumb3')
+                else:
+                    return queryset.order_by(
+                        'hammondnumber','hammondnumb2','hammondnumb3')
+            else:
+
+                return queryset.order_by(
+                    self.request.GET['order_by']
+                )
         else:
             return queryset.order_by('startdate')
 

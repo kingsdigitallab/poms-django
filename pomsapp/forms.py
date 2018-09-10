@@ -107,6 +107,12 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
                     self.index_type_counts[type_count[0]] = type_count[1]
         if self.is_bound:
             data = self.data
+
+            # Force text search to an all keywords behaviour
+            if 'q' in data:
+                q_and = ' AND '.join(data['q'].split(' '))
+                sqs = sqs.narrow('text:{}'.format(q_and))
+
             # Don't apply dating to place
             if 'min_date' in data and self.index_type != 'place':
                 # Don't apply if it's default dates

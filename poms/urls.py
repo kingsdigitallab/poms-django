@@ -195,8 +195,8 @@ urlpatterns = [
     url(r'^' + prefix + 'search/', include('pomsapp.urls_search')),
     url(r'^' + prefix + 'browse/', include('pomsapp.urls_browse')),
     #url(r'^' + prefix + 'familytrees/', include('pomsapp.urls_family')),
-    url(r'^' + prefix + 'familytrees/',  views_family.familytrees, name='familytrees'),
-    url(r'^' + prefix + 'familytrees/(?P<image_id>\d+)/$', views_family.familytrees, name='familytrees'),
+    url(r'^' + prefix + 'information/familytrees/$',  views_family.familytrees, name='familytrees'),
+    url(r'^' + prefix + 'information/familytrees/(?P<image_id>\d+)/$', views_family.familytrees, name='familytrees'),
     url(r'^' + prefix + 'map/', include('pomsapp.urls_map')),
     url(r'^' + prefix + 'sna/', include('sna.urls')),
     # todo removed for now

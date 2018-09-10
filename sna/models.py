@@ -16,6 +16,9 @@ class GephiVis(models.Model):
     def __unicode__(self):
         return u'%s' % self.description
 
+    def __str__(self):
+        return self.__unicode__()
+
 
 rgb_validators = [
     MaxValueValidator(255),
@@ -35,3 +38,7 @@ class LegendItem(models.Model):
 
     def __unicode__(self):
         return u'%s, %s' % (self.category_description, self.visualisation)
+
+    def __str__(self):
+        return self.__unicode__()
+

@@ -539,9 +539,9 @@ function openMapImageInWindow(data){
         var myWindow = window.open("", "Map Image");
         myWindow.document.write(data);
 };
-
+witnessFactoids = [
 {% if witnessFact.object_list  %}
-    witnessFactoids = [
+
     {% for a in witnessFact.object_list %}
             {% if a.factoid.poss_lands.all.count > 0 %}
                 {% for land in a.factoid.poss_lands.all %}
@@ -553,8 +553,9 @@ function openMapImageInWindow(data){
                 {% endif %}
             {% endif %}
     {% endfor %}
-    ]
+
 {% endif %}
+]
 
 </script>
 

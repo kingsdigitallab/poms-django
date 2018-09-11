@@ -81,29 +81,29 @@
 
 	<!-- Tab Headers -->
 	{% if peopleAssoc.object_list  %}
-	<input id="tab1" type="radio" name="tabs" checked>
+	<input id="tab1" type="radio" name="tabs">
     <label for="tab1">Associated People <span>({{ peopleAssoc.tot}})</span></label>
     {% endif %}
 
 
 
 	{% if documentAssoc.object_list  %}
-	<input id="tab2" type="radio" name="tabs" checked>
+	<input id="tab2" type="radio" name="tabs">
     <label for="tab2">Associated Documents <span>({{ documentAssoc.tot}})</span></label>
 	{% endif %}
 
 	{% if transactionFact.object_list  %}
-	<input id="tab3" type="radio" name="tabs" checked>
+	<input id="tab3" type="radio" name="tabs">
     <label for="tab3">Transaction factoids <span>({{ transactionFact.tot}})</span></label>
 	{% endif %}
 
 	{% if relationshipFact.object_list  %}
-	<input id="tab4" type="radio" name="tabs" checked>
+	<input id="tab4" type="radio" name="tabs">
     <label for="tab4">Relationship factoids <span>({{ relationshipFact.tot }})</span></label>
 	{% endif %}
 
 	{% if possessionFact.object_list  %}
-	<input id="tab5" type="radio" name="tabs" checked>
+	<input id="tab5" type="radio" name="tabs">
     <label for="tab5">Possession factoids <span>({{ possessionFact.tot }})</span></label>
 	{% endif %}
 	<!-- end Tab Headers -->

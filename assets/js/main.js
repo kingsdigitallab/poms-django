@@ -142,6 +142,11 @@ $(function () {
 
 
 
+    // This allows us to activate the first tab on the record pages:
+    if($('.recordTabs input[name="tabs"]'.length))
+    {
+        $('.recordTabs input[name="tabs"]').first().attr("checked", "checked");
+    }
 
 
     //new gRanger('#range', '#min', '#max');

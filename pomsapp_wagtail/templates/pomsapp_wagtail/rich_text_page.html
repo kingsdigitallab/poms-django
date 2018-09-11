@@ -6,18 +6,12 @@
     {% endblock %}
 
 {% block small_links %}
-{% get_menu_pages self as menu_pages %}
+{% get_menu_pages self %}
     {% if title %}
     <h3>{{ title }}</h3>
     {% endif %}
 
-    <ul class="{% if class %}{{ class }}{% endif %}">
-    {% for page in menu_pages %}
-        <li>
-            <a href="{% pageurl page %}">{{ page.title }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+
 
 {% endblock %}
 

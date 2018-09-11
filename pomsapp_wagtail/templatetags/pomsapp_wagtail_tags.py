@@ -1,9 +1,9 @@
 from django import template
 
 from wagtail.wagtailcore.models import Page
-from pomsapp_wagtail.models import IndexPage,RichTextPage
 
 register = template.Library()
+
 
 def has_menu_children(page):
     return page.get_children().live().in_menu().exists()
@@ -21,16 +21,26 @@ def main_menu(context, root, current_page=None):
     return {'request': context['request'], 'root': root,
             'current_page': current_page, 'menu_pages': menu_pages}
 
-@register.simple_tag()
-def get_menu_pages(page):
-    """Returns children of a page, or its siblings if no children"""
+
+@register.inclusion_tag('tags/get_menu_pages.html', takes_context=True)
+def get_menu_pages(context, page):
+    """Returns the sidebar content  """
+    children = None
+    siblings = None
     if page:
-        menu_pages = page.get_children().filter(live=True, show_in_menus=True)
-        if menu_pages.count() == 0 :
-            # siblings
-            menu_pages = page.get_siblings().public().live().in_menu()
-        return menu_pages
-    return None
+        # Don't show siblings for first level
+        if page.get_parent() != context['request'].site.root_page:
+            children = page.get_children().filter(live=True,
+                                                  show_in_menus=True)
+            siblings = page.get_siblings().filter(live=True,
+                                                  show_in_menus=True)
+        else:
+            # set children as siblings to only show one level
+            siblings = page.get_children().filter(live=True,
+                                                  show_in_menus=True)
+
+    return {'children': children,
+            'current_page': page, 'siblings': siblings}
 
 
 @register.assignment_tag(takes_context=True)
@@ -41,14 +51,13 @@ def get_site_root(context):
     """
     return context['request'].site.root_page
 
+
 @register.simple_tag()
 def get_wagtail_page(slug):
     pages = Page.objects.filter(slug=slug)
     if pages.count() > 0:
         return pages[0]
     return None
-
-
 
 
 @register.filter

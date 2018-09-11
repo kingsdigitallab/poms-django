@@ -21,8 +21,7 @@
             <h1 class="record"><!--<span class="sourceicon">[sourceicon]</span>-->
                 {% if user.is_staff %}
                     <a href="{{ record.get_admin_url }}" target="_blank"
-                       title="Welcome administrator! Click to edit this item in the data entry section."
-                       style="color: red;">{{ record|poms_italic|safe }}</a>
+                       title="Welcome administrator! Click to edit this item in the data entry section.">{{ record|poms_italic|safe }}</a>
                 {% else %}
                     {{ record|poms_italic|safe }}
                 {% endif %}

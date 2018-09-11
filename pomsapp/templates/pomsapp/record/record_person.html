@@ -144,7 +144,7 @@
 
         <!-- Tab Headers -->
         {% if transactionFact.object_list  %}
-        <input id="tab1" type="radio" name="tabs" checked>
+        <input id="tab1" type="radio" name="tabs">
         <label for="tab1">Transaction factoids <span>({{ transactionFact.tot}})</span></label>
         {% endif %}
 
@@ -154,7 +154,7 @@
         {% endif %}
 
         {% if titleFact.object_list  %}
-        <input id="tab3" type="radio" name="tabs" checked>
+        <input id="tab3" type="radio" name="tabs">
         <label for="tab3">Title factoids <span>({{ titleFact.tot}})</span></label>
         {% endif %}
 
@@ -164,7 +164,7 @@
         {% endif %}
 
         {% if proanimaFact.object_list  %}
-        <input id="tab5" type="radio" name="tabs" checked>
+        <input id="tab5" type="radio" name="tabs">
         <label for="tab5">Pro-Anima factoids <span>({{ proanimaFact.tot }})</span></label>
         {% endif %}
 

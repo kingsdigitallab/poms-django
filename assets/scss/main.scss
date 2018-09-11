@@ -580,6 +580,7 @@ fieldset {
 ul.pagination {
     text-align: right !important;
     width:49% !important;
+    float:right;
     li {
         display: inline-block !important;
     }
@@ -596,6 +597,7 @@ ul.pagination {
 
 .results-nav{
     font-family: 'EB_Garamond', serif;
+    padding-top:1em;
     p{
         width:49%;
         display: inline-block;

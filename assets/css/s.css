@@ -296,7 +296,7 @@ th a:hover, td a:hover{border-bottom:1px solid #2c528b;}
 
 .familyTrees {margin-left: 20px; font-family: 'EB_Garamond', serif; font-size:1rem;}
 .familyTrees h4 {font-weight: 700; margin-left: 5px;}
-.familyTrees ul {margin-left:-70px;}
+.familyTrees ul {margin-left:-72px;}
 .familyTrees ul li {line-height: 1.65em; background: #f7f7f7; padding: 4px;}
 .familyTrees ul li:hover{ background: #2c528b;}
 .familyTrees ul li:hover a{ color:#fff; text-decoration:none;}

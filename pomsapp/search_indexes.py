@@ -55,8 +55,8 @@ class PomsIndex(indexes.SearchIndex):
     moderngaelicname = indexes.CharField(null=True, default='')
 
     # Factoid
-    description = indexes.CharField(null=True, default='')
-    inferred_type = indexes.CharField(null=True, default='')
+    description = indexes.CharField(faceted=True,null=True, default='')
+    inferred_type = indexes.CharField(faceted=True, null=True, default='')
     source = indexes.CharField(null=True, default='')
 
     # source
@@ -66,8 +66,8 @@ class PomsIndex(indexes.SearchIndex):
     hammondnumb3 = indexes.IntegerField(null=True)
 
     # place
-    place_name = indexes.CharField(null=True, default='')
-    place_parent = indexes.CharField(null=True, default='')
+    place_name = indexes.CharField(faceted=True, null=True, default='')
+    place_parent = indexes.CharField(faceted=True, null=True, default='')
 
     surnames = indexes.MultiValueField(
         faceted=True,
@@ -539,7 +539,11 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         self.prepared_data[
             'description'] = obj.shortdesc
         self.prepared_data['inferred_type'] = obj.inferred_type
-        self.prepared_data['source'] = obj.sourcekey
+        source = obj.sourcekey
+        self.prepared_data['source'] = source
+        self.prepared_data['hammondnumber'] = source.hammondnumber
+        self.prepared_data['hammondnumb2'] = source.hammondnumb2
+        self.prepared_data['hammondnumb3'] = source.hammondnumb3
 
         self.prepared_data[
             'surnames'
@@ -869,8 +873,23 @@ class SourceIndex(PomsIndex, indexes.Indexable):
                 placedatemodern.append(c.placedatemodern)
                 if c.language:
                     languages.append(c.language.name)
-                if c.helper_tickboxes:
-                    sourcesfeatures.append(c.helper_tickboxes.name)
+                """
+                Source features
+                """
+
+                if c.ischirograph is True:
+                    sourcesfeatures.append('Chirograph')
+                if c.letterpatent is True:
+                    sourcesfeatures.append('Letter Patent')
+                if c.origcontemp is True:
+                    sourcesfeatures.append('Original (contemporary)')
+                if c.orignoncontemp is True:
+                    sourcesfeatures.append('Original (non-contemporary)')
+                if c.duporigcontemp is True:
+                    sourcesfeatures.append('Duplicate Original (contemporary)')
+                if c.duporignoncontemp is True:
+                    sourcesfeatures.append('Duplicate Original (non-contemporary)')
+
 
             self.prepared_data['documenttype'] = [d for d in set(documenttype)]
             self.prepared_data['documentcategory'] = [d for d in

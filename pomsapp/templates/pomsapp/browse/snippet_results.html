@@ -29,10 +29,10 @@
                     <thead>
                     <tr>
                         <th><a class="{{ active_ordering|infer_class:'factoiddesc' }} arrowUp"
-                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "description" %}&order_by={% get_order_by "description" %}">Description</a>
+                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "description" %}&order_by={% get_order_by "description_exact" %}">Description</a>
                         </th>
                         <th><a class="{{ active_ordering|infer_class:'factoidtype' }} arrowUp"
-                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "inferred_type" %}&order_by={% get_order_by "inferred_type" %}">Type</a></th>
+                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "inferred_type" %}&order_by={% get_order_by "inferred_type_exact" %}">Type</a></th>
                         <th><a class="{{ active_ordering|infer_class:'factoidsource' }} arrowUp"
                                href="{% url search_template %}{% add_facet_link querydict 'order_by' "source" %}&order_by={% get_order_by "source" %}">Source</a></th>
                         <th><a class="{{ active_ordering|infer_class:'factoiddate' }} arrowUp"
@@ -73,7 +73,7 @@
                                href="{% url search_template %}{% add_facet_link querydict 'order_by' "clear" %}&order_by={% get_order_by "calendar_number" %}">Calendar
                             number</a></th>
                         <th><a class="{{ active_ordering|infer_class:'sourcedesc' }} arrowUp"
-                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "clear" %}&order_by={% get_order_by "description" %}">Description</a>
+                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "clear" %}&order_by={% get_order_by "description_exact" %}">Description</a>
                         </th>
                         <th><a class="{{ active_ordering|infer_class:'sourcedate' }} arrowUp"
                                href="{% url search_template %}{% add_facet_link querydict 'order_by' "clear" %}&order_by={% get_order_by "startdate" %}">Date</a></th>
@@ -105,9 +105,9 @@
                 {% ifequal index_type 'place' %}
                     <tr>
                         <th><a class="{{ active_ordering|infer_class:'placename' }} arrowUp"
-                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "clear" %}&order_by={% get_order_by "place_name" %}">Place name</a></th>
+                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "clear" %}&order_by={% get_order_by "place_name_exact" %}">Place name</a></th>
                         <th><a class="{{ active_ordering|infer_class:'placeparent' }} arrowUp"
-                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "clear" %}&order_by={% get_order_by "place_parent" %}">Parent</a></th>
+                               href="{% url search_template %}{% add_facet_link querydict 'order_by' "clear" %}&order_by={% get_order_by "place_parent_exact" %}">Parent</a></th>
                     </tr>
 
                     {% for result in object_list %}

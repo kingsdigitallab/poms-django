@@ -246,13 +246,14 @@ class PomsFacetedBrowse(FacetedSearchView):
 
         if 'order_by' in self.request.GET:
             # 'Calendar numbers is 3 hammond numbers
-            if 'calendar_number' in self.request.GET['order_by']:
-                if '-' in  self.request.GET['order_by']:
+            if ('calendar_number' in self.request.GET['order_by']
+                    or 'source' in self.request.GET['order_by']):
+                if '-' in self.request.GET['order_by']:
                     return queryset.order_by(
                         '-hammondnumber', '-hammondnumb2', '-hammondnumb3')
                 else:
                     return queryset.order_by(
-                        'hammondnumber','hammondnumb2','hammondnumb3')
+                        'hammondnumber', 'hammondnumb2', 'hammondnumb3')
             else:
 
                 return queryset.order_by(

@@ -148,6 +148,14 @@ $(function () {
         $('.recordTabs input[name="tabs"]').first().attr("checked", "checked");
     }
 
+    // Clear button on facets...
+    $('body').on('click', '.clear-icon', function(event)
+    {
+        event.preventDefault();
+        event.stopPropagation();
+        $(this).siblings('input').val('').keyup();
+
+    });
 
     //new gRanger('#range', '#min', '#max');
 });

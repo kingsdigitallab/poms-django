@@ -20,7 +20,7 @@
     {% block inner_results %}
         {# TIP : if we have items, we display them, otherwise we include the noresults_snippet.html (see below) #}
         {% if object_list %}
-            {% include "pomsapp/search/snippet_paginator.html" %}
+            {% include "pomsapp/browse/snippet_paginator.html" %}
             <table>
                 {# ******** #}
                 {# FACTOIDS #}
@@ -150,10 +150,10 @@
                 {% endif %}
             </table>
 
-            {% include "pomsapp/search/snippet_paginator.html" %}
+            {% include "pomsapp/browse/snippet_paginator.html" %}
 
         {% else %}
-            {% include "pomsapp/search/snippet_noresults.html" %}
+            {% include "pomsapp/browse/snippet_noresults.html" %}
         {% endif %}
     {% endblock inner_results %}
 

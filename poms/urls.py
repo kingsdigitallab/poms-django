@@ -192,7 +192,7 @@ urlpatterns = [
     url(r'^' + prefix + 'accounts/', include('registration.urls')),
     url(r'^' + prefix + 'overview/', admin_overview),
     url(r'^' + prefix + 'record/', include('pomsapp.urls_record')),
-    url(r'^' + prefix + 'search/', include('pomsapp.urls_search')),
+    #url(r'^' + prefix + 'search/', include('pomsapp.urls_search')),
     url(r'^' + prefix + 'search/', include('pomsapp.urls_browse')),
     #url(r'^' + prefix + 'familytrees/', include('pomsapp.urls_family')),
     url(r'^' + prefix + 'information/familytrees/$',  views_family.familytrees, name='familytrees'),
@@ -202,7 +202,7 @@ urlpatterns = [
     # todo removed for now
     # url(r'^' + prefix + 'labs/', include('labsapp.urls')),
     # This replace djfacet with haystack
-    url(r'^search/', include('haystack.urls')),
+    # url(r'^search/', include('haystack.urls')),
     url(r'^wagtail/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'', include(wagtail_urls)),

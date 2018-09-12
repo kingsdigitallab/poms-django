@@ -203,9 +203,6 @@ b.g5:hover, .cluetip-clicked{background-image:url(../i/../i/b.g5.h.png)}
 .utl.m1 a:hover {color: #051937;}
 .utl.m1 .borderRight {border-right: 1px solid #bebebe; padding-right: 7px;}
 .utl.m1 b{color:#911F1F; font-size: 90%;}
-body{font:13px/1.231 tahoma,arial,helvetica,clean,sans-serif}
-
-
 
 
 /* icons - tooltip record view */
@@ -297,17 +294,22 @@ th a:hover, td a:hover{border-bottom:1px solid #2c528b;}
 
 /* FAMILY TREES */
 
-.familyTrees {margin-left: 20px;}
+.familyTrees {margin-left: 20px; font-family: 'EB_Garamond', serif; font-size:1rem;}
 .familyTrees h4 {font-weight: 700; margin-left: 5px;}
-.familyTrees ul li {line-height: 1.65em; background:#DEE1E8; padding: 4px; border-radius: 4px; margin: 7px 25px 7px 0; }
-.familyTrees ul li.active {background: #727c96 }
-.familyTrees ul li.active a {color: #fff; font-weight: 700 }
+.familyTrees ul {margin-left:-72px;}
+.familyTrees ul li {line-height: 1.65em; background: #f7f7f7; padding: 4px;}
+.familyTrees ul li:hover{ background: #2c528b;}
+.familyTrees ul li:hover a{ color:#fff; text-decoration:none;}
+.familyTrees ul li.active {background: #13243e;}
+.familyTrees ul li.active a {color: #fff;}
 .familyTrees ul li a {color: #2C528B; margin-left: 12px;}
-.familyTrees ul li a:hover {color: #A0A4AF;}
 
-.pdfLink {float: right; margin: 10px 25px 0 0;}
-.pdfLink a {color: #fc1414; background: url(../i/pdf.png) no-repeat scroll right 0 transparent; display: block; padding: 7px 35px 0 0; height: 28px; }
-.pdfLink a:hover {text-decoration: underline}
+.pdfLink {float: right; border:1px solid #2c528b; padding: 8px 16px;}
+.pdfLink a {color: #2c528b;}
+
+.pdfLink:hover {background: #2c528b;}
+
+.pdfLink:hover a {color:#fff; text-decoration:none;}
 
 
 /* LAB SECTION */

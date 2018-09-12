@@ -177,7 +177,7 @@ h1 a {
 /* EN BAS A GAUCHE */
 
 #overviewzone {
-    position: fixed; right: 0; bottom: 0;
+    position: absolute; right: 0; bottom: 0;
     border-style: solid none none solid; border-width: 5px; border-color: #ffffff;
 }
 

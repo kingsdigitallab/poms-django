@@ -146,7 +146,7 @@
                 <div id="search">
                     {% block search %}
                         <h2>Basic Search</h2>
-                        {% include "pomsapp/search/snippet_searchform.html" %}
+                        {% include "pomsapp/browse/snippet_searchform.html" %}
                     {% endblock %}
                 </div>
             </div>
@@ -178,7 +178,7 @@
 
                 <div id="results">
                     {% with search_template='basic_search' %}
-                        {% include "pomsapp/search/snippet_results.html" %}
+                        {% include "pomsapp/browse/snippet_results.html" %}
                     {% endwith %}
                 </div>
             </div>

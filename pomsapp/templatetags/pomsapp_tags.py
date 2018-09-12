@@ -18,7 +18,7 @@ facet_display_names = {
     'grantorcategory': 'Grantor category',
     'placedatemodern': 'Place date modern',
     'relationshiptypes': 'Relationship types',
-    'spiritualbenefites': 'Spiritual benefites',
+    'spiritualbenefits': 'Spiritual benefits',
     'transactiontypes': 'Transaction types',
     'possoffice': 'offices',
     'possunfreepersons': 'Unfree persons',

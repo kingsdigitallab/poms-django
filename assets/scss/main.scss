@@ -44,10 +44,11 @@ $black:#000;
 }
 
 body {
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
     font-family: 'EB_Garamond', serif;
     font-size:1.1rem;
+    max-width:1800px;
 }
 
 a {
@@ -964,7 +965,7 @@ tr:nth-child(even) {
         text-align: center;  
     }
     h5{
-        font-size:0.9em;
+        font-size:1em;
         text-align: center;
         display: block;
         margin:0 0 1em 0;
@@ -1034,12 +1035,24 @@ tr:nth-child(even) {
                 padding:0.5em 0.3em;
                 >li{
                     padding:0;
-                    h5{
+                    >h5{
                         margin: 0.2em 0;
+                        font-size: 1em;
+                        strong{
+                            font-weight: normal; 
+                        }
+                        a:hover{
+                            text-decoration: none;
+                            color:$black;
+                        }
                     }
 
-                    /* text filter */
-                    span{ 
+                    .text-box,.clear-icon,.text-filter {
+                        position: relative;
+                    }
+                    .text-filter {
+                        margin: auto;
+                        padding:8px;
                         background: lighten($gray,47%);
                         //border:1px solid $primary-color;
                         //color: $white;
@@ -1052,13 +1065,6 @@ tr:nth-child(even) {
                             color: $gray;
                             padding: 0 0 0 0.2em;
                         }
-                    }
-                    .text-box,.clear-icon,.text-filter {
-                        position: relative;
-                    }
-                    .text-filter {
-                        margin: auto;
-                        padding:8px;
                     }
                     .text-box {
                       outline: 0;
@@ -1094,6 +1100,7 @@ tr:nth-child(even) {
                             a{
                                 color: $gray;
                                 text-decoration: none;
+                                display: block;
                             }
                             &:hover{
                                 background: lighten($gray,47%);

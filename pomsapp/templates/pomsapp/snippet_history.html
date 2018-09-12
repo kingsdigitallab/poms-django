@@ -43,7 +43,7 @@
 
 			{% ifequal action.0 "search"  %}
 				<li id="" class="first">
-				<a href="/browse/?resulttype={{action.1.uniquename}}{{action.3}}">
+				<a href="/search/?resulttype={{action.1.uniquename}}{{action.3}}">
 					<span class="activeResType">{{action.1.label}}</span> using: 										
 						{% for facetValue in  action.2 %}
 

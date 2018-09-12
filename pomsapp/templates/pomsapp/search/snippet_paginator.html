@@ -5,8 +5,8 @@
   <ul class="pagination">
 	{% if page_obj.has_previous %}
 		{# <li><a onClick="reload_results('1')">&#8249;&#8249; First</a></li> #}
-		<li><a href="{% url 'browse' %}{% add_facet_link querydict 'page' '1' %}"><i class="far fa-angle-double-left"></i> First</a></li>
-        <li><a href="{% url 'browse' %}{% add_facet_link querydict 'page' page_obj.previous_page_number %}"><i class="far fa-angle-left"></i> Previous</a></li>
+		<li><a href="{% url 'search' %}{% add_facet_link querydict 'page' '1' %}"><i class="far fa-angle-double-left"></i> First</a></li>
+        <li><a href="{% url 'search' %}{% add_facet_link querydict 'page' page_obj.previous_page_number %}"><i class="far fa-angle-left"></i> Previous</a></li>
 	{% else %}
 		<li><a href="#"><i class="far fa-angle-double-left"></i> First</a></li>
 		<li><a href="#"><i class="far fa-angle-left"></i> Previous</a></li>
@@ -16,8 +16,8 @@
 
 
 	{% if page_obj.has_next %}
-		<li><a href="{% url 'browse' %}{% add_facet_link querydict 'page' page_obj.next_page_number %}" >Next <i class="far fa-angle-right"></i></a></li>
-		<li><a href="{% url 'browse' %}{% add_facet_link querydict 'page' page_obj.paginator.num_pages %}">Last <i class="far fa-angle-double-right"></i></a></li>
+		<li><a href="{% url 'search' %}{% add_facet_link querydict 'page' page_obj.next_page_number %}" >Next <i class="far fa-angle-right"></i></a></li>
+		<li><a href="{% url 'search' %}{% add_facet_link querydict 'page' page_obj.paginator.num_pages %}">Last <i class="far fa-angle-double-right"></i></a></li>
 	{% else %}
 		<li><a href="#">Next <i class="far fa-angle-right"></i></a></li>
 		<li><a href="#">Last <i class="far fa-angle-double-right"></i></a></li>

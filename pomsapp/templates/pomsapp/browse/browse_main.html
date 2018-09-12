@@ -16,7 +16,7 @@
 
 {% block breadcrumbs %}
         <div id="breadcrumbs">
-        {% get_wagtail_page 'browse' as wagtail_page %}
+        {% get_wagtail_page 'search' as wagtail_page %}
             {% breadcrumbs current_page=wagtail_page extra=record %}
 
         </div>
@@ -40,26 +40,26 @@
             <input id="tab3" type="radio" name="tabs" {% if index_type == 'person' %}checked{% endif %}>
             <label for="tab3"><a href="
 
-                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions
+                        {% url 'search' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions
                 <span>({{ index_type_counts.person }})</span></a></label>
 
             <input id="tab1" type="radio" name="tabs" {% if index_type == 'factoid' %}checked{% endif %}>
             <label for="tab1"><a href="
 
-                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'factoid' %}">Factoids
+                        {% url 'search' %}{% add_facet_link querydict 'index_type' 'factoid' %}">Factoids
                 <span>({{ index_type_counts.factoid }})</span></a></label>
 
             <input id="tab2" type="radio" name="tabs" {% if index_type == 'source' %}checked{% endif %}>
             <label for="tab2"><a href="
 
-                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources
+                        {% url 'search' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources
                 <span>({{ index_type_counts.source }})</span></a></label>
 
 
 
             <input id="tab4" type="radio" name="tabs" {% if index_type == 'place' %}checked{% endif %}>
             <label for="tab4"><a href="
-                        {% url 'browse' %}{% add_facet_link querydict 'index_type' 'place' %}">Places
+                        {% url 'search' %}{% add_facet_link querydict 'index_type' 'place' %}">Places
                 <span>({{ index_type_counts.place }})</span></a></label>
 
             <!-- end Tab Headers -->
@@ -78,7 +78,7 @@
                                         {% selected_facet facet %}
                                     {% endfor %}
                                 </ul>
-                                <a href="{% url 'browse' %}{% add_facet_link querydict 'clear_all' 'clear' %}">
+                                <a href="{% url 'search' %}{% add_facet_link querydict 'clear_all' 'clear' %}">
                                     <h5>Clear all</h5></a>
                             </div>
                         {% endif %}
@@ -158,7 +158,7 @@
                     <li><h2>Selected Terms</h2></li>
                                 <li><a title="why do I see these results?" onClick="explain_results()"><i
                                         class="fas fa-question-circle"></i></a></li>
-                                <li><a href="{% url 'browse' %}" id="empty_controls">Remove all</a></li>
+                                <li><a href="{% url 'search' %}" id="empty_controls">Remove all</a></li>
                                 {# This below should be rethought #}
                                 
                                 {# <li class="i1"><a href="#" title="Save Terms"><b>Save Terms</b></a></li> #}
@@ -185,7 +185,7 @@
                             <div id="results_factoid">
                                 {# in order to use the inner block we must move it before the FOR command!!! #}
                                 {% block inner_results %}
-                                    {% with search_template='browse' %}
+                                    {% with search_template='search' %}
                                         {% include 'pomsapp/browse/snippet_results.html' %}
                                     {% endwith %}
                                 {% endblock inner_results %}

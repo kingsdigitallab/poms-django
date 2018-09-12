@@ -96,7 +96,7 @@ $(document).ready(function() {
 
 {% block breadcrumbs %}
         <div id="breadcrumbs">
-        {% get_wagtail_page 'browse' as wagtail_page %}
+        {% get_wagtail_page 'search' as wagtail_page %}
             {% breadcrumbs current_page=wagtail_page extra=record %}
 
         </div>

@@ -14,7 +14,7 @@
                         <li>
 
                             <a href="
-                                    {% url 'browse' %}{% add_facet_link querydict facet value %}&index_type={{ index_type }}">{{ value|facet_display_name }}
+                                    {% url 'search' %}{% add_facet_link querydict facet value %}&index_type={{ index_type }}">{{ value|facet_display_name }}
                                 ({{ count }})</a>
                         </li>
 

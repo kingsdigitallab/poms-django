@@ -220,7 +220,7 @@ header {
 #wagtail-wrapper{
     margin:2% 2%;
     h2{
-        font-size: 1.2em;
+        font-size: 1.4em;
         margin: 1rem 0 0.5rem 0;
         &.float-left{
             float:left;
@@ -392,7 +392,7 @@ header {
 }
 
 #breadcrumbs{
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: $gray;
     border-bottom: 1px solid lighten($gray,50%);
     margin-bottom: 16px;

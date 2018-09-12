@@ -241,11 +241,13 @@ header {
             margin-left:-40px;
             list-style-type: none;
             >li{
-                padding:8px 16px;
+                
                 background: lighten($gray,57%);
 
                 a{
                     color: $black;
+                    padding:8px 16px;
+                    display: block;
                 }
 
                 &:hover{
@@ -265,11 +267,9 @@ header {
                     }
                     
                     >ul{ /* 3rd level */
-                        margin: 8px -16px -8px -16px;
                         list-style-type: none;
                         background: $white;
-                        border-left:2px solid darken($primary-color, 20%);
-                        border-bottom:2px solid darken($primary-color, 20%);
+                        border:2px solid $primary-color;
                         >li{
                             background: lighten($gray,57%);
                             padding: 8px 8px 8px 40px;

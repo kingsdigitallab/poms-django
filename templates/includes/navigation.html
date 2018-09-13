@@ -6,12 +6,12 @@
     TODO: add class="active" when the url of the current page matches the menu item
     {% endcomment %}
 
-  <li class="{% if current_page and root.url == current_page.url %}active{% endif %}">
+  <li {% if current_page == root %} class="active"{% endif %}>
         <a href="{% pageurl root %}">{{ root.title }}</a>
     </li>
 
     {% for page in menu_pages %}
-    <li class="{% if current_page and page|is_current_or_ancestor:current_page %}active{% endif %}">
+    <li {% if request.path|startswith:page.url %} class="active"{% endif %}>
         <a href="{% pageurl page %}">{{ page.title }}</a>
     </li>
     {% endfor %}

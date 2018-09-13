@@ -65,3 +65,8 @@ def is_current_or_ancestor(page, current_page):
     """Returns True if the given page is the current page or is an ancestor of
     the current page."""
     return current_page.is_current_or_ancestor(page)
+
+
+@register.filter('startswith')
+def startswith(text, starts):
+    return text.startswith(starts)

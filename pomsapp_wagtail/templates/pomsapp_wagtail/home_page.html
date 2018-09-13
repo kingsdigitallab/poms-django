@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block breadcrumbs %}
 {% endblock %}
@@ -10,16 +10,17 @@
     <div id="homepage">
 
  		<figure>
-	  		<img alt="" height="311" src="https://poms3-stg.kdl.kcl.ac.uk/static/media/images/arbroath02.original.jpg" width="467">
-	  		<figcaption>Seals attached to the Declaration of Arbroath (1320). More information at&nbsp;<a href="http://www.nas.gov.uk/about/090401.asp">The National Records of Scotland</a></figcaption>
+	  		{% image self.promo_image width-500 %}
+
+	  		{% if self.promo_caption %}
+	  		<figcaption>{{ self.promo_caption|safe }}</figcaption>
+	  		{% endif %}
 		</figure>
 
 
     	
     	<section>
-	    	<h3>Welcome to PoMS</h3><p>This is a database of all known people of Scotland between 1093 and 1314 mentioned in over 8600 contemporary documents. The People of Medieval Scotland website&nbsp; is an outcome of three projects, The Paradox of Medieval Scotland (2007-2010) and The Breaking of Britain (2010-2013), funded by the Arts and Humanities Research Council (AHRC), and the Transformation of Gaelic Scotland in the Twelfth and Thirteenth Centuries (2013-2016), funded by the Leverhulme Trust.</p><p>Click on the 'Links' below to find out more about the individual projects.</p>
-
-	    	<h3>PoMS is being expanded!</h3><p>The royal charters of Robert I (1306-29), David II (1329-71) and Edward Balliol (ruled in opposition, 1332-56) are currently being added to the database and will appear soon on the public website as part of the AHRC-funded 'Community of the Realm in Scotland, 1249-1424: history, law and charters in a recreated kingdom' project. (www.cotr.ac.uk)</p>
+	    	{{ self.body|richtext }}
 
     	</section>
     
@@ -27,38 +28,47 @@
 	    <div id="explore">
 	    	<h2>Explore</h2>
 		    <ul>
+		    	{% if self.link_1_thumbnail %}
 			    <li>
-			    	<a href="http://www.poms.ac.uk/social-network-analysis/">
-				    	<img alt="SNA and PoMS" src="http://www.poms.ac.uk/wp-content/uploads/2016/05/gephi.png">
+			    	<a href="{{ self.link_1_url }}">
+				    	{% image self.link_1_thumbnail width-100 %}
 				    	<div class="content">
-				    		<h4>Social Network Analysis techniques and PoMs</h4>
+				    		<h4>{{ self.link_1_title }}</h4>
 			    		</div>
 			    	</a>
 			    </li>
+			    {% endif %}
+			   {% if self.link_2_thumbnail %}
 			    <li>
-			    	<a href="http://db.poms.ac.uk">
-			    		<img alt="PoMS Database" src="http://www.poms.ac.uk/wp-content/themes/poms/assets/images/poms-db.jpg">
+			    	<a href="{{ self.link_2_url }}">
+				    	{% image self.link_2_thumbnail width-100 %}
 				    	<div class="content">
-				    		<h4>PoMS Database</h4>
-				    	</div>
+				    		<h4>{{ self.link_2_title }}</h4>
+			    		</div>
 			    	</a>
 			    </li>
+			   {% endif %}
+			   {% if self.link_3_thumbnail %}
 			    <li>
-			    	<a href="http://paradox.poms.ac.uk/">
-			    		<img alt="PoMS Database" src="http://www.poms.ac.uk/wp-content/themes/poms/assets/images/poms.jpg">
+			    	<a href="{{ self.link_3_url }}">
+				    	{% image self.link_3_thumbnail width-100 %}
 				    	<div class="content">
-				    		<h4>Paradox of Medieval Scotland website</h4>
-				    	</div>
+				    		<h4>{{ self.link_3_title }}</h4>
+			    		</div>
 			    	</a>
 			    </li>
+			   {% endif %}
+			   {% if self.link_4_thumbnail %}
 			    <li>
-			    	<a href="http://www.breakingofbritain.ac.uk">
-			    		<img alt="Breaking of Britain" src="http://www.poms.ac.uk/wp-content/themes/poms/assets/images/bob.jpg">
+			    	<a href="{{ self.link_4_url }}">
+				    	{% image self.link_4_thumbnail width-100 %}
 				    	<div class="content">
-				    		<h4>Breaking of Britain website</h4>
-				    	</div>
+				    		<h4>{{ self.link_4_title }}</h4>
+			    		</div>
 			    	</a>
 			    </li>
+			   {% endif %}
+			   
 		    </ul>
 		</div>
     </div>

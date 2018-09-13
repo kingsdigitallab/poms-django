@@ -5,8 +5,7 @@
     {% comment %}
     TODO: add class="active" when the url of the current page matches the menu item
     {% endcomment %}
-
-  <li {% if current_page == root %} class="active"{% endif %}>
+  <li {% if current_page.url == root.url %} class="active"{% endif %}>
         <a href="{% pageurl root %}">{{ root.title }}</a>
     </li>
 

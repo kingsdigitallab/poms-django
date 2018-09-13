@@ -500,11 +500,10 @@
             map.spin(true);
             if (geomQry != '') {
                 $.ajax('search/?' + geomQry, {
-                    dataType: "jsonp"
-                }).done(function () {
-                    map.spin(false);
-                }).error(function () {
-                    map.spin(false);
+                    dataType: "jsonp",
+                    complete: function () {
+                        map.spin(false);
+                    }
                 });
             }
             else if (parentID != '') {

@@ -1302,7 +1302,7 @@ footer{
     .logos{
         a{ 
             img{
-                height:4rem;
+                height:4.5rem;
                 display: inline-block;
                 padding:0 1%;
                 text-decoration: none;
@@ -1318,8 +1318,11 @@ footer{
     }
     p{
         margin: 2% 0 0 0;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         color: $gray;
+        a{
+            font-size: 0.9rem;
+        }
     }
 }
 

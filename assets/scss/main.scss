@@ -129,6 +129,7 @@ h1 {
 h2{
     font-size: 1.3em;
 }
+
 header {
     h1 {
         color: $beige;
@@ -189,7 +190,7 @@ header {
             }
             a {
             color: white;
-
+            font-size:1.1rem;
             }
         }
     }
@@ -392,7 +393,7 @@ header {
 }
 
 #breadcrumbs{
-    font-size: 0.95rem;
+    
     color: $gray;
     border-bottom: 1px solid lighten($gray,50%);
     margin-bottom: 16px;
@@ -402,7 +403,7 @@ header {
         margin-left: -40px;
         li{
             display: inline-block;
-            
+            font-size: 0.95rem !important;
          }
     }
 }

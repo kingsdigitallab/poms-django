@@ -7,11 +7,10 @@ label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
-    font-size:1.1rem;
 }
 
 body, body * {
-    line-height: 1;
+
 }
 
 table {
@@ -41,6 +40,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
 }
 
+h3{
+    font-size: 1.3em;
+}
+
 blockquote:before, blockquote:after, q:before, q:after {
     content: '';
 }
@@ -66,4 +69,7 @@ i {
     font-style: normal;
 }
 
+small{
+    font-size: smaller;
+}
 

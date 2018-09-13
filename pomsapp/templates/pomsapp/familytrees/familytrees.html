@@ -25,6 +25,13 @@
 {% endblock %}
 
 
+{% block breadcrumbs %}
+    <div id="breadcrumbs">
+        {% get_wagtail_page 'familytrees' as wagtail_page %}
+        {% breadcrumbs current_page=wagtail_page extra=record %}
+
+    </div>
+{% endblock %}
 
 
 

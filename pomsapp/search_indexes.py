@@ -94,9 +94,9 @@ class PomsIndex(indexes.SearchIndex):
         faceted=True,
         null=True)
 
-    #moderngaelicforename = indexes.MultiValueField(
-    #    faceted=True,
-    #    null=True)
+    moderngaelicforename = indexes.MultiValueField(
+        faceted=True,
+        null=True)
 
     # moderngaelicsurname = indexes.MultiValueField(
     #    faceted=True,

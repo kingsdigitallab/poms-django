@@ -10,7 +10,7 @@ label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body, body * {
-    line-height: 1;
+
 }
 
 table {
@@ -63,5 +63,9 @@ b {
 
 i {
     font-style: normal;
+}
+
+small{
+    font-size: smaller;
 }
 

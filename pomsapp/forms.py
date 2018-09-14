@@ -80,12 +80,6 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
 
     def __init__(self, *args, **kwargs):
         super(PomsFacetedBrowseForm, self).__init__(*args, **kwargs)
-        # get the earliest and latest dates in the whole record set
-        #min = SearchQuerySet().filter(startdate__gt=0).order_by('startdate')[0]
-        #max = SearchQuerySet().all().order_by('-startdate')[0]
-        # Not used for the moment
-        #self.DATE_MINIMUM = min.startdate
-        #self.DATE_MAXIMUM = max.startdate
 
     def no_query_found(self):
         """Determines the behaviour when no query was found; returns all the
@@ -94,29 +88,33 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
 
     def search(self):
         sqs = super(PomsFacetedBrowseForm, self).search()
+
         if not self.is_valid():
             return self.no_query_found()
 
-        # Get place index counts BEFORE dating is applied
-        if ('fields' in sqs.facet_counts()
-                and 'index_type' in sqs.facet_counts()['fields']
-        ):
+        facet_counts = sqs.facet_counts()
 
-            for type_count in sqs.facet_counts()['fields'][
-                'index_type']:
-                if (type_count[0] == 'place'):
-                    self.index_type_counts[type_count[0]] = type_count[1]
+        # This does not need to be done here because the dates are not applied
+        # to place search
+        # Get place index counts BEFORE dating is applied
+        # if 'fields' in facet_counts and \
+        # 'index_type' in facet_counts['fields']:
+        #     for type_count in facet_counts['fields']['index_type']:
+        #         if type_count[0] == 'place':
+        #             self.index_type_counts[type_count[0]] = type_count[1]
+
         if self.is_bound:
             data = self.data
 
-
             if 'q' in data:
                 q = data['q']
+
                 if len(q) > 0:
-                    m = re.search(r"(\d+/\d+/\d+)",q)
+                    m = re.search(r'(\d+/\d*/?\d*)', q)
                     if m:
                         hNumber = m.group(1)
-                        q = q.replace(hNumber,r'"{}"'.format(hNumber))
+                        q = q.replace(hNumber, r'"{}"'.format(hNumber))
+
                     # Force text search to an all keywords behaviour
                     q_query = ' AND '.join(q.split(' '))
                     sqs = sqs.narrow('text:{}'.format(q_query))
@@ -125,34 +123,21 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
             if 'min_date' in data and self.index_type != 'place':
                 # Don't apply if it's default dates
                 if (int(data['min_date']) != self.DATE_MINIMUM or
-                        int(data['max_date']) != self.DATE_MAXIMUM
-                ):
+                        int(data['max_date']) != self.DATE_MAXIMUM):
                     sqs = sqs.narrow('startdate:[{0} TO {1}]'.format(
                         data['min_date'],
                         data['max_date']
                     ))
+
+            facet_counts = sqs.facet_counts()
+
         # Get index counts for all types
-        if ('fields' in sqs.facet_counts()
-                and 'index_type' in sqs.facet_counts()['fields']
-        ):
-            for type_count in sqs.facet_counts()['fields'][
-                'index_type']:
-                if (type_count[0] != 'place'):
-                    self.index_type_counts[type_count[0]] = type_count[1]
+        if 'fields' in facet_counts and 'index_type' in facet_counts['fields']:
+            for type_count in facet_counts['fields']['index_type']:
+                # if (type_count[0] != 'place'):
+                self.index_type_counts[type_count[0]] = type_count[1]
+
         # Narrow based on specific index type
-        sqs = sqs.narrow(
-            'index_type:{}'.format(
-                self.index_type
-            )
-        )
-        if ('fields' in sqs.facet_counts()
-                and 'startdate' in sqs.facet_counts()['fields']
-                and len(sqs.facet_counts()['fields']['startdate']) > 0
-        ):
-            min = sqs.facet_counts()['fields'][
-                'startdate'][0]
-            max = sqs.facet_counts()['fields'][
-                'startdate'][-1]
-            # self.DATE_MAXIMUM = max[0]
-            # self.DATE_MINIMUM = min[0]
+        sqs = sqs.narrow('index_type:{}'.format(self.index_type))
+
         return sqs

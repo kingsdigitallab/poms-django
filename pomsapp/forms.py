@@ -94,17 +94,8 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
 
         facet_counts = sqs.facet_counts()
 
-        # This does not need to be done here because the dates are not applied
-        # to place search
-        # Get place index counts BEFORE dating is applied
-        # if 'fields' in facet_counts and \
-        # 'index_type' in facet_counts['fields']:
-        #     for type_count in facet_counts['fields']['index_type']:
-        #         if type_count[0] == 'place':
-        #             self.index_type_counts[type_count[0]] = type_count[1]
-
         if self.is_bound:
-            data = self.data
+            data = self.cleaned_data
 
             if 'q' in data:
                 q = data['q']
@@ -134,7 +125,6 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
         # Get index counts for all types
         if 'fields' in facet_counts and 'index_type' in facet_counts['fields']:
             for type_count in facet_counts['fields']['index_type']:
-                # if (type_count[0] != 'place'):
                 self.index_type_counts[type_count[0]] = type_count[1]
 
         # Narrow based on specific index type

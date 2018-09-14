@@ -3,11 +3,11 @@
 
 {% block load_css %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
+
 {% endblock %}
 
 {% block titlepage %}
-    <title>Browse | {{ PROJECT_TITLE }}</title>
+    <title>Search | {{ PROJECT_TITLE }}</title>
 {% endblock %}
 
 {% block subnav %}
@@ -152,16 +152,16 @@
                             </fieldset>
                         </form> <!-- End Search form -->
                         <!-- TO: Old selected facets
-                <div id="facets"> 
+                <div id="facets">
                     {% block controlbar %}
-                    
+
                     <ul class="menu">
                     <li><h2>Selected Terms</h2></li>
                                 <li><a title="why do I see these results?" onClick="explain_results()"><i
                                         class="fas fa-question-circle"></i></a></li>
                                 <li><a href="{% url 'search' %}" id="empty_controls">Remove all</a></li>
                                 {# This below should be rethought #}
-                                
+
                                 {# <li class="i1"><a href="#" title="Save Terms"><b>Save Terms</b></a></li> #}
                                 {# <li class="i2"><a href="#" title="Load Terms"><b>Load Terms</b></a></li> #}
                             </ul>
@@ -174,7 +174,7 @@
                             <div id="blockUImessage2" style="display:none">
                             </div>
                         {% endblock %}
-                    
+
                     <div id="results">
                         {% block results %}
                         <!-- hidden fields with useful data -->

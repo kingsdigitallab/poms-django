@@ -71,8 +71,6 @@ class PomsFacetedSearchForm(FacetedSearchForm):
 
 
 class PomsFacetedBrowseForm(FacetedSearchForm):
-    min_date = '0'
-    max_date = '0'
     DATE_MINIMUM = 1093
     DATE_MAXIMUM = 1371
     index_type_counts = {}

@@ -49,7 +49,7 @@ class PomsFacetedSearchForm(FacetedSearchForm):
             return self.no_query_found()
 
         if self.is_bound:
-            data = self.cleaned_data
+            data = self.data
             # if data['index_type']:
             #     sqs = sqs.narrow(
             #         'index_type_exact:{}'.format(
@@ -76,13 +76,10 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
     index_type_counts = {}
     index_type = 'person'
 
-    min_date = forms.IntegerField(
-        initial=DATE_MINIMUM
-    )
+    min_date = 0
 
-    max_date = forms.IntegerField(
-        initial=DATE_MAXIMUM
-    )
+    max_date = 0
+
     def __init__(self, *args, **kwargs):
         super(PomsFacetedBrowseForm, self).__init__(*args, **kwargs)
 
@@ -100,7 +97,7 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
         facet_counts = sqs.facet_counts()
 
         if self.is_bound:
-            data = self.cleaned_data
+            data = self.data
 
             if 'q' in data:
                 q = data['q']

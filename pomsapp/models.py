@@ -1219,6 +1219,8 @@ class Factoid(mymodels.PomsModel):
     def __str__(self):
         return self.shortdesc or "no description"
 
+    def __str__(self):
+        return self.shortdesc or "no description"
 
 class FactTitle(Factoid):
     """(in poms-linnet this used to be called 'Title')"""

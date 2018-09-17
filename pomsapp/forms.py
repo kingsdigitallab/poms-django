@@ -78,6 +78,13 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
     index_type_counts = {}
     index_type = 'person'
 
+    min_date = forms.IntegerField(
+        initial=DATE_MINIMUM
+    )
+
+    max_date = forms.IntegerField(
+        initial=DATE_MAXIMUM
+    )
     def __init__(self, *args, **kwargs):
         super(PomsFacetedBrowseForm, self).__init__(*args, **kwargs)
 

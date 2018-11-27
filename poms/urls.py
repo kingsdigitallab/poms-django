@@ -10,6 +10,7 @@ from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from utils.adminextra import poms_custom_admin_views
 import pomsapp.views_family as views_family
 
+
 kdl_ldap_register_signal_hadlers()
 
 admin.autodiscover()

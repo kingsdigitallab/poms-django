@@ -55,22 +55,26 @@
 #  ==============
 
 
-import operator
-import functools
 from django import forms
-from django.conf.urls import include, url
 from django.conf import settings
-from django.contrib import admin
+from django.utils.safestring import mark_safe
+from django.apps import apps
+# remove deprecated - now -dead method
+#from django.utils.text import truncate_words
+from django.utils.text import Truncator
+from django.template.loader import render_to_string
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
+import operator
+from django.http import HttpResponse, HttpResponseNotFound
+from django.contrib import admin
 from django.db import models
 from django.db.models.query import QuerySet
-from django.http import HttpResponse, HttpResponseNotFound
-from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
-from django.utils.safestring import mark_safe
-from django.utils.text import get_text_list
-from django.utils.text import Truncator
 from django.utils.translation import ugettext as _
+from django.utils.text import get_text_list
+# added by mikele
+# from django.conf.urls.defaults import *
+from django.conf.urls import url
 from django.contrib.admin.sites import site
 
 class FkSearchInput(ForeignKeyRawIdWidget):
@@ -82,7 +86,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
     # Set in subclass to render the widget with a different template
     widget_template = None
     # Set this to the patch of the search view
-    search_path = '../foreignkey_autocomplete/'
+    search_path = '../../foreignkey_autocomplete/'
 
     class Media:
         css = {
@@ -111,7 +115,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
         opts = self.rel.to._meta
         app_label = opts.app_label
         model_name = opts.object_name.lower()
-        related_url = '../../../%s/%s/' % (app_label, model_name)
+        related_url = '../../../../%s/%s/' % (app_label, model_name)
         params = self.url_parameters()
         if params:
             url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
@@ -155,7 +159,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
     # Set in subclass to render the widget with a different template
     widget_template = None
     # Set this to the patch of the search view
-    search_path = '../foreignkey_autocomplete/'
+    search_path = '../../foreignkey_autocomplete/'
 
     class Media:
         css = {
@@ -184,7 +188,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
         opts = self.rel.to._meta
         app_label = opts.app_label
         model_name = opts.object_name.lower()
-        related_url = '../../../%s/%s/' % (app_label, model_name)
+        related_url = '../../../../%s/%s/' % (app_label, model_name)
         params = self.url_parameters()
         if params:
             url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
@@ -230,7 +234,7 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
     # Set in subclass to render the widget with a different template
     widget_template = None
     # Set this to the patch of the search view
-    search_path = '../foreignkey_autocomplete/'
+    search_path = '../../foreignkey_autocomplete/'
 
     class Media:
         css = {
@@ -259,7 +263,7 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
         opts = self.rel.to._meta
         app_label = opts.app_label
         model_name = opts.object_name.lower()
-        related_url = '../../../%s/%s/' % (app_label, model_name)
+        related_url = '../../../../%s/%s/' % (app_label, model_name)
         params = self.url_parameters()
         if params:
             url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
@@ -368,7 +372,7 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
                 else:
                     return "%s__icontains" % field_name
 
-            model = models.get_model(app_label, model_name)
+            model = apps.get_model(app_label, model_name)
             queryset = model._default_manager.all()
             data = ''
             if query:
@@ -480,7 +484,7 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
                 else:
                     return "%s__icontains" % field_name
 
-            model = models.get_model(app_label, model_name)
+            model = apps.get_model(app_label, model_name)
             queryset = model._default_manager.all()
             data = ''
             if query:
@@ -596,7 +600,7 @@ class InlineAutocompleteAdmin(admin.TabularInline):
                 else:
                     return "%s__icontains" % field_name
 
-            model = models.get_model(app_label, model_name)
+            model = apps.get_model(app_label, model_name)
             queryset = model._default_manager.all()
             data = ''
             if query:

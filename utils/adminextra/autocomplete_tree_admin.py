@@ -100,9 +100,9 @@ class FkSearchInput(ForeignKeyRawIdWidget):
         obj = self.rel.to._default_manager.get(**{key: value})
         return Truncator(obj).words(14)
 
-    def __init__(self, rel, search_fields, attrs=None):
+    def __init__(self, rel, admin_site, search_fields, attrs=None):
         self.search_fields = search_fields
-        super(FkSearchInput, self).__init__(rel, site, attrs)
+        super(FkSearchInput, self).__init__(rel, admin_site, attrs)
 
     def render(self, name, value, attrs=None):
         if attrs is None:
@@ -173,9 +173,9 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
         obj = self.rel.to._default_manager.get(**{key: value})
         return Truncator(obj).words(14)
 
-    def __init__(self, rel, search_fields, attrs=None):
+    def __init__(self, rel, admin_site, search_fields, attrs=None):
         self.search_fields = search_fields
-        super(NoLookupsForeignKeySearchInput, self).__init__(rel, attrs)
+        super(NoLookupsForeignKeySearchInput, self).__init__(rel, admin_site, attrs)
 
     def render(self, name, value, attrs=None):
         if attrs is None:
@@ -190,7 +190,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
             url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
         else:
             url = ''
-        if not attrs.has_key('class'):
+        if 'class' not in attrs:
             attrs['class'] = 'vForeignKeyRawIdAdminField'
         # Call the TextInput render method directly to have more control
         output = [forms.TextInput.render(self, name, value, attrs)]
@@ -201,7 +201,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
         context = {
             'url': url,
             'related_url': related_url,
-            'admin_media_prefix': settings.ADMIN_MEDIA_PREFIX,
+            'admin_media_prefix': settings.STATIC_URL+'/admin/',
             'search_path': self.search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,
@@ -248,9 +248,9 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
         obj = self.rel.to._default_manager.get(**{key: value})
         return Truncator(obj).words(14)
 
-    def __init__(self, rel, search_fields, attrs=None):
+    def __init__(self, rel, admin_site, search_fields, attrs=None):
         self.search_fields = search_fields
-        super(InlineSearchInput, self).__init__(rel, attrs)
+        super(InlineSearchInput, self).__init__(rel, admin_site, attrs)
 
     def render(self, name, value, attrs=None):
         if attrs is None:
@@ -265,7 +265,7 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
             url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
         else:
             url = ''
-        if not attrs.has_key('class'):
+        if 'class' not in attrs:
             attrs['class'] = 'vForeignKeyRawIdAdminField'
         # Call the TextInput render method directly to have more control
         output = [forms.TextInput.render(self, name, value, attrs)]
@@ -276,7 +276,7 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
         context = {
             'url': url,
             'related_url': related_url,
-            'admin_media_prefix': settings.ADMIN_MEDIA_PREFIX,
+            'admin_media_prefix': settings.STATIC_URL+'/admin/',
             'search_path': self.search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,
@@ -416,7 +416,7 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
             help_text = self.get_help_text(db_field.name, model_name)
             if kwargs.get('help_text'):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
-            kwargs['widget'] = FkSearchInput(db_field.rel,
+            kwargs['widget'] = FkSearchInput(db_field.rel, self.admin_site,
                                              self.related_search_fields[db_field.name])
             kwargs['help_text'] = help_text
         return super(FkAutocompleteAdmin,
@@ -528,7 +528,7 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
             help_text = self.get_help_text(db_field.name, model_name)
             if kwargs.get('help_text'):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
-            kwargs['widget'] = NoLookupsForeignKeySearchInput(db_field.rel,
+            kwargs['widget'] = NoLookupsForeignKeySearchInput(db_field.rel, self.admin_site,
                                                               self.related_search_fields[db_field.name])
             kwargs['help_text'] = help_text
         return super(NoLookupsForeignKeyAutocompleteAdmin,
@@ -644,7 +644,7 @@ class InlineAutocompleteAdmin(admin.TabularInline):
             help_text = self.get_help_text(db_field.name, model_name)
             if kwargs.get('help_text'):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
-            kwargs['widget'] = InlineSearchInput(db_field.rel,
+            kwargs['widget'] = InlineSearchInput(db_field.rel, self.admin_site,
                                                  self.related_search_fields[db_field.name])
             kwargs['help_text'] = help_text
         return super(InlineAutocompleteAdmin,

@@ -7,44 +7,12 @@
 
 
 {% block load_css %}
-    <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/a.css"/>
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}css/s.css"/>
-    <link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}css/p.css"/>
-
-    <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}css/jquery.qtip.min.css"/>
-    {# eventually this must be put in its own file! #}
-    <style type="text/css" media="screen">
-
-        .ui-tooltip {
-            min-width: 550px;
-            overflow: auto;
-            max-height: 400px;
-            margin-top: 150px;
-        }
-
-        .ui-tooltip-bootstrap .ui-tooltip-titlebar {
-            font-size: 14px;
-            font-weight: bold;
-            background: #294C81;
-            color: #fff;
-        }
-
-        #ui-tooltip-modal {
-            max-width: 420px;
-
-            -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
-            -webkit-box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
-            box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
-        }
-
-        #ui-tooltip-modal .ui-tooltip-content {
-            padding: 10px;
-        }
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.css"></link>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.draw.css"></link>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.awesome-markers.css"></link>
 
 {% endblock %}
+
 
 {% block breadcrumbs %}
     <div id="breadcrumbs">
@@ -54,46 +22,20 @@
     </div>
 {% endblock %}
 
+
 {% block subnav %}
 {% endblock %}
 
+
 {% block load_js %}
-
     <script type="text/javascript" src="{{ STATIC_URL }}js/functions_record.js"></script>
-    <!--<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-src.js"></script>-->
-
-    <script>
-        L_PREFER_CANVAS = true
-    </script>
-
     <script type="text/javascript" src="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.js"></script>
-    <!--<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.css"></link>-->
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.css"></link>
-
-    <script type="text/javascript" src="{{ STATIC_URL }}js/turf.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/hex_grid.js"></script>
-
-    <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet-image.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet-overlap.js"></script>
-
-    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css'
-          rel='stylesheet'/>
-    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css'
-          rel='stylesheet'/>
-
-
-    <script type="text/javascript" src="{{ STATIC_URL }}js/LeafletFunctionButton.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.draw.css"></link>
     <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet.draw.js"></script>
-
     <script type="text/javascript" src="{{ STATIC_URL }}js/spin.min.js"></script>
-
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <script type="text/javascript" src="{{ STATIC_URL }}js/leaflet.awesome-markers.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/leaflet.awesome-markers.css"></link>
 
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+    
 
 
     <script>
@@ -105,10 +47,7 @@
             qtip_citation();
             qtip_previews("{{STATIC_URL}}");
 
-            // qtip_labs();  // disabled for now
-            // tips for splash page :: add again once the qTip class is fixed
-            // $('span.x6[title]').qtip();
-// 	final parenthesis
+
         });
 
         function printMap() {
@@ -148,18 +87,9 @@
 
 
 {% block contents %}
-
     <div>
-
-        <!--
-        <div id="map-modal"><input type="button" value="Print map"></input></div>
-        -->
-
         <div id="map">
-
         </div>
-
-
     </div>
 
     <script>

@@ -8,34 +8,6 @@
 
 {% block load_css  %}
 
-	{# eventually this must be put in its own file! #}	
-	<style type="text/css" media="screen">
-
-	.ui-tooltip{
-		min-width: 550px;
-		overflow: auto;
-		max-height: 400px;
-		margin-top: 150px;
-	}
-	
-	.ui-tooltip-bootstrap .ui-tooltip-titlebar {
-		font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
-	}
-	
-	#ui-tooltip-modal{
-		max-width: 420px;
-
-		-moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-		-webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-		box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-	}
-
-	#ui-tooltip-modal .ui-tooltip-content{
-		padding: 10px;
-	}
-	
-	
-	</style>
 	
 {% endblock %}
 
@@ -60,24 +32,8 @@
 <script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-overlap.js"></script>
 
 <script> 
-$(document).ready(function() {
 
-
-	var maskWidth = $(window).width();   // returns height of browser viewport
-	var maskHeight = $(window).height();   // returns height of browser viewport
-
-	qtip_history();
-	qtip_citation();
-	qtip_previews("{{STATIC_URL}}");
-
-	// qtip_labs();  // disabled for now		
-	// tips for splash page :: add again once the qTip class is fixed
-	// $('span.x6[title]').qtip();
-	
-// 	final parenthesis
-});
 </script>
-    <script type="text/javascript" src="{% static 'js/jquery.qtip.min.js' %}"></script>
 {% endblock %}
 
 

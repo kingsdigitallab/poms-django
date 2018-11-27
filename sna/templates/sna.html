@@ -30,30 +30,6 @@
 
 <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}sna_assets/jquery.css">
 
-<style type="text/css" media="screen">
-.ui-tooltip{
-min-width: 550px;
-overflow: auto;
-max-height: 400px;
-margin-top: 150px;
-}
-
-.ui-tooltip-bootstrap .ui-tooltip-titlebar {
-font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
-}
-
-#ui-tooltip-modal{
-max-width: 420px;
-
--moz-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
--webkit-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-box-shadow: 0 0 10px 1px rgba(0,0,0,.5);
-}
-
-#ui-tooltip-modal .ui-tooltip-content{
-padding: 10px;
-}
-</style>
 
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sna_assets/styles/gexfjs.css" />
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sna_assets/styles/jquery-ui-1.10.3.custom.min.css" />
@@ -156,15 +132,4 @@ padding: 10px;
 <div id="autocomplete"></div>
 {% endblock %}
 
-
-
-
-
-
-  
-{% block body_closing %}
-  <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.qtip.min.js"></script>
-  {% include "pomsapp/snippet_history.html" %}
-  {% include "pomsapp/record/snippet_citation.html" %}
-{% endblock %}  
 

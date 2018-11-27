@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response
 from haystack.generic_views import FacetedSearchView
 from haystack.query import SearchQuerySet
 
-from pomsapp.forms import PomsFacetedSearchForm, PomsFacetedBrowseForm
+from pomsapp.forms import PomsFacetedBrowseForm
 
 
 def admin_overview(request):
@@ -14,91 +14,11 @@ def admin_overview(request):
           in
           sorted(get_models(app), key=lambda x: x.__name__)]
 
-    try:
-        from helpdesk.models import Ticket
-        open_and_solved = Ticket.objects.filter(status__in=[1, 3]).order_by(
-            '-modified')
-    except:
-        open_and_solved = []
-
     context = {'variable': None,
                'models': mm,
-               'open_and_solved': open_and_solved
                }
     return render_to_response(request, 'pomsapp/admin_overview.html',
                               context)
-
-
-class PomsFacetedSearchView(FacetedSearchView):
-    """
-    Main search for POMS
-    """
-    facet_fields = ['index_type']
-    people_facet_Fields = [
-        "surnames",
-        "forenames",
-        "gender",
-        "titles",
-        'institutions',
-        'medievalgaelicforename',
-        'medievalgaelicsurname',
-        'moderngaelicforename',
-        'moderngaelicsurname',
-    ]
-    form_class = PomsFacetedSearchForm
-    template_name = 'pomsapp/search/search.html'
-    queryset = SearchQuerySet()
-    load_all = True
-
-    def get_queryset(self):
-        queryset = super(
-            PomsFacetedSearchView, self
-        ).get_queryset()
-        if 'order_by' in self.request.GET:
-            return queryset.order_by(
-                self.request.GET['order_by']
-            )
-        else:
-            return queryset.order_by('startdate')
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(
-            PomsFacetedSearchView, self
-        ).get_context_data(*args, **kwargs)
-
-        max = SearchQuerySet().all().order_by('-startdate')[0]
-        max_date = max.startdate
-        if context['form']:
-            form = context['form']
-            querystring = ''
-            if 'index_type' in form.cleaned_data:
-                context['index_type'] = form.cleaned_data['index_type']
-                querystring = 'index_type={}'.format(
-                    form.cleaned_data['index_type']
-                )
-            else:
-                context['index_type'] = 'person'
-            if 'min_date' in form.cleaned_data:
-                querystring += '&min_date={}'.format(
-                    form.data['min_date']
-                )
-
-            if 'max_date' in form.cleaned_data:
-                querystring += '&max_date={}'.format(
-                    form.cleaned_data['max_date']
-                )
-
-            if 'q' in form.cleaned_data:
-                querystring += '&q={}'.format(
-                    form.cleaned_data['q']
-                )
-            context['querystring'] = querystring
-            context['form'] = form
-        context['min_date'] = PomsFacetedSearchForm.DATE_MINIMUM
-        context['max_date'] = max_date
-        if 'order_by' in self.request.GET:
-            context['order_by'] = self.request.GET['order_by']
-        return context
 
 
 class PomsFacetedBrowse(FacetedSearchView):
@@ -246,8 +166,8 @@ class PomsFacetedBrowse(FacetedSearchView):
 
         if 'order_by' in self.request.GET:
             # 'Calendar numbers is 3 hammond numbers
-            if ('calendar_number' in self.request.GET['order_by']
-                    or 'source' in self.request.GET['order_by']):
+            if ('calendar_number' in self.request.GET['order_by'] or
+                    'source' in self.request.GET['order_by']):
                 if '-' in self.request.GET['order_by']:
                     return queryset.order_by(
                         '-hammondnumber', '-hammondnumb2', '-hammondnumb3')

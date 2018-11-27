@@ -189,7 +189,7 @@ class Poss_Alms(PossessionNew):
         from django.core import urlresolvers
         return urlresolvers.reverse('admin:pomsapp_poss_alms_change', args=(self.id,))
     get_admin_url.allow_tags = True
-
+    
     def __unicode__(self):
         return self.__nameandparent__()
 

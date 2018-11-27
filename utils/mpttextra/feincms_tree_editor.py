@@ -237,9 +237,9 @@ class TreeEditor(admin.ModelAdmin):
                 item.id, editable_class, 14+item.level*18)
 #        r += '<span tabindex="0">'
         if hasattr(item, 'short_title'):
-            r += item.short_title()
+            r += '{}'.format(item.short_title())
         else:
-            r += item
+            r += '{}'.format(item)
 #        r += '</span>'
         return mark_safe(r)
     indented_short_title.short_description = _('title')

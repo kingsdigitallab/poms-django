@@ -89,7 +89,7 @@ class GenericPossessionsAdmin(AutocompleteTreeEditor):
         actions = super(GenericPossessionsAdmin, self)._actions_column(page)
         actions.insert(0,
                        u'<a href="add/?parent=%s" title="%s"><img src="%simg/admin/icon_addlink.gif" alt="%s"></a>' % (
-                           page.pk, _('Add child page'), settings.ADMIN_MEDIA_PREFIX, _('Add child page')))
+                           page.pk, _('Add child page'), settings.MEDIA_URL, _('Add child page')))
         #	 actions.insert(0, u'<a href="add/?parent=%s" title="%s"><img src="%simg/admin/icon_addlink.gif"
 		# alt="%s"></a>' % (
         #		 page.pk, _('Add child page'), django_settings.ADMIN_MEDIA_PREFIX ,_('Add child page')))

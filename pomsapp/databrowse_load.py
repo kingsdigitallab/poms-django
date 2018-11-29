@@ -6,10 +6,13 @@ from pomsapp.models import *
 # authority lists
 
 auth_lists = [Role, Gender, Floruit, Chartertype, TitleType, Relationshiptype, Occupationtype, Exemptiontype,
-				Nominalrendertype, Proanimagenerictypes, Renderdate, Sicutclausetype, Tenendasclauseoptions, 
-				Transactiontype, LegalPertinents, Returns_military, Returns_renders, CommonBurdens, Language]
+              Nominalrendertype, Proanimagenerictypes, Renderdate, Sicutclausetype, Tenendasclauseoptions,
+              Transactiontype, LegalPertinents, Returns_military, Returns_renders, CommonBurdens, Language]
 
-func = lambda x : databrowse.site.register(x)
+
+def func(x): return databrowse.site.register(x)
+
+
 map(func, auth_lists)
 
 

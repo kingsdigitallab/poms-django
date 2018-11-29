@@ -1,28 +1,27 @@
 # Authors: Marinho Brandao <marinho at gmail.com>
 #          Guilherme M. Gondim (semente) <semente at taurinus.org>
 # File: <your project>/admin/filterspecs.py
-# 
+#
 # models.py example:
 #
 # import <your project>.admin.alphabeticfilterspec
 #
-# 
+#
 # from django.db import models
-# 
+#
 # class Person(models.Model):
 #     name = models.CharField(max_length=40)
 #     name.alphabetic_filter = True
 # admin.py example:
-# 
+#
 # class Admin:
 #     list_filter = ['name']
-# 
+#
 
-
-from django.db import models
 from django.contrib.admin.filterspecs import FilterSpec, ChoicesFilterSpec
 from django.utils.encoding import smart_text
 from django.utils.translation import ugettext as _
+
 
 class AlphabeticFilterSpec(ChoicesFilterSpec):
     """
@@ -45,16 +44,20 @@ class AlphabeticFilterSpec(ChoicesFilterSpec):
 
     def choices(self, cl):
         yield {'selected': self.lookup_val is None,
-                'query_string': cl.get_query_string({}, [self.lookup_kwarg]),
-                'display': _('All')}
+               'query_string': cl.get_query_string({}, [self.lookup_kwarg]),
+               'display': _('All')}
         for val in self.lookup_choices:
-            yield {'selected': smart_unicode(val) == self.lookup_val,
-                    'query_string': cl.get_query_string({self.lookup_kwarg: val}),
-                    'display': val.upper()}
+            yield {'selected': smart_text(val) == self.lookup_val,
+                   'query_string': cl.get_query_string(
+                       {self.lookup_kwarg: val}),
+                   'display': val.upper()}
+
     def title(self):
         return _('%(field_name)s that starts with') % \
             {'field_name': self.field.verbose_name}
 
+
 # registering the filter
-FilterSpec.filter_specs.insert(0, (lambda f: getattr(f, 'alphabetic_filter', False),
-                                   AlphabeticFilterSpec))
+FilterSpec.filter_specs.insert(0, (
+    lambda f: getattr(f, 'alphabetic_filter', False),
+    AlphabeticFilterSpec))

@@ -5,23 +5,21 @@ Based on Geoffroy Noel's KdlWp2Wt command from Culture Case
 @author Elliott HAll
 """
 from kdl_wordpress2wagtail.management.commands.kdlwp2wt import (
-    Command as KdlWp2Wt, SITE_ROOT)
+    Command as KdlWp2Wt)
 from pomsapp_wagtail.models import HomePage, IndexPage, RichTextPage
-from django.utils.text import slugify
 from wagtail.wagtailimages.models import Image
 from willow import Image as WillowImage
 import re
-import pdb
 from django.conf import settings
 import os
 import operator
 from django.utils.text import slugify
-from django.core.exceptions import ValidationError, ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class Command(KdlWp2Wt):
     help = 'Import wordpress xml dump into wagtail'
-    #caching pages to rebuild tree structure at the end
+    # caching pages to rebuild tree structure at the end
     pages = {}
     inheritance_map = {}
     home_page = None
@@ -29,7 +27,7 @@ class Command(KdlWp2Wt):
     def initialise_registry(self):
         super(Command, self).initialise_registry()
         # create our home page
-        """ 
+        """
          delete from pomsapp_wagtail_homepage;
          delete from pomsapp_wagtail_indexpage;
          delete from pomsapp_wagtail_richtextpage;
@@ -44,11 +42,10 @@ class Command(KdlWp2Wt):
             )
         else:
             hp = HomePage.objects.all()[0]
-        #clean rich text pages
+        # clean rich text pages
         site_root = self.registry.get("item_page:0")
         site_root.add_child(instance=hp)
         self.home_page = hp
-
 
     def convert_item_page(self, info):
         node = info['kdlnode']
@@ -66,8 +63,8 @@ class Command(KdlWp2Wt):
                 'title': node['title'],
                 'slug': slug,
                 'live': self.is_object_live(node),
-                'depth':2,
-                'path':'/{}'.format(node['wp:post_name'])
+                'depth': 2,
+                'path': '/{}'.format(node['wp:post_name'])
             }
         }
 
@@ -244,8 +241,6 @@ class Command(KdlWp2Wt):
                 # add to registry
                 self.registry.set(info['wordpressid'], django_object)
 
-
-
                 wordpressid_alias = info.get('wordpressid_alias')
                 if wordpressid_alias:
                     self.registry.set(wordpressid_alias, django_object)
@@ -268,15 +263,14 @@ class Command(KdlWp2Wt):
 
     def _post_import(self):
         """ Sort out page inheritance structure """
-        site_root = self.registry.get("item_page:0")
-        for wordpressid,info in self.pages.items():
+        for wordpressid, info in self.pages.items():
             # First pass, convert objects to IndexPages as necessary
             obj = info['obj']
             if (info['type'] == 'item_page' and
                     'Home' in obj.title):
                 # this is the home page
                 self.home_page.title = obj.title
-                self.home_page.slug= obj.slug
+                self.home_page.slug = obj.slug
                 self.home_page.body = obj.body
                 self.home_page.show_in_menus = True
                 self.home_page.save()
@@ -288,31 +282,30 @@ class Command(KdlWp2Wt):
                     if parent:
                         parent_obj = parent['obj']
                         # Is the parent an index page?
-                        if type(parent_obj) == RichTextPage:
+                        if isinstance(parent_obj, RichTextPage):
                             # Remake as index and replace
                             new_parent = IndexPage(title=parent_obj.title,
                                                    content=parent_obj.content,
                                                    slug=parent_obj.slug
                                                    )
 
-                            #new_parent.save()
+                            # new_parent.save()
                             # new_parent.show_in_menus
-                            #parent_obj.get_parent().add_child
+                            # parent_obj.get_parent().add_child
                             self.pages[info['wordpress_parentid']]['obj'] \
                                 = new_parent
                         # Attach
-                        #obj.save()
-                        #parent_obj.add_child(instance=obj)
+                        # obj.save()
+                        # parent_obj.add_child(instance=obj)
                     else:
                         print("Parent not found! {}".format(
                             info['wordpress_parentid']
                         ))
         # now that we've got the right objects, rebuild the tree
-        #home page always zero
+        # home page always zero
         self.rebuild_tree('0')
 
-
-    def rebuild_tree(self,parent_id):
+    def rebuild_tree(self, parent_id):
         parent = None
         if parent_id == '0':
             parent = self.home_page
@@ -326,11 +319,13 @@ class Command(KdlWp2Wt):
         if parent_id in self.inheritance_map:
             children = self.inheritance_map[parent_id]
             if len(children) > 0:
-                sorted_children = sorted(children.items(), key=operator.itemgetter(1))
+                sorted_children = sorted(
+                    children.items(), key=operator.itemgetter(1))
                 for sorted_child in sorted_children:
                     page_id = sorted_child[0]
                     try:
-                        child = self.pages["item_page:{}".format(page_id)]['obj']
+                        child = self.pages["item_page:{}".format(
+                            page_id)]['obj']
                     except ObjectDoesNotExist:
                         child = IndexPage(id=int(page_id))
                     if parent and child:
@@ -342,7 +337,7 @@ class Command(KdlWp2Wt):
                         child.show_in_menus = True
                         if child.slug and len(child.slug) > 0:
                             parent.add_child(instance=child)
-                            print("{} -> {}".format(parent,child))
+                            print("{} -> {}".format(parent, child))
 
                         if page_id in self.inheritance_map:
                             self.rebuild_tree(page_id)

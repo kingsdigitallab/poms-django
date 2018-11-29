@@ -6,4 +6,3 @@ from django import forms
 import datetime
 from utils.myutils import blank_or_string, preview_string
 import utils.modelextra.mymodels as mymodels
-

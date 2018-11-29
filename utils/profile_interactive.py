@@ -14,19 +14,24 @@ from base64 import b64decode, b64encode
 import cPickle
 from cStringIO import StringIO
 from decimal import Decimal
-import hotshot, hotshot.stats
-import pprint
+import hotshot
+import hotshot.stats
 import sys
 import tempfile
 
 from django.conf import settings
-from django.core.exceptions import MiddlewareNotUsed
 from django.db import connection, reset_queries
 from django.http import HttpResponse
 from django.utils import html
 
+
+def cmp(x, y):
+    return (x > y) - (x < y)
+
+
 class StdoutWrapper(object):
     """Simple wrapper to capture and overload sys.stdout"""
+
     def __init__(self):
         self.stdout = sys.stdout
         self.stream = StringIO()
@@ -53,6 +58,7 @@ def render_stats(stats, sort, format):
     stats.sort_stats(*sort)
     getattr(stats, format)()
     return output.stream
+
 
 def render_queries(queries, sort):
     """
@@ -97,6 +103,7 @@ def pickle_stats(stats):
         del stats.stream
     return cPickle.dumps(stats)
 
+
 def unpickle_stats(stats):
     """Unpickle a pstats.Stats object"""
     stats = cPickle.loads(stats)
@@ -106,6 +113,7 @@ def unpickle_stats(stats):
 
 class RadioButton(object):
     """Generate the HTML for a radio button."""
+
     def __init__(self, name, value, description=None, checked=False):
         self.name = name
         self.value = value
@@ -134,6 +142,7 @@ class RadioButton(object):
 
 class RadioButtons(object):
     """Generate the HTML for a list of radio buttons."""
+
     def __init__(self, name, checked, values):
         self.result = []
         for v in values:
@@ -191,6 +200,7 @@ sort_categories = (('time', 'internal time'),
                    ('stdname', 'standard name'),
                    ('name', 'function name'))
 
+
 def display_stats(request, stats, queries):
     """
     Generate a HttpResponse of functions for a profiling run.
@@ -211,13 +221,13 @@ def display_stats(request, stats, queries):
                                    ('print_callees', 'by callees')))
     output = render_stats(stats, sort, format)
     output.reset()
-    output = [html.escape(unicode(line)) for line in output.readlines()]
+    output = [html.escape(str(line)) for line in output.readlines()]
     response = HttpResponse(mimetype='text/html; charset=utf-8')
     response.content = (stats_template %
                         {'format_buttons': format_buttons,
                          'sort_first_buttons': sort_first_buttons,
                          'sort_second_buttons': sort_second_buttons,
-                         'rawqueries' : b64encode(cPickle.dumps(queries)),
+                         'rawqueries': b64encode(cPickle.dumps(queries)),
                          'rawstats': b64encode(pickle_stats(stats)),
                          'stats': "".join(output),
                          'url': request.path})
@@ -262,14 +272,14 @@ def display_queries(request, stats, queries):
                                  ('queries', 'query count')))
     output = render_queries(queries, sort)
     output.reset()
-    output = [html.escape(unicode(line))
+    output = [html.escape(str(line))
               for line in output.readlines()]
     response = HttpResponse(mimetype='text/html; charset=utf-8')
     response.content = (queries_template %
                         {'sort_buttons': sort_buttons,
                          'num_queries': len(queries),
                          'queries': "".join(output),
-                         'rawqueries' : b64encode(cPickle.dumps(queries)),
+                         'rawqueries': b64encode(cPickle.dumps(queries)),
                          'rawstats': b64encode(pickle_stats(stats)),
                          'url': request.path})
     return response
@@ -282,13 +292,14 @@ class ProfileMiddleware(object):
 
     WARNING: It uses hotshot profiler which is not thread safe.
     """
+
     def process_request(self, request):
         """
-	Setup the profiler for a profiling run and clear the SQL query log.
+        Setup the profiler for a profiling run and clear the SQL query log.
 
-	If this is a resort of an existing profiling run, just return
-	the resorted list.
-	"""
+        If this is a resort of an existing profiling run, just return
+        the resorted list.
+        """
         def unpickle(params):
             stats = unpickle_stats(b64decode(params.get('stats', '')))
             queries = cPickle.loads(b64decode(params.get('queries', '')))
@@ -300,16 +311,16 @@ class ProfileMiddleware(object):
                 ['multipart/form-data', 'application/x-www-form-urlencoded']):
             return
         if (request.REQUEST.get('profile', False) and
-            (settings.DEBUG == True or request.user.is_staff)):
+                (settings.DEBUG is True or request.user.is_staff)):
             request.statsfile = tempfile.NamedTemporaryFile()
             params = request.REQUEST
-            if (params.get('show_stats', False)
-                and params.get('show_queries', '1') == '1'):
+            if (params.get('show_stats', False) and
+                    params.get('show_queries', '1') == '1'):
                 # Instantly re-sort the existing stats data
                 stats, queries = unpickle(params)
                 return display_stats(request, stats, queries)
-            elif (params.get('show_queries', False)
-                  and params.get('show_stats', '1') == '1'):
+            elif (params.get('show_queries', False) and
+                  params.get('show_stats', '1') == '1'):
                 stats, queries = unpickle(params)
                 return display_queries(request, stats, queries)
             else:
@@ -333,7 +344,6 @@ class ProfileMiddleware(object):
             finally:
                 request.GET = original_get
 
-
     def process_response(self, request, response):
         """Finish profiling and render the results."""
         profiler = getattr(request, 'profiler', None)
@@ -342,8 +352,8 @@ class ProfileMiddleware(object):
             params = request.REQUEST
             stats = hotshot.stats.load(request.statsfile.name)
             queries = connection.queries
-            if (params.get('show_queries', False)
-                and params.get('show_stats', '1') == '1'):
+            if (params.get('show_queries', False) and
+                    params.get('show_stats', '1') == '1'):
                 response = display_queries(request, stats, queries)
             else:
                 response = display_stats(request, stats, queries)

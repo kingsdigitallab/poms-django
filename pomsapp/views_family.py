@@ -21,14 +21,13 @@ def familytrees(request, image_id='1'):
                 '4': 'Manxroyalfamily.jpg',
                 }
 
-
     image_name = mappings[image_id]
 
     return render(request,
                   'pomsapp/familytrees/familytrees.html',
                   {
                       'permalink': request.get_host() + request.path,
-                      'FAMTREE_IMAGE': 'images/famtree/'+image_name,
+                      'FAMTREE_IMAGE': 'images/famtree/' + image_name,
                       'image_id': image_id,
                   }
                   )

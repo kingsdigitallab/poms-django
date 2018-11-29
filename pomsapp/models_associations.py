@@ -42,8 +42,8 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
         ordering = ['orderno']
 
     def save(self, force_insert=False, force_update=False):
-        """fills out the shortdesc of Factoid Relationship depending on wheter there is an 
-        associated person with a <Primary> role specified. We had to use this save() method instead of 
+        """fills out the shortdesc of Factoid Relationship depending on wheter there is an
+        associated person with a <Primary> role specified. We had to use this save() method instead of
         the FactRelationship one because this gets saved *after* that...."""
         super(AssocFactoidPerson, self).save(force_insert, force_update)
         save_helperAssociation(self)
@@ -57,7 +57,8 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
                 if this_factoid.shortdesc == "":
                     if factoidtype[0] == "relationship":
                         # for all Assoc objects having this related factoid
-                        for assoc in AssocFactoidPerson.objects.filter(factoid=this_factoid):
+                        for assoc in AssocFactoidPerson.objects.filter(
+                                factoid=this_factoid):
                             primary_person = ""
                             relat_name = ""
                             relat_meta_name = ""
@@ -74,7 +75,8 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
                                 this_factoid.save()
                     if factoidtype[0] == "title/occupation":
                         # for all Assoc objects having this related factoid
-                        for assoc in AssocFactoidPerson.objects.filter(factoid=this_factoid):
+                        for assoc in AssocFactoidPerson.objects.filter(
+                                factoid=this_factoid):
                             primary_person = ""
                             title_name = ""
                             particle = ""
@@ -108,7 +110,7 @@ class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
     factoid = models.ForeignKey('Factoid')
     person = models.ForeignKey('Person')
     role = models.ForeignKey(
-        'Role', null=True, blank=True, verbose_name="role",  default=4)
+        'Role', null=True, blank=True, verbose_name="role", default=4)
     nameoriglang = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="nameoriglang", )
     nametranslation = models.CharField(
@@ -195,7 +197,8 @@ class AssocFactoidProanima(mymodels.TimeStampedHiddenModel):
 ##################
 
 
-# method used to create a mirror copy (normalized) of all associations together..
+# method used to create a mirror copy (normalized) of all associations
+# together..
 def save_helperAssociation(assoc):
     try:
         existing_obj = AssocHelperPerson.objects.filter(
@@ -228,7 +231,7 @@ def save_helperAssociation(assoc):
         obj.save()
         print("Saved AssocHelperPerson [%d] Original ID: [%d]" % (
             obj.id, assoc.id))
-    except:
+    except BaseException:
         print("Error: could not save AssocHelperPerson")
 
 
@@ -275,7 +278,7 @@ class AssocHelperPerson(mymodels.TimeStampedHiddenModel):
 class AssocFactoidPoss_alms(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
     factoid = models.ForeignKey('Factoid')
-    poss_alms = models.ForeignKey('Poss_Alms',	verbose_name="alms",)
+    poss_alms = models.ForeignKey('Poss_Alms', verbose_name="alms",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(

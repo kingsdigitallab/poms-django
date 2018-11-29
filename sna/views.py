@@ -38,13 +38,13 @@ def sna_person(request, id):
     context = {}
     context['person_id'] = id
     context['type'] = 'family'
-    return render(request,'sna_person.html', context)
+    return render(request, 'sna_person.html', context)
 
 
 def sna_person_base(request):
     context = {}
     context['type'] = 'family'
-    return render(request,'sna.html', context)
+    return render(request, 'sna.html', context)
 
 
 def sna_grantor(request, id):
@@ -53,10 +53,10 @@ def sna_grantor(request, id):
     context = {}
     context['person_id'] = id
     context['type'] = 'grantor'
-    return render(request,'sna_grantor_person.html', context)
+    return render(request, 'sna_grantor_person.html', context)
 
 
 def sna_grantor_base(request):
     context = {}
     context['type'] = 'grantor'
-    return render(request,'sna_grantor.html', context)
+    return render(request, 'sna_grantor.html', context)

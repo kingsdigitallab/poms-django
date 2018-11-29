@@ -11,7 +11,6 @@ from utils.myutils import blank_or_string, preview_string
 from django.conf import settings
 
 
-
 from pomsapp.models_authlists import GrantorCategory, Proanimagenerictypes, DocTickboxes, TransTickboxes
 
 
@@ -26,14 +25,15 @@ else:
 
 
 def create_helperDateRange(obj):
-    """ 
+    """
     hard-code a date range string representation to certain objects (for the faceted search)
     """
 
     def assignRangeFromSelection(int1, int2):
-        RANGES = [(1093, 1124),	(1124, 1153), (1153, 1165),  (1165, 1214),
-                  (1214, 1249), (1249, 1286), (1286, 1296),	(1296, 1314), ]
-        # in reality, we're only checking the first date, otherwise we'll have to assing multiple ranges to the same item
+        RANGES = [(1093, 1124), (1124, 1153), (1153, 1165), (1165, 1214),
+                  (1214, 1249), (1249, 1286), (1286, 1296), (1296, 1314), ]
+        # in reality, we're only checking the first date, otherwise we'll have
+        # to assing multiple ranges to the same item
         if int1:
             if int1 == 1314:  # cause the last one is left out by range()
                 return "1296-1314"
@@ -53,7 +53,7 @@ def create_helperDateRange(obj):
             if test:
                 obj.helper_daterange = test
                 print("helperDateRange	 = [%s]" % smart_unicode(test))
-        except:
+        except BaseException:
             print(
                 "************\nProblem with person id[%d]\n************" % (obj.id))
             pass
@@ -69,7 +69,7 @@ def create_helperDateRange(obj):
             if test:
                 obj.helper_daterange = test
                 print("helperDateRange	 = [%s]" % smart_unicode(test))
-        except:
+        except BaseException:
             print(
                 "************\nProblem with source id[%d]\n************" % (obj.id))
             pass
@@ -84,7 +84,7 @@ def create_helperDateRange(obj):
             if test:
                 obj.helper_daterange = test
                 print("helperDateRange	 = [%s]" % smart_unicode(test))
-        except:
+        except BaseException:
             print(
                 "************\nProblem with factoid id[%d]\n************" % (obj.id))
             pass
@@ -98,11 +98,11 @@ def create_helperDateRange(obj):
 
 
 def all_dates_blank(obj):
-    """helper method for checking whether all dates have been left empty in the 
-            pre-saved factoid instance. We put the method here so that it can be called by all the 
+    """helper method for checking whether all dates have been left empty in the
+            pre-saved factoid instance. We put the method here so that it can be called by all the
             subclasses of factoid """
 
-    datefields = {	 'has_firmdate': False,	 'has_firmdayonly': False, 'undated': False, 'eitheror': False,
+    datefields = {	 'has_firmdate': False, 'has_firmdayonly': False, 'undated': False, 'eitheror': False,
                     'from_modifier': "", 'from_weekday': None, 'from_day': None,
                     'from_modifier2': "", 'from_month': None, 'from_season': None, 'from_year': None,
                     'to_modifier': "", 'to_weekday': None, 'to_day': None,
@@ -128,7 +128,7 @@ def copy_dates_over(obj_from, obj_to):
         for x in datefields.items():
             setattr(obj_to, x[0], getattr(obj_from, x[0]))
         return True
-    except:
+    except BaseException:
         return "error with copying over the object dates"
 
 
@@ -204,14 +204,14 @@ def create_firmdate(obj):
 def fix_spiritualBenefits(transaction_instance):
     """
     Adds a 'generic' spriritual benefit so that in searches we can simulate a top-level
-    hiearchy kind of value. 
+    hiearchy kind of value.
     """
     if EXTRA_SAVING_ACTIONS:
         generic_benefit = Proanimagenerictypes.objects.get(id=75)
         try:
             if transaction_instance.spiritualbenefits.all():
                 transaction_instance.spiritualbenefits.add(generic_benefit)
-        except:
+        except BaseException:
             print("Error with <fix_spiritualBenefits>!!")
     return transaction_instance
 
@@ -225,7 +225,7 @@ def fix_inferredType(factoid_instance):
             if factoid_instance.get_right_subclass()[0]:
                 factoid_instance.inferred_type = factoid_instance.get_right_subclass()[
                     0]
-        except:
+        except BaseException:
             print("Error!!!!")
     return factoid_instance
 
@@ -250,7 +250,8 @@ def updateFloruitsFromTransaction(trans):
     """
     # if trans.helper_floruits:
     if False:  # 2012-08-20: disabled because of an 'operational error' cropping up - needs to be debugged properly
-                # might have to do with several users working on same model instance with multiple related rows..
+                # might have to do with several users working on same model
+                # instance with multiple related rows..
         print("++ transaction requested to SAVE FLORUITS")
         person_candidates = []
         # 2012-06-22: updated
@@ -276,8 +277,8 @@ def updateFloruitsFromTransaction(trans):
 
 
 def build_floruits(person_instance):
-    """Helper method for constructing the floruits. 
-    Rule: In transactions, each dates-pair is expressed in the form A x B. 
+    """Helper method for constructing the floruits.
+    Rule: In transactions, each dates-pair is expressed in the form A x B.
               Select the highest A and the lowest B.
               Then, if the highest-A is bigger that the lowest-B, invert them.
     """
@@ -299,10 +300,10 @@ def build_floruits(person_instance):
                 transaction = x.factoid.get_right_subclass()[1]
                 if transaction.isprimary == True and transaction.eitheror == False and transaction.undated == False:
                     print("FLORUITS: witness in transaction %s" %
-                               transaction)
+                          transaction)
                     candidates_from.append(transaction.from_year)
                     if transaction.from_year:
-                            candidates_to.append(transaction.from_year)
+                        candidates_to.append(transaction.from_year)
                     else:
                         candidates_to.append(transaction.to_year)
     # now all the other AssocFactoid
@@ -314,7 +315,7 @@ def build_floruits(person_instance):
                         transaction = x.factoid.get_right_subclass()[1]
                         if transaction.isprimary == True and transaction.eitheror == False and transaction.undated == False:
                             print("FLORUITS: %s in transaction %s" %
-                                       (x.role.name, transaction))
+                                  (x.role.name, transaction))
                             candidates_from.append(transaction.from_year)
                             if transaction.has_firmdate:
                                 candidates_to.append(transaction.from_year)
@@ -337,9 +338,9 @@ def build_floruits(person_instance):
         if not candidates_to:
             candidates_to.append(0)
         print("====fromCandidates: = %s =	... highest is *%d*" %
-                   (candidates_from, max(candidates_from)))
+              (candidates_from, max(candidates_from)))
         print("====toCandidates: = %s = ... lowest is *%d*" %
-                   (candidates_to, min(candidates_to)))
+              (candidates_to, min(candidates_to)))
 
         if max(candidates_from) > min(candidates_to):
             print("FLORUITS: swapping values!")
@@ -394,7 +395,8 @@ def create_helper_surnames(obj):
 
     def trimsurname(surname):
         x = surname.strip()
-        for particle in ['of ', 'de ', 'le ', 'Le ', 'del ', 'de ', '? de ', 'd\'']:
+        for particle in ['of ', 'de ', 'le ',
+                         'Le ', 'del ', 'de ', '? de ', 'd\'']:
             if x.find(particle) == 0:
                 x = x.strip(particle)
                 break
@@ -595,20 +597,20 @@ def createPersonSurface_name(obj):
 
     # procedure for creating the medieval gaelic name
     field1 = getattr(obj, 'standardmedievalname', None)
-    if field1 == None or field1.strip() == "" or field1.strip() == u"":
+    if field1 is None or field1.strip() == "" or field1.strip() == u"":
         print("*********Creating  standardmedievalname")
         composed_name = ""
         medievalfore = getattr(obj, 'medievalgaelicforename', "")
         medievalsur = getattr(obj, 'medievalgaelicsurname', "")
         if medievalfore:
-            composed_name = "%s %s" % (medievalfore.name,  medievalsur)
+            composed_name = "%s %s" % (medievalfore.name, medievalsur)
         else:
-            composed_name = "%s %s" % ("",	medievalsur)
+            composed_name = "%s %s" % ("", medievalsur)
         obj.standardmedievalname = composed_name.strip()
 
     # procedure for creating the modern gaelic name
     field2 = getattr(obj, 'moderngaelicname', None)
-    if field2 == None or field2.strip() == "" or field2.strip() == u"":
+    if field2 is None or field2.strip() == "" or field2.strip() == u"":
         print("*********Creating moderngaelicname")
         composed_name = ""
         modernfore = getattr(obj, 'moderngaelicforename', "")
@@ -623,7 +625,7 @@ def createPersonSurface_name(obj):
 
 
 def assign_grantorCategory(sourceInstance):
-    """	 
+    """
     The method doesn't save the Source object, it just updates it and return it
     """
     for constraint in GRANTOR_CATEGORIES:
@@ -639,18 +641,21 @@ def assign_grantorCategory(sourceInstance):
             else:  # eg: "hammondnumb2__gte".split("__")
                 if attrs[1] == 'gte':
                     if getattr(sourceInstance, attrs[0], None):
-                        if not (getattr(sourceInstance, attrs[0], None) >= value):
+                        if not (getattr(sourceInstance,
+                                        attrs[0], None) >= value):
                             flag = 1
                             break
                 if attrs[1] == 'lte':
                     if getattr(sourceInstance, attrs[0], None):
-                        if not (getattr(sourceInstance, attrs[0], None) <= value):
+                        if not (getattr(sourceInstance,
+                                        attrs[0], None) <= value):
                             flag = 1
                             break
         if flag == 0:
             print("Assign_Grantorcategory:	 source[%d]	 h1[%s] h2[%s] h3[%s] ===>	%s" % (sourceInstance.id,
-                                                                                              str(sourceInstance.hammondnumber), str(sourceInstance.hammondnumb2), str(sourceInstance.hammondnumb3), constraint))
-            # we have a match: save the item and stop iterating through the GRANTOR_CATEGORIES
+                                                                                         str(sourceInstance.hammondnumber), str(sourceInstance.hammondnumb2), str(sourceInstance.hammondnumb3), constraint))
+            # we have a match: save the item and stop iterating through the
+            # GRANTOR_CATEGORIES
             cat = GrantorCategory.objects.filter(name=constraint)
             if cat:
                 category = cat[0]
@@ -661,15 +666,16 @@ def assign_grantorCategory(sourceInstance):
             break
     if flag == 1:
         print("Assign_Grantorcategory: source[%d] h1[%s] h2[%s] h3[%s] ===> FAILED (no adequate mapping found)" % (sourceInstance.id,
-                                                                                                                        str(sourceInstance.hammondnumber), str(sourceInstance.hammondnumb2), str(sourceInstance.hammondnumb3)))
+                                                                                                                   str(sourceInstance.hammondnumber), str(sourceInstance.hammondnumb2), str(sourceInstance.hammondnumb3)))
     return sourceInstance
 
 
-# 2011-04-20: transferred various methods from the 'fixtures' file (manually launched) to the editing workflow
+# 2011-04-20: transferred various methods from the 'fixtures' file
+# (manually launched) to the editing workflow
 
 
 def create_helperKeywordsearch(obj):
-    """ 
+    """
     Creates the text field used as an index for searches..
 
     At the moment we do this just for Factoids, Charters and People
@@ -684,10 +690,10 @@ def create_helperKeywordsearch(obj):
     'Factoid'
     >>> ft1 = FactTitle.objects.all()[50]
     >>> ft1.__class__.__name__
-    'FactTitle' 
+    'FactTitle'
 
 
-    People: Searching on fields: full modern name, standard medieval name, modern gaelic name, ID number. 
+    People: Searching on fields: full modern name, standard medieval name, modern gaelic name, ID number.
     Document: Searching on fields: H-number, trad.ID, description, ID number.
     Factoid: Searching on fields: short description, source for data entry, ID number.
 
@@ -706,7 +712,7 @@ def create_helperKeywordsearch(obj):
             obj.helper_keywordsearch = string
             print("Saved!")
             print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
-        except:
+        except BaseException:
             print(
                 "************\nProblem with person id[%d]\n************" % (obj.id))
             pass
@@ -726,7 +732,7 @@ def create_helperKeywordsearch(obj):
             obj.helper_keywordsearch = string
             print("Saved!")
             print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
-        except:
+        except BaseException:
             print(
                 "************\nProblem with source id[%d]\n************" % (obj.id))
             pass
@@ -745,7 +751,7 @@ def create_helperKeywordsearch(obj):
             obj.helper_keywordsearch = string
             print("Saved!")
             print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
-        except:
+        except BaseException:
             print(
                 "************\nProblem with factoid id[%d]\n************" % (obj.id))
             pass
@@ -759,13 +765,13 @@ def create_helperKeywordsearch(obj):
             string += obj.name + " "
             try:
                 string += obj.parent.name + " "
-            except:
+            except BaseException:
                 pass
             string += str(obj.id) + " "
             obj.helper_keywordsearch = string
             print("Saved!")
             print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
-        except:
+        except BaseException:
             print(
                 "************\nProblem with place id[%d]\n************" % (obj.id))
             pass

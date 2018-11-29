@@ -55,7 +55,7 @@ class PomsIndex(indexes.SearchIndex):
     moderngaelicname = indexes.CharField(null=True, default='')
 
     # Factoid
-    description = indexes.CharField(faceted=True,null=True, default='')
+    description = indexes.CharField(faceted=True, null=True, default='')
     inferred_type = indexes.CharField(faceted=True, null=True, default='')
     source = indexes.CharField(null=True, default='')
 
@@ -346,7 +346,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         if obj.standardmedievalname:
             self.standardmedievalname = obj.standardmedievalname
         if obj.moderngaelicname:
-           self.moderngaelicname = obj.moderngaelicname
+            self.moderngaelicname = obj.moderngaelicname
 
         self.prepared_data[
             'medievalgaelicsurname'
@@ -888,8 +888,8 @@ class SourceIndex(PomsIndex, indexes.Indexable):
                 if c.duporigcontemp is True:
                     sourcesfeatures.append('Duplicate Original (contemporary)')
                 if c.duporignoncontemp is True:
-                    sourcesfeatures.append('Duplicate Original (non-contemporary)')
-
+                    sourcesfeatures.append(
+                        'Duplicate Original (non-contemporary)')
 
             self.prepared_data['documenttype'] = [d for d in set(documenttype)]
             self.prepared_data['documentcategory'] = [d for d in

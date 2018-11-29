@@ -68,8 +68,10 @@ class Privileges(mymodels.PomsModel):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_privileges_change', args=(self.id,))
-        # return "/%sadmin/pomsapp/person/%s" % (django_settings.URL_PREFIX, self.id)
+        return urlresolvers.reverse(
+            'admin:pomsapp_privileges_change', args=(self.id,))
+        # return "/%sadmin/pomsapp/person/%s" % (django_settings.URL_PREFIX,
+        # self.id)
     get_admin_url.allow_tags = True
 
     def __unicode__(self):
@@ -105,7 +107,8 @@ class PossessionNew(mymodels.PomsModel):
     class Meta:
         verbose_name_plural = "Possessions"
 
-    # these TWO methods wouldn't work on this class - I just put it here so that it's inherited
+    # these TWO methods wouldn't work on this class - I just put it here so
+    # that it's inherited
     def __nameandparent__(self):
         exit = ""
         if self.parent:
@@ -117,7 +120,8 @@ class PossessionNew(mymodels.PomsModel):
                 exit = "%s>>%s" % (blank_or_string(p.name), exit)
         exit += blank_or_string(self.name)
         return exit
-    # 10 NOV: testing the dynamic properties behaviour => doesn't work with autocomplete!! damn
+    # 10 NOV: testing the dynamic properties behaviour => doesn't work with
+    # autocomplete!! damn
     name_and_parent = property(__nameandparent__)
 
     def show_ancestors_tree(self):
@@ -128,34 +132,35 @@ class PossessionNew(mymodels.PomsModel):
         return exit
 
     def get_right_subclass(self):
-        # once you get a possessionNew instance, it's useful to know quickly what subclass it is...
+        # once you get a possessionNew instance, it's useful to know quickly
+        # what subclass it is...
         try:
             sbcls = ["Poss_Alms", self.poss_alms]
-        except:
+        except BaseException:
             try:
                 sbcls = ["Poss_Lands", self.poss_lands]
-            except:
+            except BaseException:
                 try:
                     sbcls = ["Poss_Objects", self.poss_objects]
-                except:
+                except BaseException:
                     try:
                         sbcls = ["Poss_Revenues_silver",
                                  self.poss_revenues_silver]
-                    except:
+                    except BaseException:
                         try:
                             sbcls = ["Poss_Revenues_kind",
                                      self.poss_revenues_kind]
-                        except:
+                        except BaseException:
                             try:
                                 sbcls = ["Poss_General", self.poss_general]
-                            except:
+                            except BaseException:
                                 try:
                                     sbcls = ["Poss_Office", self.poss_office]
-                                except:
+                                except BaseException:
                                     try:
                                         sbcls = ["Poss_Unfree_persons",
                                                  self.poss_unfree_persons]
-                                    except:
+                                    except BaseException:
                                         sbcls = None
         return sbcls
     get_right_subclass.allow_tags = True
@@ -187,14 +192,15 @@ class Poss_Alms(PossessionNew):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_poss_alms_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_poss_alms_change', args=(self.id,))
     get_admin_url.allow_tags = True
-    
+
     def __unicode__(self):
         return self.__nameandparent__()
 
     def __str__(self):
-            return self.__unicode__()
+        return self.__unicode__()
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 4
@@ -220,14 +226,15 @@ class Poss_Lands(PossessionNew):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_poss_lands_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_poss_lands_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
     def __unicode__(self):
         return self.__nameandparent__()
 
     def __str__(self):
-            return self.__unicode__()
+        return self.__unicode__()
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 5
@@ -253,12 +260,14 @@ class Poss_Objects(PossessionNew):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_poss_objects_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_poss_objects_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
     def __unicode__(self):
         return self.__nameandparent__()
         # return self.show_ancestors_tree()
+
     def __str__(self):
         return self.__unicode__()
     table_group = 'Possessions & Privileges [in progress]'
@@ -268,7 +277,7 @@ class Poss_Objects(PossessionNew):
 class Poss_Revenues_silver(PossessionNew):
     """(Revenues in silver description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True,	related_name='children')
+        'self', null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -285,14 +294,15 @@ class Poss_Revenues_silver(PossessionNew):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_poss_revenues_silver_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_poss_revenues_silver_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
     def __unicode__(self):
         return self.__nameandparent__()
 
     def __str__(self):
-            return self.__unicode__()
+        return self.__unicode__()
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 7
@@ -301,7 +311,7 @@ class Poss_Revenues_silver(PossessionNew):
 class Poss_Revenues_kind(PossessionNew):
     """(Lands description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True,	related_name='children')
+        'self', null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -318,14 +328,15 @@ class Poss_Revenues_kind(PossessionNew):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_poss_revenues_kind_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_poss_revenues_kind_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
     def __unicode__(self):
         return self.__nameandparent__()
 
     def __str__(self):
-            return self.__unicode__()
+        return self.__unicode__()
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 8
@@ -351,7 +362,8 @@ class Poss_General(PossessionNew):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_poss_general_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_poss_general_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
     def __unicode__(self):
@@ -359,6 +371,7 @@ class Poss_General(PossessionNew):
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 9
+
     def __str__(self):
         return self.__unicode__()
 
@@ -383,7 +396,8 @@ class Poss_Office(PossessionNew):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_poss_office_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_poss_office_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
     def __unicode__(self):
@@ -391,6 +405,7 @@ class Poss_Office(PossessionNew):
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 10
+
     def __str__(self):
         return self.__unicode__()
 
@@ -398,7 +413,7 @@ class Poss_Office(PossessionNew):
 class Poss_Unfree_persons(PossessionNew):
     """(Lands description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True,	related_name='children')
+        'self', null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -415,7 +430,8 @@ class Poss_Unfree_persons(PossessionNew):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_poss_unfree_persons_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_poss_unfree_persons_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
     def __unicode__(self):
@@ -423,6 +439,7 @@ class Poss_Unfree_persons(PossessionNew):
         # return self.show_ancestors_tree()
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 11
+
     def __str__(self):
         return self.__unicode__()
 

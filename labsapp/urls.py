@@ -52,7 +52,8 @@ urlpatterns = [
     url(r'^popularitycloud/go$',
         popularitycloud.pop_cloud,
         name='labsapp.popularitycloud.pop_cloud'),
-    # ajax: used here and also in Lives and Longevity Chart - so careful when modifying
+    # ajax: used here and also in Lives and Longevity Chart - so careful when
+    # modifying
     url(r'^popularitycloud/ajax/personinfo',
         popularitycloud.personinfo,
         name='labsapp.popularitycloud.personinfo'),

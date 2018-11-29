@@ -1,9 +1,10 @@
+from django.contrib.admin.models import LogEntry
 import re
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render
 from django.utils.translation import ugettext as _
 from django.utils.text import capfirst
-from pomsapp.models import *
+from pomsapp.models import *  # noqa
 
 
 # #####
@@ -29,7 +30,7 @@ def app_index(request, app_label, extra_context=None):
     user = request.user
     has_module_perms = user.has_module_perms(app_label)
     app_list = {}
-    app_dict = {}
+
     for model, model_admin in admin.site._registry.items():
         if app_label == model._meta.app_label:
             if has_module_perms:
@@ -79,7 +80,7 @@ def app_index(request, app_label, extra_context=None):
                             app_list[app_index]['name'] += ' - ' + app_index
                 # app_list.append(app_dict)
     # if not app_dict:
-    #	 raise http.Http404('The requested admin page does not exist.')
+    # raise http.Http404('The requested admin page does not exist.')
     # Sort the models alphabetically within each app.
     app_list_final = []
     for group_name, app in app_list.items():
@@ -100,9 +101,6 @@ def app_index(request, app_label, extra_context=None):
     )
 
 
-from django.contrib.admin.models import LogEntry
-
-
 # #####
 #  VIEW of the recent contributors
 # #####
@@ -116,14 +114,14 @@ def contributions(request, ):
     # sometime the action_time method doesn't return a date, so let's make
     # sure...
     temp = list(set([x.action_time.date() for x in logs if
-                     type(x.action_time) == type(
-                         datetime.datetime(2010, 10, 28, 15, 40, 57))]))
+                     isinstance(x.action_time, type(
+                         datetime.datetime(2010, 10, 28, 15, 40, 57)))]))
 
     for d in sorted(temp, reverse=True):
         my_data.append((d, LogEntry.objects.filter(action_time__year=d.year,
                                                    action_time__month=d.month,
-                                                   action_time__day=d.day).order_by(
-            'user', 'action_time')))
+                                                   action_time__day=d.day)
+                        .order_by('user', 'action_time')))
 
     # print((my_data)
 
@@ -168,43 +166,11 @@ def orphan_places(request, ):
 
     )
 
-
-# from admin source / options.py
-
-# def history_view(self, request, object_id, extra_context=None):
-#	   "The 'history' admin view for this model."
-#	   from django.contrib.admin.models import LogEntry
-#	   model = self.model
-#	   opts = model._meta
-#	   app_label = opts.app_label
-#	   action_list = LogEntry.objects.filter(
-#		   object_id = object_id,
-#		   content_type__id__exact = ContentType.objects.get_for_model(
-# model).id
-#	   ).select_related().order_by('action_time')
-#	   # If no history was found, see whether this object even exists.
-#	   obj = get_object_or_404(model, pk=object_id)
-#	   context = {
-#		   'title': _('Change history: %s') % force_unicode(obj),
-#		   'action_list': action_list,
-#		   'module_name': capfirst(force_unicode(opts.verbose_name_plural)),
-#		   'object': obj,
-#		   'root_path': self.admin_site.root_path,
-#		   'app_label': app_label,
-#	   }
-#	   context.update(extra_context or {})
-#	   return render(self.object_history_template or [
-#		   "admin/%s/%s/object_history.html" % (opts.app_label,
-# opts.object_name.lower()),
-#		   "admin/%s/object_history.html" % opts.app_label,
-#		   "admin/object_history.html"
-#	   ], context, context_instance=template.RequestContext(request))
-
-
 # #####
 #  VIEW of orphan possessions
 # /db/admin/orphan_possessions/
 # #####
+
 
 @staff_member_required
 def orphan_possessions(request):
@@ -272,7 +238,7 @@ def previous_landholder(request, ):
 
 
 # #####
-#  VIEW of factoids that are not 
+#  VIEW of factoids that are not
 # #####
 
 @staff_member_required

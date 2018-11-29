@@ -55,20 +55,34 @@ class AuthListStandardAdmin(admin.ModelAdmin):
         obj.updated_by = request.user
         obj.save()
 
-    list_display = ('id', 'name', 'description', 'editedrecord', 'review', 'updated_by', 'updated_at',)
+    list_display = (
+        'id',
+        'name',
+        'description',
+        'editedrecord',
+        'review',
+        'updated_by',
+        'updated_at',
+    )
     search_fields = ('name', 'id')
-    list_filter = ('created_at', 'updated_at', 'created_by__username', 'editedrecord', 'review',)
+    list_filter = (
+        'created_at',
+        'updated_at',
+        'created_by__username',
+        'editedrecord',
+        'review',
+    )
     fieldsets = [
         ('Administration',
          {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+          ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+           ('updated_at', 'updated_by')
+           ],
           'classes': ['collapse']
           }),
         ('Description',
          {'fields':
-              ['name', 'description']
+          ['name', 'description']
           }),
 
     ]
@@ -91,17 +105,31 @@ class GenericPossessionsAdmin(AutocompleteTreeEditor):
                        u'<a href="add/?parent=%s" title="%s"><img src="%simg/admin/icon_addlink.gif" alt="%s"></a>' % (
                            page.pk, _('Add child page'), settings.MEDIA_URL, _('Add child page')))
         #	 actions.insert(0, u'<a href="add/?parent=%s" title="%s"><img src="%simg/admin/icon_addlink.gif"
-		# alt="%s"></a>' % (
+        # alt="%s"></a>' % (
         #		 page.pk, _('Add child page'), django_settings.ADMIN_MEDIA_PREFIX ,_('Add child page')))
         #	 actions.insert(0, u'<a href="%s" title="%s"><img src="%simg/admin/selector-search.gif" alt="%s" /></a>'
-		# % (
-        #		 page.get_absolute_url(), _('View on site'), django_settings.ADMIN_MEDIA_PREFIX, _('View on site')))
+        # % (
+        # page.get_absolute_url(), _('View on site'),
+        # django_settings.ADMIN_MEDIA_PREFIX, _('View on site')))
         return actions
 
-    list_display = ('name', 'id', 'parent', 'editedrecord', 'review', 'updated_by', 'updated_at',)
+    list_display = (
+        'name',
+        'id',
+        'parent',
+        'editedrecord',
+        'review',
+        'updated_by',
+        'updated_at',
+    )
     # filter_horizontal = ('location',)
     # radio_fields = {"ltbrole": admin.VERTICAL}
-    list_filter = ['updated_at', 'created_by__username', 'editedrecord', 'review', 'util_topancestor']  # 'parent'
+    list_filter = [
+        'updated_at',
+        'created_by__username',
+        'editedrecord',
+        'review',
+        'util_topancestor']  # 'parent'
     search_fields = ['id', 'name']
     related_search_fields = {'parent': ('name',),
                              'place': ('name',)
@@ -109,18 +137,18 @@ class GenericPossessionsAdmin(AutocompleteTreeEditor):
     fieldsets = [
         ('Administration',
          {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+          ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+           ('updated_at', 'updated_by')
+           ],
           'classes': ['collapse']
           }),
         ('Description',
          {'fields':
-              ['name', 'nameextension', 'parent', 'notes']
+          ['name', 'nameextension', 'parent', 'notes']
           }),
         ('Place',
          {'fields':
-              ['place', ]
+          ['place', ]
           }),
 
     ]
@@ -141,24 +169,37 @@ class AuthListAudiofileAdmin(admin.ModelAdmin):
         obj.updated_by = request.user
         obj.save()
 
-    list_display = ('id', 'name', 'description', 'editedrecord', 'review', 'updated_by', 'updated_at',)
+    list_display = (
+        'id',
+        'name',
+        'description',
+        'editedrecord',
+        'review',
+        'updated_by',
+        'updated_at',
+    )
     search_fields = ('name', 'id')
-    list_filter = ('updated_at', 'created_by__username', 'editedrecord', 'review',)
+    list_filter = (
+        'updated_at',
+        'created_by__username',
+        'editedrecord',
+        'review',
+    )
     fieldsets = [
         ('Administration',
          {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+          ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+           ('updated_at', 'updated_by')
+           ],
           'classes': ['collapse']
           }),
         ('Description',
          {'fields':
-              ['name', 'description']
+          ['name', 'description']
           }),
         ('Extra',
          {'fields':
-              ['audiofile', ]
+          ['audiofile', ]
           }),
 
     ]
@@ -167,19 +208,18 @@ class AuthListAudiofileAdmin(admin.ModelAdmin):
 # ============================================================================
 
 
-
-
-
 # ++++++++++++++++++++++++++++++
 # authority lists admin definition
-
 auth_lists = [MatrixShape, SealColor, AttachmentType, Role, Gender, Chartertype, Relationshipmetatype, Occupationtype,
               Exemptiontype, Nominalrendertype, Proanimagenerictypes, Renderdate, Sicutclausetype,
               Tenendasclauseoptions,
               Transactiontype, LegalPertinents, Returns_military, Returns_renders, CommonBurdens, Language,
               Referencetype]
 
-func = lambda x: admin.site.register(x, AuthListStandardAdmin)
+
+def func(x): return admin.site.register(x, AuthListStandardAdmin)
+
+
 map(func, auth_lists)
 
 # ad hoc auth admins
@@ -207,10 +247,6 @@ admin.site.register(Place, Place.Admin)
 
 # ++++++++++++++++++++++++++++++
 # admin definition for AUTH lists with AUDIO files
-
-
-
-
 
 
 # ++++++++++++++++++++++++++++++

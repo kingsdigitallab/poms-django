@@ -1,3 +1,4 @@
+from django.contrib.admin.models import LogEntry
 import re
 from django import template
 from django.contrib import admin
@@ -6,7 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
-from ltb.ltbapp.models import *
+from ltb.ltbapp.models import *  # noqa
 
 
 # #####
@@ -32,17 +33,16 @@ def app_index(request, app_label, extra_context=None):
     user = request.user
     has_module_perms = user.has_module_perms(app_label)
     app_list = {}
-    app_dict = {}
     for model, model_admin in admin.site._registry.items():
         if app_label == model._meta.app_label:
             if has_module_perms:
                 perms = {
                     'add': user.has_perm("%s.%s" % (
-                    app_label, model._meta.get_add_permission())),
+                        app_label, model._meta.get_add_permission())),
                     'change': user.has_perm("%s.%s" % (
-                    app_label, model._meta.get_change_permission())),
+                        app_label, model._meta.get_change_permission())),
                     'delete': user.has_perm("%s.%s" % (
-                    app_label, model._meta.get_delete_permission())),
+                        app_label, model._meta.get_delete_permission())),
                 }
                 # GN - use the table group as an index for the app
                 try:
@@ -50,7 +50,7 @@ def app_index(request, app_label, extra_context=None):
                 except AttributeError:
                     app_index = ''
                 # NEW michele: I added an extra property for ORDERING
-				# manually the model list
+                    # manually the model list
                 try:
                     app_order = model.table_order
                 except AttributeError:
@@ -82,13 +82,13 @@ def app_index(request, app_label, extra_context=None):
                             app_list[app_index]['name'] += ' - ' + app_index
                 # app_list.append(app_dict)
     # if not app_dict:
-    #	 raise http.Http404('The requested admin page does not exist.')
+    # raise http.Http404('The requested admin page does not exist.')
     # Sort the models alphabetically within each app.
     app_list_final = []
     for group_name, app in app_list.items():
         app['models'].sort(lambda x, y: cmp(x['name'], y['name']))
         # the list is sorted twice, so if there's no explicit order it falls
-		#  back to the alphab. one
+        #  back to the alphab. one
         app['models'].sort(lambda x, y: cmp(x['order'], y['order']))
         app_list_final.append(app)
     context = {
@@ -101,10 +101,7 @@ def app_index(request, app_label, extra_context=None):
     return render_to_response(
         admin.site.app_index_template or 'admin/app_index.html', context,
         context_instance=template.RequestContext(request)
-        )
-
-
-from django.contrib.admin.models import LogEntry
+    )
 
 
 # #####
@@ -163,7 +160,8 @@ def orphan_places(request, ):
 #      }
 #      context.update(extra_context or {})
 #      return render_to_response(self.object_history_template or [
-#          "admin/%s/%s/object_history.html" % (opts.app_label, opts.object_name.lower()),
+#          "admin/%s/%s/object_history.html" %
+#       (opts.app_label, opts.object_name.lower()),
 #          "admin/%s/object_history.html" % opts.app_label,
 #          "admin/object_history.html"
 #      ], context, context_instance=template.RequestContext(request))

@@ -1,3 +1,5 @@
+from django.db.models.fields.related import ManyToOneRel
+from django.contrib.admin import widgets
 from django.utils.translation import ugettext_lazy as _
 from django.conf.urls import *  # for the ajax autocomplete
 from django.contrib.gis.db.models import *
@@ -18,7 +20,6 @@ from pomsapp.models_authlists import *
 # POSSESSIONS and PRIVILEGES
 #
 from pomsapp.models_possessions import *
-
 
 
 #  TEMP
@@ -176,19 +177,19 @@ class Person(mymodels.PomsModel):
             try:
                 s = x.factoid.sourcekey
                 l.append(s)
-            except:
+            except BaseException:
                 pass
         for x in self.getassocfactoidproanimas():
             try:
                 s = x.factoid.sourcekey
                 l.append(s)
-            except:
+            except BaseException:
                 pass
         for x in self.assocfactoidwitness():
             try:
                 s = x.factoid.sourcekey
                 l.append(s)
-            except:
+            except BaseException:
                 pass
         return len(list(set(l)))
 
@@ -222,7 +223,8 @@ class Person(mymodels.PomsModel):
             if not ordering:
                 return self.getassocfactoids().filter(factoid__inferred_type=whattype)
             else:
-                return self.getassocfactoids().filter(factoid__inferred_type=whattype).order_by(*ordering)
+                return self.getassocfactoids().filter(
+                    factoid__inferred_type=whattype).order_by(*ordering)
 
         elif whattype == "proanima":
             if not ordering:
@@ -238,7 +240,7 @@ class Person(mymodels.PomsModel):
         else:
             print("Valid factoid types are: 'possession', 'relationship',"
                   "'title/occupation', 'transaction', 'proanima', 'witness'"
-                 )
+                  )
             return []
 
     get_association_factoids.allow_tags = True
@@ -250,7 +252,8 @@ class Person(mymodels.PomsModel):
         Returs the right subclass of Factoids, depending on what requested.
         """
         if not whattype:
-            return list(self.factoids.all()) + list(self.factoidsproanima.all()) + list(self.factoidswitness.all())
+            return list(self.factoids.all(
+            )) + list(self.factoidsproanima.all()) + list(self.factoidswitness.all())
         elif whattype in ['possession', 'relationship', 'title/occupation', 'transaction']:
             if not ordering:
                 factoid_set = self.factoids.filter(inferred_type=whattype)
@@ -258,21 +261,24 @@ class Person(mymodels.PomsModel):
                 factoid_set = self.factoids.filter(
                     inferred_type=whattype).order_by(*ordering)
             # returns the right factoid type
-            return [f.get_right_subclass()[1] for f in factoid_set if f.get_right_subclass]
+            return [f.get_right_subclass()[1]
+                    for f in factoid_set if f.get_right_subclass]
 
         elif whattype == "proanima":
             if not ordering:
                 return self.factoidsproanima.all()
             else:
                 return self.factoidsproanima.all().order_by(*ordering)
-            return [f.get_right_subclass()[1] for f in factoid_set if f.get_right_subclass]
+            return [f.get_right_subclass()[1]
+                    for f in factoid_set if f.get_right_subclass]
 
         elif whattype == "witness":
             if not ordering:
                 factoid_set = self.factoidswitness.all()
             else:
                 factoid_set = self.factoidswitness.all().order_by(*ordering)
-            return [f.get_right_subclass()[1] for f in factoid_set if f.get_right_subclass]
+            return [f.get_right_subclass()[1]
+                    for f in factoid_set if f.get_right_subclass]
 
         else:
             # return ALL  [this supersedes also get_all_associations]
@@ -300,7 +306,8 @@ class Person(mymodels.PomsModel):
             common = Factoid.objects.filter(assochelperperson__person__id=self.id).filter(
                 assochelperperson__person__id=p2.id).distinct()
             if common:
-                return [f.get_right_subclass()[1] for f in common if f.get_right_subclass]
+                return [f.get_right_subclass()[1]
+                        for f in common if f.get_right_subclass]
             else:
                 return []
 
@@ -325,14 +332,16 @@ class Person(mymodels.PomsModel):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_person_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_person_change', args=(self.id,))
         # return "/%sadmin/pomsapp/person/%s" % (django_settings.URL_PREFIX,
         # self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/person/objects/%s" % (django_settings.URL_PREFIX, self.id)
+        return "/%sdatabrowse/pomsapp/person/objects/%s" % (
+            django_settings.URL_PREFIX, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -343,7 +352,8 @@ class Person(mymodels.PomsModel):
     def get_absolute_url(self):
         return ('person_detail', [str(self.id)])
 
-    def save(self, force_insert=False, force_update=False, calculate_floruits=False):
+    def save(self, force_insert=False, force_update=False,
+             calculate_floruits=False):
         # create the searchsurname field
         if EXTRA_SAVING_ACTIONS:
             super(Person, self).save(force_insert, force_update)
@@ -459,13 +469,13 @@ class Person(mymodels.PomsModel):
     def __unicode__(self):
         return self.persondisplayname
 
-
     table_order = 5
 
 
 class Institution_Manager(models.Manager):
     def get_query_set(self):
-        return super(Institution_Manager, self).get_query_set().filter(genderkey__id=5)
+        return super(Institution_Manager, self).get_query_set().filter(
+            genderkey__id=5)
 
 
 class Institution(Person):
@@ -477,7 +487,8 @@ class Institution(Person):
 
 class PersonNoInstitutions_Manager(models.Manager):
     def get_query_set(self):
-        return super(PersonNoInstitutions_Manager, self).get_query_set().exclude(genderkey__id=5)
+        return super(PersonNoInstitutions_Manager,
+                     self).get_query_set().exclude(genderkey__id=5)
 
 
 class PersonNoInstitutions(Person):
@@ -588,7 +599,7 @@ class Source(mymodels.PomsModel):
         # subclass it is...
         try:
             sbcls = ["charter", self.charter]
-        except:
+        except BaseException:
             sbcls = None
         return sbcls
 
@@ -599,7 +610,7 @@ class Source(mymodels.PomsModel):
         try:
             nice_hn = "%s/%s/%s %s" % (
                 self.hammondnumber or '0', self.hammondnumb2 or '0', self.hammondnumb3 or '0', self.hammondext)
-        except:
+        except BaseException:
             print(
                 "++++++ GET_HAMMONDNUMBER(): Problems creating the hammond number ++++++")
             nice_hn = "Problems creating the H number"
@@ -622,12 +633,13 @@ class Source(mymodels.PomsModel):
                 factoid_set = self.factoids.filter(
                     inferred_type=whattype).order_by(*ordering)
             # returns the right factoid type
-            return [f.get_right_subclass()[1] for f in factoid_set if f.get_right_subclass]
+            return [f.get_right_subclass()[1]
+                    for f in factoid_set if f.get_right_subclass]
 
         else:
             # return ALL  [this supersedes also get_all_associations]
-            print("Valid factoid types are: 'possession', 'relationship',"
-                  +"'title/occupation', 'transaction'")
+            print("Valid factoid types are: 'possession', 'relationship'," +
+                  "'title/occupation', 'transaction'")
             return []
 
     get_factoids.allow_tags = True
@@ -689,14 +701,16 @@ class Charter(Source):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_charter_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_charter_change', args=(self.id,))
         # return "/%sadmin/pomsapp/charter/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/charter/objects/%s" % (django_settings.URL_PREFIX_EXTRA, self.id)
+        return "/%sdatabrowse/pomsapp/charter/objects/%s" % (
+            django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -832,14 +846,16 @@ class Matrix(Source):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_matrix_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_matrix_change', args=(self.id,))
         # return "/%sadmin/pomsapp/matrix/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/matrix/objects/%s" % (django_settings.URL_PREFIX_EXTRA, self.id)
+        return "/%sdatabrowse/pomsapp/matrix/objects/%s" % (
+            django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -895,7 +911,10 @@ class Seal(Source):
     """(Seal description)"""
     charter_field = models.ForeignKey(
         'Charter', verbose_name="charter", blank=True, null=True, db_column='charter_id')
-    matrix_field = models.ForeignKey('Matrix', verbose_name="matrix", db_column='matrix_id')
+    matrix_field = models.ForeignKey(
+        'Matrix',
+        verbose_name="matrix",
+        db_column='matrix_id')
     color = models.ForeignKey(
         'SealColor', verbose_name="seal color", blank=True, null=True, )
     att_type_surv = models.ForeignKey(
@@ -919,14 +938,16 @@ class Seal(Source):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_seal_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_seal_change', args=(self.id,))
         # return "/%sadmin/pomsapp/seal/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/seal/objects/%s" % (django_settings.URL_PREFIX_EXTRA, self.id)
+        return "/%sdatabrowse/pomsapp/seal/objects/%s" % (
+            django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -980,8 +1001,6 @@ class Seal(Source):
 # ================================
 # SOME ASSOCIATIONs that NEED TO BE HERE....
 # ================================
-from django.contrib.admin import widgets
-from django.db.models.fields.related import ManyToOneRel
 
 
 class ExtraTitleCreationFrom(forms.ModelForm):
@@ -994,7 +1013,7 @@ class ExtraTitleCreationFrom(forms.ModelForm):
     title = forms.ModelChoiceField(
         required=False, queryset=TitleType.objects.all(), empty_label="(Nothing)",
         label="title [warning: creates a new title-factoid]",
-        widget=widgets.ForeignKeyRawIdWidget(ManyToOneRel(TitleType, 'id','id'),site))
+        widget=widgets.ForeignKeyRawIdWidget(ManyToOneRel(TitleType, 'id', 'id'), site))
     bygraceofgod = forms.BooleanField(required=False, label="by grace of..")
     byanotherdivineinvocation = forms.BooleanField(
         required=False, label="by another divine..")
@@ -1077,7 +1096,6 @@ class Factoid(mymodels.PomsModel):
     proanimapeople = models.ManyToManyField(
         Person, through=AssocFactoidProanima, related_name='factoidsproanima',
         verbose_name="pro anima people", )
-
 
     helper_places = models.ManyToManyField(
         'Place',
@@ -1197,16 +1215,16 @@ class Factoid(mymodels.PomsModel):
         # subclass it is...
         try:
             sbcls = ["possession", self.factpossession]
-        except:
+        except BaseException:
             try:
                 sbcls = ["relationship", self.factrelationship]
-            except:
+            except BaseException:
                 try:
                     sbcls = ["title/occupation", self.facttitle]
-                except:
+                except BaseException:
                     try:
                         sbcls = ["transaction", self.facttransaction]
-                    except:
+                    except BaseException:
                         sbcls = None
         return sbcls
 
@@ -1221,6 +1239,7 @@ class Factoid(mymodels.PomsModel):
 
     def __str__(self):
         return self.shortdesc or "no description"
+
 
 class FactTitle(Factoid):
     """(in poms-linnet this used to be called 'Title')"""
@@ -1321,14 +1340,16 @@ class FactTitle(Factoid):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_facttitle_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_facttitle_change', args=(self.id,))
         # return "/%sadmin/pomsapp/facttitle/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/facttitle/objects/%s" % (django_settings.URL_PREFIX_EXTRA, self.id)
+        return "/%sdatabrowse/pomsapp/facttitle/objects/%s" % (
+            django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -1350,14 +1371,16 @@ class FactRelationship(Factoid):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_factrelationship_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_factrelationship_change', args=(self.id,))
         # return "/%sadmin/pomsapp/factrelationship/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/factrelationship/objects/%s" % (django_settings.URL_PREFIX_EXTRA, self.id)
+        return "/%sdatabrowse/pomsapp/factrelationship/objects/%s" % (
+            django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -1468,7 +1491,8 @@ class FactRelationship(Factoid):
         verbose_name_plural = "Factoid Relationship"
 
     def __str__(self):
-        return "id[%s], from source [%s], desc: %s" % (self.id, self.sourcekey, self.shortdesc)
+        return "id[%s], from source [%s], desc: %s" % (
+            self.id, self.sourcekey, self.shortdesc)
 
     table_order = 12
 
@@ -1482,14 +1506,16 @@ class FactReference(Factoid):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_factreference_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_factreference_change', args=(self.id,))
         # return "/%sadmin/pomsapp/FactReference/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/factreference/objects/%s" % (django_settings.URL_PREFIX_EXTRA, self.id)
+        return "/%sdatabrowse/pomsapp/factreference/objects/%s" % (
+            django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -1565,7 +1591,8 @@ class FactReference(Factoid):
         verbose_name_plural = "Factoid Reference"
 
     def __str__(self):
-        return "id[%s], from source [%s], desc: %s" % (self.id, self.sourcekey, self.shortdesc)
+        return "id[%s], from source [%s], desc: %s" % (
+            self.id, self.sourcekey, self.shortdesc)
 
     table_order = 12
 
@@ -1579,14 +1606,16 @@ class FactPossession(Factoid):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_factpossession_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_factpossession_change', args=(self.id,))
         # return "/%sadmin/pomsapp/factpossession/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/factpossession/objects/%s" % (django_settings.URL_PREFIX_EXTRA, self.id)
+        return "/%sdatabrowse/pomsapp/factpossession/objects/%s" % (
+            django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -1712,14 +1741,16 @@ class FactTransaction(Factoid):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_facttransaction_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_facttransaction_change', args=(self.id,))
         # return "/%sadmin/pomsapp/facttransaction/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_admin_url.allow_tags = True
 
     def get_databrowse_url(self):
-        return "/%sdatabrowse/pomsapp/facttransaction/objects/%s" % (django_settings.URL_PREFIX_EXTRA, self.id)
+        return "/%sdatabrowse/pomsapp/facttransaction/objects/%s" % (
+            django_settings.URL_PREFIX_EXTRA, self.id)
 
     get_databrowse_url.allow_tags = True
 
@@ -1842,7 +1873,8 @@ class FactTransaction(Factoid):
             for assoc in assoc_fields:
                 tot_forms = req.get(
                     assoc + "_set-TOTAL_FORMS", None)  # getting the num of inlines
-                for i in range(0, int(tot_forms)):  # foreach check if there's a title
+                for i in range(
+                        0, int(tot_forms)):  # foreach check if there's a title
                     # title info
                     stringa_title = assoc + "_set-" + str(i) + "-title"
                     titleid = req.get(stringa_title, None)
@@ -2038,7 +2070,8 @@ class Place(mymodels.PomsModel):
 
     def get_admin_url(self):
         from django.core import urlresolvers
-        return urlresolvers.reverse('admin:pomsapp_place_change', args=(self.id,))
+        return urlresolvers.reverse(
+            'admin:pomsapp_place_change', args=(self.id,))
 
     get_admin_url.allow_tags = True
 
@@ -2058,34 +2091,43 @@ class Place(mymodels.PomsModel):
     def assoc_factoids(self):
         ret = []
         # Original simply associated factoids
-        for x in (Factoid.objects.filter(poss_lands__possessionnew_ptr__place__id=self.id).all()):
+        for x in (Factoid.objects.filter(
+                poss_lands__possessionnew_ptr__place__id=self.id).all()):
             ret.append(x)
         # complex associations
-        for x in Factoid.objects.filter(assocfactoidprivileges__privilege__place__id=self.id):
+        for x in Factoid.objects.filter(
+                assocfactoidprivileges__privilege__place__id=self.id):
             if x not in ret:
                 ret.append(x)
-        for x in Factoid.objects.filter(assocfactoidposs_alms__poss_alms__place__id=self.id):
+        for x in Factoid.objects.filter(
+                assocfactoidposs_alms__poss_alms__place__id=self.id):
             if x not in ret:
                 ret.append(x)
-        for x in Factoid.objects.filter(assocfactoidposs_lands__poss_land__place__id=self.id):
+        for x in Factoid.objects.filter(
+                assocfactoidposs_lands__poss_land__place__id=self.id):
             if x not in ret:
                 ret.append(x)
-        for x in Factoid.objects.filter(assocfactoidposs_objects__poss_object__place__id=self.id):
+        for x in Factoid.objects.filter(
+                assocfactoidposs_objects__poss_object__place__id=self.id):
             if x not in ret:
                 ret.append(x)
-        for x in Factoid.objects.filter(assocfactoidposs_revenuesilver__poss_revsilver__place__id=self.id):
+        for x in Factoid.objects.filter(
+                assocfactoidposs_revenuesilver__poss_revsilver__place__id=self.id):
             if x not in ret:
                 ret.append(x)
-        for x in Factoid.objects.filter(assocfactoidposs_revenuekind__poss_revkind__place__id=self.id):
+        for x in Factoid.objects.filter(
+                assocfactoidposs_revenuekind__poss_revkind__place__id=self.id):
             if x not in ret:
                 ret.append(x)
-        for x in Factoid.objects.filter(assocfactoidposs_pgeneral__poss_pgeneral__place__id=self.id):
+        for x in Factoid.objects.filter(
+                assocfactoidposs_pgeneral__poss_pgeneral__place__id=self.id):
             if x not in ret:
                 ret.append(x)
         for x in Factoid.objects.filter(poss_office__place__id=self.id):
             if x not in ret:
                 ret.append(x)
-        for x in Factoid.objects.filter(assocfactoidposs_unfreep__poss_unfree_persons__place__id=self.id):
+        for x in Factoid.objects.filter(
+                assocfactoidposs_unfreep__poss_unfree_persons__place__id=self.id):
             if x not in ret:
                 ret.append(x)
 

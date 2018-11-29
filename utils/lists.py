@@ -1,5 +1,6 @@
 """Utilities for working with lists and sequences."""
 
+
 def flatten(x):
     """
     Returns a single, flat list which contains all elements retrieved
@@ -14,11 +15,12 @@ def flatten(x):
     """
     result = []
     for el in x:
-        if hasattr(el, '__iter__') and not isinstance(el, basestring):
+        if hasattr(el, '__iter__') and not isinstance(el, str):
             result.extend(flatten(el))
         else:
             result.append(el)
     return result
+
 
 def batch_size(items, size):
     """
@@ -30,7 +32,8 @@ def batch_size(items, size):
     >>> batch_size(l, 5)
     [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]
     """
-    return [items[i:i+size] for i in xrange(0, len(items), size)]
+    return [items[i:i + size] for i in range(0, len(items), size)]
+
 
 def batches(items, number):
     """
@@ -70,7 +73,7 @@ def batches(items, number):
     >>> batches(l, 12)
     [[1], [2], [3], [4], [5], [6], [7], [8], [9], [10], [], []]
     """
-    div, mod= divmod(len(items), number)
+    div, mod = divmod(len(items), number)
     if div > 1:
         if mod:
             div += 1
@@ -82,32 +85,27 @@ def batches(items, number):
             return [[item] for item in items]
         else:
             # mod now tells you how many lists of 2 you can fit in
-            return ([items[i*2:(i*2)+2] for i in xrange(0, mod)] +
-                    [[item] for item in items[mod*2:]])
-
-
+            return ([items[i * 2:(i * 2) + 2] for i in range(0, mod)] +
+                    [[item] for item in items[mod * 2:]])
 
 
 # 2010-09-09: mikele.. a slight different version that accepts sizes
 # eg: print batches2(range(100), 20)
 
 def batches2(llist, size):
-	if len(llist) <= size:
-		return list(llist)
-	else:
-		out = []
-		flag = False
-		times = len(llist) / size
-		for t in range(times + 1):
-			if flag == False:
-				start = 0
-				flag = True
-			else:
-				start = start + size
-			end = size * (t + 1)
-			if llist[start:end]:
-				out.append(llist[start:end])			
-		return out
-
-
-		 
+    if len(llist) <= size:
+        return list(llist)
+    else:
+        out = []
+        flag = False
+        times = len(llist) / size
+        for t in range(times + 1):
+            if flag is False:
+                start = 0
+                flag = True
+            else:
+                start = start + size
+            end = size * (t + 1)
+            if llist[start:end]:
+                out.append(llist[start:end])
+        return out

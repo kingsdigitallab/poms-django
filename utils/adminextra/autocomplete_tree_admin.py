@@ -1,18 +1,16 @@
 #
-#	 Autocomplete feature for admin panel
+#     Autocomplete feature for admin panel
 #
-#	 Most of the code has been written by Jannis Leidel, then updated a bit
-#	 for django_extensions, finally reassembled and extended by Mikele Pasin. 
-# 
-#	 http://jannisleidel.com/2008/11/autocomplete-form-widget-foreignkey-model-fields/
+#     Most of the code has been written by Jannis Leidel, then updated a bit
+#     for django_extensions, finally reassembled and extended by Mikele Pasin.
+#
+#     http://jannisleidel.com/2008/11/autocomplete-form-widget-foreignkey-model-fields/
 #    http://code.google.com/p/django-command-extensions/
 #    http://magicrebirth.wordpress.com/
 #
-#	 to_string_function, Satchmo adaptation and some comments added by emes
-#	 (Michal Salaban)
+#     to_string_function, Satchmo adaptation and some comments added by emes
+#     (Michal Salaban)
 #
-
-
 
 
 #  ==============
@@ -21,13 +19,16 @@
 
 # 1.Put this file somewhere in your application folder
 
-# 2.Add the 'autocomplete' folder with the media files to your usual media folder
+# 2.Add the 'autocomplete' folder with the media files to your usual media
+# folder
 
 # 3.Add the 'admin/autocomplete' folder to your templates folder
 
-# 4.Add the extrafilters.py file in the templatetags directory of your application (or just add its contents to 
+# 4.Add the extrafilters.py file in the templatetags directory
+# of your application (or just add its contents to
 #   your custom template tags if you already have some).
-#  All is needed is the 'cut' filter, for making the code used in the inline-autocomplete form javascript friendly
+# All is needed is the 'cut' filter, for making the code used in the
+# inline-autocomplete form javascript friendly
 
 # 5. When defining your models admin, import the relevant admin and use it:
 #  .....
@@ -43,24 +44,27 @@
 # TROUBLE SHOOTING:
 #  ==============
 
-# ** sometimes things don't work cause you have to add 'from django.conf.urls.defaults import *' to the modules where
+# ** sometimes things don't work cause you have to add
+# 'from django.conf.urls.defaults import *' to the modules where
 #  you use the autocomplete
-# ** if you're using the inline-autocompletion, make sure that the main admin class the inline belong to is a
+# ** if you're using the inline-autocompletion, make sure that
+# the main admin class the inline belong to is a
 # subclass FkAutocompleteAdmin
-# ** you may need to hack it a bit to make it work for you - it's been done in a rush!
+# ** you may need to hack it a bit to make it work for you -
+# it's been done in a rush!
 
 
 #  ==============
 # the code now....
 #  ==============
 
-
+import functools
 from django import forms
 from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.apps import apps
 # remove deprecated - now -dead method
-#from django.utils.text import truncate_words
+# from django.utils.text import truncate_words
 from django.utils.text import Truncator
 from django.template.loader import render_to_string
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
@@ -75,11 +79,11 @@ from django.utils.text import get_text_list
 # added by mikele
 # from django.conf.urls.defaults import *
 from django.conf.urls import url
-from django.contrib.admin.sites import site
+
 
 class FkSearchInput(ForeignKeyRawIdWidget):
     """
-    A Widget for displaying ForeignKeys in an autocomplete search input 
+    A Widget for displaying ForeignKeys in an autocomplete search input
     instead in a <select> box.
     """
 
@@ -118,7 +122,8 @@ class FkSearchInput(ForeignKeyRawIdWidget):
         related_url = '../../../../%s/%s/' % (app_label, model_name)
         params = self.url_parameters()
         if params:
-            url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
+            url = '?' + '&amp;'.join(['%s=%s' % (k, v)
+                                      for k, v in params.items()])
         else:
             url = ''
         if 'class' in attrs:
@@ -132,7 +137,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
         context = {
             'url': url,
             'related_url': related_url,
-            'admin_media_prefix': settings.STATIC_URL+'/admin/',
+            'admin_media_prefix': settings.STATIC_URL + '/admin/',
             'search_path': self.search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,
@@ -152,7 +157,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
 
 class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
     """
-    A Widget for displaying ForeignKeys in an autocomplete search input 
+    A Widget for displaying ForeignKeys in an autocomplete search input
     instead in a <select> box.
     """
 
@@ -179,19 +184,31 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
 
     def __init__(self, rel, admin_site, search_fields, attrs=None):
         self.search_fields = search_fields
-        super(NoLookupsForeignKeySearchInput, self).__init__(rel, admin_site, attrs)
+        super(
+            NoLookupsForeignKeySearchInput,
+            self).__init__(
+            rel,
+            admin_site,
+            attrs)
 
     def render(self, name, value, attrs=None):
         if attrs is None:
             attrs = {}
-        output = [super(NoLookupsForeignKeySearchInput, self).render(name, value, attrs)]
+        output = [
+            super(
+                NoLookupsForeignKeySearchInput,
+                self).render(
+                name,
+                value,
+                attrs)]
         opts = self.rel.to._meta
         app_label = opts.app_label
         model_name = opts.object_name.lower()
         related_url = '../../../../%s/%s/' % (app_label, model_name)
         params = self.url_parameters()
         if params:
-            url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
+            url = '?' + '&amp;'.join(['%s=%s' % (k, v)
+                                      for k, v in params.items()])
         else:
             url = ''
         if 'class' not in attrs:
@@ -205,7 +222,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
         context = {
             'url': url,
             'related_url': related_url,
-            'admin_media_prefix': settings.STATIC_URL+'/admin/',
+            'admin_media_prefix': settings.STATIC_URL + '/admin/',
             'search_path': self.search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,
@@ -214,7 +231,8 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
             'name': name,
         }
 
-        # tried to change widget_template but it needs a subclass (of what?) not a string
+        # tried to change widget_template but it needs a subclass (of what?)
+        # not a string
 
         output.append(render_to_string(self.widget_template or (
             '%s/%s/foreignkey_searchinput.html' % (app_label, model_name),
@@ -227,7 +245,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
 
 class InlineSearchInput(ForeignKeyRawIdWidget):
     """
-    A Widget for displaying ForeignKeys in an autocomplete search input 
+    A Widget for displaying ForeignKeys in an autocomplete search input
     instead in a <select> box.
     """
 
@@ -266,7 +284,8 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
         related_url = '../../../../%s/%s/' % (app_label, model_name)
         params = self.url_parameters()
         if params:
-            url = '?' + '&amp;'.join(['%s=%s' % (k, v) for k, v in params.items()])
+            url = '?' + '&amp;'.join(['%s=%s' % (k, v)
+                                      for k, v in params.items()])
         else:
             url = ''
         if 'class' not in attrs:
@@ -280,7 +299,7 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
         context = {
             'url': url,
             'related_url': related_url,
-            'admin_media_prefix': settings.STATIC_URL+'/admin/',
+            'admin_media_prefix': settings.STATIC_URL + '/admin/',
             'search_path': self.search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,
@@ -289,7 +308,8 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
             'name': name,
         }
 
-        # tried to change widget_template but it needs a subclass (of what?) not a string
+        # tried to change widget_template but it needs a subclass (of what?)
+        # not a string
 
         output.append(render_to_string(self.widget_template or (
             '%s/%s/inline_searchinput.html' % (app_label, model_name),
@@ -307,10 +327,8 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
 #  ===================================
 
 
-
-
 class FkAutocompleteAdmin(admin.ModelAdmin):
-    """ 
+    """
     Admin class for models using the autocomplete feature.
 
     There are two additional fields:
@@ -333,22 +351,24 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
     related_string_functions = {}
 
     # def __call__(self, request, url):
-    #	  if url is None:
-    #		  pass
-    #	  elif url == 'foreignkey_autocomplete':
-    #		  return self.foreignkey_autocomplete(request)
-    #	  return super(ForeignKeyAutocompleteAdmin, self).__call__(request, url)
+    #      if url is None:
+    #    	  pass
+    #      elif url == 'foreignkey_autocomplete':
+    #    	  return self.foreignkey_autocomplete(request)
+    #      return super(ForeignKeyAutocompleteAdmin, self)
+    # .__call__(request, url)
 
     def get_urls(self):
         urls = super(FkAutocompleteAdmin, self).get_urls()
         search_url = [
-                              url(r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
-                      ]
+            url(r'^foreignkey_autocomplete/$',
+                self.admin_site.admin_view(self.foreignkey_autocomplete))
+        ]
         return search_url + urls
 
     def foreignkey_autocomplete(self, request):
         """
-        Searches in the fields of the given related model and returns the 
+        Searches in the fields of the given related model and returns the
         result as a simple string to be used by the jQuery Autocomplete plugin
         """
         query = request.GET.get('q', None)
@@ -359,7 +379,8 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
         try:
             to_string_function = self.related_string_functions[model_name]
         except KeyError:
-            to_string_function = lambda x: x.__unicode__()
+            def to_string_function(x):
+                return x.__unicode__()
         if search_fields and app_label and model_name and (query or object_pk):
             def construct_search(field_name):
                 # use different lookup methods depending on the notation
@@ -379,17 +400,18 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
                 for bit in query.split():
                     or_queries = [models.Q(**{construct_search(
                         smart_str(field_name)): smart_str(bit)})
-                                  for field_name in search_fields.split(',')]
+                        for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
                     other_qs.dup_select_related(queryset)
-                    other_qs = other_qs.filter(functools.reduce(operator.or_, or_queries))
+                    other_qs = other_qs.filter(
+                        functools.reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
                 data = ''.join([u'%s|%s\n' % (
                     to_string_function(f), f.pk) for f in queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
-                except:
+                except BaseException:
                     pass
                 else:
                     data = to_string_function(obj)
@@ -403,10 +425,13 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
                 'model_name': model_name,
                 'field_list': get_text_list(searchable_fields, _('and')),
             }
-            return _('Use the left field to do %(model_name)s lookups in the fields %(field_list)s.') % help_kwargs
+            return _(
+                'Use the left field to do %(model_name)s\
+                lookups in the fields %(field_list)s.') % help_kwargs
         return ''
 
-    # this method gets called when creating the formfields - probably this is what you need to extend
+    # this method gets called when creating the
+    # formfields - probably this is what you need to extend
     #  in the replicated version of ForeignKeyAutocompleteAdmin
 
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -415,13 +440,13 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
         specified in the related_search_fields class attribute.
         """
         if (isinstance(db_field, models.ForeignKey) and
-                    db_field.name in self.related_search_fields):
+                db_field.name in self.related_search_fields):
             model_name = db_field.rel.to._meta.object_name
             help_text = self.get_help_text(db_field.name, model_name)
             if kwargs.get('help_text'):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
             kwargs['widget'] = FkSearchInput(db_field.rel, self.admin_site,
-                                             self.related_search_fields[db_field.name])
+                                             self.related_search_fields[db_field.name])  # noqa
             kwargs['help_text'] = help_text
         return super(FkAutocompleteAdmin,
                      self).formfield_for_dbfield(db_field, **kwargs)
@@ -434,33 +459,36 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
 #  ===================================
 
 
-
 class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
-    """ 
-        In certain cases you do not want to have the usual raw_id lenses for related items lookup.
-        Code mostly as above, changes only the template that renders it.
+    """
+        In certain cases you do not want to have the
+        usual raw_id lenses for related items lookup.
+        Code mostly as above, changes only the template
+        that renders it.
     """
 
     related_search_fields = {}
     related_string_functions = {}
 
     # def __call__(self, request, url):
-    #	  if url is None:
-    #		  pass
-    #	  elif url == 'foreignkey_autocomplete':
-    #		  return self.foreignkey_autocomplete(request)
-    #	  return super(ForeignKeyAutocompleteAdmin, self).__call__(request, url)
+    #      if url is None:
+    #    	  pass
+    #      elif url == 'foreignkey_autocomplete':
+    #    	  return self.foreignkey_autocomplete(request)
+    #      return super(ForeignKeyAutocompleteAdmin, self)
+    # .__call__(request, url)
 
     def get_urls(self):
         urls = super(NoLookupsForeignKeyAutocompleteAdmin, self).get_urls()
         search_url = [
-                              url(r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
-                              ]
+            url(r'^foreignkey_autocomplete/$',
+                self.admin_site.admin_view(self.foreignkey_autocomplete))
+        ]
         return search_url + urls
 
     def foreignkey_autocomplete(self, request):
         """
-        Searches in the fields of the given related model and returns the 
+        Searches in the fields of the given related model and returns the
         result as a simple string to be used by the jQuery Autocomplete plugin
         """
         query = request.GET.get('q', None)
@@ -471,7 +499,8 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
         try:
             to_string_function = self.related_string_functions[model_name]
         except KeyError:
-            to_string_function = lambda x: x.__unicode__()
+            def to_string_function(x):
+                return x.__unicode__()
         if search_fields and app_label and model_name and (query or object_pk):
             def construct_search(field_name):
                 # use different lookup methods depending on the notation
@@ -491,17 +520,18 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
                 for bit in query.split():
                     or_queries = [models.Q(**{construct_search(
                         smart_str(field_name)): smart_str(bit)})
-                                  for field_name in search_fields.split(',')]
+                        for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
                     other_qs.dup_select_related(queryset)
-                    other_qs = other_qs.filter(functools.reduce(operator.or_, or_queries))
+                    other_qs = other_qs.filter(
+                        functools.reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
                 data = ''.join([u'%s|%s\n' % (
                     to_string_function(f), f.pk) for f in queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
-                except:
+                except BaseException:
                     pass
                 else:
                     data = to_string_function(obj)
@@ -515,10 +545,13 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
                 'model_name': model_name,
                 'field_list': get_text_list(searchable_fields, _('and')),
             }
-            return _('Use the left field to do %(model_name)s lookups in the fields %(field_list)s.') % help_kwargs
+            return _(
+                'Use the left field to do %(model_name)s\
+                lookups in the fields %(field_list)s.') % help_kwargs
         return ''
 
-    # this method gets called when creating the formfields - probably this is what you need to extend
+    # this method gets called when creating the
+    # formfields - probably this is what you need to extend
     #  in the replicated version of ForeignKeyAutocompleteAdmin
 
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -527,13 +560,14 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
         specified in the related_search_fields class attribute.
         """
         if (isinstance(db_field, models.ForeignKey) and
-                    db_field.name in self.related_search_fields):
+                db_field.name in self.related_search_fields):
             model_name = db_field.rel.to._meta.object_name
             help_text = self.get_help_text(db_field.name, model_name)
             if kwargs.get('help_text'):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
-            kwargs['widget'] = NoLookupsForeignKeySearchInput(db_field.rel, self.admin_site,
-                                                              self.related_search_fields[db_field.name])
+            kwargs['widget'] = NoLookupsForeignKeySearchInput(db_field.rel,
+                                                              self.admin_site,
+                                                              self.related_search_fields[db_field.name])  # noqa
             kwargs['help_text'] = help_text
         return super(NoLookupsForeignKeyAutocompleteAdmin,
                      self).formfield_for_dbfield(db_field, **kwargs)
@@ -546,37 +580,39 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
 #  ======================================
 
 
-
-
 class InlineAutocompleteAdmin(admin.TabularInline):
-    """ 
+    """
     Admin class for models using the autocomplete feature in inlines.
 
-    At the moment, this autocomplete works only if the admin of the model including the inline-admin is
-    itself a subclass of an autocomplete Admin (e.g., ForeignKeyAutocompleteAdmin)
-    
+    At the moment, this autocomplete works only if the admin
+    of the model including the inline-admin is
+    itself a subclass of an autocomplete Admin
+    (e.g., ForeignKeyAutocompleteAdmin)
+
     """
 
     related_search_fields = {}
     related_string_functions = {}
 
     # def __call__(self, request, url):
-    #	  if url is None:
-    #		  pass
-    #	  elif url == 'foreignkey_autocomplete':
-    #		  return self.foreignkey_autocomplete(request)
-    #	  return super(ForeignKeyAutocompleteAdmin, self).__call__(request, url)
+    #      if url is None:
+    #    	  pass
+    #      elif url == 'foreignkey_autocomplete':
+    #    	  return self.foreignkey_autocomplete(request)
+    #      return super(ForeignKeyAutocompleteAdmin, self)
+    # .__call__(request, url)
 
     def get_urls(self):
         urls = super(InlineAutocompleteAdmin, self).get_urls()
         search_url = [
-                              url(r'^foreignkey_autocomplete/$', self.admin_site.admin_view(self.foreignkey_autocomplete))
-                              ]
+            url(r'^foreignkey_autocomplete/$',
+                self.admin_site.admin_view(self.foreignkey_autocomplete))
+        ]
         return search_url + urls
 
     def foreignkey_autocomplete(self, request):
         """
-        Searches in the fields of the given related model and returns the 
+        Searches in the fields of the given related model and returns the
         result as a simple string to be used by the jQuery Autocomplete plugin
         """
         query = request.GET.get('q', None)
@@ -587,7 +623,8 @@ class InlineAutocompleteAdmin(admin.TabularInline):
         try:
             to_string_function = self.related_string_functions[model_name]
         except KeyError:
-            to_string_function = lambda x: x.__unicode__()
+            def to_string_function(x):
+                return x.__unicode__()
         if search_fields and app_label and model_name and (query or object_pk):
             def construct_search(field_name):
                 # use different lookup methods depending on the notation
@@ -607,17 +644,18 @@ class InlineAutocompleteAdmin(admin.TabularInline):
                 for bit in query.split():
                     or_queries = [models.Q(**{construct_search(
                         smart_str(field_name)): smart_str(bit)})
-                                  for field_name in search_fields.split(',')]
+                        for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
                     other_qs.dup_select_related(queryset)
-                    other_qs = other_qs.filter(functools.reduce(operator.or_, or_queries))
+                    other_qs = other_qs.filter(
+                        functools.reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
                 data = ''.join([u'%s|%s\n' % (
                     to_string_function(f), f.pk) for f in queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
-                except:
+                except BaseException:
                     pass
                 else:
                     data = to_string_function(obj)
@@ -631,10 +669,13 @@ class InlineAutocompleteAdmin(admin.TabularInline):
                 'model_name': model_name,
                 'field_list': get_text_list(searchable_fields, _('and')),
             }
-            return _('Use the left field to do %(model_name)s lookups in the fields %(field_list)s.') % help_kwargs
+            return _(
+                'Use the left field to do %(model_name)s\
+                lookups in the fields %(field_list)s.') % help_kwargs
         return ''
 
-    # this method gets called when creating the formfields - probably this is what you need to extend
+    # this method gets called when creating the
+    # formfields - probably this is what you need to extend
     #  in the replicated version of ForeignKeyAutocompleteAdmin
 
     def formfield_for_dbfield(self, db_field, **kwargs):
@@ -643,13 +684,14 @@ class InlineAutocompleteAdmin(admin.TabularInline):
         specified in the related_search_fields class attribute.
         """
         if (isinstance(db_field, models.ForeignKey) and
-                    db_field.name in self.related_search_fields):
+                db_field.name in self.related_search_fields):
             model_name = db_field.rel.to._meta.object_name
             help_text = self.get_help_text(db_field.name, model_name)
             if kwargs.get('help_text'):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
-            kwargs['widget'] = InlineSearchInput(db_field.rel, self.admin_site,
-                                                 self.related_search_fields[db_field.name])
+            kwargs['widget'] = InlineSearchInput(db_field.rel,
+                                                 self.admin_site,
+                                                 self.related_search_fields[db_field.name])  # noqa
             kwargs['help_text'] = help_text
         return super(InlineAutocompleteAdmin,
                      self).formfield_for_dbfield(db_field, **kwargs)
@@ -657,16 +699,17 @@ class InlineAutocompleteAdmin(admin.TabularInline):
 
 # ===========
 # MPTT TREE + AUTOCOMPLETE
-# using the autocomplete admin with other custom admin classes: just mix and match as you like.... 
+# using the autocomplete admin with other custom admin classes: just
+# mix and match as you like....
 #  e.g. in my case I used it with the admin for trees provided by FeinCms:
 
 
 try:
     from utils.mpttextra import feincms_tree_editor
 
-
     #  just merging the effects of the two classes..
-    class AutocompleteTreeEditor(FkAutocompleteAdmin, feincms_tree_editor.TreeEditor):
+    class AutocompleteTreeEditor(
+            FkAutocompleteAdmin, feincms_tree_editor.TreeEditor):
         def __init__(self, *args, **kwargs):
             super(AutocompleteTreeEditor, self).__init__(*args, **kwargs)
 except ImportError:

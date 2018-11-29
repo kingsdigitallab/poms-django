@@ -257,14 +257,15 @@ class Gender(mymodels.PomsAuthorityList):
     table_group = 'Authority lists'
 
 
-# 29 June 2010 ******************************************************************
+# 29 June 2010 ***********************************************************
 # a proxy model for the FB: excludes Institutions because it has a
 # separate facet
 
 class GenderNoInstitution_Manager(models.Manager):
 
     def get_query_set(self):
-        return super(GenderNoInstitution_Manager, self).get_query_set().exclude(id=5)
+        return super(GenderNoInstitution_Manager,
+                     self).get_query_set().exclude(id=5)
 
 
 class GenderNoInstitution(Gender):
@@ -479,6 +480,7 @@ class Sicutclausetype(mymodels.PomsAuthorityList):
 
     def __unicode__(self):
         return self.name
+
     def __str__(self):
         return self.name
     table_group = 'Authority lists'
@@ -624,7 +626,7 @@ class MedievalGaelicForename(mymodels.PomsAuthorityList):
 
     """(MedievalGaelicForename for the Person template)"""
     audiofile = models.FileField(
-        blank=True, upload_to=medieval_audio_file_name,  verbose_name="audio recording",
+        blank=True, upload_to=medieval_audio_file_name, verbose_name="audio recording",
         help_text="upload a file in WAV or MP3 format [beta-stage functionality, can't remove a saved file  for the moment but just overwrite it]")
 
     class Meta:
@@ -643,7 +645,7 @@ class ModernGaelicForename(mymodels.PomsAuthorityList):
 
     """(ModernGaelicForename for the Person template)"""
     audiofile = models.FileField(
-        blank=True, upload_to=modern_audio_file_name,  verbose_name="audio recording",
+        blank=True, upload_to=modern_audio_file_name, verbose_name="audio recording",
         help_text="upload a file in WAV or MP3 format [beta-stage functionality, can't remove a saved file  for the moment but just overwrite it]")
 
     class Meta:

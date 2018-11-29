@@ -11,7 +11,7 @@ from utils.template import render_block_to_string
 
 ##################
 #  Wed Oct 13 16:18:19 BST 2010
-#  Record detail sections: 
+#  Record detail sections:
 #
 ##################
 
@@ -152,7 +152,6 @@ def person_detail(request, person_id):
                                  tab: items, })
             return HttpResponse(return_str)
 
-
     # ++++
     # Standard call (non ajax): returns the entire page
     # ++++
@@ -239,7 +238,7 @@ def source_detail(request, source_id):
 
     father_source = get_object_or_404(Source, pk=source_id)
     source_tuple = father_source.get_right_subclass()
-    if source_tuple == None:
+    if source_tuple is None:
         raise Http404
     source = source_tuple[1]
 
@@ -384,7 +383,7 @@ def factoid_detail(request, factoid_id):
 
     f = get_object_or_404(Factoid, pk=factoid_id)
     real_f = f.get_right_subclass()
-    if real_f == None:
+    if real_f is None:
         raise Http404
 
     factoid = real_f[1]
@@ -681,8 +680,8 @@ def place_detail(request, place_id):
                                if x.inferred_type == "transaction"]
 
     if vals['peopleAssoc'] or vals['documentAssoc'] or vals[
-        'possessionFact'] or vals['relationshipFact'] or vals[
-        'transactionFact']:
+            'possessionFact'] or vals['relationshipFact'] or vals[
+            'transactionFact']:
         someRelatedValues = True  # flag for template
     else:
         someRelatedValues = False
@@ -795,7 +794,7 @@ def determine_ordering(objtype, ordering_string, reverse_flag=False,
 
     try:
         chosen_ordering = ORDERINGS[ordering_string]
-    except:
+    except BaseException:
         ordering_string = DEFAULT_ORDERING  # by default
         chosen_ordering = ORDERINGS[ordering_string]
     # ProAnima FACTOIDS:

@@ -10,7 +10,7 @@ from django.template.defaultfilters import slugify
 try:
     import uuid
 except ImportError:
-    from django_extensions.utils import uuid
+    from django_extensions.utils import uuid  # noqa
 
 # todo removed
 # from south.modelsinspector import add_introspection_rules
@@ -32,7 +32,6 @@ class CreationDateTimeField(DateTimeField):
         return "DateTimeField"
 
 
-
 class ModificationDateTimeField(CreationDateTimeField):
     """ ModificationDateTimeField
 
@@ -48,7 +47,6 @@ class ModificationDateTimeField(CreationDateTimeField):
 
     def get_internal_type(self):
         return "DateTimeField"
-
 
 
 class AutoSlugField(SlugField):
@@ -162,13 +160,16 @@ class AutoSlugField(SlugField):
 # class UUIDField(CharField):
 #     """ UUIDField
 #
-#     By default uses UUID version 1 (generate from host ID, sequence number and current time)
+#     By default uses UUID version 1 (generate from
+# host ID, sequence number and current time)
 #
-#     The field support all uuid versions which are natively supported by the uuid python module.
+#     The field support all uuid versions which are
+# natively supported by the uuid python module.
 #     For more information see: http://docs.python.org/lib/module-uuid.html
 #     """
 #
-#     def __init__(self, verbose_name=None, name=None, auto=True, version=1, node=None, clock_seq=None,
+#     def __init__(self, verbose_name=None, name=None,
+# auto=True, version=1, node=None, clock_seq=None,
 # namespace=None, **kwargs):
 #         kwargs['max_length'] = 36
 #         if auto:
@@ -197,7 +198,8 @@ class AutoSlugField(SlugField):
 #         elif self.version==5:
 #             return uuid.uuid5(self.namespace, self.name)
 #         else:
-#             raise UUIDVersionError("UUID version %s is not valid." % self.version)
+#             raise UUIDVersionError("UUID version %s is not
+# valid." % self.version)
 #
 #     def pre_save(self, model_instance, add):
 #         if self.auto and add:

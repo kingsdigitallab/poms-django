@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'family/$', sna_views.sna_person_base, name='sna_person_base'),
     url(r'all/(\d+)/$', sna_views.sna_all, name='sna_all'),
     url(r'all/$', sna_views.sna_default, name='sna_default'),
-    url(r'js/(\d+)/(\w+).js', sna_views.sna_js ,name='sna_js'),
+    url(r'js/(\d+)/(\w+).js', sna_views.sna_js, name='sna_js'),
     url(r'(\d+)/$', sna_views.sna_person, name='sna_person'),
     url(r'^$', sna_views.sna_default, name='sna_default'),
 ]

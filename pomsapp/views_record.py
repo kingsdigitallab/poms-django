@@ -4,8 +4,8 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
-from pomsapp.models import *
-from utils.myutils import *
+from pomsapp.models import *  # noqa
+from utils.myutils import *  # noqa
 from utils.template import render_block_to_string
 
 
@@ -159,16 +159,18 @@ def person_detail(request, person_id):
 
         vals = {}
 
-        vals['possessionFact'] = person.get_association_factoids('possession',
-                                                                 chosen_ordering)
+        vals['possessionFact'] =\
+            person.get_association_factoids('possession',
+                                            chosen_ordering)
         vals['relationshipFact'] = person.get_association_factoids(
             'relationship', chosen_ordering)
         vals['titleFact'] = person.get_association_factoids('title/occupation',
                                                             chosen_ordering)
         vals['transactionFact'] = person.get_association_factoids(
             'transaction', chosen_ordering)
-        vals['proanimaFact'] = person.get_association_factoids('proanima',
-                                                               proanima_chosen_ordering)
+        vals['proanimaFact'] =\
+            person.get_association_factoids('proanima',
+                                            proanima_chosen_ordering)
         vals['witnessFact'] = person.get_association_factoids('witness',
                                                               chosen_ordering)
 
@@ -363,7 +365,6 @@ def factoid_detail(request, factoid_id):
     ordering = request.GET.get('ordering', False)
     preview = request.GET.get('preview', False)
     #
-    map = request.GET.get('map', False)
     ajax_flag = False
     MAX_RESULTS_LENGTH = 50
 
@@ -619,7 +620,7 @@ def place_detail(request, place_id):
         if tab == 'documentAssoc':
             items = obj.charter_set.all()
         # if tab ==  'possessionFact':
-        #	items = [x.factpossession for x in obj.helper_factoids.all() if
+        # items = [x.factpossession for x in obj.helper_factoids.all() if
         # x.inferred_type == "possession"]
         # This function is returning invalid relations
         if tab == 'possessionFact':
@@ -629,7 +630,7 @@ def place_detail(request, place_id):
             items = obj.factrelationship_set.all()  # in this case the rel
             # to places is another FK
         # if tab ==  'transactionFact':
-        #	items = [x.facttransaction for x in obj.helper_factoids.all() if
+        # items = [x.facttransaction for x in obj.helper_factoids.all() if
         # x.inferred_type == "transaction"]
         # This function is returning invalid relations
         if tab == 'transactionFact':
@@ -729,8 +730,6 @@ def matrix_detail(request, matrix_id):
     """
     # request.session['queryargs'] = []
     # request.session['activeIDs'] = []
-    page = request.GET.get('page', False)
-
     obj = get_object_or_404(Matrix, pk=matrix_id)
 
     return render(request,

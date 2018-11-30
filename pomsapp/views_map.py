@@ -2,13 +2,11 @@
 
 from django.contrib.gis.geos import GEOSGeometry
 from django.shortcuts import render
-from django.template import RequestContext
 
 from pomsapp.models import Place
 
 
 def map_view(request):
-    preview = request.GET.get('preview', False)
     return render(request, 'pomsapp/map/map.html', {})
 
 
@@ -18,7 +16,8 @@ def map_image(request):
     context['imageStr'] = imageStr
     return render(request, 'pomsapp/map/map_image.html', context)
     # return
-    # HttpResponseRedirect('pomsapp/map/map_image.html',context,context_instance=RequestContext(request))
+    # HttpResponseRedirect('pomsapp/map/map_image.html',
+    # context,context_instance=RequestContext(request))
 
 
 def map_search(request):
@@ -41,7 +40,8 @@ def map_search_by_parent(request):
     # Check 3 levels of hierarchy
     results_list = list(chain(Place.objects.filter(parent__id=id),
                               Place.objects.filter(parent__parent__id=id),
-                              Place.objects.filter(parent__parent__parent__id=id)))
+                              Place.objects.filter(
+                                  parent__parent__parent__id=id)))
     context['places'] = results_list
     return render(request, 'pomsapp/map/map_results.js',
                   context, content_type='application/json')

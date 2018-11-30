@@ -1,16 +1,20 @@
 # DATABROWSE setup
 from django.contrib import databrowse
-from pomsapp.models import *
+from pomsapp.models import *  # noqa
 
 
 # authority lists
 
-auth_lists = [Role, Gender, Floruit, Chartertype, TitleType, Relationshiptype, Occupationtype, Exemptiontype,
-              Nominalrendertype, Proanimagenerictypes, Renderdate, Sicutclausetype, Tenendasclauseoptions,
-              Transactiontype, LegalPertinents, Returns_military, Returns_renders, CommonBurdens, Language]
+auth_lists = [Role, Gender, Floruit, Chartertype, TitleType,
+              Relationshiptype, Occupationtype, Exemptiontype,
+              Nominalrendertype, Proanimagenerictypes, Renderdate,
+              Sicutclausetype, Tenendasclauseoptions,
+              Transactiontype, LegalPertinents, Returns_military,
+              Returns_renders, CommonBurdens, Language]
 
 
-def func(x): return databrowse.site.register(x)
+def func(x):
+    return databrowse.site.register(x)
 
 
 map(func, auth_lists)

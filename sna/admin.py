@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from sna.models import *
+from sna.models import *  # noqa
 
 
 class LegendInline(admin.StackedInline):

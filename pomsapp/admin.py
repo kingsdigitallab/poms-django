@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext_lazy as _
 
-from pomsapp.models import *
+from pomsapp.models import *  # noqa
 from utils.adminextra.autocomplete_tree_admin import AutocompleteTreeEditor
 
 
@@ -9,7 +9,8 @@ class BasicAdmin(admin.ModelAdmin):
 
 
 # NOT TESTED YET !
-# http://docs.djangoproject.com/en/dev/ref/contrib/admin/actions/#making-actions-available-site-wide
+# http://docs.djangoproject.com/en/dev/ref/contrib/
+# admin/actions/#making-actions-available-site-wide
 def make_edited(modeladmin, request, queryset):
     queryset.update(editedrecord=True)
 
@@ -75,7 +76,8 @@ class AuthListStandardAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Administration',
          {'fields':
-          ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+          ['editedrecord', 'review', 'internal_notes', ('created_at',
+                                                        'created_by'),
            ('updated_at', 'updated_by')
            ],
           'classes': ['collapse']
@@ -102,12 +104,18 @@ class GenericPossessionsAdmin(AutocompleteTreeEditor):
     def _actions_column(self, page):
         actions = super(GenericPossessionsAdmin, self)._actions_column(page)
         actions.insert(0,
-                       u'<a href="add/?parent=%s" title="%s"><img src="%simg/admin/icon_addlink.gif" alt="%s"></a>' % (
-                           page.pk, _('Add child page'), settings.MEDIA_URL, _('Add child page')))
-        #	 actions.insert(0, u'<a href="add/?parent=%s" title="%s"><img src="%simg/admin/icon_addlink.gif"
+                       u'<a href="add/?parent=%s" title="%s">\
+                         <img src="%simg/admin/icon_addlink.gif"\
+                         alt="%s"></a>' % (
+                           page.pk, _('Add child page'),
+                           settings.MEDIA_URL, _('Add child page')))
+        #  actions.insert(0, u'<a href="add/?parent=%s"
+        # title="%s"><img src="%simg/admin/icon_addlink.gif"
         # alt="%s"></a>' % (
-        #		 page.pk, _('Add child page'), django_settings.ADMIN_MEDIA_PREFIX ,_('Add child page')))
-        #	 actions.insert(0, u'<a href="%s" title="%s"><img src="%simg/admin/selector-search.gif" alt="%s" /></a>'
+        # 	 page.pk, _('Add child page'), django_settings.
+        # ADMIN_MEDIA_PREFIX ,_('Add child page')))
+        #  actions.insert(0, u'<a href="%s" title="%s">
+        # <img src="%simg/admin/selector-search.gif" alt="%s" /></a>'
         # % (
         # page.get_absolute_url(), _('View on site'),
         # django_settings.ADMIN_MEDIA_PREFIX, _('View on site')))
@@ -137,7 +145,8 @@ class GenericPossessionsAdmin(AutocompleteTreeEditor):
     fieldsets = [
         ('Administration',
          {'fields':
-          ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+          ['editedrecord', 'review', 'internal_notes',
+           ('created_at', 'created_by'),
            ('updated_at', 'updated_by')
            ],
           'classes': ['collapse']
@@ -157,7 +166,8 @@ class GenericPossessionsAdmin(AutocompleteTreeEditor):
         js = ("js/admin_fixes/admin_fixes.js",)
 
 
-# ++AUDIO files admin definitions: MedievalGaelicForename, ModernGaelicForename
+# ++AUDIO files admin definitions: MedievalGaelicForename
+#  ModernGaelicForename
 
 class AuthListAudiofileAdmin(admin.ModelAdmin):
     """Standard admin definitions used by all authority lists"""
@@ -188,7 +198,8 @@ class AuthListAudiofileAdmin(admin.ModelAdmin):
     fieldsets = [
         ('Administration',
          {'fields':
-          ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+          ['editedrecord', 'review', 'internal_notes',
+           ('created_at', 'created_by'),
            ('updated_at', 'updated_by')
            ],
           'classes': ['collapse']
@@ -210,14 +221,18 @@ class AuthListAudiofileAdmin(admin.ModelAdmin):
 
 # ++++++++++++++++++++++++++++++
 # authority lists admin definition
-auth_lists = [MatrixShape, SealColor, AttachmentType, Role, Gender, Chartertype, Relationshipmetatype, Occupationtype,
-              Exemptiontype, Nominalrendertype, Proanimagenerictypes, Renderdate, Sicutclausetype,
+auth_lists = [MatrixShape, SealColor, AttachmentType, Role, Gender,
+              Chartertype, Relationshipmetatype, Occupationtype,
+              Exemptiontype, Nominalrendertype, Proanimagenerictypes,
+              Renderdate, Sicutclausetype,
               Tenendasclauseoptions,
-              Transactiontype, LegalPertinents, Returns_military, Returns_renders, CommonBurdens, Language,
+              Transactiontype, LegalPertinents, Returns_military,
+              Returns_renders, CommonBurdens, Language,
               Referencetype]
 
 
-def func(x): return admin.site.register(x, AuthListStandardAdmin)
+def func(x):
+    return admin.site.register(x, AuthListStandardAdmin)
 
 
 map(func, auth_lists)
@@ -233,8 +248,10 @@ admin.site.register(ModernGaelicForename, AuthListAudiofileAdmin)
 # admin definition for TREE models
 
 
-possessions_lists = [Privileges, Poss_Alms, Poss_Unfree_persons, Poss_Revenues_silver, Poss_Revenues_kind,
-                     Poss_Office, Poss_Objects, Poss_Lands, Poss_General, ]  # Possession
+possessions_lists = [Privileges, Poss_Alms, Poss_Unfree_persons,
+                     Poss_Revenues_silver, Poss_Revenues_kind,
+                     Poss_Office, Poss_Objects, Poss_Lands,
+                     Poss_General, ]  # Possession
 
 for possession in possessions_lists:
     admin.site.register(possession, GenericPossessionsAdmin)

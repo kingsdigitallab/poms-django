@@ -1,38 +1,40 @@
 from django.db import models
-from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings as django_settings
-from django import forms
-import datetime
-from utils.myutils import blank_or_string, preview_string
+from utils.myutils import blank_or_string
 import utils.modelextra.mymodels as mymodels
 import mptt
 
 
 #########################
-##### POSSESSIONS and PRIVILEGES
+# POSSESSIONS and PRIVILEGES
 #########################
 
 # NEWWWWWW *****************
 
 # 2010-11-12: added the helper_name field, although we still dont use it!
 class Privileges(mymodels.PomsModel):
-    """(Privileges : TODO: we'll have to create adequate subclasses also here....)"""
+    """(Privileges : TODO: we'll have to create
+    adequate subclasses also here....)"""
     name = models.CharField(max_length=765, null=True,
                             blank=True, verbose_name="name",)
     nameextension = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="name extension",)
-    notes = models.TextField(null=True, blank=True, verbose_name="notes",)
-    parent = models.ForeignKey('self', null=True, blank=True, verbose_name="parent",
+        max_length=765, null=True, blank=True,
+        verbose_name="name extension",)
+    notes = models.TextField(null=True, blank=True,
+                             verbose_name="notes",)
+    parent = models.ForeignKey('self', null=True, blank=True,
+                               verbose_name="parent",
                                related_name='children')
     extraid = models.IntegerField(
         null=True, blank=True, verbose_name="useful unused field",)
     place = models.ForeignKey(
-        'Place', null=True, blank=True, verbose_name="related place (not used)",)
+        'Place', null=True, blank=True,
+        verbose_name="related place (not used)",)
     util_topancestor = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="root ancestor - utility field",)
+        max_length=765, null=True, blank=True,
+        verbose_name="root ancestor - utility field",)
     helper_name = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="helper name used for diplay purposes",)
+        max_length=765, null=True, blank=True,
+        verbose_name="helper name used for diplay purposes",)
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -54,7 +56,6 @@ class Privileges(mymodels.PomsModel):
             exit = "%s>>" % (blank_or_string(p.name))
             # we just go down two levels
             if p.parent:
-                p2 = p.parent
                 exit = "%s>>%s" % (blank_or_string(p.name), exit)
         exit += blank_or_string(self.name)
         return exit
@@ -86,20 +87,25 @@ class Privileges(mymodels.PomsModel):
 # doesn't appear in the admin!
 # 2010-11-12: added the helper_name field, although we still dont use it!
 class PossessionNew(mymodels.PomsModel):
-    """Superclass of all the possessions. We don't register it with MPTT as we do that with its subclasses"""
+    """Superclass of all the possessions. We don't register it with
+    MPTT as we do that with its subclasses"""
     name = models.CharField(max_length=765, null=True,
                             blank=True, verbose_name="name",)
     nameextension = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="name extension",)
+        max_length=765, null=True, blank=True,
+        verbose_name="name extension",)
     extraid = models.IntegerField(
         null=True, blank=True, verbose_name="useful unused field",)
     place = models.ForeignKey(
         'Place', null=True, blank=True, verbose_name="related place",)
-    notes = models.TextField(null=True, blank=True, verbose_name="notes",)
+    notes = models.TextField(null=True, blank=True,
+                             verbose_name="notes",)
     util_topancestor = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="root ancestor - utility field",)
+        max_length=765, null=True, blank=True,
+        verbose_name="root ancestor - utility field",)
     helper_name = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="helper name used for diplay purposes",)
+        max_length=765, null=True, blank=True,
+        verbose_name="helper name used for diplay purposes",)
 
     table_group = 'Possessions & Privileges [in progress]'
     table_order = 2
@@ -116,7 +122,6 @@ class PossessionNew(mymodels.PomsModel):
             exit = "%s>>" % (blank_or_string(p.name))
             # we just go down two levels
             if p.parent:
-                p2 = p.parent
                 exit = "%s>>%s" % (blank_or_string(p.name), exit)
         exit += blank_or_string(self.name)
         return exit

@@ -1,16 +1,6 @@
 from django.db import models
-from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings as django_settings
-from django import forms
-import datetime
-from utils.myutils import blank_or_string, preview_string
 import utils.modelextra.mymodels as mymodels
-# from django_extensions.admin.inline_autocomplete import *
 from utils.adminextra.autocomplete_tree_admin import InlineAutocompleteAdmin
-
-
-from pomsapp.models_authlists import TitleType
 
 
 #  ====================================
@@ -21,7 +11,7 @@ from pomsapp.models_authlists import TitleType
 
 
 class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
-    #factoidpersonkey = models.IntegerField()
+    # factoidpersonkey = models.IntegerField()
     factoid = models.ForeignKey('Factoid')
     person = models.ForeignKey('Person',
                                related_name='assoc_factoid_person')
@@ -29,11 +19,14 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
     role = models.ForeignKey(
         'Role', null=True, blank=True, verbose_name="role",)
     nameoriglang = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="nameoriglang", )
+        max_length=765, null=True, blank=True,
+        verbose_name="nameoriglang", )
     nametranslation = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="nametranslation",)
+        max_length=765, null=True, blank=True,
+        verbose_name="nametranslation",)
     standardmedievalform = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="standardmedievalform",)
+        max_length=765, null=True, blank=True,
+        verbose_name="standardmedievalform",)
     orderno = models.IntegerField(
         null=True, blank=True, verbose_name="Order number",)
 
@@ -42,8 +35,10 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
         ordering = ['orderno']
 
     def save(self, force_insert=False, force_update=False):
-        """fills out the shortdesc of Factoid Relationship depending on wheter there is an
-        associated person with a <Primary> role specified. We had to use this save() method instead of
+        """fills out the shortdesc of Factoid Relationship depending on
+        whether there is an
+        associated person with a <Primary> role specified. We had to use
+        this save() method instead of
         the FactRelationship one because this gets saved *after* that...."""
         super(AssocFactoidPerson, self).save(force_insert, force_update)
         save_helperAssociation(self)
@@ -67,11 +62,12 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
                                 particle = "of"
                                 primary_person = assoc.person
                                 if this_factoid.relationship:
-                                    relat_name = this_factoid.relationship.name
+                                    relat_name = this_factoid.relationship.name  # noqa
                                     if this_factoid.relationship.metatype:
-                                        relat_meta_name = this_factoid.relationship.metatype.name
+                                        relat_meta_name = this_factoid.relationship.metatype.name  # noqa
                                 this_factoid.shortdesc = "%s %s %s (%s)" % (
-                                    relat_name, particle, primary_person, relat_meta_name)
+                                    relat_name, particle,
+                                    primary_person, relat_meta_name)
                                 this_factoid.save()
                     if factoidtype[0] == "title/occupation":
                         # for all Assoc objects having this related factoid
@@ -85,7 +81,8 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
                                 primary_person = assoc.person
                                 if this_factoid.titletypekey:
                                     title_name = this_factoid.titletypekey.name
-                                # this_factoid.shortdesc = "%s, %s" % (primary_person, title_name,)
+                                # this_factoid.shortdesc = "%s, %s"
+                                # % (primary_person, title_name,)
                                 this_factoid.shortdesc = "%s" % (title_name,)
                                 this_factoid.save()
 
@@ -106,7 +103,7 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
 
 
 class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
-    #factoidpersonkey = models.IntegerField()
+    # factoidpersonkey = models.IntegerField()
     factoid = models.ForeignKey('Factoid')
     person = models.ForeignKey('Person')
     role = models.ForeignKey(
@@ -114,9 +111,11 @@ class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
     nameoriglang = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="nameoriglang", )
     nametranslation = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="nametranslation",)
+        max_length=765, null=True, blank=True,
+        verbose_name="nametranslation",)
     standardmedievalform = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="standardmedievalform",)
+        max_length=765, null=True, blank=True,
+        verbose_name="standardmedievalform",)
     orderno = models.IntegerField(
         null=True, blank=True, verbose_name="Order number",)
 
@@ -149,17 +148,22 @@ class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
 # 26 May: added the role:41 (might not be in the local DB)
 
 class AssocFactoidProanima(mymodels.TimeStampedHiddenModel):
-    #factoidpersonkey = models.IntegerField()
+    # factoidpersonkey = models.IntegerField()
     factoidtrans = models.ForeignKey('Factoid')
     person = models.ForeignKey('Person')
-    role = models.ForeignKey('Role', null=True, blank=True, verbose_name="role",
-                             limit_choices_to={'id__in': [14, 22, 23, 30, 34, 40, 41]}, default=14)  # the ProAnima roles: not sure about default
+    role = models.ForeignKey('Role', null=True, blank=True,
+                             verbose_name="role",
+                             limit_choices_to={'id__in': [14, 22, 23, 30,
+                                                          34, 40, 41]},
+                             default=14)
     nameoriglang = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="nameoriglang", )
     nametranslation = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="nametranslation",)
+        max_length=765, null=True, blank=True,
+        verbose_name="nametranslation",)
     standardmedievalform = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="standardmedievalform",)
+        max_length=765, null=True, blank=True,
+        verbose_name="standardmedievalform",)
     orderno = models.IntegerField(
         null=True, blank=True, verbose_name="Order number",)
 
@@ -192,7 +196,8 @@ class AssocFactoidProanima(mymodels.TimeStampedHiddenModel):
 #  Wed Sep	1 15:59:45 BST 2010
 #  ASSOC MODEL THAT COMBINES ALL THE THREE ABOVE, FOR SEARCHING PURPOSES
 #
-# thid model requires adjustements in both SAVE and DELETE method of its 'source' modes above...
+# thid model requires adjustements in both SAVE and DELETE
+# method of its 'source' modes above...
 #
 ##################
 
@@ -205,7 +210,8 @@ def save_helperAssociation(assoc):
             helper_oldid=assoc.id, helper_type=assoc.__class__.__name__)
         if existing_obj:  # try to see if we already have this obj saved
             print(
-                "AssocHelperPerson: found existing object ... just updating.........")
+                "AssocHelperPerson: found existing object\
+                ... just updating.........")
             obj = existing_obj[0]
             if assoc.__class__ == AssocFactoidProanima:
                 obj.factoid = assoc.factoidtrans
@@ -221,13 +227,23 @@ def save_helperAssociation(assoc):
         else:  # in this case, create a new obj
             print("AssocHelperPerson: creating NEW object ...........")
             if assoc.__class__ == AssocFactoidProanima:
-                obj = AssocHelperPerson(factoid=assoc.factoidtrans, person=assoc.person, role=assoc.role, nameoriglang=assoc.nameoriglang,
-                                        nametranslation=assoc.nametranslation, standardmedievalform=assoc.standardmedievalform, orderno=assoc.orderno,
-                                        helper_oldid=assoc.id, helper_type=assoc.__class__.__name__)
+                obj = AssocHelperPerson(factoid=assoc.factoidtrans,
+                                        person=assoc.person, role=assoc.role,
+                                        nameoriglang=assoc.nameoriglang,
+                                        nametranslation=assoc.nametranslation,
+                                        standardmedievalform=assoc.standardmedievalform,  # noqa
+                                        orderno=assoc.orderno,
+                                        helper_oldid=assoc.id,
+                                        helper_type=assoc.__class__.__name__)
             else:
-                obj = AssocHelperPerson(factoid=assoc.factoid, person=assoc.person, role=assoc.role, nameoriglang=assoc.nameoriglang,
-                                        nametranslation=assoc.nametranslation, standardmedievalform=assoc.standardmedievalform, orderno=assoc.orderno,
-                                        helper_oldid=assoc.id, helper_type=assoc.__class__.__name__)
+                obj = AssocHelperPerson(factoid=assoc.factoid,
+                                        person=assoc.person, role=assoc.role,
+                                        nameoriglang=assoc.nameoriglang,
+                                        nametranslation=assoc.nametranslation,
+                                        standardmedievalform=assoc.standardmedievalform,  # noqa
+                                        orderno=assoc.orderno,
+                                        helper_oldid=assoc.id,
+                                        helper_type=assoc.__class__.__name__)
         obj.save()
         print("Saved AssocHelperPerson [%d] Original ID: [%d]" % (
             obj.id, assoc.id))
@@ -236,7 +252,7 @@ def save_helperAssociation(assoc):
 
 
 class AssocHelperPerson(mymodels.TimeStampedHiddenModel):
-    #factoidpersonkey = models.IntegerField()
+    # factoidpersonkey = models.IntegerField()
     factoid = models.ForeignKey('Factoid')
     person = models.ForeignKey('Person', related_name='helperperson')
     role = models.ForeignKey(
@@ -244,15 +260,18 @@ class AssocHelperPerson(mymodels.TimeStampedHiddenModel):
     nameoriglang = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="nameoriglang", )
     nametranslation = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="nametranslation",)
+        max_length=765, null=True, blank=True,
+        verbose_name="nametranslation",)
     standardmedievalform = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="standardmedievalform",)
+        max_length=765, null=True, blank=True,
+        verbose_name="standardmedievalform",)
     orderno = models.IntegerField(
         null=True, blank=True, verbose_name="Order number",)
     helper_oldid = models.IntegerField(
         verbose_name="the id of the original association",)
     helper_type = models.CharField(
-        max_length=30, verbose_name="text representation of the assoc type of the original", )
+        max_length=30,
+        verbose_name="text representation of the assoc type of the original")
 
     class Meta:
         # pass
@@ -282,7 +301,9 @@ class AssocFactoidPoss_alms(mymodels.TimeStampedHiddenModel):
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession association has\
+                      been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -315,7 +336,9 @@ class AssocFactoidPoss_unfreep(mymodels.TimeStampedHiddenModel):
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession association\
+                      has been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -347,7 +370,9 @@ class AssocFactoidPoss_revenuesilver(mymodels.TimeStampedHiddenModel):
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession association\
+                      has been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -379,7 +404,9 @@ class AssocFactoidPoss_revenuekind(mymodels.TimeStampedHiddenModel):
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession association\
+                      has been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -411,7 +438,9 @@ class AssocFactoidPoss_pgeneral(mymodels.TimeStampedHiddenModel):
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession association\
+        has been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -445,7 +474,9 @@ class AssocFactoidPoss_office(mymodels.TimeStampedHiddenModel):
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession association has\
+        been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -474,9 +505,12 @@ class AssocFactoidPoss_objects(mymodels.TimeStampedHiddenModel):
     factoid = models.ForeignKey('Factoid')
     poss_object = models.ForeignKey('Poss_Objects', verbose_name="objects",)
     originaltext = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="original text",)
+        max_length=765, null=True, blank=True,
+        verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession\
+                      association has been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -507,7 +541,9 @@ class AssocFactoidPoss_lands(mymodels.TimeStampedHiddenModel):
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession association\
+        has been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -538,7 +574,9 @@ class AssocFactoidPrivileges(mymodels.TimeStampedHiddenModel):
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
-        default=False, verbose_name="Is True if a possession association has been inferred (for the FB)")
+        default=False,
+        verbose_name="Is True if a possession association\
+        has been inferred (for the FB)")
 
     def __unicode__(self):
         return "%s %s" % ("id:", self.id)
@@ -557,19 +595,3 @@ class AssocFactoidPrivilegesInline(InlineAutocompleteAdmin):
     related_search_fields = {
         'privilege': ('name',),
     }
-
-
-#	privileges = models.ForeignKey('Privileges', null=True, blank=True, verbose_name="privileges",)
-#	originaltext = models.CharField(max_length=765, null=True, blank=True, verbose_name="original text",)
-#	# orderno = models.IntegerField(null=True, blank=True, verbose_name="order no",)
-#
-#	def __unicode__(self):
-#		return "%s %s" % ("id:", self.id)
-#
-# ## inline definition
-# class AssocFactoidPoss_almsInline(admin.TabularInline):
-#	model = AssocFactoidPoss_alms
-#	raw_id_fields = ()
-#	verbose_name = 'Associated Alms (possessions)'
-#	# verbose_name_plural = 'Associated Possessions'
-#	extra = 1

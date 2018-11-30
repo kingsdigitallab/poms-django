@@ -1,17 +1,8 @@
-from django.db import models
-from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings as django_settings
 from django.utils.encoding import smart_text
-
 import datetime
-
-import utils.modelextra.mymodels as mymodels
-from utils.myutils import blank_or_string, preview_string
 from django.conf import settings
-
-
-from pomsapp.models_authlists import GrantorCategory, Proanimagenerictypes, DocTickboxes, TransTickboxes
+from pomsapp.models_authlists import (GrantorCategory, Proanimagenerictypes,
+                                      DocTickboxes, TransTickboxes)
 
 
 ######################
@@ -26,7 +17,8 @@ else:
 
 def create_helperDateRange(obj):
     """
-    hard-code a date range string representation to certain objects (for the faceted search)
+    hard-code a date range string representation to certain objects
+    (for the faceted search)
     """
 
     def assignRangeFromSelection(int1, int2):
@@ -45,17 +37,18 @@ def create_helperDateRange(obj):
 
     if obj.__class__.__name__ == 'Person':
         print(
-            "Creating create_helperDateRange text for person id[%d] " % obj.id)
-        string = ""
+            "Creating create_helperDateRange\
+            text for person id[%d]" % obj.id)
         try:
             test = assignRangeFromSelection(
                 obj.floruitstartyr, obj.floruitendyr)
             if test:
                 obj.helper_daterange = test
-                print("helperDateRange	 = [%s]" % smart_unicode(test))
+                print("helperDateRange	 = [%s]" % smart_text(test))
         except BaseException:
             print(
-                "************\nProblem with person id[%d]\n************" % (obj.id))
+                "************\nProblem with\
+                person id[%d]\n************" % (obj.id))
             pass
         return obj
 
@@ -63,50 +56,59 @@ def create_helperDateRange(obj):
 
         print(
             "Saving create_helperDateRange text for source id[%d]" % obj.id)
-        string = ""
         try:
             test = assignRangeFromSelection(obj.from_year, obj.to_year)
             if test:
                 obj.helper_daterange = test
-                print("helperDateRange	 = [%s]" % smart_unicode(test))
+                print("helperDateRange	 = [%s]" % smart_text(test))
         except BaseException:
             print(
-                "************\nProblem with source id[%d]\n************" % (obj.id))
+                "************\nProblem with source\
+                id[%d]\n************" % (obj.id))
             pass
         return obj
 
-    elif obj.__class__.__name__ in ('FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship', 'FactReference'):
+    elif obj.__class__.__name__ in ('FactTitle', 'FactPossession',
+                                    'FactTransaction', 'FactRelationship',
+                                    'FactReference'):
         print("Saving create_helperDateRange text for %s id[%d]" % (
             obj.__class__.__name__, obj.id))
-        string = ""
         try:
             test = assignRangeFromSelection(obj.from_year, obj.to_year)
             if test:
                 obj.helper_daterange = test
-                print("helperDateRange	 = [%s]" % smart_unicode(test))
+                print("helperDateRange	 = [%s]" % smart_text(test))
         except BaseException:
             print(
-                "************\nProblem with factoid id[%d]\n************" % (obj.id))
+                "************\nProblem with\
+                factoid id[%d]\n************" % (obj.id))
             pass
         return obj
 
     else:
         raise TypeError(
-            "create_helperDateRange error: you didn't pass the right object! (I accept only Person, Source or "
+            "create_helperDateRange error: you didn't pass the right\
+            object! (I accept only Person, Source or "
             "Factoid-s- instances...)")
     return obj
 
 
 def all_dates_blank(obj):
-    """helper method for checking whether all dates have been left empty in the
-            pre-saved factoid instance. We put the method here so that it can be called by all the
+    """helper method for checking whether all dates have been
+            left empty in the
+            pre-saved factoid instance. We put the method here so
+            that it can be called by all the
             subclasses of factoid """
 
-    datefields = {	 'has_firmdate': False, 'has_firmdayonly': False, 'undated': False, 'eitheror': False,
-                    'from_modifier': "", 'from_weekday': None, 'from_day': None,
-                    'from_modifier2': "", 'from_month': None, 'from_season': None, 'from_year': None,
+    datefields = {	 'has_firmdate': False, 'has_firmdayonly': False,
+                    'undated': False, 'eitheror': False,
+                    'from_modifier': "", 'from_weekday': None,
+                    'from_day': None,
+                    'from_modifier2': "", 'from_month': None,
+                    'from_season': None, 'from_year': None,
                     'to_modifier': "", 'to_weekday': None, 'to_day': None,
-                    'to_modifier2': "", 'to_month': None, 'to_season': None, 'to_year': None,
+                    'to_modifier2': "", 'to_month': None,
+                    'to_season': None, 'to_year': None,
                                     'datingnotes': "", 'probabledate': ""}
 
     for x in datefields.items():
@@ -118,12 +120,18 @@ def all_dates_blank(obj):
 def copy_dates_over(obj_from, obj_to):
     """ copies all the dates from one obj (=charter) to another (=factoid)"""
 
-    datefields = {	'has_firmdate': False, 'has_firmdayonly': False, 'undated': False, 'eitheror': False,
-                   'from_modifier': "", 'from_weekday': None, 'from_day': None,
-                                    'from_modifier2': "", 'from_month': None, 'from_season': None, 'from_year': None,
-                                    'to_modifier': "", 'to_weekday': None, 'to_day': None,
-                                    'to_modifier2': "", 'to_month': None, 'to_season': None, 'to_year': None,
-                                    'firmdate': "", 'datingnotes': "", 'probabledate': ""}
+    datefields = {	'has_firmdate': False, 'has_firmdayonly': False,
+                   'undated': False, 'eitheror': False,
+                   'from_modifier': "", 'from_weekday': None,
+                   'from_day': None,
+                                    'from_modifier2': "", 'from_month': None,
+                                    'from_season': None, 'from_year': None,
+                                    'to_modifier': "", 'to_weekday': None,
+                                    'to_day': None,
+                                    'to_modifier2': "", 'to_month': None,
+                                    'to_season': None, 'to_year': None,
+                                    'firmdate': "", 'datingnotes': "",
+                                    'probabledate': ""}
     try:
         for x in datefields.items():
             setattr(obj_to, x[0], getattr(obj_from, x[0]))
@@ -134,7 +142,8 @@ def copy_dates_over(obj_from, obj_to):
 
 # valid for charters && factoids
 def create_firmdate(obj):
-    """ gets an objects, extracts the dates and makes a nice firmdate string representation"""
+    """ gets an objects, extracts the dates and makes a nice firmdate
+    string representation"""
     if not all_dates_blank(obj):
         if obj.undated:
             return "undated"
@@ -203,7 +212,8 @@ def create_firmdate(obj):
 
 def fix_spiritualBenefits(transaction_instance):
     """
-    Adds a 'generic' spriritual benefit so that in searches we can simulate a top-level
+    Adds a 'generic' spriritual benefit so that in searches we
+    can simulate a top-level
     hiearchy kind of value.
     """
     if EXTRA_SAVING_ACTIONS:
@@ -223,8 +233,8 @@ def fix_inferredType(factoid_instance):
     if not factoid_instance.inferred_type and EXTRA_SAVING_ACTIONS:
         try:
             if factoid_instance.get_right_subclass()[0]:
-                factoid_instance.inferred_type = factoid_instance.get_right_subclass()[
-                    0]
+                factoid_instance.inferred_type =\
+                    factoid_instance.get_right_subclass()[0]
         except BaseException:
             print("Error!!!!")
     return factoid_instance
@@ -249,15 +259,18 @@ def updateFloruitsFromTransaction(trans):
     2012-08-20: extracted from model methods
     """
     # if trans.helper_floruits:
-    if False:  # 2012-08-20: disabled because of an 'operational error' cropping up - needs to be debugged properly
+    if False:  # 2012-08-20: disabled because of an 'operational error'
+                # cropping up - needs to be debugged properly
                 # might have to do with several users working on same model
                 # instance with multiple related rows..
         print("++ transaction requested to SAVE FLORUITS")
         person_candidates = []
         # 2012-06-22: updated
-        valid_roles = ['Grantor', 'Beneficiary', 'Addressor', 'Addressee', 'Party 1',
+        valid_roles = ['Grantor', 'Beneficiary', 'Addressor', 'Addressee',
+                       'Party 1',
                        'Party 2', 'Party 3', 'Consentor', 'Dated by hand of',
-                       'Inspector', 'Scribe', 'Sealer', 'Signatory', 'Witness',
+                       'Inspector', 'Scribe', 'Sealer', 'Signatory',
+                       'Witness',
                        'Judge', 'Recipient of fealty', 'Performer of fealty',
                        'Bearer of letters', 'Juror']
 
@@ -269,11 +282,12 @@ def updateFloruitsFromTransaction(trans):
                     person_candidates.append(x.person)
         if person_candidates:
             for person in list(set(person_candidates)):
-                person.helper_floruits = True  # otherwise it won't save the floruits
+                person.helper_floruits = True  # otherwise it won't save
                 person.save()
     else:
         print(
-            "++ transaction requested to save FLORUITS - DENIED cause trans.helper_floruits = False..")
+            "++ transaction requested to save FLORUITS -\
+            DENIED cause trans.helper_floruits = False..")
 
 
 def build_floruits(person_instance):
@@ -283,9 +297,12 @@ def build_floruits(person_instance):
               Then, if the highest-A is bigger that the lowest-B, invert them.
     """
 
-    valid_roles = ['Grantor', 'Beneficiary', 'Addressor', 'Addressee', 'Party 1', 'Party 2',
-                   'Party 3', 'Consentor', 'Dated by hand of', 'Inspector', 'Scribe', 'Sealer',
-                   'Signatory', 'Witness', 'Judge', 'Recipient of fealty', 'Performer of fealty',
+    valid_roles = ['Grantor', 'Beneficiary', 'Addressor', 'Addressee',
+                   'Party 1', 'Party 2',
+                   'Party 3', 'Consentor', 'Dated by hand of', 'Inspector',
+                   'Scribe', 'Sealer',
+                   'Signatory', 'Witness', 'Judge', 'Recipient of fealty',
+                   'Performer of fealty',
                    'Bearer of letters', 'Juror']
     candidates_from = []
     candidates_to = []
@@ -298,7 +315,9 @@ def build_floruits(person_instance):
         if x.factoid.get_right_subclass():
             if x.factoid.get_right_subclass()[0] == "transaction":
                 transaction = x.factoid.get_right_subclass()[1]
-                if transaction.isprimary == True and transaction.eitheror == False and transaction.undated == False:
+                if transaction.isprimary is True and\
+                        transaction.eitheror is False and\
+                        transaction.undated is False:
                     print("FLORUITS: witness in transaction %s" %
                           transaction)
                     candidates_from.append(transaction.from_year)
@@ -313,7 +332,9 @@ def build_floruits(person_instance):
                 if x.role:
                     if x.role.name in valid_roles:
                         transaction = x.factoid.get_right_subclass()[1]
-                        if transaction.isprimary == True and transaction.eitheror == False and transaction.undated == False:
+                        if transaction.isprimary is True and\
+                                transaction.eitheror is False and\
+                                transaction.undated is False:
                             print("FLORUITS: %s in transaction %s" %
                                   (x.role.name, transaction))
                             candidates_from.append(transaction.from_year)
@@ -350,7 +371,7 @@ def build_floruits(person_instance):
             person_instance.floruitstartyr = max(candidates_from)
             person_instance.floruitendyr = min(candidates_to)
 
-        #	the instance is saved in the main Person save() method
+        # the instance is saved in the main Person save() method
     return person_instance
 
 
@@ -360,8 +381,13 @@ def merge_persons_inner(main_person, person_list):
     txt = main_person.internal_notes
     if person_list:
         for p in person_list:
-            txt += "\n**********\n%s: Merged Person [%s]\nSurface name:%s\nMedieval name:%s\nModern name:%s\nBio: %s\n" % (datetime.date.today(),
-                                                                                                                           p.id, p.persondisplayname, p.standardmedievalname, p.moderngaelicname, p.persondescription)
+            txt += "\n**********\n%s: Merged Person [%s]\nSurface\
+                    name:%s\nMedieval name:%s\nModern name:%s\n\
+                    Bio: %s\n" % (datetime.date.today(),
+                                  p.id, p.persondisplayname,
+                                  p.standardmedievalname,
+                                  p.moderngaelicname,
+                                  p.persondescription)
             for a in p.assocfactoidperson_set.all():
                 a.person = main_person
                 txt += "==>added factoid [%d, %s]\n" % (
@@ -388,7 +414,8 @@ def merge_persons_inner(main_person, person_list):
 
 
 def create_helper_surnames(obj):
-    """ updates all the helper_surnames fields; returns an updated (not saved yet) object """
+    """ updates all the helper_surnames fields; returns an updated
+    (not saved yet) object """
 
     print("....updating Surname info for [%s]" % obj)
     sur = obj.surname
@@ -424,19 +451,19 @@ def create_helper_surnames(obj):
         return x.strip()
 
     # def combine_surname_fields(person):
-    #	x = ""
-    #	if person.surname:
-    #		x += person.surname + " "
-    #	if person.patronym:
-    #		x += person.patronym + " "
-    #	if person.ofstring:
-    #		if person.ofstring.strip() == "of":
-    #			x += person.ofstring + " "
-    #			if person.placeandinst:
-    #				x += person.placeandinst + " "
-    #	return x.strip()
+    # x = ""
+    # if person.surname:
+    # 	x += person.surname + " "
+    # if person.patronym:
+    # 	x += person.patronym + " "
+    # if person.ofstring:
+    # 	if person.ofstring.strip() == "of":
+    # 		x += person.ofstring + " "
+    # 		if person.placeandinst:
+    # 			x += person.placeandinst + " "
+    # return x.strip()
 
-    #	old searchsurname: applies to 'surname' field only
+    # old searchsurname: applies to 'surname' field only
     obj.searchsurname = trimsurname(sur)
     #  new searchsurnames fr FB
     obj.helper_bigsurname = combine_surname_fields(obj)
@@ -536,7 +563,7 @@ GRANTOR_CATEGORIES = {
         'Burgesses':
     {'hammondnumber': 3, 'hammondnumb2__gte': 630,
      'hammondnumb2__lte': 648},
-        'Agreements: kings and queens':   # was mispelled as Agreeements: kings and queens
+        'Agreements: kings and queens':
     {'hammondnumber': 4, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 2},
         'Agreements: between ecclesiastics':
     {'hammondnumber': 4, 'hammondnumb2__gte': 3, 'hammondnumb2__lte': 14},
@@ -626,7 +653,8 @@ def createPersonSurface_name(obj):
 
 def assign_grantorCategory(sourceInstance):
     """
-    The method doesn't save the Source object, it just updates it and return it
+    The method doesn't save the Source object, it just updates
+    it and return it
     """
     for constraint in GRANTOR_CATEGORIES:
         flag = 0
@@ -652,8 +680,12 @@ def assign_grantorCategory(sourceInstance):
                             flag = 1
                             break
         if flag == 0:
-            print("Assign_Grantorcategory:	 source[%d]	 h1[%s] h2[%s] h3[%s] ===>	%s" % (sourceInstance.id,
-                                                                                         str(sourceInstance.hammondnumber), str(sourceInstance.hammondnumb2), str(sourceInstance.hammondnumb3), constraint))
+            print("Assign_Grantorcategory:	 source[%d]	 h1[%s]\
+                h2[%s] h3[%s] ===>	%s" % (sourceInstance.id,
+                                          str(sourceInstance.hammondnumber),
+                                          str(sourceInstance.hammondnumb2),
+                                          str(sourceInstance.hammondnumb3),
+                                          constraint))
             # we have a match: save the item and stop iterating through the
             # GRANTOR_CATEGORIES
             cat = GrantorCategory.objects.filter(name=constraint)
@@ -665,8 +697,12 @@ def assign_grantorCategory(sourceInstance):
             sourceInstance.grantor_category = category
             break
     if flag == 1:
-        print("Assign_Grantorcategory: source[%d] h1[%s] h2[%s] h3[%s] ===> FAILED (no adequate mapping found)" % (sourceInstance.id,
-                                                                                                                   str(sourceInstance.hammondnumber), str(sourceInstance.hammondnumb2), str(sourceInstance.hammondnumb3)))
+        print("Assign_Grantorcategory: source[%d] h1[%s] h2[%s]\
+        h3[%s] ===> FAILED (no adequate\
+        mapping found)" % (sourceInstance.id,
+                           str(sourceInstance.hammondnumber),
+                           str(sourceInstance.hammondnumb2),
+                           str(sourceInstance.hammondnumb3)))
     return sourceInstance
 
 
@@ -693,9 +729,11 @@ def create_helperKeywordsearch(obj):
     'FactTitle'
 
 
-    People: Searching on fields: full modern name, standard medieval name, modern gaelic name, ID number.
+    People: Searching on fields: full modern name, standard medieval
+    name, modern gaelic name, ID number.
     Document: Searching on fields: H-number, trad.ID, description, ID number.
-    Factoid: Searching on fields: short description, source for data entry, ID number.
+    Factoid: Searching on fields: short description, source for
+    data entry, ID number.
 
     """
     #  now do the actions:
@@ -711,10 +749,11 @@ def create_helperKeywordsearch(obj):
             # string += obj.persondescription + " "
             obj.helper_keywordsearch = string
             print("Saved!")
-            print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
+            print("HelperKeywordsearch	 = [%s]" % smart_text(string))
         except BaseException:
             print(
-                "************\nProblem with person id[%d]\n************" % (obj.id))
+                "************\nProblem with person\
+                id[%d]\n************" % (obj.id))
             pass
         return obj
 
@@ -728,17 +767,20 @@ def create_helperKeywordsearch(obj):
             string += obj.source_tradid + " "
             string += obj.description + " "
             string += str(obj.id) + " "
-            string = string.replace("_", "")  # delete the italics placeholders
+            string = string.replace("_", "")  # delete the italics
             obj.helper_keywordsearch = string
             print("Saved!")
-            print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
+            print("HelperKeywordsearch	 = [%s]" % smart_text(string))
         except BaseException:
             print(
-                "************\nProblem with source id[%d]\n************" % (obj.id))
+                "************\nProblem with source\
+                id[%d]\n************" % (obj.id))
             pass
         return obj
 
-    elif obj.__class__.__name__ in ('FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship', 'FactReference'):
+    elif obj.__class__.__name__ in ('FactTitle', 'FactPossession',
+                                    'FactTransaction', 'FactRelationship',
+                                    'FactReference'):
         print("Saving helperKeywordsearch text for %s id[%d]" % (
             obj.__class__.__name__, obj.id))
         string = ""
@@ -747,13 +789,14 @@ def create_helperKeywordsearch(obj):
             string += obj.sourcekey.sourcefordataentry + " "
             string += str(obj.id) + " "
             # string += x.standardmedievalname + " "
-            string = string.replace("_", "")  # delete the italics placeholders
+            string = string.replace("_", "")  # delete the italics
             obj.helper_keywordsearch = string
             print("Saved!")
-            print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
+            print("HelperKeywordsearch	 = [%s]" % smart_text(string))
         except BaseException:
             print(
-                "************\nProblem with factoid id[%d]\n************" % (obj.id))
+                "************\nProblem with factoid\
+                id[%d]\n************" % (obj.id))
             pass
         return obj
 
@@ -770,10 +813,11 @@ def create_helperKeywordsearch(obj):
             string += str(obj.id) + " "
             obj.helper_keywordsearch = string
             print("Saved!")
-            print("HelperKeywordsearch	 = [%s]" % smart_unicode(string))
+            print("HelperKeywordsearch	 = [%s]" % smart_text(string))
         except BaseException:
             print(
-                "************\nProblem with place id[%d]\n************" % (obj.id))
+                "************\nProblem with\
+                place id[%d]\n************" % (obj.id))
             pass
         return obj
 
@@ -789,12 +833,14 @@ def handle_tickboxes(obj_instance):
     """
     obj_instance =	either a Charter or Transaction instance
 
-    Consolidates all tickboxes value in a new table, so to allow a facet to be built out of it
+    Consolidates all tickboxes value in a new table, so to allow a\
+    facet to be built out of it
     """
     if obj_instance._meta.verbose_name == 'Document':
         # it's a charter
         print(
-            "Adding m2m reference to DocTickboxes table for Charter [%d]" % obj_instance.id)
+            "Adding m2m reference to DocTickboxes table for\
+            Charter [%d]" % obj_instance.id)
         # first clear existing rels
         obj_instance.helper_tickboxes.clear()
         if obj_instance.ischirograph:
@@ -823,7 +869,8 @@ def handle_tickboxes(obj_instance):
             obj_instance.helper_tickboxes.add(duporignoncontemp)
     elif obj_instance._meta.verbose_name == 'fact transaction':
         print(
-            "Adding m2m reference to TransTickboxes table for Transaction [%d]" % obj_instance.id)
+            "Adding m2m reference to TransTickboxes table for\
+            Transaction [%d]" % obj_instance.id)
         # first clear existing rels
         obj_instance.helper_tickboxes.clear()
         if obj_instance.isprimary:
@@ -855,28 +902,32 @@ def handle_tickboxes(obj_instance):
                 name="Teste Me Ipso",)
             obj_instance.helper_tickboxes.add(testemeipso)
         if obj_instance.previouschartermention:
-            previouschartermention, created = TransTickboxes.objects.get_or_create(
-                name="Previous mention of charter",)
+            previouschartermention, created =\
+                TransTickboxes.objects.get_or_create(
+                    name="Previous mention of charter",)
             obj_instance.helper_tickboxes.add(previouschartermention)
         if obj_instance.previouschirographmention:
-            previouschirographmention, created = TransTickboxes.objects.get_or_create(
-                name="Previous mention of chirograph",)
+            previouschirographmention, created =\
+                TransTickboxes.objects.get_or_create(
+                    name="Previous mention of chirograph",)
             obj_instance.helper_tickboxes.add(previouschirographmention)
         if obj_instance.perambulation:
             perambulation, created = TransTickboxes.objects.get_or_create(
                 name="Perambulation",)
             obj_instance.helper_tickboxes.add(perambulation)
         if obj_instance.corroborationsealing:
-            corroborationsealing, created = TransTickboxes.objects.get_or_create(
-                name="Corroboration/Sealing",)
+            corroborationsealing, created =\
+                TransTickboxes.objects.get_or_create(
+                    name="Corroboration/Sealing",)
             obj_instance.helper_tickboxes.add(corroborationsealing)
         if obj_instance.ismalediction:
             ismalediction, created = TransTickboxes.objects.get_or_create(
                 name="malediction",)
             obj_instance.helper_tickboxes.add(ismalediction)
         if obj_instance.bothaddressorsmentioned:
-            bothaddressorsmentioned, created = TransTickboxes.objects.get_or_create(
-                name="Both addressors mentioned",)
+            bothaddressorsmentioned, created =\
+                TransTickboxes.objects.get_or_create(
+                    name="Both addressors mentioned",)
             obj_instance.helper_tickboxes.add(bothaddressorsmentioned)
         if obj_instance.warrandice:
             warrandice, created = TransTickboxes.objects.get_or_create(

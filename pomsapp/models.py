@@ -1,25 +1,24 @@
 from django.db.models.fields.related import ManyToOneRel
 from django.contrib.admin import widgets
-from django.utils.translation import ugettext_lazy as _
-from django.conf.urls import *  # for the ajax autocomplete
-from django.contrib.gis.db.models import *
+from django.conf.urls import *  # noqa
+from django.contrib.gis.db.models import *  # noqa
 from django.utils.translation import ugettext_lazy as _
 # from settings import print
 from django.contrib.admin.sites import site
 
-from pomsapp.actions_models import *
+from pomsapp.actions_models import *  # noqa
 #
 # ASSOCIATIONs
 #
-from pomsapp.models_associations import *
+from pomsapp.models_associations import *  # noqa
 #
 # AUTHORITY LISTS
 #
-from pomsapp.models_authlists import *
+from pomsapp.models_authlists import *  # noqa
 #
 # POSSESSIONS and PRIVILEGES
 #
-from pomsapp.models_possessions import *
+from pomsapp.models_possessions import *  # noqa
 
 
 #  TEMP
@@ -33,31 +32,40 @@ class Person(mymodels.PomsModel):
     persondisplayname = models.CharField(
         max_length=255, null=True, blank=True, verbose_name="Surface name", )
     standardmedievalname = models.CharField(
-        max_length=255, null=True, blank=True, verbose_name="Medieval gaelic name", )
+        max_length=255, null=True, blank=True,
+        verbose_name="Medieval gaelic name", )
     moderngaelicname = models.CharField(
-        max_length=255, null=True, blank=True, verbose_name="Modern gaelic name", )
+        max_length=255, null=True, blank=True,
+        verbose_name="Modern gaelic name", )
     persondescription = models.TextField(
         null=True, blank=True, verbose_name="biography", )
 
     floruitstartpre = models.CharField(
-        max_length=50, null=True, blank=True, verbose_name="pre-modifier", )
+        max_length=50, null=True, blank=True,
+        verbose_name="pre-modifier", )
     floruitstartyr = models.IntegerField(
         null=True, blank=True, verbose_name="from year", )
     floruitstartpost = models.CharField(
-        max_length=50, null=True, blank=True, verbose_name="post-modifier", )
+        max_length=50, null=True, blank=True,
+        verbose_name="post-modifier", )
     floruitendpre = models.CharField(
-        max_length=50, null=True, blank=True, verbose_name="pre-modifier", )
+        max_length=50, null=True, blank=True,
+        verbose_name="pre-modifier", )
     floruitendyr = models.IntegerField(
         null=True, blank=True, verbose_name="to year", )
     floruitendpost = models.CharField(
-        max_length=50, null=True, blank=True, verbose_name="post-modifier", )
+        max_length=50, null=True, blank=True,
+        verbose_name="post-modifier", )
     florlowkey = models.ForeignKey(
-        'Floruit', null=True, blank=True, verbose_name="FROM  :: century", related_name='flor_lowKey', )
+        'Floruit', null=True, blank=True,
+        verbose_name="FROM  :: century", related_name='flor_lowKey', )
     florhikey = models.ForeignKey(
-        'Floruit', null=True, blank=True, verbose_name="TO  :: century", related_name='flor_hiKey', )
+        'Floruit', null=True, blank=True,
+        verbose_name="TO  :: century", related_name='flor_hiKey', )
 
     genderkey = models.ForeignKey(
-        'Gender', null=True, blank=True, verbose_name="Gender", default=3)
+        'Gender', null=True, blank=True,
+        verbose_name="Gender", default=3)
 
     forename = models.CharField(
         max_length=765, verbose_name="Forename", null=True, blank=True, )
@@ -70,23 +78,27 @@ class Person(mymodels.PomsModel):
     ofstring = models.CharField(
         max_length=765, verbose_name="ofString", null=True, blank=True, )
     placeandinst = models.CharField(
-        max_length=765, verbose_name="Place/ institutional", null=True, blank=True, )
+        max_length=765, verbose_name="Place/ institutional",
+        null=True, blank=True, )
     datestring = models.CharField(
         max_length=765, verbose_name="Dates", null=True, blank=True, )
     # mikele: 4dec09
     searchsurname = models.CharField(
         max_length=765,
-        verbose_name="Normalized field including surnames stripped of non-interesting particles, for searching "
+        verbose_name="Normalized field including surnames\
+                     stripped of non-interesting particles, for searching "
                      "purposes only",
         null=True,
         blank=True, )
     # mikele: 18/1/10
     moderngaelicforename = models.ForeignKey(
-        ModernGaelicForename, null=True, blank=True, verbose_name="modern gaelic forename", )
+        ModernGaelicForename, null=True, blank=True,
+        verbose_name="modern gaelic forename", )
     moderngaelicsurname = models.CharField(
         blank=True, max_length=100, verbose_name="modern gaelic surname")
     medievalgaelicforename = models.ForeignKey(
-        MedievalGaelicForename, null=True, blank=True, verbose_name="medieval gaelic forename", )
+        MedievalGaelicForename, null=True, blank=True,
+        verbose_name="medieval gaelic forename", )
     medievalgaelicsurname = models.CharField(
         blank=True, max_length=100, verbose_name="medieval gaelic surname")
 
@@ -94,46 +106,61 @@ class Person(mymodels.PomsModel):
         'Place',
         null=True,
         blank=True,
-        verbose_name="Related place [reference extracted from place-institutional]",
-        help_text="Experimental Feature: this value has been extracted from the place/institutional field below")
+        verbose_name="Related place [reference\
+                     extracted from place-institutional]",
+        help_text="Experimental Feature: this value has\
+                  been extracted from the place/institutional field below")
 
     # 2010-11-17: new helper table to facilitate querying places' hierarchies
     # from person (for FB specifically)
     helper_places = models.ManyToManyField(
         'Place',
-        verbose_name="helper M2M table used to speed up searched in FB, from all persons to all places",
+        verbose_name="helper M2M table used to speed up searched\
+                     in FB, from all persons to all places",
         related_name='helper_persons')
 
     # new 17/6/2010 :: default=True doesn't seem to work... well who cares!
     helper_floruits = models.BooleanField(
-        default=True, verbose_name="Calculate floruits automatically (warning: saving time can take longer)",
-        help_text="Using all primary transactions where person has role: Grantor, Beneficiary, Addressor, Addressee, "
-                  "Party 1, Party 2, Party 3, Consentor, Dated by hand of, Inspector, Scribe, Sealer, Signatory, "
+        default=True, verbose_name="Calculate floruits automatically\
+                                   (warning: saving time can take longer)",
+        help_text="Using all primary transactions where person has role:\
+                  Grantor, Beneficiary, Addressor, Addressee, "
+                  "Party 1, Party 2, Party 3, Consentor, Dated by hand of,\
+                  Inspector, Scribe, Sealer, Signatory, "
                   "Witness")
     helper_merge = models.BooleanField(
-        default=False, verbose_name="Keep as main record in \'merge\' operation",
-        help_text="Tick to indicate that other person-records will have to be merged into this record, "
+        default=False, verbose_name="Keep as main record in\
+                                    \'merge\' operation",
+        help_text="Tick to indicate that other person-records will have\
+                  to be merged into this record, "
                   "and not otherwise")
     # mikele: 29June2010
     helper_bigsurname = models.CharField(
         max_length=765,
-        verbose_name="Field that displays a combination surname, sonOf, Patronym, ofString, Place-inst, for the FB "
+        verbose_name="Field that displays a combination surname, sonOf,\
+                     Patronym, ofString, Place-inst, for the FB "
                      "only",
         null=True, blank=True, )
     helper_searchbigsur = models.CharField(
-        max_length=765, verbose_name="Same as field above, but normalized", null=True, blank=True, )
+        max_length=765, verbose_name="Same as field above, but normalized",
+        null=True, blank=True, )
 
     helper_keywordsearch = models.CharField(
-        max_length=765, verbose_name="Field for the keyword search", null=True, blank=True, )
+        max_length=765, verbose_name="Field for the keyword search",
+        null=True, blank=True, )
     helper_totfactoids = models.IntegerField(
         blank=True, null=True,
-        verbose_name="Field that speeds up searches of people by tot number of factoids associated to them. MIND that "
-                     "it's not updated automatically, you need to manually run fixture 8 instead!", )
+        verbose_name="Field that speeds up searches of people by tot number\
+                     of factoids associated to them. MIND that "
+                     "it's not updated automatically, you need to\
+                     manually run fixture 8 instead!", )
 
     helper_daterange = models.CharField(
         blank=True, null=True, max_length=100,
-        verbose_name="helper field for date ranges - automatically generated so to accommodate a fixed date-range "
-                     "search facet (todo: supersede via a proper extension of the faceted browser)")
+        verbose_name="helper field for date ranges - automatically generated\
+                     so to accommodate a fixed date-range "
+                     "search facet (todo: supersede via a proper\
+                     extension of the faceted browser)")
 
     # NJ Hack to indicate presence of family relationship in Gephi
     has_family = models.NullBooleanField(blank=True, null=True)
@@ -172,26 +199,26 @@ class Person(mymodels.PomsModel):
 
     def how_many_sources(self):
         """helper method: shows how many unique sources mention a person"""
-        l = []
+        sources = []
         for x in self.getassocfactoids():
             try:
                 s = x.factoid.sourcekey
-                l.append(s)
+                sources.append(s)
             except BaseException:
                 pass
         for x in self.getassocfactoidproanimas():
             try:
                 s = x.factoid.sourcekey
-                l.append(s)
+                sources.append(s)
             except BaseException:
                 pass
         for x in self.assocfactoidwitness():
             try:
                 s = x.factoid.sourcekey
-                l.append(s)
+                sources.append(s)
             except BaseException:
                 pass
-        return len(list(set(l)))
+        return len(list(set(sources)))
 
     how_many_sources.allow_tags = True
 
@@ -210,18 +237,22 @@ class Person(mymodels.PomsModel):
     def get_association_factoids(self, whattype="", ordering=None):
         """
         Get all factoid-association instances (not the factoids!).
-        Valid types are possession, relationship, title/occupation, transaction ; or proanima and witness
+        Valid types are possession, relationship, title/occupation,
+        transaction ; or proanima and witness
         Ordering is expressed in the form of a list of attributes
         """
         if not whattype:
             # return ALL  [this supersedes what used to be called
             # get_all_associations]
-            return list(self.getassocfactoids()) + list(self.getassocfactoidproanimas()) + list(
+            return list(self.getassocfactoids()) +\
+                list(self.getassocfactoidproanimas()) + list(
                 self.assocfactoidwitness())
 
-        elif whattype in ['possession', 'relationship', 'title/occupation', 'transaction']:
+        elif whattype in ['possession', 'relationship',
+                          'title/occupation', 'transaction']:
             if not ordering:
-                return self.getassocfactoids().filter(factoid__inferred_type=whattype)
+                return self.getassocfactoids().filter(
+                    factoid__inferred_type=whattype)
             else:
                 return self.getassocfactoids().filter(
                     factoid__inferred_type=whattype).order_by(*ordering)
@@ -248,13 +279,16 @@ class Person(mymodels.PomsModel):
     def get_factoids(self, whattype="", ordering=None):
         """
         Get all factoids (not the associations!).
-        Valid types are possession, relationship, title/occupation, transaction ; or proanima and witness
+        Valid types are possession, relationship, title/occupation,
+        transaction ; or proanima and witness
         Returs the right subclass of Factoids, depending on what requested.
         """
         if not whattype:
             return list(self.factoids.all(
-            )) + list(self.factoidsproanima.all()) + list(self.factoidswitness.all())
-        elif whattype in ['possession', 'relationship', 'title/occupation', 'transaction']:
+            )) + list(self.factoidsproanima.all()) +\
+                list(self.factoidswitness.all())
+        elif whattype in ['possession', 'relationship',
+                          'title/occupation', 'transaction']:
             if not ordering:
                 factoid_set = self.factoids.filter(inferred_type=whattype)
             else:
@@ -282,9 +316,8 @@ class Person(mymodels.PomsModel):
 
         else:
             # return ALL  [this supersedes also get_all_associations]
-            print
-            "Valid factoid types are: 'possession', 'relationship', 'title/occupation', 'transaction', 'proanima', " \
-                "'witness'"
+            print("Valid factoid types are: 'possession', 'relationship',\
+                  'title/occupation', 'transaction', 'proanima', 'witness'")
             return []
 
     get_factoids.allow_tags = True
@@ -300,10 +333,12 @@ class Person(mymodels.PomsModel):
 
         """
         if count_only:
-            return Factoid.objects.filter(assochelperperson__person__id=self.id).filter(
+            return Factoid.objects.filter(
+                assochelperperson__person__id=self.id).filter(
                 assochelperperson__person__id=p2.id).distinct().count()
         else:
-            common = Factoid.objects.filter(assochelperperson__person__id=self.id).filter(
+            common = Factoid.objects.filter(
+                assochelperperson__person__id=self.id).filter(
                 assochelperperson__person__id=p2.id).distinct()
             if common:
                 return [f.get_right_subclass()[1]
@@ -318,7 +353,8 @@ class Person(mymodels.PomsModel):
         >>> factoids = p1.get_commonFactoids(p2)
         >>> f1 =factoids[0]
         >>> f1
-        <FactTransaction: id[42197], from source [4/32/24  (_Dunf. Reg._, no. 211)] >
+        <FactTransaction: id[42197], from source [4/32/24
+        (_Dunf. Reg._, no. 211)] >
         >>> p1.get_factoidRole(f1)
         [<Role: Sealer>]
         >>> p2.get_factoidRole(f1)
@@ -384,7 +420,6 @@ class Person(mymodels.PomsModel):
         actions = ['merge_people_action']
 
         def merge_people_action(self, request, queryset):
-            message_bit = "Nothing"
             persons_to_merge = []
             main_persons = []
             for obj in queryset:
@@ -394,17 +429,20 @@ class Person(mymodels.PomsModel):
                     persons_to_merge.append(obj)
             if len(main_persons) == 1:
                 feedback = merge_persons_inner(main_persons[
-                    0], persons_to_merge)  # feedback= [main_person, [merged_persons]]
-                self.message_user(request, "Records %s succesfully merged into [%s]" % (
+                    0], persons_to_merge)
+                self.message_user(request, "Records %s succesfully\
+                    merged into [%s]" % (
                     feedback[1], feedback[0]))
             if len(main_persons) == 0:
                 self.message_user(
                     request,
-                    "ERROR detected: you selected %s but none of these records are marked as 'main'!" %
+                    "ERROR detected: you selected %s but none of these\
+                    records are marked as 'main'!" %
                     persons_to_merge)
             if len(main_persons) > 1:
                 self.message_user(
-                    request, "ERROR detected: you selected %s as MAIN persons, only one is allowed!" % main_persons)
+                    request, "ERROR detected: you selected %s as MAIN\
+                    persons, only one is allowed!" % main_persons)
 
         merge_people_action.short_description = "Merge selected people"
 
@@ -420,7 +458,8 @@ class Person(mymodels.PomsModel):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['helper_merge', 'editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['helper_merge', 'editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -456,7 +495,8 @@ class Person(mymodels.PomsModel):
               ['helper_floruits',
                ('florlowkey', 'floruitstartpre',
                 'floruitstartyr', 'floruitstartpost'),
-               ('florhikey', 'floruitendpre', 'floruitendyr', 'floruitendpost'), ]}),
+               ('florhikey', 'floruitendpre', 'floruitendyr',
+                'floruitendpost'), ]}),
             ('Links to PoNE',
              {'fields':  # to be ORDERED
               ['ponelink', 'ponelink_sureness']
@@ -499,7 +539,8 @@ class PersonNoInstitutions(Person):
 
 
 class Source(mymodels.PomsModel):
-    """Metaclass for MAtrix, CHartes etc.. at the moment we're using only Charters"""
+    """Metaclass for MAtrix, CHartes etc.. at the moment we're using
+    only Charters"""
     # sourcekey = models.IntegerField() --> automatically created
     source_tradid = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="Trad. ID", )
@@ -527,8 +568,10 @@ class Source(mymodels.PomsModel):
     # I put at this level the date info specs
     # new dates 15/1/10
     firmdate = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="Firm date [preview]",
-        help_text="Field automatically composed from the fields above. Please do not modify it directly, but instead "
+        max_length=765, null=True, blank=True,
+        verbose_name="Firm date [preview]",
+        help_text="Field automatically composed from the fields above.\
+                  Please do not modify it directly, but instead "
                   "modify the from/to options above.")
     has_firmdate = models.BooleanField(
         default=False, verbose_name="Has firm date")
@@ -543,30 +586,41 @@ class Source(mymodels.PomsModel):
         blank=True, null=True, choices=WEEKDAY_CHOICES, verbose_name="",
         help_text="weekday")
     from_day = models.IntegerField(
-        blank=True, null=True, choices=DAY_CHOICES, verbose_name="", help_text="day", )
+        blank=True, null=True, choices=DAY_CHOICES, verbose_name="",
+        help_text="day", )
     from_modifier2 = models.CharField(
-        blank=True, max_length=3, choices=DATE_MODIFIERS2, help_text="modifier2", verbose_name="", )
+        blank=True, max_length=3, choices=DATE_MODIFIERS2,
+        help_text="modifier2", verbose_name="", )
     from_month = models.IntegerField(
-        blank=True, null=True, choices=MON_CHOICES, verbose_name="", help_text="month")
+        blank=True, null=True, choices=MON_CHOICES, verbose_name="",
+        help_text="month")
     from_season = models.IntegerField(
-        blank=True, null=True, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
+        blank=True, null=True, choices=SEASON_CHOICES, help_text="season",
+        verbose_name="", )
     from_year = models.IntegerField(
-        blank=True, null=True, verbose_name="", help_text="enter a year in numbers")
+        blank=True, null=True, verbose_name="",
+        help_text="enter a year in numbers")
     to_modifier = models.CharField(
         blank=True, max_length=3, choices=DATE_MODIFIERS,
         verbose_name="date of charter  - TO", help_text="modifier")
     to_weekday = models.IntegerField(
-        blank=True, null=True, choices=WEEKDAY_CHOICES, help_text="weekday", verbose_name="", )
+        blank=True, null=True, choices=WEEKDAY_CHOICES, help_text="weekday",
+        verbose_name="", )
     to_day = models.IntegerField(
-        blank=True, null=True, choices=DAY_CHOICES, help_text="day", verbose_name="", )
+        blank=True, null=True, choices=DAY_CHOICES, help_text="day",
+        verbose_name="", )
     to_modifier2 = models.CharField(
-        blank=True, max_length=3, choices=DATE_MODIFIERS2, help_text="modifier2", verbose_name="", )
+        blank=True, max_length=3, choices=DATE_MODIFIERS2,
+        help_text="modifier2", verbose_name="", )
     to_month = models.IntegerField(
-        blank=True, null=True, choices=MON_CHOICES, help_text="month", verbose_name="", )
+        blank=True, null=True, choices=MON_CHOICES, help_text="month",
+        verbose_name="", )
     to_season = models.IntegerField(
-        blank=True, null=True, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
+        blank=True, null=True, choices=SEASON_CHOICES, help_text="season",
+        verbose_name="", )
     to_year = models.IntegerField(
-        blank=True, null=True, verbose_name="", help_text="enter a year in numbers")
+        blank=True, null=True, verbose_name="",
+        help_text="enter a year in numbers")
     # end ======== new dates 15/1/10
     probabledate = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="prob date", )
@@ -578,21 +632,28 @@ class Source(mymodels.PomsModel):
         default=1)
     # 2010-08-18 => new inferred grantor category
     grantor_category = models.ForeignKey(
-        GrantorCategory, null=True, blank=True, verbose_name="grantor category")
+        GrantorCategory, null=True, blank=True,
+        verbose_name="grantor category")
 
     helper_hammond = models.CharField(
-        max_length=50, verbose_name="We store here the results of get_hammondnumber(), for faster ordering", null=True,
+        max_length=50,
+        verbose_name="We store here the results of get_hammondnumber(),\
+        for faster ordering", null=True,
         blank=True, )
     helper_keywordsearch = models.TextField(
-        verbose_name="Field for the keyword search", null=True, blank=True, )
+        verbose_name="Field for the keyword search", null=True, blank=True,)
     helper_daterange = models.CharField(
         blank=True, null=True, max_length=100,
-        verbose_name="helper field for date ranges - automatically generated so to accommodate a fixed date-range "
-                     "search facet (todo: supersede via a proper extension of the faceted browser)")
+        verbose_name="helper field for date ranges - automatically generated\
+                     so to accommodate a fixed date-range "
+                     "search facet (todo: supersede via a proper extension\
+                     of the faceted browser)")
     helper_totfactoids = models.IntegerField(
         blank=True, null=True,
-        verbose_name="Field that speeds up searches of sources by tot number of factoids associated to them. MIND "
-                     "that it's not updated automatically, you need to manually run fixture 8 instead!", )
+        verbose_name="Field that speeds up searches of sources by tot\
+                     number of factoids associated to them. MIND "
+                     "that it's not updated automatically, you need\
+                     to manually run fixture 8 instead!", )
 
     def get_right_subclass(self):
         # once you get a source instance, it's useful to know quickly what
@@ -609,10 +670,12 @@ class Source(mymodels.PomsModel):
         # creates a nice representation of the HN...
         try:
             nice_hn = "%s/%s/%s %s" % (
-                self.hammondnumber or '0', self.hammondnumb2 or '0', self.hammondnumb3 or '0', self.hammondext)
+                self.hammondnumber or '0', self.hammondnumb2 or '0',
+                self.hammondnumb3 or '0', self.hammondext)
         except BaseException:
             print(
-                "++++++ GET_HAMMONDNUMBER(): Problems creating the hammond number ++++++")
+                "++++++ GET_HAMMONDNUMBER(): Problems creating the\
+                hammond number ++++++")
             nice_hn = "Problems creating the H number"
         return nice_hn
 
@@ -621,12 +684,14 @@ class Source(mymodels.PomsModel):
     def get_factoids(self, whattype="", ordering=None):
         """
         Get all factoids (not the associations!).
-        Valid types are possession, relationship, title/occupation, transaction
+        Valid types are possession, relationship, title/occupation,
+        transaction
         Returs the right subclass of Factoids, depending on what requested.
         """
         if not whattype:
             return self.factoids.all()
-        elif whattype in ['possession', 'relationship', 'title/occupation', 'transaction']:
+        elif whattype in ['possession', 'relationship', 'title/occupation',
+                          'transaction']:
             if not ordering:
                 factoid_set = self.factoids.filter(inferred_type=whattype)
             else:
@@ -652,8 +717,11 @@ class Source(mymodels.PomsModel):
         pass
 
     def __str__(self):
-        out = "%s/%s/%s %s (%s)" % (self.hammondnumber or '0', self.hammondnumb2 or '0',
-                                    self.hammondnumb3 or '0', self.hammondext, self.source_tradid)
+        out = "%s/%s/%s %s (%s)" % (self.hammondnumber or '0',
+                                    self.hammondnumb2 or '0',
+                                    self.hammondnumb3 or '0',
+                                    self.hammondext,
+                                    self.source_tradid)
         return out
 
     def __unicode__(self):
@@ -668,11 +736,14 @@ class Charter(Source):
 
     ischirograph = models.BooleanField(
         default=False, verbose_name="Chirograph?")
-    doctypenotes = models.TextField(blank=True, verbose_name="Doc type notes")
+    doctypenotes = models.TextField(blank=True,
+                                    verbose_name="Doc type notes")
     placedatemodern = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="Place (modern)", )
+        max_length=765, null=True, blank=True,
+        verbose_name="Place (modern)", )
     placedatedoc = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="Place (document)", )
+        max_length=765, null=True, blank=True,
+        verbose_name="Place (document)", )
     placefk = models.ForeignKey(
         'Place', null=True, blank=True, verbose_name="Place", )
 
@@ -689,15 +760,18 @@ class Charter(Source):
 
     helper_hnumber = models.CharField(
         max_length=100, null=True, blank=True, verbose_name="h-number",
-        help_text="A helper field that conflates al the hNumbers, for better alpha searching", )
+        help_text="A helper field that conflates al the\
+        hNumbers, for better alpha searching", )
     helper_copydates = models.BooleanField(
         default=True,
         verbose_name="Copy dates to related Factoids?",
         help_text="(excluding non-primary transactions)")
 
     helper_tickboxes = models.ManyToManyField(
-        'DocTickboxes', blank=True, verbose_name="normalization of tickboxes",
-        help_text="Helper field used for the faceted search - see actionsmodels", )
+        'DocTickboxes', blank=True,
+        verbose_name="normalization of tickboxes",
+        help_text="Helper field used for the faceted\
+                  search - see actionsmodels", )
 
     def get_admin_url(self):
         from django.core import urlresolvers
@@ -720,15 +794,13 @@ class Charter(Source):
             super(Charter, self).save(force_insert, force_update)
             handle_tickboxes(self)
             temp = self.get_hammondnumber()
-            # initially we stored it only in Charter, now in Source too to make searches in FB faster. Eventually we
-            # could eliminate it from Charter object entyirely, making sure all
-            # code is updated as needed!
+
             self.helper_hnumber = temp
             self.helper_hammond = temp
             self.firmdate = create_firmdate(self)
             if self.helper_copydates:
                 copy_charter_dates2factoids(self)
-            if not self.grantor_category:  # 2010-08-18  to enforce it: ...... if True:
+            if not self.grantor_category:
                 assign_grantorCategory(self)
             self = create_helperKeywordsearch(self)
             self = create_helperDateRange(self)
@@ -750,7 +822,8 @@ class Charter(Source):
             obj.save()
 
         list_display = (
-            'source_tradid', 'placedatemodern', 'hammondnumber', 'hammondnumb2', 'hammondnumb3', 'hammondext',
+            'source_tradid', 'placedatemodern', 'hammondnumber',
+            'hammondnumb2', 'hammondnumb3', 'hammondext',
             'helper_hnumber',
             'editedrecord', 'review', 'updated_by', 'updated_at',)
         # raw_id_fields = ('chartertypekey',)
@@ -760,11 +833,13 @@ class Charter(Source):
         list_filter = ['created_at', 'updated_at', 'created_by__username',
                        'editedrecord', 'review', 'undated', 'has_firmdate']
         search_fields = ['source_tradid', 'placedatemodern',
-                         'hammondnumber', 'hammondnumb2', 'hammondnumb3', 'hammondext', 'id']
+                         'hammondnumber', 'hammondnumb2', 'hammondnumb3',
+                         'hammondext', 'id']
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -772,11 +847,13 @@ class Charter(Source):
             ('ID',
              {'fields':
               ['source_tradid', (
-                  'hammondnumber', 'hammondnumb2', 'hammondnumb3', 'hammondext', 'mofa_flag'), ]
+                  'hammondnumber', 'hammondnumb2', 'hammondnumb3',
+                  'hammondext', 'mofa_flag'), ]
               }),
             ('Description',
              {'fields':
-              ['chartertypekey', ('ischirograph', 'letterpatent',), 'language', 'doctypenotes',
+              ['chartertypekey', ('ischirograph', 'letterpatent',),
+               'language', 'doctypenotes',
                'description', 'sourcefordataentry']
               }),
             ('Dates',
@@ -812,7 +889,8 @@ class Charter(Source):
         # self.hammondnumb2, self.hammondnumb3, self.hammondext,
         # self.source_tradid)
         out = "Document %s/%s/%s %s (%s)" % (
-            self.hammondnumber or '0', self.hammondnumb2 or '0', self.hammondnumb3 or '0', self.hammondext,
+            self.hammondnumber or '0', self.hammondnumb2 or '0',
+            self.hammondnumb3 or '0', self.hammondext,
             self.source_tradid)
         return out
 
@@ -881,7 +959,8 @@ class Matrix(Source):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -910,7 +989,8 @@ class Matrix(Source):
 class Seal(Source):
     """(Seal description)"""
     charter_field = models.ForeignKey(
-        'Charter', verbose_name="charter", blank=True, null=True, db_column='charter_id')
+        'Charter', verbose_name="charter", blank=True, null=True,
+        db_column='charter_id')
     matrix_field = models.ForeignKey(
         'Matrix',
         verbose_name="matrix",
@@ -918,17 +998,20 @@ class Seal(Source):
     color = models.ForeignKey(
         'SealColor', verbose_name="seal color", blank=True, null=True, )
     att_type_surv = models.ForeignKey(
-        'AttachmentType', related_name="surv_attach_of", verbose_name="Attachment type",
+        'AttachmentType', related_name="surv_attach_of",
+        verbose_name="Attachment type",
         blank=True, null=True, )
-    # att_type_notsurv = models.ForeignKey('AttachmentType', related_name = "nonsurv_attach_of",
-    #                                       verbose_name="Attachment type (not surviving)", blank=True, null=True,)
+    # att_type_notsurv = models.ForeignKey('AttachmentType',
+    # related_name = "nonsurv_attach_of",
+    # verbose_name="Attachment type (not surviving)", blank=True, null=True,)
     # twosided = models.BooleanField(default=False, verbose_name="two sided?")
     countersealed = models.BooleanField(
         default=False, verbose_name="countersealed?")
     archive = models.CharField(
         max_length=200, verbose_name="archive", blank=True, null=True, )
     archiverefnumber = models.CharField(
-        max_length=100, verbose_name="archive ref number", blank=True, null=True, )
+        max_length=100, verbose_name="archive ref number",
+        blank=True, null=True, )
     conditionnote = models.TextField(
         verbose_name="condition note", blank=True, null=True, )
 
@@ -963,14 +1046,16 @@ class Seal(Source):
             obj.save()
 
         list_display = ('matrix_field', 'color', 'countersealed',
-                        'editedrecord', 'review', 'updated_by', 'updated_at',)
+                        'editedrecord', 'review', 'updated_by',
+                        'updated_at',)
         search_fields = ('id',)
         list_filter = ('matrix_field', 'color', 'created_at', 'updated_at',
                        'created_by__username', 'editedrecord', 'review',)
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -1011,9 +1096,11 @@ class ExtraTitleCreationFrom(forms.ModelForm):
     # request object in the TransactionFactoid code (as it used to be)
     # todo ehall rawid widget broken by upgrade, this may not work
     title = forms.ModelChoiceField(
-        required=False, queryset=TitleType.objects.all(), empty_label="(Nothing)",
+        required=False, queryset=TitleType.objects.all(),
+        empty_label="(Nothing)",
         label="title [warning: creates a new title-factoid]",
-        widget=widgets.ForeignKeyRawIdWidget(ManyToOneRel(TitleType, 'id', 'id'), site))
+        widget=widgets.ForeignKeyRawIdWidget(
+            ManyToOneRel(TitleType, 'id', 'id'), site))
     bygraceofgod = forms.BooleanField(required=False, label="by grace of..")
     byanotherdivineinvocation = forms.BooleanField(
         required=False, label="by another divine..")
@@ -1045,7 +1132,7 @@ class AssocPersonInline(InlineAutocompleteAdmin):
     model = AssocFactoidPerson
     verbose_name = 'Associated person'
     verbose_name_plural = 'Associated people'
-    extra = 4  # 2011-07-26: note that this seems to be overridden by the one in models.py
+    extra = 4
     related_search_fields = {
         'person': ('persondisplayname',),
         'role': ('name',),
@@ -1083,7 +1170,7 @@ class AssocProanimaInline(InlineAutocompleteAdmin):
 # ================================
 class Factoid(mymodels.PomsModel):
     inferred_type = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name="inferred type", )
+        max_length=100, null=True, blank=True, verbose_name="inferred type",)
     sourcekey = models.ForeignKey('Source', verbose_name="Document",
                                   related_name='factoids')
     people = models.ManyToManyField(
@@ -1099,38 +1186,50 @@ class Factoid(mymodels.PomsModel):
 
     helper_places = models.ManyToManyField(
         'Place',
-        verbose_name="helper M2M table used to speed up searched in FB, from all factoids to all places (bypassing "
+        verbose_name="helper M2M table used to speed up searched in FB,\
+                     from all factoids to all places (bypassing "
                      "the possessions)",
         related_name="helper_factoids")
     poss_alms = models.ManyToManyField(
         Poss_Alms, through='AssocFactoidPoss_alms', verbose_name="alms", )
     poss_unfreep = models.ManyToManyField(
-        Poss_Unfree_persons, through='AssocFactoidPoss_unfreep', verbose_name="unfree persons", )
+        Poss_Unfree_persons, through='AssocFactoidPoss_unfreep',
+        verbose_name="unfree persons", )
     poss_revsilver = models.ManyToManyField(
-        Poss_Revenues_silver, through='AssocFactoidPoss_revenuesilver', verbose_name="revenue in silver", )
+        Poss_Revenues_silver, through='AssocFactoidPoss_revenuesilver',
+        verbose_name="revenue in silver", )
     poss_revkind = models.ManyToManyField(
-        Poss_Revenues_kind, through='AssocFactoidPoss_revenuekind', verbose_name="revenue in kind", )
+        Poss_Revenues_kind, through='AssocFactoidPoss_revenuekind',
+        verbose_name="revenue in kind", )
     poss_pgeneral = models.ManyToManyField(
-        Poss_General, through='AssocFactoidPoss_pgeneral', verbose_name="possessions in general", )
+        Poss_General, through='AssocFactoidPoss_pgeneral',
+        verbose_name="possessions in general", )
     poss_office = models.ManyToManyField(
-        Poss_Office, through='AssocFactoidPoss_office', verbose_name="office", )
+        Poss_Office, through='AssocFactoidPoss_office',
+        verbose_name="office", )
     poss_objects = models.ManyToManyField(
-        Poss_Objects, through='AssocFactoidPoss_objects', verbose_name="objects", )
+        Poss_Objects, through='AssocFactoidPoss_objects',
+        verbose_name="objects", )
     poss_lands = models.ManyToManyField(
-        Poss_Lands, through='AssocFactoidPoss_lands', verbose_name="lands", )
+        Poss_Lands, through='AssocFactoidPoss_lands',
+        verbose_name="lands", )
     poss_privileges = models.ManyToManyField(
-        Privileges, through='AssocFactoidPrivileges', verbose_name="privileges", )
+        Privileges, through='AssocFactoidPrivileges',
+        verbose_name="privileges", )
 
     shortdesc = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="short description", )
+        max_length=765, null=True, blank=True,
+        verbose_name="short description", )
     # new dates 15/1/10
     has_firmdate = models.BooleanField(
         default=False, verbose_name="Has firm date")  # new 11/6/10
     has_firmdayonly = models.BooleanField(
         default=False, verbose_name="DAY only firmdate")
     firmdate = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="Firm date [preview]",
-        help_text="Field automatically composed from the fields above. Please do not modify it directly, but instead "
+        max_length=765, null=True, blank=True,
+        verbose_name="Firm date [preview]",
+        help_text="Field automatically composed from the fields above.\
+                  Please do not modify it directly, but instead "
                   "modify the from/to options above.")
     undated = models.BooleanField(default=False, verbose_name="undated")
     eitheror = models.BooleanField(default=False, verbose_name="either/or")
@@ -1141,33 +1240,45 @@ class Factoid(mymodels.PomsModel):
         blank=True, null=True, choices=WEEKDAY_CHOICES, verbose_name="",
         help_text="weekday")
     from_day = models.IntegerField(
-        blank=True, null=True, choices=DAY_CHOICES, verbose_name="", help_text="day", )
+        blank=True, null=True, choices=DAY_CHOICES, verbose_name="",
+        help_text="day", )
     from_modifier2 = models.CharField(
-        blank=True, max_length=3, choices=DATE_MODIFIERS2, help_text="modifier2", verbose_name="", )
+        blank=True, max_length=3, choices=DATE_MODIFIERS2,
+        help_text="modifier2", verbose_name="", )
     from_month = models.IntegerField(
-        blank=True, null=True, choices=MON_CHOICES, verbose_name="", help_text="month")
+        blank=True, null=True, choices=MON_CHOICES, verbose_name="",
+        help_text="month")
     from_season = models.IntegerField(
-        blank=True, null=True, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
+        blank=True, null=True, choices=SEASON_CHOICES, help_text="season",
+        verbose_name="", )
     from_year = models.IntegerField(
-        blank=True, null=True, verbose_name="", help_text="enter a year in numbers")
+        blank=True, null=True, verbose_name="",
+        help_text="enter a year in numbers")
     to_modifier = models.CharField(
         blank=True, max_length=3, choices=DATE_MODIFIERS,
         verbose_name="date of factoid  - TO", help_text="modifier")
     to_weekday = models.IntegerField(
-        blank=True, null=True, choices=WEEKDAY_CHOICES, help_text="weekday", verbose_name="", )
+        blank=True, null=True, choices=WEEKDAY_CHOICES, help_text="weekday",
+        verbose_name="", )
     to_day = models.IntegerField(
-        blank=True, null=True, choices=DAY_CHOICES, help_text="day", verbose_name="", )
+        blank=True, null=True, choices=DAY_CHOICES, help_text="day",
+        verbose_name="", )
     to_modifier2 = models.CharField(
-        blank=True, max_length=3, choices=DATE_MODIFIERS2, help_text="modifier2", verbose_name="", )
+        blank=True, max_length=3, choices=DATE_MODIFIERS2,
+        help_text="modifier2", verbose_name="", )
     to_month = models.IntegerField(
-        blank=True, null=True, choices=MON_CHOICES, help_text="month", verbose_name="", )
+        blank=True, null=True, choices=MON_CHOICES, help_text="month",
+        verbose_name="", )
     to_season = models.IntegerField(
-        blank=True, null=True, choices=SEASON_CHOICES, help_text="season", verbose_name="", )
+        blank=True, null=True, choices=SEASON_CHOICES, help_text="season",
+        verbose_name="", )
     to_year = models.IntegerField(
-        blank=True, null=True, verbose_name="", help_text="enter a year in numbers")
+        blank=True, null=True, verbose_name="",
+        help_text="enter a year in numbers")
     # end ======== new dates 15/1/10
     probabledate = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="probable date", )
+        max_length=765, null=True, blank=True,
+        verbose_name="probable date", )
     datingnotes = models.TextField(
         null=True, blank=True, verbose_name="dating notes", )
     notes = models.TextField(null=True, blank=True, verbose_name="notes", )
@@ -1180,11 +1291,15 @@ class Factoid(mymodels.PomsModel):
         verbose_name="source reference (unused for now)", )
     # 2012-08-20 updated
     helper_floruits = models.BooleanField(
-        default=True, verbose_name="Calculate floruits automatically (warning: saving time can take longer)",
-        help_text="DISABLED: please re-save persons individually in order to update their floruits (or ask the db "
+        default=True, verbose_name="Calculate floruits automatically\
+                                   (warning: saving time can take longer)",
+        help_text="DISABLED: please re-save persons individually in order to\
+                  update their floruits (or ask the db "
                   "administrator to do that for you as a batch operation)")
-    # help_text="DISABLED Using all primary transactions where person has role: Grantor, Beneficiary, Addressor,
-    # Addressee, Party 1, Party 2, Party 3, Consentor, Dated by hand of, Inspector, Scribe, Sealer, Signatory, Witness")
+    # help_text="DISABLED Using all primary transactions where person has
+    # role: Grantor, Beneficiary, Addressor,
+    # Addressee, Party 1, Party 2, Party 3, Consentor, Dated by hand of,
+    # Inspector, Scribe, Sealer, Signatory, Witness")
     # 2010-09-01: the following field conflates all people associations, for
     # faster searching...
     helper_people = models.ManyToManyField(
@@ -1192,19 +1307,24 @@ class Factoid(mymodels.PomsModel):
         verbose_name="associated people - helper field", db_index=True)
 
     helper_keywordsearch = models.CharField(
-        max_length=765, verbose_name="Field for the keyword search", null=True, blank=True, )
+        max_length=765, verbose_name="Field for the keyword search",
+        null=True, blank=True, )
     helper_daterange = models.CharField(
         blank=True, null=True, max_length=100,
-        verbose_name="helper field for date ranges - automatically generated so to accommodate a fixed date-range "
-                     "search facet (todo: supersede via a proper extension of the faceted browser)")
+        verbose_name="helper field for date ranges - automatically generated\
+                     so to accommodate a fixed date-range "
+                     "search facet (todo: supersede via a proper extension\
+                     of the faceted browser)")
 
     @models.permalink
     def get_absolute_url(self):
         return ('factoid_detail', [str(self.id)])
 
     def force_inferred(self):
-        """the inferred_type field can be calculated only by running a save on the
-        subclass of a factoid. This method retrieves the instance and saves it for you."""
+        """the inferred_type field can be calculated only by running a\
+        save on the
+        subclass of a factoid. This method retrieves the instance and\
+        saves it for you."""
         test = self.get_right_subclass()
         if test:
             self.inferred_type = test[0]
@@ -1237,21 +1357,19 @@ class Factoid(mymodels.PomsModel):
     def __str__(self):
         return self.shortdesc or "no description"
 
-    def __str__(self):
-        return self.shortdesc or "no description"
-
 
 class FactTitle(Factoid):
     """(in poms-linnet this used to be called 'Title')"""
-    # factoidkey = models.IntegerField()  --> not needed anymore, as it's a subclass
+    # factoidkey = models.IntegerField()  --> not needed anymore
     #  there must be a title
-    titletypekey = models.ForeignKey('TitleType', verbose_name="title type", )
+    titletypekey = models.ForeignKey('TitleType', verbose_name="title type",)
     # these two are booleans, but's there are some strange '-1' in the db..
     # maybe it'll break
     bygraceofgod = models.BooleanField(
         default=False, blank=True, verbose_name="by grace of God", )
     byanotherdivineinvocation = models.BooleanField(
-        default=False, blank=True, verbose_name="by another divine invocation", )
+        default=False, blank=True,
+        verbose_name="by another divine invocation", )
 
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
@@ -1271,7 +1389,6 @@ class FactTitle(Factoid):
             factoid=self,
             role__name__icontains="primary"
         )
-        # 2012-06-19: can delete the one above, after updating the roles stuff
         valid_assoc2 = AssocFactoidPerson.objects.filter(
             factoid=self,
             role__name__icontains="title-holder"
@@ -1308,7 +1425,8 @@ class FactTitle(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -1365,9 +1483,11 @@ class FactTitle(Factoid):
 class FactRelationship(Factoid):
     """(FactRelationship description)"""
     relationship = models.ForeignKey(
-        Relationshiptype, null=True, blank=True, verbose_name="relationship", )
+        Relationshiptype, null=True, blank=True,
+        verbose_name="relationship", )
     placefielty = models.ForeignKey(
-        'Place', null=True, blank=True, verbose_name="related place (for fealty relationships)", )
+        'Place', null=True, blank=True,
+        verbose_name="related place (for fealty relationships)", )
 
     def get_admin_url(self):
         from django.core import urlresolvers
@@ -1433,7 +1553,8 @@ class FactRelationship(Factoid):
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {
-            'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'), 'placefielty': ('name',), }
+            'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
+            'placefielty': ('name',), }
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1458,7 +1579,8 @@ class FactRelationship(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -1502,7 +1624,8 @@ class FactReference(Factoid):
     reference = models.ForeignKey(
         Referencetype, null=True, blank=True, verbose_name="reference", )
     placefielty = models.ForeignKey(
-        'Place', null=True, blank=True, verbose_name="related place (for fielty relationships)", )
+        'Place', null=True, blank=True,
+        verbose_name="related place (for fielty relationships)", )
 
     def get_admin_url(self):
         from django.core import urlresolvers
@@ -1533,7 +1656,8 @@ class FactReference(Factoid):
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {
-            'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'), 'placefielty': ('name',), }
+            'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
+            'placefielty': ('name',), }
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1547,7 +1671,7 @@ class FactReference(Factoid):
             obj.save()
 
         list_display = ('id', 'sourcekey', 'reference', 'shortdesc',
-                        'editedrecord', 'review', 'updated_by', 'updated_at',)
+                        'editedrecord', 'review', 'updated_by', 'updated_at')
         # filter_horizontal = ('location',)
         # radio_fields = {"ltbrole": admin.VERTICAL}
 
@@ -1558,7 +1682,8 @@ class FactReference(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -1687,9 +1812,12 @@ class FactPossession(Factoid):
         # filter_horizontal = ('location',)
         # radio_fields = {"ltbrole": admin.VERTICAL}
         inlines = (
-            AssocPersonInline, AssocFactoidPrivilegesInline, AssocFactoidPoss_almsInline,
-            AssocFactoidPoss_unfreepInline, AssocFactoidPoss_revsilverInline, AssocFactoidPoss_revkindInline,
-            AssocFactoidPoss_pgeneralInline, AssocFactoidPoss_officeInline, AssocFactoidPoss_objectsInline,
+            AssocPersonInline, AssocFactoidPrivilegesInline,
+            AssocFactoidPoss_almsInline,
+            AssocFactoidPoss_unfreepInline, AssocFactoidPoss_revsilverInline,
+            AssocFactoidPoss_revkindInline,
+            AssocFactoidPoss_pgeneralInline, AssocFactoidPoss_officeInline,
+            AssocFactoidPoss_objectsInline,
             AssocFactoidPoss_landsInline,)  # Assoc_FactPossessionInline
         list_filter = ['created_at', 'updated_at',
                        'created_by__username', 'editedrecord', 'review', ]
@@ -1697,7 +1825,8 @@ class FactPossession(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -1755,7 +1884,8 @@ class FactTransaction(Factoid):
     get_databrowse_url.allow_tags = True
 
     transactiontype = models.ForeignKey(
-        Transactiontype, null=True, blank=True, verbose_name="type of transaction", )
+        Transactiontype, null=True, blank=True,
+        verbose_name="type of transaction", )
 
     isprimary = models.BooleanField(default=False, verbose_name="Primary")
     isdare = models.BooleanField(default=False, verbose_name="Dare?")
@@ -1772,15 +1902,15 @@ class FactTransaction(Factoid):
 
     # many2many
     tenendas = models.ManyToManyField(
-        Tenendasclauseoptions, verbose_name="tenendas", blank=True)  # through='Ass_TransTenendas',
+        Tenendasclauseoptions, verbose_name="tenendas", blank=True)
     exemptions = models.ManyToManyField(
-        Exemptiontype, verbose_name="exemptions", blank=True)  # through='Ass_TransExemption',
+        Exemptiontype, verbose_name="exemptions", blank=True)
     tenendasclauseolang = models.TextField(
         blank=True, verbose_name="tenendas orig. languag")
     exemptionclauseolang = models.TextField(
         blank=True, verbose_name="exemptions orig. languag")
     renderdates = models.ManyToManyField(
-        Renderdate, verbose_name="render dates", blank=True)  # through='Ass_TransRenderDate',
+        Renderdate, verbose_name="render dates", blank=True)
     rendernominal = models.ManyToManyField(
         Nominalrendertype, verbose_name="nominal renders", blank=True)
     sicutclauses = models.ManyToManyField(
@@ -1806,7 +1936,8 @@ class FactTransaction(Factoid):
 
     # new many2many 5 Jun (translation of 'tickboxOptions')
     legalpertinents = models.ManyToManyField(
-        LegalPertinents, verbose_name="additional legal pertinents", blank=True)
+        LegalPertinents, verbose_name="additional legal pertinents",
+        blank=True)
     returnsmilitary = models.ManyToManyField(
         Returns_military, verbose_name="returns / military", blank=True)
     returnsrenders = models.ManyToManyField(
@@ -1819,8 +1950,10 @@ class FactTransaction(Factoid):
         blank=True)
 
     helper_tickboxes = models.ManyToManyField(
-        'TransTickboxes', blank=True, verbose_name="normalization of tickboxes",
-        help_text="Helper field used for the faceted search - see actionsmodels", )
+        'TransTickboxes', blank=True,
+        verbose_name="normalization of tickboxes",
+        help_text="Helper field used for the faceted\
+                  search - see actionsmodels", )
 
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
@@ -1858,23 +1991,26 @@ class FactTransaction(Factoid):
             # obj.probabledate == "" and obj.isprimary == True:
 
             #  HACK ====>>>>>>>
-            # here I'm manually checking if there are title factoids to create on the fly
+            # here I'm manually checking if there are title factoids
+            # to create on the fly
             # hacking into the POST data directly...
             req = request.POST
-            # x = req.items()    # just printing all the items so that I can check them...
+            # x = req.items()    # just printing all the items so that I
+            # can check them...
             # obj.notes = str(x)
             # temp = ""
             # assoc_fields contains the name of the forms where we're looking
             assoc_fields = [
-                'assocfactoidperson', 'assocfactoidwitness', 'assocfactoidproanima']
+                'assocfactoidperson', 'assocfactoidwitness',
+                'assocfactoidproanima']
             # title = req.get("assocfactoidperson_set-1-title", None)
             # assocfactoidwitness_set-1-person
             # (u'assocfactoidproanima_set-1-person', u'')
             for assoc in assoc_fields:
                 tot_forms = req.get(
-                    assoc + "_set-TOTAL_FORMS", None)  # getting the num of inlines
+                    assoc + "_set-TOTAL_FORMS", None)
                 for i in range(
-                        0, int(tot_forms)):  # foreach check if there's a title
+                        0, int(tot_forms)):  # foreach check if theres a title
                     # title info
                     stringa_title = assoc + "_set-" + str(i) + "-title"
                     titleid = req.get(stringa_title, None)
@@ -1896,18 +2032,24 @@ class FactTransaction(Factoid):
                     stringa_medieval = assoc + "_set-" + \
                         str(i) + "-standardmedievalform"
                     medievalform = req.get(stringa_medieval, None)
-                    if titleid:  # then get the right fields and creates a title factoid
+                    if titleid:  # then get the right fields and
+                        # creates a title factoid
                         # i'm passing the whole obj so that the dates can be
                         # copied over
                         print(
-                            "++ Transaction requested to save extra Title-factoid for title id=[%s]" % titleid)
+                            "++ Transaction requested to save extra\
+                            Title-factoid for title id=[%s]" % titleid)
                         self.create_title_fact(
-                            request.user, obj.sourcekey, titleid, gracegod, divineinvocation, obj,
-                            personid, originallanguage, nametranslation, medievalform)
+                            request.user, obj.sourcekey, titleid, gracegod,
+                            divineinvocation, obj,
+                            personid, originallanguage, nametranslation,
+                            medievalform)
 
         # method for creating a title-factoid on the fly
-        def create_title_fact(self, userobj, sourceobj, titleid, gracegod, divineinvocation, obj_for_dates,
-                              personid, originallanguage, nametranslation, medievalform):
+        def create_title_fact(self, userobj, sourceobj, titleid, gracegod,
+                              divineinvocation, obj_for_dates,
+                              personid, originallanguage, nametranslation,
+                              medievalform):
 
             # t = FactTitle(sourcekey=sourceobj, firmdate=firmdate,
             # datingnotes=datingnotes, probabledate=probabledate)
@@ -1922,7 +2064,8 @@ class FactTransaction(Factoid):
             t.updated_by = userobj
             t.save()
             ass = AssocFactoidPerson(
-                factoid=t, nameoriglang=originallanguage, nametranslation=nametranslation,
+                factoid=t, nameoriglang=originallanguage,
+                nametranslation=nametranslation,
                 standardmedievalform=medievalform)
             ass.person = Person.objects.get(pk=personid)
             # old version :::  rol = Role.objects.get(name='Primary')
@@ -1934,16 +2077,22 @@ class FactTransaction(Factoid):
                 str(TitleType.objects.get(pk=titleid)), t.id))
 
         list_display = ('id', 'sourcekey', 'shortdesc',
-                        'editedrecord', 'review', 'updated_by', 'updated_at',)
+                        'editedrecord', 'review', 'updated_by',
+                        'updated_at',)
         filter_horizontal = (
-            'sicutclauses', 'renderdates', 'rendernominal', 'tenendas', 'spiritualbenefits', 'exemptions',
-            'legalpertinents', 'returnsmilitary', 'returnsrenders', 'commonburdens')
+            'sicutclauses', 'renderdates', 'rendernominal', 'tenendas',
+            'spiritualbenefits', 'exemptions',
+            'legalpertinents', 'returnsmilitary',
+            'returnsrenders', 'commonburdens')
         # radio_fields = {"ltbrole": admin.VERTICAL}
         inlines = (
-            AssocPersonInline_extended, AssocWitnessInline, AssocProanimaInline,
+            AssocPersonInline_extended, AssocWitnessInline,
+            AssocProanimaInline,
             AssocFactoidPrivilegesInline, AssocFactoidPoss_almsInline,
-            AssocFactoidPoss_unfreepInline, AssocFactoidPoss_revsilverInline, AssocFactoidPoss_revkindInline,
-            AssocFactoidPoss_pgeneralInline, AssocFactoidPoss_officeInline, AssocFactoidPoss_objectsInline,
+            AssocFactoidPoss_unfreepInline, AssocFactoidPoss_revsilverInline,
+            AssocFactoidPoss_revkindInline,
+            AssocFactoidPoss_pgeneralInline, AssocFactoidPoss_officeInline,
+            AssocFactoidPoss_objectsInline,
             AssocFactoidPoss_landsInline,)
 
         list_filter = ['isprimary', 'created_at', 'updated_at',
@@ -1952,14 +2101,16 @@ class FactTransaction(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
               }),
             ('Source and transaction type',
              {'fields':
-              ['sourcekey', 'transactiontype', ('isprimary', 'isdare', 'verbsnotspecified',
+              ['sourcekey', 'transactiontype', ('isprimary', 'isdare',
+                                                'verbsnotspecified',
                                                 'isexchange', 'conveth')]
               }),
             ('Description',
@@ -1976,7 +2127,8 @@ class FactTransaction(Factoid):
                'firmdate', 'probabledate', 'datingnotes', 'helper_floruits']
               }),
             ('Clauses: tenendas and exemption',
-             {'fields': ['tenendas', 'tenendasclauseolang', 'exemptions', 'exemptionclauseolang', ],
+             {'fields': ['tenendas', 'tenendasclauseolang', 'exemptions',
+                         'exemptionclauseolang', ],
               'classes': ['collapse']
               }),
             ('Clauses: renders',
@@ -1984,16 +2136,18 @@ class FactTransaction(Factoid):
               ['renderdates', 'rendernominal', ],
               'classes': ['collapse']
               }),
-            ('Clauses: sicut clause, add. legal pertinents, returns/renders and common burdens',
+            ('Clauses: sicut clause, add. legal pertinents,\
+             returns/renders and common burdens',
              {'fields':
               ['sicutclauses', 'legalpertinents', 'returnsmilitary',
-                  'returnsrenders', 'commonburdens', ],
+               'returnsrenders', 'commonburdens', ],
               'classes': ['collapse']
               }),
             ('Clauses: other tickboxes',
              {'fields':
               [('previouschartermention', 'previouschirographmention'),
-               'perambulation', 'ismalediction', 'corroborationsealing', 'bothaddressorsmentioned',
+               'perambulation', 'ismalediction', 'corroborationsealing',
+               'bothaddressorsmentioned',
                'warrandice'
                ],
               'classes': ['collapse']
@@ -2048,19 +2202,24 @@ class Place(mymodels.PomsModel):
     specificname = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="specific name", )
     parent = models.ForeignKey(
-        'Place', null=True, blank=True, verbose_name="parent place", related_name="children", )
+        'Place', null=True, blank=True, verbose_name="parent place",
+        related_name="children", )
     # NJ new field for place tpyes derived from possession names
     place_types = models.ManyToManyField('PlaceType', blank=True)
-    # orderno = models.IntegerField(null=True, blank=True, verbose_name="ordering",)
+    # orderno = models.IntegerField(null=True, blank=True,
+    # verbose_name="ordering",)
     # lft = models.IntegerField(null=True, blank=True, verbose_name="lft?",)
     # rgt = models.IntegerField(null=True, blank=True, verbose_name="rgt?",)
     notes = models.TextField(null=True, blank=True, verbose_name="notes", )
     util_topancestor = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="root ancestor - utility field", )
+        max_length=765, null=True, blank=True,
+        verbose_name="root ancestor - utility field", )
     helper_name = models.CharField(
-        max_length=765, null=True, blank=True, verbose_name="helper name used for diplay purposes", )
+        max_length=765, null=True, blank=True,
+        verbose_name="helper name used for diplay purposes", )
     helper_keywordsearch = models.TextField(
-        verbose_name="Field for the keyword search", null=True, blank=True, )
+        verbose_name="Field for the keyword search",
+        null=True, blank=True, )
     geom = PointField(null=True, blank=True)
     objects = GeoManager()
 
@@ -2086,7 +2245,8 @@ class Place(mymodels.PomsModel):
         super(Place, self).save(
             force_insert, force_update)  # Call the "real" save() method.
 
-    # NJ this is a function to replace the invalid relationship specified by the helper_places / helper_factoid m2m
+    # NJ this is a function to replace the invalid relationship
+    # specified by the helper_places / helper_factoid m2m
     # relationship
     def assoc_factoids(self):
         ret = []
@@ -2112,7 +2272,7 @@ class Place(mymodels.PomsModel):
             if x not in ret:
                 ret.append(x)
         for x in Factoid.objects.filter(
-                assocfactoidposs_revenuesilver__poss_revsilver__place__id=self.id):
+                assocfactoidposs_revenuesilver__poss_revsilver__place__id=self.id):  # noqa
             if x not in ret:
                 ret.append(x)
         for x in Factoid.objects.filter(
@@ -2127,7 +2287,7 @@ class Place(mymodels.PomsModel):
             if x not in ret:
                 ret.append(x)
         for x in Factoid.objects.filter(
-                assocfactoidposs_unfreep__poss_unfree_persons__place__id=self.id):
+                assocfactoidposs_unfreep__poss_unfree_persons__place__id=self.id):  # noqa
             if x not in ret:
                 ret.append(x)
 
@@ -2150,22 +2310,27 @@ class Place(mymodels.PomsModel):
         def _actions_column(self, page):
             actions = super(Place.Admin, self)._actions_column(page)
             actions.insert(0,
-                           u'<a href="add/?parent=%s" title="%s"><img src="%simg/admin/icon_addlink.gif" '
+                           u'<a href="add/?parent=%s" title="%s">\
+                            <img src="%simg/admin/icon_addlink.gif" '
                            u'alt="%s"></a>' % (
-                               page.pk, _('Add child page'), settings.ADMIN_MEDIA_PREFIX, _('Add child page')))
+                               page.pk, _('Add child page'),
+                               settings.ADMIN_MEDIA_PREFIX,
+                               _('Add child page')))
             return actions
 
         list_display = (
-            'name', 'id', 'parent', 'editedrecord', 'review', 'updated_by', 'updated_at',)
+            'name', 'id', 'parent', 'editedrecord', 'review', 'updated_by',
+            'updated_at',)
         list_filter = ['updated_at', 'created_by__username',
-                       'editedrecord', 'review', 'util_topancestor']  # 'parent'
+                       'editedrecord', 'review', 'util_topancestor']
         search_fields = ['id', 'name']
         related_search_fields = {'parent': ('name',), }
         filter_horizontal = ['place_types', ]
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+              ['editedrecord', 'review', 'internal_notes',
+               ('created_at', 'created_by'),
                ('updated_at', 'updated_by')
                ],
               'classes': ['collapse']
@@ -2185,7 +2350,8 @@ class Place(mymodels.PomsModel):
             js = ('/media/static/js/leaflet.js',
                   '/media/static/js/admin_fixes/add_leaflet_field.js')
             css = {
-                'all': ('/media/static/css/add_leaflet_field.css', '/media/static/js/leaflet.css'),
+                'all': ('/media/static/css/add_leaflet_field.css',
+                        '/media/static/js/leaflet.css'),
             }
 
     def get_children_by_name(self):
@@ -2198,7 +2364,6 @@ class Place(mymodels.PomsModel):
             exit = "%s>>" % (blank_or_string(p.name))
             # we just go down two levels
             if p.parent:
-                p2 = p.parent
                 exit = "%s>>%s" % (blank_or_string(p.name), exit)
         exit += blank_or_string(self.name)
         return exit
@@ -2257,19 +2422,26 @@ mptt.register(Place, )
 #       instance.save()
 # added 18/1/10 to create Person floruits inference mechanism
 # automatic creation of Person floruits
-# valid_roles = ['Grantor', 'Beneficiary', 'Addressor', 'Addressee', 'Party 1', 'Party 2', 'Party 3', 'Consentor',
-# 'Dated by hand of', 'Inspector', 'Scribe', 'Sealer', 'Signatory', 'Witness']
-# if instance.isprimary == True and  instance.eitheror == False and  instance.undated == False:
-# print("FLORUITS: found a primary transaction with from-date=[%s] to-date=[%s]" % (str(instance.from_year),
+# valid_roles = ['Grantor', 'Beneficiary', 'Addressor', 'Addressee',
+# 'Party 1', 'Party 2', 'Party 3', 'Consentor',
+# 'Dated by hand of', 'Inspector', 'Scribe', 'Sealer', 'Signatory',
+# Witness']
+# if instance.isprimary == True and  instance.eitheror == False and
+# instance.undated == False:
+# print("FLORUITS: found a primary transaction with from-date=[%s]
+# to-date=[%s]" % (str(instance.from_year),
 # str(instance.to_year)))
 # for x in instance.assocfactoidwitness_set.all():
 # print("FLORUITS: found a witness..")
-# person = build_floruits(x.person, x.has_firmdate, instance.from_year, instance.to_year)
+# person = build_floruits(x.person, x.has_firmdate, instance.from_year,
+# instance.to_year)
 # for x in instance.assocfactoidperson_set.all():
 # if x.role:
 # if x.role.name in valid_roles:
-# print("FLORUITS: found associated person with valid role.. *%s*" % (x.role.name))
-# person = build_floruits(x.person, instance.has_firmdate, instance.from_year, instance.to_year)
+# print("FLORUITS: found associated person with valid role.. *%s*" %
+# (x.role.name))
+# person = build_floruits(x.person, instance.has_firmdate,
+# instance.from_year, instance.to_year)
 # pass
 #
 #

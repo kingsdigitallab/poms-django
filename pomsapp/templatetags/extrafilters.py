@@ -1,5 +1,4 @@
-from django.template import Node, Library
-from django.utils.functional import allow_lazy
+from django.template import Library
 import re
 from django import template
 from django.template.defaultfilters import stringfilter
@@ -7,10 +6,13 @@ import random
 register = template.Library()
 
 
-MONTHS_ABBREVIATIONS = {'January': 'Jan.', 'February': 'Feb.', 'March': 'Mar.',
-                        'April': 'Apr.', 'May': 'May', 'June': 'Jun.', 'July': 'Jul.',
-                        'August': 'Aug.', 'September': 'Sept.', 'October': 'Oct.',
-                                                'November': 'Nov.', 'December': 'Dec.'}
+MONTHS_ABBREVIATIONS = {'January': 'Jan.', 'February': 'Feb.',
+                        'March': 'Mar.',
+                        'April': 'Apr.', 'May': 'May', 'June': 'Jun.',
+                        'July': 'Jul.',
+                        'August': 'Aug.', 'September': 'Sept.',
+                        'October': 'Oct.',
+                        'November': 'Nov.', 'December': 'Dec.'}
 
 
 register = Library()
@@ -37,7 +39,9 @@ def citation_format(obj):
     elif obj.__class__.__name__ in ('Matrix'):		# 'Source',
         return " seal-matrix, no. %d" % obj.id
 
-    elif obj.__class__.__name__ in ('FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship', 'FactReference'):
+    elif obj.__class__.__name__ in ('FactTitle', 'FactPossession',
+                                    'FactTransaction', 'FactRelationship',
+                                    'FactReference'):
         return " %s factoid, no. %d" % (obj.inferred_type, obj.id)
 
     elif obj.__class__.__name__ in ('Place',):
@@ -50,19 +54,23 @@ def citation_format(obj):
 @register.filter(name='generate_labslinks')
 def generate_labslinks(obj):
     """
-    Generate links to the labs section from the records (depending on rec type)
+    Generate links to the labs section from the records
+    (depending on rec type)
 
-    Omitted for now: 'Source', 'FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship', 'FactReference'
+    Omitted for now: 'Source', 'FactTitle', 'FactPossession',
+    'FactTransaction', 'FactRelationship', 'FactReference'
 
     """
     if obj.__class__.__name__ == 'Person':
-        return "<ul><li><a href='#'>Connections Cloud [%d]</a></li><li><a href='#'>Person Rels</a></li></ul>" % obj.id
+        return "<ul><li><a href='#'>Connections Cloud [%d]</a></li><li>\
+            <a href='#'>Person Rels</a></li></ul>" % obj.id
 
     elif obj.__class__.__name__ in ('Charter'):		# 'Source',
         return ""
 
     elif obj.__class__.__name__ in ('FactTransaction',):
-        return "<ul><li><a href='#'>link1 - %d</a></li><li><a href='#'>link2</a></li></ul>" % obj.id
+        return "<ul><li><a href='#'>link1 - %d</a></li><li>\
+            <a href='#'>link2</a></li></ul>" % obj.id
     else:
         return ""
 
@@ -126,8 +134,10 @@ def determinePersonIcon2(person, return_icon_file=False):
 @register.filter(name='infer_class')
 def infer_class(active_ordering, element):
     """
-    In snippet_results.html: the columns can be ordered but depending on <active_ordering> and which element
-    we're considering, the class changes, so that the up/down icon is shown accordingly.
+    In snippet_results.html: the columns can be ordered but
+    depending on <active_ordering> and which element
+    we're considering, the class changes, so that the up/down
+    icon is shown accordingly.
     Note that we're allowing ordering on one column at a time only.
     """
     if active_ordering and active_ordering[0] == "-":
@@ -207,13 +217,14 @@ def printmany(lst, object_label=None):
                 e += "%s; " % (label)
             label = getattr(lst[n - 1],
                             object_label) or getattr(lst[n - 1],
-                                                     'id')  # returns the id if label missing
+                                                     'id')
             e += "%s" % (getattr(lst[n - 1], object_label))
     return e
 
 
 # as above, but also creates the link from the get_absolute_url method
-# NEEDS THE SAFE filter too! >>>>>>> objects.all|printmany_withabsoluteurl|safe
+# NEEDS THE SAFE filter too! >>>>>>>
+# objects.all|printmany_withabsoluteurl|safe
 @register.filter(name='printmany_withabsoluteurl')
 def printmany_withabsoluteurl(lst, object_label=None):
     e = ""
@@ -227,7 +238,8 @@ def printmany_withabsoluteurl(lst, object_label=None):
             label = getattr(
                 lst[n - 1], object_label) or getattr(lst[n - 1], 'id')
             e += "<a  href=\"%s\">%s</a>" % (
-                lst[n - 1].get_absolute_url(), getattr(lst[n - 1], object_label))
+                lst[n - 1].get_absolute_url(),
+                getattr(lst[n - 1], object_label))
         else:
             for x in range(n - 1):
                 e += "<a  href=\"%s\">%s</a>; " % (

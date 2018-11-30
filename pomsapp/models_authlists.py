@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib import admin
-from django.utils.translation import ugettext_lazy as _
-from django.conf import settings as django_settings
-from django import forms
-import datetime
-from utils.adminextra.autocomplete_tree_admin import *
-from utils.myutils import blank_or_string, preview_string
+from utils.adminextra.autocomplete_tree_admin import *  # noqa
 import utils.modelextra.mymodels as mymodels
 
 
@@ -16,8 +11,10 @@ import utils.modelextra.mymodels as mymodels
 # they're inherited
 class DocTickboxes(mymodels.PomsAuthorityList):
 
-    """DocTickboxes authority list - name and desc fields are inherited, as well as timestamps
-        This model IS NOT ADMINISTERED through the admin, but directly via code!
+    """DocTickboxes authority list - name and desc fields are
+        inherited, as well as timestamps
+        This model IS NOT ADMINISTERED through the admin, but
+        directly via code!
         ==> check in the action_models the relevant method.
     """
 
@@ -35,8 +32,10 @@ class DocTickboxes(mymodels.PomsAuthorityList):
 
 class TransTickboxes(mymodels.PomsAuthorityList):
 
-    """TransTickboxes authority list - name and desc fields are inherited, as well as timestamps
-        This model IS NOT ADMINISTERED through the admin, but directly via code!
+    """TransTickboxes authority list - name and desc fields are inherited,
+        as well as timestamps
+        This model IS NOT ADMINISTERED through the admin, but directly
+        via code!
         ==> check in the action_models the relevant method.
     """
 
@@ -54,8 +53,10 @@ class TransTickboxes(mymodels.PomsAuthorityList):
 
 class GrantorCategory(mymodels.PomsAuthorityList):
 
-    """GrantorCategory authority list - name and desc fields are inherited, as well as timestamps
-        This model IS NOT ADMINISTERED through the admin, but directly via code!
+    """GrantorCategory authority list - name and desc fields are inherited
+        as well as timestamps
+        This model IS NOT ADMINISTERED through the admin, but
+        directly via code!
         ==> check in the action_models the relevant method.
     """
 
@@ -73,7 +74,8 @@ class GrantorCategory(mymodels.PomsAuthorityList):
 
 class MatrixShape(mymodels.PomsAuthorityList):
 
-    """MatrixShape authority list - name and desc fields are inherited, as well as timestamps"""
+    """MatrixShape authority list - name and desc fields are inherited,
+    as well as timestamps"""
 
     class Meta:
         verbose_name_plural = "Matrix Shape"
@@ -89,7 +91,8 @@ class MatrixShape(mymodels.PomsAuthorityList):
 
 class SealColor(mymodels.PomsAuthorityList):
 
-    """SealColor authority list - name and desc fields are inherited, as well as timestamps"""
+    """SealColor authority list - name and desc fields are inherited,
+    as well as timestamps"""
 
     class Meta:
         verbose_name_plural = "Seal Color"
@@ -105,7 +108,8 @@ class SealColor(mymodels.PomsAuthorityList):
 
 class AttachmentType(mymodels.PomsAuthorityList):
 
-    """AttachmentType authority list (for seals) - name and desc fields are inherited, as well as timestamps"""
+    """AttachmentType authority list (for seals) - name and desc fields
+    are inherited, as well as timestamps"""
 
     class Meta:
         verbose_name_plural = "Attachment Type"
@@ -163,7 +167,8 @@ class TitleType(mymodels.PomsAuthorityList):
         fieldsets = [
             ('Administration',
                 {'fields':
-                    ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+                    ['editedrecord', 'review', 'internal_notes',
+                     ('created_at', 'created_by'),
                      ('updated_at', 'updated_by')
                      ],
                  'classes': ['collapse']
@@ -213,14 +218,16 @@ class Floruit(mymodels.PomsAuthorityList):
             obj.updated_by = request.user
             obj.save()
         list_display = ('id', 'name', 'description', 'startyear',
-                        'endyear', 'editedrecord', 'review', 'updated_by', 'updated_at',)
+                        'endyear', 'editedrecord', 'review',
+                        'updated_by', 'updated_at',)
         search_fields = ('name',)
         list_filter = (
             'updated_at', 'created_by__username', 'editedrecord', 'review', )
         fieldsets = [
             ('Administration',
                 {'fields':
-                    ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+                    ['editedrecord', 'review', 'internal_notes',
+                     ('created_at', 'created_by'),
                      ('updated_at', 'updated_by')
                      ],
                  'classes': ['collapse']
@@ -293,7 +300,8 @@ class Chartertype(mymodels.PomsAuthorityList):
 class Relationshipmetatype(mymodels.PomsAuthorityList):
 
     """(Relationshiptype description)"""
-    # categorytype = models.CharField(max_length=600, null=True, blank=True, verbose_name="category type",)
+    # categorytype = models.CharField(max_length=600, null=True,
+    # blank=True, verbose_name="category type",)
     # name = models.CharField(max_length=600)
     class Meta:
         verbose_name_plural = "relationship type"
@@ -314,7 +322,8 @@ class Relationshiptype(mymodels.PomsAuthorityList):
 
     """(Relationshiptype description)"""
     metatype = models.ForeignKey(
-        'Relationshipmetatype', null=True, blank=True, verbose_name="relation type",)
+        'Relationshipmetatype', null=True, blank=True,
+        verbose_name="relation type",)
     # name = models.CharField(max_length=600)
 
     class Meta:
@@ -338,7 +347,8 @@ class Relationshiptype(mymodels.PomsAuthorityList):
         fieldsets = [
             ('Administration',
                 {'fields':
-                    ['editedrecord', 'review', 'internal_notes', ('created_at', 'created_by'),
+                    ['editedrecord', 'review', 'internal_notes',
+                     ('created_at', 'created_by'),
                      ('updated_at', 'updated_by')
                      ],
                  'classes': ['collapse']
@@ -430,9 +440,10 @@ class Proanimagenerictypes(mymodels.PomsAuthorityList):
     """(Proanimagenerictypes description) = spiritual benefits"""
     # name = models.CharField(max_length=765, null=True, blank=True,
     # verbose_name="name",)
-    orderno = models.IntegerField(null=True, blank=True, verbose_name="order",)
+    orderno = models.IntegerField(null=True, blank=True,
+                                  verbose_name="order",)
     newline = models.IntegerField(
-        null=True, blank=True, verbose_name="newline",)  # this field should not be needed anymore
+        null=True, blank=True, verbose_name="newline",)
 
     class Meta:
         verbose_name_plural = "proanima generic types (= Spiritual Benefits)"
@@ -450,7 +461,8 @@ class Proanimagenerictypes(mymodels.PomsAuthorityList):
 class Renderdate(mymodels.PomsAuthorityList):
 
     """(Renderdate description)"""
-    # name = models.CharField(blank=True, max_length=200, verbose_name="name")
+    # name = models.CharField(blank=True,
+    # max_length=200, verbose_name="name")
     class Meta:
         verbose_name_plural = "render date"
         ordering = ['name']
@@ -470,7 +482,8 @@ class Sicutclausetype(mymodels.PomsAuthorityList):
     """(Sicutclausetype description)"""
     # name = models.CharField(max_length=765, null=True, blank=True,
     # verbose_name="name",)
-    orderno = models.IntegerField(null=True, blank=True, verbose_name="order",)
+    orderno = models.IntegerField(null=True, blank=True,
+                                  verbose_name="order",)
     newline = models.IntegerField(
         null=True, blank=True, verbose_name="newline",)
 
@@ -626,8 +639,11 @@ class MedievalGaelicForename(mymodels.PomsAuthorityList):
 
     """(MedievalGaelicForename for the Person template)"""
     audiofile = models.FileField(
-        blank=True, upload_to=medieval_audio_file_name, verbose_name="audio recording",
-        help_text="upload a file in WAV or MP3 format [beta-stage functionality, can't remove a saved file  for the moment but just overwrite it]")
+        blank=True, upload_to=medieval_audio_file_name,
+        verbose_name="audio recording",
+        help_text="upload a file in WAV or MP3 format [beta-stage\
+                  functionality, can't remove a saved file  for the moment\
+                  but just overwrite it]")
 
     class Meta:
         verbose_name_plural = "Medieval Gaelic Forenames"
@@ -645,8 +661,11 @@ class ModernGaelicForename(mymodels.PomsAuthorityList):
 
     """(ModernGaelicForename for the Person template)"""
     audiofile = models.FileField(
-        blank=True, upload_to=modern_audio_file_name, verbose_name="audio recording",
-        help_text="upload a file in WAV or MP3 format [beta-stage functionality, can't remove a saved file  for the moment but just overwrite it]")
+        blank=True, upload_to=modern_audio_file_name,
+        verbose_name="audio recording",
+        help_text="upload a file in WAV or MP3 format [beta-stage\
+                  functionality, can't remove a saved file  for the moment\
+                  but just overwrite it]")
 
     class Meta:
         verbose_name_plural = "Modern Gaelic Forenames"

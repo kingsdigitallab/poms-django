@@ -241,7 +241,7 @@ def fix_inferredType(factoid_instance):
 
 
 def copy_charter_dates2factoids(charter):
-    for factoid in charter.factoid_set.all():
+    for factoid in charter.get_factoids():
         if factoid.inferred_type == 'transaction':
             transaction = factoid.facttransaction
             if transaction.isprimary:

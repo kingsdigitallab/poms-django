@@ -19,6 +19,7 @@ from pomsapp.models_authlists import *  # noqa
 # POSSESSIONS and PRIVILEGES
 #
 from pomsapp.models_possessions import *  # noqa
+import utils.modelextra.mymodels as mymodels
 
 
 #  TEMP

@@ -304,6 +304,8 @@ GA_ID = ''
 
 # extra settings for FEINCMS media used by the admin-mptt tree visualizer...
 MPTTEXTRA_ADMIN_MEDIA = '/media/static/feincms/'
+#This may be legacy, could be removed if possible
+ADMIN_MEDIA_PREFIX = STATIC_URL + '/admin/'
 
 # -----------------------------------------------------------------------------
 # Automatically generated settings

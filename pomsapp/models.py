@@ -409,6 +409,7 @@ class Person(mymodels.PomsModel):
     class Admin(FkAutocompleteAdmin):  # admin.ModelAdmin
         # related_search_fields = { 'genderkey': ('name',), }
         related_search_fields = {'relatedplace': ('name',), }
+        ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -584,7 +585,7 @@ class Source(mymodels.PomsModel):
         blank=True, max_length=3, choices=DATE_MODIFIERS,
         verbose_name="date of charter  - FROM", help_text="modifier")  # exa
     from_weekday = models.IntegerField(
-        blank=True, null=True, choices=WEEKDAY_CHOICES, verbose_name="",
+        blank=True, null=True, choices=WEEKDAY_CHOICES, verbose_name="weekday",
         help_text="weekday")
     from_day = models.IntegerField(
         blank=True, null=True, choices=DAY_CHOICES, verbose_name="",
@@ -813,7 +814,9 @@ class Charter(Source):
         ordering = ['id']
 
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+
         related_search_fields = {'placefk': ('name',), }
+        ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1038,6 +1041,7 @@ class Seal(Source):
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
         related_search_fields = {'charter_field': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1405,6 +1409,7 @@ class FactTitle(Factoid):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {'sourcekey': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1556,6 +1561,7 @@ class FactRelationship(Factoid):
         related_search_fields = {
             'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
             'placefielty': ('name',), }
+        ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1659,6 +1665,7 @@ class FactReference(Factoid):
         related_search_fields = {
             'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
             'placefielty': ('name',), }
+        ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1796,6 +1803,8 @@ class FactPossession(Factoid):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {'sourcekey': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        ordering = ('-updated_at',)
+
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1972,9 +1981,11 @@ class FactTransaction(Factoid):
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+        ordering = ('-updated_at',)
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {'sourcekey': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
             # adds the user information when the rec is saved

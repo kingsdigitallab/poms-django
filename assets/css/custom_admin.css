@@ -1,0 +1,10 @@
+/*
+Custom classes to tweak admin
+ */
+div.field-box.from_weekday div.c-1,div.field-box.from_day div.c-1,div.field-box.from_month div.c-1,div.field-box.from_season div.c-1,div.field-box.from_year div.c-1,div.field-box.from_modifier2 div.c-1 {
+    display: none !important;
+}
+
+div.field-box.to_weekday div.c-1,div.field-box.to_day div.c-1,div.field-box.to_month div.c-1,div.field-box.to_season div.c-1,div.field-box.to_year div.c-1,div.field-box.to_modifier2 div.c-1 {
+    display: none !important;
+}

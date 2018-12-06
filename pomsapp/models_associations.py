@@ -1,6 +1,6 @@
 from django.db import models
 import utils.modelextra.mymodels as mymodels
-from utils.adminextra.autocomplete_tree_admin import InlineAutocompleteAdmin
+from django_extensions.admin import ForeignKeyAutocompleteStackedInline
 
 
 #  ====================================
@@ -313,7 +313,7 @@ class AssocFactoidPoss_alms(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_almsInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_almsInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPoss_alms
     # raw_id_fields = ('poss_alms',)
     verbose_name_plural = 'Alms (ex possessions)'
@@ -348,7 +348,7 @@ class AssocFactoidPoss_unfreep(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_unfreepInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_unfreepInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPoss_unfreep
     # raw_id_fields = ('poss_unfree_persons', )
     verbose_name_plural = 'Unfree persons (ex possessions)'
@@ -382,7 +382,7 @@ class AssocFactoidPoss_revenuesilver(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_revsilverInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_revsilverInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPoss_revenuesilver
     # raw_id_fields = ('poss_revsilver', )
     verbose_name_plural = 'Revenues in silver (ex possessions)'
@@ -416,7 +416,7 @@ class AssocFactoidPoss_revenuekind(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_revkindInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_revkindInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPoss_revenuekind
     # raw_id_fields = ('poss_revkind', )
     verbose_name_plural = 'Revenues in kind (ex possessions)'
@@ -450,7 +450,7 @@ class AssocFactoidPoss_pgeneral(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_pgeneralInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_pgeneralInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPoss_pgeneral
     # raw_id_fields = ('poss_pgeneral', )
     verbose_name_plural = 'Possessions in general (ex possessions)'
@@ -486,7 +486,7 @@ class AssocFactoidPoss_office(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_officeInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_officeInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPoss_office
     # raw_id_fields = ('poss_office', )
     verbose_name_plural = 'Office (ex. possessions)'
@@ -520,7 +520,7 @@ class AssocFactoidPoss_objects(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_objectsInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_objectsInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPoss_objects
     # raw_id_fields = ('poss_object', )
     verbose_name_plural = 'Objects (ex. possessions)'
@@ -553,7 +553,7 @@ class AssocFactoidPoss_lands(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_landsInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_landsInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPoss_lands
     # raw_id_fields = ('poss_land', )
     verbose_name_plural = 'Lands (ex. possessions)'
@@ -586,7 +586,7 @@ class AssocFactoidPrivileges(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPrivilegesInline(InlineAutocompleteAdmin):
+class AssocFactoidPrivilegesInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPrivileges
     # raw_id_fields = ('privilege', )
     verbose_name_plural = 'Privileges'

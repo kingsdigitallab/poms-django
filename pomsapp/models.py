@@ -1115,8 +1115,8 @@ class ExtraTitleCreationFrom(forms.ModelForm):
 #
 # new extended inline that lets create Title factoids on the fly!
 # inline used on Transaction factoids only
-# admin.TabularInline     InlineAutocompleteAdmin
-class AssocPersonInline_extended(InlineAutocompleteAdmin):
+# admin.TabularInline     ForeignKeyAutocompleteStackedInline
+class AssocPersonInline_extended(ForeignKeyAutocompleteStackedInline):
 
     model = AssocFactoidPerson
     verbose_name = 'Associated person'
@@ -1133,8 +1133,8 @@ class AssocPersonInline_extended(InlineAutocompleteAdmin):
 
 
 # inline used on non transaction factoids
-# admin.TabularInline  InlineAutocompleteAdmin
-class AssocPersonInline(InlineAutocompleteAdmin):
+# admin.TabularInline  ForeignKeyAutocompleteStackedInline
+class AssocPersonInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidPerson
     verbose_name = 'Associated person'
     verbose_name_plural = 'Associated people'
@@ -1145,7 +1145,7 @@ class AssocPersonInline(InlineAutocompleteAdmin):
     }
 
 
-class AssocWitnessInline(InlineAutocompleteAdmin):
+class AssocWitnessInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidWitness
     # raw_id_fields = ('person',)
     verbose_name = 'Associated witness'
@@ -1158,7 +1158,7 @@ class AssocWitnessInline(InlineAutocompleteAdmin):
     form = ExtraTitleCreationFrom
 
 
-class AssocProanimaInline(InlineAutocompleteAdmin):
+class AssocProanimaInline(ForeignKeyAutocompleteStackedInline):
     model = AssocFactoidProanima
     # raw_id_fields = ('person',)
     verbose_name = 'Associated ProAnima person'

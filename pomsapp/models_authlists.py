@@ -150,7 +150,7 @@ class TitleType(mymodels.PomsAuthorityList):
     placefk = models.ForeignKey(
         'Place', null=True, blank=True, verbose_name="Place related",)
 
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
         related_search_fields = {'placefk': ('name',), }
 
         def save_model(self, request, obj, form, change):

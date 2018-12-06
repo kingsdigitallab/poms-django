@@ -407,7 +407,7 @@ class Person(mymodels.PomsModel):
     class Meta:
         ordering = ["persondisplayname"]
 
-    class Admin(FkAutocompleteAdmin):  # admin.ModelAdmin
+    class Admin(ForeignKeyAutocompleteAdmin):  # admin.ModelAdmin
         # related_search_fields = { 'genderkey': ('name',), }
         related_search_fields = {'relatedplace': ('name',), }
         ordering = ('-updated_at',)
@@ -946,7 +946,7 @@ class Matrix(Source):
     def get_absolute_url(self):
         return ('matrix_detail', [str(self.id)])
 
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
         related_search_fields = {'owner': ('persondisplayname',), }
 
         def save_model(self, request, obj, form, change):
@@ -1039,7 +1039,7 @@ class Seal(Source):
 
     get_databrowse_url.allow_tags = True
 
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
         related_search_fields = {'charter_field': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
         ordering = ('-updated_at',)
@@ -1406,7 +1406,7 @@ class FactTitle(Factoid):
             return None
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {'sourcekey': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
@@ -1557,7 +1557,7 @@ class FactRelationship(Factoid):
         super(FactRelationship, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {
             'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
@@ -1661,7 +1661,7 @@ class FactReference(Factoid):
         super(FactReference, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {
             'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
@@ -1800,7 +1800,7 @@ class FactPossession(Factoid):
         super(FactPossession, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {'sourcekey': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
@@ -1981,7 +1981,7 @@ class FactTransaction(Factoid):
         super(FactTransaction, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
         ordering = ('-updated_at',)
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {'sourcekey': (

@@ -5,8 +5,9 @@ from django.contrib.gis.db.models import *  # noqa
 from django.utils.translation import ugettext_lazy as _
 # from settings import print
 from django.contrib.admin.sites import site
-
+from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from pomsapp.actions_models import *  # noqa
+
 #
 # ASSOCIATIONs
 #
@@ -813,7 +814,7 @@ class Charter(Source):
         verbose_name = "Document"
         ordering = ['id']
 
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(ForeignKeyAutocompleteAdmin):
 
         related_search_fields = {'placefk': ('name',), }
         ordering = ('-updated_at',)

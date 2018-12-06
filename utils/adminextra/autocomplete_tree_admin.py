@@ -79,7 +79,9 @@ from django.utils.text import get_text_list
 # added by mikele
 # from django.conf.urls.defaults import *
 from django.conf.urls import url
-
+from django_extensions.admin import ForeignKeyAutocompleteAdmin
+from six.moves import reduce
+import six
 
 class FkSearchInput(ForeignKeyRawIdWidget):
     """
@@ -346,6 +348,8 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
          representation. By default __unicode__() method of target
          object is used.
     """
+    autocomplete_limit = getattr(settings, 'FOREIGNKEY_AUTOCOMPLETE_LIMIT',
+                                 None)
 
     related_search_fields = {}
     related_string_functions = {}
@@ -366,6 +370,12 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
         ]
         return search_url + urls
 
+    def get_related_filter(self, model, request):
+        """Given a model class and current request return an optional Q object
+        that should be applied as an additional filter for autocomplete query.
+        If no additional filtering is needed, this method should return
+        None."""
+
     def foreignkey_autocomplete(self, request):
         """
         Searches in the fields of the given related model and returns the
@@ -376,11 +386,15 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
         model_name = request.GET.get('model_name', None)
         search_fields = request.GET.get('search_fields', None)
         object_pk = request.GET.get('object_pk', None)
+
         try:
             to_string_function = self.related_string_functions[model_name]
         except KeyError:
-            def to_string_function(x):
-                return x.__unicode__()
+            if six.PY3:
+                to_string_function = lambda x: x.__str__()
+            else:
+                to_string_function = lambda x: x.__unicode__()
+
         if search_fields and app_label and model_name and (query or object_pk):
             def construct_search(field_name):
                 # use different lookup methods depending on the notation
@@ -394,28 +408,33 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
                     return "%s__icontains" % field_name
 
             model = apps.get_model(app_label, model_name)
+
             queryset = model._default_manager.all()
             data = ''
             if query:
                 for bit in query.split():
-                    or_queries = [models.Q(**{construct_search(
-                        smart_str(field_name)): smart_str(bit)})
-                        for field_name in search_fields.split(',')]
+                    or_queries = [models.Q(**{construct_search(smart_str(field_name)): smart_str(bit)}) for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
-                    other_qs.dup_select_related(queryset)
-                    other_qs = other_qs.filter(
-                        functools.reduce(operator.or_, or_queries))
+                    other_qs.query.select_related = queryset.query.select_related
+                    other_qs = other_qs.filter(reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
-                data = ''.join([u'%s|%s\n' % (
-                    to_string_function(f), f.pk) for f in queryset])
+
+                additional_filter = self.get_related_filter(model, request)
+                if additional_filter:
+                    queryset = queryset.filter(additional_filter)
+
+                if self.autocomplete_limit:
+                    queryset = queryset[:self.autocomplete_limit]
+
+                data = ''.join([six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
-                except BaseException:
+                except Exception:  # FIXME: use stricter exception checking
                     pass
                 else:
                     data = to_string_function(obj)
-            return HttpResponse(data)
+            return HttpResponse(data, content_type='text/plain')
         return HttpResponseNotFound()
 
     def get_help_text(self, field_name, model_name):
@@ -469,6 +488,8 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
 
     related_search_fields = {}
     related_string_functions = {}
+    autocomplete_limit = getattr(settings, 'FOREIGNKEY_AUTOCOMPLETE_LIMIT',
+                                 None)
 
     # def __call__(self, request, url):
     #      if url is None:
@@ -486,6 +507,13 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
         ]
         return search_url + urls
 
+    def get_related_filter(self, model, request):
+        """Given a model class and current request return an optional Q object
+        that should be applied as an additional filter for autocomplete query.
+        If no additional filtering is needed, this method should return
+        None."""
+
+
     def foreignkey_autocomplete(self, request):
         """
         Searches in the fields of the given related model and returns the
@@ -496,11 +524,15 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
         model_name = request.GET.get('model_name', None)
         search_fields = request.GET.get('search_fields', None)
         object_pk = request.GET.get('object_pk', None)
+
         try:
             to_string_function = self.related_string_functions[model_name]
         except KeyError:
-            def to_string_function(x):
-                return x.__unicode__()
+            if six.PY3:
+                to_string_function = lambda x: x.__str__()
+            else:
+                to_string_function = lambda x: x.__unicode__()
+
         if search_fields and app_label and model_name and (query or object_pk):
             def construct_search(field_name):
                 # use different lookup methods depending on the notation
@@ -514,28 +546,33 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
                     return "%s__icontains" % field_name
 
             model = apps.get_model(app_label, model_name)
+
             queryset = model._default_manager.all()
             data = ''
             if query:
                 for bit in query.split():
-                    or_queries = [models.Q(**{construct_search(
-                        smart_str(field_name)): smart_str(bit)})
-                        for field_name in search_fields.split(',')]
+                    or_queries = [models.Q(**{construct_search(smart_str(field_name)): smart_str(bit)}) for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
-                    other_qs.dup_select_related(queryset)
-                    other_qs = other_qs.filter(
-                        functools.reduce(operator.or_, or_queries))
+                    other_qs.query.select_related = queryset.query.select_related
+                    other_qs = other_qs.filter(reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
-                data = ''.join([u'%s|%s\n' % (
-                    to_string_function(f), f.pk) for f in queryset])
+
+                additional_filter = self.get_related_filter(model, request)
+                if additional_filter:
+                    queryset = queryset.filter(additional_filter)
+
+                if self.autocomplete_limit:
+                    queryset = queryset[:self.autocomplete_limit]
+
+                data = ''.join([six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
-                except BaseException:
+                except Exception:  # FIXME: use stricter exception checking
                     pass
                 else:
                     data = to_string_function(obj)
-            return HttpResponse(data)
+            return HttpResponse(data, content_type='text/plain')
         return HttpResponseNotFound()
 
     def get_help_text(self, field_name, model_name):
@@ -620,11 +657,15 @@ class InlineAutocompleteAdmin(admin.TabularInline):
         model_name = request.GET.get('model_name', None)
         search_fields = request.GET.get('search_fields', None)
         object_pk = request.GET.get('object_pk', None)
+
         try:
             to_string_function = self.related_string_functions[model_name]
         except KeyError:
-            def to_string_function(x):
-                return x.__unicode__()
+            if six.PY3:
+                to_string_function = lambda x: x.__str__()
+            else:
+                to_string_function = lambda x: x.__unicode__()
+
         if search_fields and app_label and model_name and (query or object_pk):
             def construct_search(field_name):
                 # use different lookup methods depending on the notation
@@ -638,28 +679,33 @@ class InlineAutocompleteAdmin(admin.TabularInline):
                     return "%s__icontains" % field_name
 
             model = apps.get_model(app_label, model_name)
+
             queryset = model._default_manager.all()
             data = ''
             if query:
                 for bit in query.split():
-                    or_queries = [models.Q(**{construct_search(
-                        smart_str(field_name)): smart_str(bit)})
-                        for field_name in search_fields.split(',')]
+                    or_queries = [models.Q(**{construct_search(smart_str(field_name)): smart_str(bit)}) for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
-                    other_qs.dup_select_related(queryset)
-                    other_qs = other_qs.filter(
-                        functools.reduce(operator.or_, or_queries))
+                    other_qs.query.select_related = queryset.query.select_related
+                    other_qs = other_qs.filter(reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
-                data = ''.join([u'%s|%s\n' % (
-                    to_string_function(f), f.pk) for f in queryset])
+
+                additional_filter = self.get_related_filter(model, request)
+                if additional_filter:
+                    queryset = queryset.filter(additional_filter)
+
+                if self.autocomplete_limit:
+                    queryset = queryset[:self.autocomplete_limit]
+
+                data = ''.join([six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
-                except BaseException:
+                except Exception:  # FIXME: use stricter exception checking
                     pass
                 else:
                     data = to_string_function(obj)
-            return HttpResponse(data)
+            return HttpResponse(data, content_type='text/plain')
         return HttpResponseNotFound()
 
     def get_help_text(self, field_name, model_name):

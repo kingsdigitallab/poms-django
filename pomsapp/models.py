@@ -1986,7 +1986,7 @@ class FactTransaction(Factoid):
         # raw_id_fields = ('sourcekey', )
         related_search_fields = {'sourcekey': (
             'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
-        ordering = ('-updated_at',)
+        
 
         def save_model(self, request, obj, form, change):
             # adds the user information when the rec is saved

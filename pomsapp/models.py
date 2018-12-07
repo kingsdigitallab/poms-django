@@ -814,7 +814,7 @@ class Charter(Source):
         verbose_name = "Document"
         ordering = ['id']
 
-    class Admin(ForeignKeyAutocompleteAdmin):
+    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
 
         related_search_fields = {'placefk': ('name',), }
         ordering = ('-updated_at',)

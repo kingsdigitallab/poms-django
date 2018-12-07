@@ -407,7 +407,7 @@ class Person(mymodels.PomsModel):
     class Meta:
         ordering = ["persondisplayname"]
 
-    class Admin(ForeignKeyAutocompleteAdmin):  # admin.ModelAdmin
+    class Admin(FkAutocompleteAdmin):  # admin.ModelAdmin
         # related_search_fields = { 'genderkey': ('name',), }
         related_search_fields = {'relatedplace': ('name',), }
         ordering = ('-updated_at',)
@@ -1115,8 +1115,8 @@ class ExtraTitleCreationFrom(forms.ModelForm):
 #
 # new extended inline that lets create Title factoids on the fly!
 # inline used on Transaction factoids only
-# admin.TabularInline     ForeignKeyAutocompleteStackedInline
-class AssocPersonInline_extended(ForeignKeyAutocompleteStackedInline):
+# admin.TabularInline     InlineAutocompleteAdmin
+class AssocPersonInline_extended(InlineAutocompleteAdmin):
 
     model = AssocFactoidPerson
     verbose_name = 'Associated person'
@@ -1133,8 +1133,8 @@ class AssocPersonInline_extended(ForeignKeyAutocompleteStackedInline):
 
 
 # inline used on non transaction factoids
-# admin.TabularInline  ForeignKeyAutocompleteStackedInline
-class AssocPersonInline(ForeignKeyAutocompleteStackedInline):
+# admin.TabularInline  InlineAutocompleteAdmin
+class AssocPersonInline(InlineAutocompleteAdmin):
     model = AssocFactoidPerson
     verbose_name = 'Associated person'
     verbose_name_plural = 'Associated people'
@@ -1145,7 +1145,7 @@ class AssocPersonInline(ForeignKeyAutocompleteStackedInline):
     }
 
 
-class AssocWitnessInline(ForeignKeyAutocompleteStackedInline):
+class AssocWitnessInline(InlineAutocompleteAdmin):
     model = AssocFactoidWitness
     # raw_id_fields = ('person',)
     verbose_name = 'Associated witness'
@@ -1158,7 +1158,7 @@ class AssocWitnessInline(ForeignKeyAutocompleteStackedInline):
     form = ExtraTitleCreationFrom
 
 
-class AssocProanimaInline(ForeignKeyAutocompleteStackedInline):
+class AssocProanimaInline(InlineAutocompleteAdmin):
     model = AssocFactoidProanima
     # raw_id_fields = ('person',)
     verbose_name = 'Associated ProAnima person'

@@ -275,7 +275,7 @@ admin.site.register(Seal, Seal.Admin)
 admin.site.register(Matrix, Matrix.Admin)
 
 admin.site.register(Person, Person.Admin)
-
+admin.site.register(Factoid, Factoid.Admin)
 admin.site.register(FactTitle, FactTitle.Admin)
 admin.site.register(FactRelationship, FactRelationship.Admin)
 # admin.site.register(FactOccupation, FactOccupation.Admin)

@@ -4,7 +4,8 @@
 #     Most of the code has been written by Jannis Leidel, then updated a bit
 #     for django_extensions, finally reassembled and extended by Mikele Pasin.
 #
-#     http://jannisleidel.com/2008/11/autocomplete-form-widget-foreignkey-model-fields/
+#     http://jannisleidel.com/2008/11/autocomplete-form-widget-foreignkey
+# -model-fields/
 #    http://code.google.com/p/django-command-extensions/
 #    http://magicrebirth.wordpress.com/
 #
@@ -58,30 +59,29 @@
 # the code now....
 #  ==============
 
-import functools
-from django import forms
-from django.conf import settings
-from django.utils.safestring import mark_safe
-from django.apps import apps
-# remove deprecated - now -dead method
-# from django.utils.text import truncate_words
-from django.utils.text import Truncator
-from django.template.loader import render_to_string
-from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 import operator
-from django.http import HttpResponse, HttpResponseNotFound
-from django.contrib import admin
-from django.db import models
-from django.db.models.query import QuerySet
-from django.utils.encoding import smart_str
-from django.utils.translation import ugettext as _
-from django.utils.text import get_text_list
+import six
+from django import forms
+from django.apps import apps
+from django.conf import settings
 # added by mikele
 # from django.conf.urls.defaults import *
 from django.conf.urls import url
-from django_extensions.admin import ForeignKeyAutocompleteAdmin
+from django.contrib import admin
+from django.contrib.admin.widgets import ForeignKeyRawIdWidget
+from django.db import models
+from django.db.models.query import QuerySet
+from django.http import HttpResponse, HttpResponseNotFound
+from django.template.loader import render_to_string
+from django.utils.encoding import smart_str
+from django.utils.safestring import mark_safe
+# remove deprecated - now -dead method
+# from django.utils.text import truncate_words
+from django.utils.text import Truncator
+from django.utils.text import get_text_list
+from django.utils.translation import ugettext as _
 from six.moves import reduce
-import six
+
 
 class FkSearchInput(ForeignKeyRawIdWidget):
     """
@@ -166,7 +166,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
     # Set in subclass to render the widget with a different template
     widget_template = None
     # Set this to the patch of the search view
-    search_path = '../../foreignkey_autocomplete/'
+    search_path = 'foreignkey_autocomplete/'
 
     class Media:
         css = {
@@ -206,6 +206,10 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
         opts = self.rel.to._meta
         app_label = opts.app_label
         model_name = opts.object_name.lower()
+        # todo this is not ideal, replace ASAP
+        search_path = '/admin/' + app_label + '/' + str(
+            self.rel.related_model._meta).replace(app_label + '.',
+                                                  '') + '/' + self.search_path
         related_url = '../../../../%s/%s/' % (app_label, model_name)
         params = self.url_parameters()
         if params:
@@ -225,7 +229,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
             'url': url,
             'related_url': related_url,
             'admin_media_prefix': settings.STATIC_URL + '/admin/',
-            'search_path': self.search_path,
+            'search_path': search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,
             'app_label': app_label,
@@ -413,10 +417,14 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
             data = ''
             if query:
                 for bit in query.split():
-                    or_queries = [models.Q(**{construct_search(smart_str(field_name)): smart_str(bit)}) for field_name in search_fields.split(',')]
+                    or_queries = [models.Q(**{
+                        construct_search(smart_str(field_name)): smart_str(
+                            bit)}) for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
-                    other_qs.query.select_related = queryset.query.select_related
-                    other_qs = other_qs.filter(reduce(operator.or_, or_queries))
+                    other_qs.query.select_related = \
+                        queryset.query.select_related
+                    other_qs = other_qs.filter(
+                        reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
 
                 additional_filter = self.get_related_filter(model, request)
@@ -426,7 +434,9 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
                 if self.autocomplete_limit:
                     queryset = queryset[:self.autocomplete_limit]
 
-                data = ''.join([six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in queryset])
+                data = ''.join(
+                    [six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in
+                     queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
@@ -465,7 +475,8 @@ class FkAutocompleteAdmin(admin.ModelAdmin):
             if kwargs.get('help_text'):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
             kwargs['widget'] = FkSearchInput(db_field.rel, self.admin_site,
-                                             self.related_search_fields[db_field.name])  # noqa
+                                             self.related_search_fields[
+                                                 db_field.name])  # noqa
             kwargs['help_text'] = help_text
         return super(FkAutocompleteAdmin,
                      self).formfield_for_dbfield(db_field, **kwargs)
@@ -513,7 +524,6 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
         If no additional filtering is needed, this method should return
         None."""
 
-
     def foreignkey_autocomplete(self, request):
         """
         Searches in the fields of the given related model and returns the
@@ -551,10 +561,14 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
             data = ''
             if query:
                 for bit in query.split():
-                    or_queries = [models.Q(**{construct_search(smart_str(field_name)): smart_str(bit)}) for field_name in search_fields.split(',')]
+                    or_queries = [models.Q(**{
+                        construct_search(smart_str(field_name)): smart_str(
+                            bit)}) for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
-                    other_qs.query.select_related = queryset.query.select_related
-                    other_qs = other_qs.filter(reduce(operator.or_, or_queries))
+                    other_qs.query.select_related = \
+                        queryset.query.select_related
+                    other_qs = other_qs.filter(
+                        reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
 
                 additional_filter = self.get_related_filter(model, request)
@@ -564,7 +578,9 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
                 if self.autocomplete_limit:
                     queryset = queryset[:self.autocomplete_limit]
 
-                data = ''.join([six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in queryset])
+                data = ''.join(
+                    [six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in
+                     queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
@@ -604,7 +620,8 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
             kwargs['widget'] = NoLookupsForeignKeySearchInput(db_field.rel,
                                                               self.admin_site,
-                                                              self.related_search_fields[db_field.name])  # noqa
+                                                              self.related_search_fields[
+                                                                  db_field.name])  # noqa
             kwargs['help_text'] = help_text
         return super(NoLookupsForeignKeyAutocompleteAdmin,
                      self).formfield_for_dbfield(db_field, **kwargs)
@@ -684,10 +701,14 @@ class InlineAutocompleteAdmin(admin.TabularInline):
             data = ''
             if query:
                 for bit in query.split():
-                    or_queries = [models.Q(**{construct_search(smart_str(field_name)): smart_str(bit)}) for field_name in search_fields.split(',')]
+                    or_queries = [models.Q(**{
+                        construct_search(smart_str(field_name)): smart_str(
+                            bit)}) for field_name in search_fields.split(',')]
                     other_qs = QuerySet(model)
-                    other_qs.query.select_related = queryset.query.select_related
-                    other_qs = other_qs.filter(reduce(operator.or_, or_queries))
+                    other_qs.query.select_related = \
+                        queryset.query.select_related
+                    other_qs = other_qs.filter(
+                        reduce(operator.or_, or_queries))
                     queryset = queryset & other_qs
 
                 additional_filter = self.get_related_filter(model, request)
@@ -697,7 +718,9 @@ class InlineAutocompleteAdmin(admin.TabularInline):
                 if self.autocomplete_limit:
                     queryset = queryset[:self.autocomplete_limit]
 
-                data = ''.join([six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in queryset])
+                data = ''.join(
+                    [six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in
+                     queryset])
             elif object_pk:
                 try:
                     obj = queryset.get(pk=object_pk)
@@ -737,7 +760,8 @@ class InlineAutocompleteAdmin(admin.TabularInline):
                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
             kwargs['widget'] = InlineSearchInput(db_field.rel,
                                                  self.admin_site,
-                                                 self.related_search_fields[db_field.name])  # noqa
+                                                 self.related_search_fields[
+                                                     db_field.name])  # noqa
             kwargs['help_text'] = help_text
         return super(InlineAutocompleteAdmin,
                      self).formfield_for_dbfield(db_field, **kwargs)
@@ -753,9 +777,10 @@ class InlineAutocompleteAdmin(admin.TabularInline):
 try:
     from utils.mpttextra import feincms_tree_editor
 
+
     #  just merging the effects of the two classes..
     class AutocompleteTreeEditor(
-            FkAutocompleteAdmin, feincms_tree_editor.TreeEditor):
+        FkAutocompleteAdmin, feincms_tree_editor.TreeEditor):
         def __init__(self, *args, **kwargs):
             super(AutocompleteTreeEditor, self).__init__(*args, **kwargs)
 except ImportError:

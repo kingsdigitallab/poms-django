@@ -1363,6 +1363,13 @@ class Factoid(mymodels.PomsModel):
     def __str__(self):
         return self.shortdesc or "no description"
 
+    # todo temporary to solve autcomplete issue, will be removed in 2.0
+    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+            # raw_id_fields = ('sourcekey', )
+            related_search_fields = {'sourcekey': (
+                'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+            ordering = ('-updated_at',)
+
 
 class FactTitle(Factoid):
     """(in poms-linnet this used to be called 'Title')"""

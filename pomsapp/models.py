@@ -674,7 +674,7 @@ class Source(mymodels.PomsModel):
         try:
             nice_hn = "%s/%s/%s %s" % (
                 self.hammondnumber or '0', self.hammondnumb2 or '0',
-                self.hammondnumb3 or '0', self.hammondext)
+                self.hammondnumb3 or '0', self.hammondext or '')
         except BaseException:
             print(
                 "++++++ GET_HAMMONDNUMBER(): Problems creating the\
@@ -723,7 +723,7 @@ class Source(mymodels.PomsModel):
         out = "%s/%s/%s %s (%s)" % (self.hammondnumber or '0',
                                     self.hammondnumb2 or '0',
                                     self.hammondnumb3 or '0',
-                                    self.hammondext,
+                                    self.hammondext or '',
                                     self.source_tradid)
         return out
 
@@ -1101,12 +1101,14 @@ class ExtraTitleCreationFrom(forms.ModelForm):
     # title object (selected by the user) is then extracted directly from the
     # request object in the TransactionFactoid code (as it used to be)
     # todo ehall rawid widget broken by upgrade, this may not work
+    """widget=widgets.ForeignKeyRawIdWidget(
+                ManyToOneRel(TitleType, 'id', 'id'), site)"""
     title = forms.ModelChoiceField(
         required=False, queryset=TitleType.objects.all(),
         empty_label="(Nothing)",
         label="title [warning: creates a new title-factoid]",
-        widget=widgets.ForeignKeyRawIdWidget(
-            ManyToOneRel(TitleType, 'id', 'id'), site))
+
+    )
     bygraceofgod = forms.BooleanField(required=False, label="by grace of..")
     byanotherdivineinvocation = forms.BooleanField(
         required=False, label="by another divine..")

@@ -92,7 +92,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
     # Set in subclass to render the widget with a different template
     widget_template = None
     # Set this to the patch of the search view
-    search_path = '../../foreignkey_autocomplete/'
+    search_path = 'foreignkey_autocomplete/'
 
     class Media:
         css = {
@@ -121,7 +121,9 @@ class FkSearchInput(ForeignKeyRawIdWidget):
         opts = self.rel.to._meta
         app_label = opts.app_label
         model_name = opts.object_name.lower()
-        related_url = '../../../../%s/%s/' % (app_label, model_name)
+        search_path = '/admin/' + app_label + '/' + model_name + \
+                      '/' + self.search_path
+        related_url = '/admin/{}/{}'.format(app_label, model_name)
         params = self.url_parameters()
         if params:
             url = '?' + '&amp;'.join(['%s=%s' % (k, v)
@@ -140,7 +142,7 @@ class FkSearchInput(ForeignKeyRawIdWidget):
             'url': url,
             'related_url': related_url,
             'admin_media_prefix': settings.STATIC_URL + '/admin/',
-            'search_path': self.search_path,
+            'search_path': search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,
             'app_label': app_label,
@@ -210,7 +212,7 @@ class NoLookupsForeignKeySearchInput(ForeignKeyRawIdWidget):
         search_path = '/admin/' + app_label + '/' + str(
             self.rel.related_model._meta).replace(app_label + '.',
                                                   '') + '/' + self.search_path
-        related_url = '../../../../%s/%s/' % (app_label, model_name)
+        related_url = '/admin/{}/{}'.format(app_label, model_name)
         params = self.url_parameters()
         if params:
             url = '?' + '&amp;'.join(['%s=%s' % (k, v)
@@ -287,7 +289,10 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
         opts = self.rel.to._meta
         app_label = opts.app_label
         model_name = opts.object_name.lower()
-        related_url = '../../../../%s/%s/' % (app_label, model_name)
+        search_path = '/admin/' + app_label + '/' + str(
+            self.rel.related_model._meta).replace(app_label + '.',
+                                                  '') + '/' + self.search_path
+        related_url = '/admin/{}/{}'.format(app_label, model_name)
         params = self.url_parameters()
         if params:
             url = '?' + '&amp;'.join(['%s=%s' % (k, v)
@@ -306,7 +311,7 @@ class InlineSearchInput(ForeignKeyRawIdWidget):
             'url': url,
             'related_url': related_url,
             'admin_media_prefix': settings.STATIC_URL + '/admin/',
-            'search_path': self.search_path,
+            'search_path': search_path,
             'search_fields': ','.join(self.search_fields),
             'model_name': model_name,
             'app_label': app_label,

@@ -36,7 +36,8 @@ facet_display_names = {
     'renderdates': 'Render dates',
     'index_type': 'Result type',
     "legalpertinents": "Legal Pertinents",
-    "transfeatures": "Transaction Features"
+    "transfeatures": "Transaction Features",
+    "sourcesfeatures":" Source Features"
 
 }
 

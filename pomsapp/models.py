@@ -1101,12 +1101,13 @@ class ExtraTitleCreationFrom(forms.ModelForm):
     # title object (selected by the user) is then extracted directly from the
     # request object in the TransactionFactoid code (as it used to be)
     # todo ehall rawid widget broken by upgrade, this may not work
-    """widget=widgets.ForeignKeyRawIdWidget(
-                ManyToOneRel(TitleType, 'id', 'id'), site)"""
+    """"""
     title = forms.ModelChoiceField(
         required=False, queryset=TitleType.objects.all(),
         empty_label="(Nothing)",
         label="title [warning: creates a new title-factoid]",
+        widget=widgets.ForeignKeyRawIdWidget(
+            ManyToOneRel(TitleType, 'id', 'id'), site)
 
     )
     bygraceofgod = forms.BooleanField(required=False, label="by grace of..")

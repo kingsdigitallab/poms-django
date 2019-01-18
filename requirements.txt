@@ -1,17 +1,17 @@
 # GN: 31 jan 2018, wagtail 1.13.1 doesn't play well with django 2.0
-django<2
+django
 django-compressor
 django-extensions
-django-grappelli==2.10.1
+django-grappelli
 django-libsass
 django-model-utils
 django-redis
 django-registration<3
 mysqlclient
-django-mptt==0.8.7
+django-mptt
 redis
-pysolr==3.6.0
+pysolr
 django-kdl-ldap
-wagtail==1.13
+wagtail
 docutils
 django-haystack

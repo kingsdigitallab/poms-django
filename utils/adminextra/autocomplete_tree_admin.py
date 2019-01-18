@@ -772,6 +772,8 @@ class InlineAutocompleteAdmin(admin.TabularInline):
                      self).formfield_for_dbfield(db_field, **kwargs)
 
 
+
+
 # ===========
 # MPTT TREE + AUTOCOMPLETE
 # using the autocomplete admin with other custom admin classes: just

@@ -9,7 +9,7 @@ def whitelister_element_rules():
         'p': attribute_rule({'class': True}),
         'a': attribute_rule({'href': check_url, 'id': True, 'class': True,
                              'target': True}),
-        'span': attribute_rule({'class': True}),
+        'span': attribute_rule({'class': True,'id':True}),
         'i': attribute_rule({'class': True}),
         'iframe': attribute_rule(
             {'id': True, 'class': True, 'src': True, 'style': True,
@@ -21,7 +21,8 @@ def whitelister_element_rules():
         'td': attribute_rule({'class': True, 'id': True, 'style': True}),
         'th': attribute_rule({'class': True, 'id': True, 'style': True}),
         'b': attribute_rule({'class': True}),
-        'strong': attribute_rule({'class': True})
+        'strong': attribute_rule({'class': True}),
+        'h2': attribute_rule({'class': True, 'id': True}),
 
     }
 

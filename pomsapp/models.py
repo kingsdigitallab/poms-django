@@ -59,14 +59,15 @@ class Person(mymodels.PomsModel):
         max_length=50, null=True, blank=True,
         verbose_name="post-modifier", )
     florlowkey = models.ForeignKey(
-        'Floruit', null=True, blank=True,
-        verbose_name="FROM  :: century", related_name='flor_lowKey', )
+        'Floruit', on_delete=models.CASCADE,  null=True, blank=True,
+        verbose_name="FROM  :: century", related_name='flor_lowKey',
+    )
     florhikey = models.ForeignKey(
-        'Floruit', null=True, blank=True,
+        'Floruit', on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="TO  :: century", related_name='flor_hiKey', )
 
     genderkey = models.ForeignKey(
-        'Gender', null=True, blank=True,
+        'Gender', on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="Gender", default=3)
 
     forename = models.CharField(
@@ -94,18 +95,18 @@ class Person(mymodels.PomsModel):
         blank=True, )
     # mikele: 18/1/10
     moderngaelicforename = models.ForeignKey(
-        ModernGaelicForename, null=True, blank=True,
+        ModernGaelicForename, on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="modern gaelic forename", )
     moderngaelicsurname = models.CharField(
         blank=True, max_length=100, verbose_name="modern gaelic surname")
     medievalgaelicforename = models.ForeignKey(
-        MedievalGaelicForename, null=True, blank=True,
+        MedievalGaelicForename, on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="medieval gaelic forename", )
     medievalgaelicsurname = models.CharField(
         blank=True, max_length=100, verbose_name="medieval gaelic surname")
 
     relatedplace = models.ForeignKey(
-        'Place',
+        'Place', on_delete=models.CASCADE,
         null=True,
         blank=True,
         verbose_name="Related place [reference\
@@ -631,11 +632,11 @@ class Source(mymodels.PomsModel):
         null=True, blank=True, verbose_name="dating notes", )
 
     language = models.ForeignKey(
-        Language, null=True, blank=True, verbose_name="language",
+        Language, on_delete=models.CASCADE,  null=True, blank=True, verbose_name="language",
         default=1)
     # 2010-08-18 => new inferred grantor category
     grantor_category = models.ForeignKey(
-        GrantorCategory, null=True, blank=True,
+        GrantorCategory, on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="grantor category")
 
     helper_hammond = models.CharField(
@@ -735,7 +736,7 @@ class Source(mymodels.PomsModel):
 
 class Charter(Source):
     chartertypekey = models.ForeignKey(
-        'Chartertype', blank=True, null=True, verbose_name="document type")
+        'Chartertype', on_delete=models.CASCADE,  blank=True, null=True, verbose_name="document type")
 
     ischirograph = models.BooleanField(
         default=False, verbose_name="Chirograph?")
@@ -748,7 +749,7 @@ class Charter(Source):
         max_length=765, null=True, blank=True,
         verbose_name="Place (document)", )
     placefk = models.ForeignKey(
-        'Place', null=True, blank=True, verbose_name="Place", )
+        'Place', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="Place", )
 
     letterpatent = models.BooleanField(
         default=False, verbose_name="referred to as letter patent")
@@ -912,9 +913,9 @@ class Charter(Source):
 # ===> explore how to pass data from one admin view to another one
 class Matrix(Source):
     shape = models.ForeignKey(
-        'MatrixShape', null=True, blank=True, verbose_name="matrix shape", )
+        'MatrixShape', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="matrix shape", )
     owner = models.ForeignKey(
-        'Person', null=True, blank=True, verbose_name="Owner", )
+        'Person', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="Owner", )
     identifier = models.CharField(max_length=100, verbose_name="identifier")
     image_desc = models.TextField(
         blank=True, null=True, verbose_name="image description (obverse)")
@@ -994,19 +995,19 @@ class Matrix(Source):
 class Seal(Source):
     """(Seal description)"""
     charter_field = models.ForeignKey(
-        'Charter', verbose_name="charter", blank=True, null=True,
+        'Charter', on_delete=models.CASCADE,  verbose_name="charter", blank=True, null=True,
         db_column='charter_id')
     matrix_field = models.ForeignKey(
-        'Matrix',
+        'Matrix', on_delete=models.CASCADE,
         verbose_name="matrix",
         db_column='matrix_id')
     color = models.ForeignKey(
-        'SealColor', verbose_name="seal color", blank=True, null=True, )
+        'SealColor', on_delete=models.CASCADE,  verbose_name="seal color", blank=True, null=True, )
     att_type_surv = models.ForeignKey(
-        'AttachmentType', related_name="surv_attach_of",
+        'AttachmentType', on_delete=models.CASCADE,  related_name="surv_attach_of",
         verbose_name="Attachment type",
         blank=True, null=True, )
-    # att_type_notsurv = models.ForeignKey('AttachmentType',
+    # att_type_notsurv = models.ForeignKey('AttachmentType', on_delete=models.CASCADE,
     # related_name = "nonsurv_attach_of",
     # verbose_name="Attachment type (not surviving)", blank=True, null=True,)
     # twosided = models.BooleanField(default=False, verbose_name="two sided?")
@@ -1180,7 +1181,7 @@ class AssocProanimaInline(InlineAutocompleteAdmin):
 class Factoid(mymodels.PomsModel):
     inferred_type = models.CharField(
         max_length=100, null=True, blank=True, verbose_name="inferred type",)
-    sourcekey = models.ForeignKey('Source', verbose_name="Document",
+    sourcekey = models.ForeignKey('Source', on_delete=models.CASCADE,  verbose_name="Document",
                                   related_name='factoids')
     people = models.ManyToManyField(
         Person, through='AssocFactoidPerson', related_name='factoids',
@@ -1378,7 +1379,7 @@ class FactTitle(Factoid):
     """(in poms-linnet this used to be called 'Title')"""
     # factoidkey = models.IntegerField()  --> not needed anymore
     #  there must be a title
-    titletypekey = models.ForeignKey('TitleType', verbose_name="title type",)
+    titletypekey = models.ForeignKey('TitleType', on_delete=models.CASCADE,  verbose_name="title type",)
     # these two are booleans, but's there are some strange '-1' in the db..
     # maybe it'll break
     bygraceofgod = models.BooleanField(
@@ -1500,10 +1501,10 @@ class FactTitle(Factoid):
 class FactRelationship(Factoid):
     """(FactRelationship description)"""
     relationship = models.ForeignKey(
-        Relationshiptype, null=True, blank=True,
+        Relationshiptype, on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="relationship", )
     placefielty = models.ForeignKey(
-        'Place', null=True, blank=True,
+        'Place', on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="related place (for fealty relationships)", )
 
     def get_admin_url(self):
@@ -1642,9 +1643,9 @@ class FactRelationship(Factoid):
 class FactReference(Factoid):
     """(FactReference description)"""
     reference = models.ForeignKey(
-        Referencetype, null=True, blank=True, verbose_name="reference", )
+        Referencetype, on_delete=models.CASCADE,  null=True, blank=True, verbose_name="reference", )
     placefielty = models.ForeignKey(
-        'Place', null=True, blank=True,
+        'Place', on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="related place (for fielty relationships)", )
 
     def get_admin_url(self):
@@ -1907,7 +1908,7 @@ class FactTransaction(Factoid):
     get_databrowse_url.allow_tags = True
 
     transactiontype = models.ForeignKey(
-        Transactiontype, null=True, blank=True,
+        Transactiontype, on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="type of transaction", )
 
     isprimary = models.BooleanField(default=False, verbose_name="Primary")
@@ -2227,7 +2228,7 @@ class Place(mymodels.PomsModel):
     specificname = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="specific name", )
     parent = models.ForeignKey(
-        'Place', null=True, blank=True, verbose_name="parent place",
+        'Place', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="parent place",
         related_name="children", )
     # NJ new field for place tpyes derived from possession names
     place_types = models.ManyToManyField('PlaceType', blank=True)

@@ -1,6 +1,6 @@
 from django import template
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 register = template.Library()
 
@@ -47,7 +47,7 @@ def get_menu_pages(context, page):
 def get_site_root(context):
     """Returns the site root Page, not the implementation-specific model used.
 
-    :rtype: `wagtail.wagtailcore.models.Page`
+    :rtype: `wagtail.core.models.Page`
     """
     return context['request'].site.root_page
 

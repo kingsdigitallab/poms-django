@@ -97,18 +97,18 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [  # your project apps here
     'pomsapp_wagtail',
     'kdl_wordpress2wagtail',
-    'wagtail.wagtailcore',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailforms',
-    'wagtail.wagtailsites',
-    'wagtail.contrib.wagtailapi',
-    'wagtail.contrib.wagtailroutablepage',
+    'wagtail.core',
+    'wagtail.admin',
+    'wagtail.documents',
+    'wagtail.snippets',
+    'wagtail.users',
+    'wagtail.images',
+    'wagtail.embeds',
+    'wagtail.contrib.redirects',
+    'wagtail.contrib.forms',
+    'wagtail.sites',
+    'wagtail.api',
+    'wagtail.contrib.routable_page',
     'wagtail.contrib.table_block',
     'taggit',
 ]
@@ -176,8 +176,8 @@ LOGGING = {
     }
 }
 
-# 'wagtail.wagtailcore.middleware.SiteMiddleware',
-# 'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+# 'wagtail.core.middleware.SiteMiddleware',
+# 'wagtail.redirects.middleware.RedirectMiddleware',
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -188,8 +188,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.redirects.middleware.RedirectMiddleware',
 
 ]
 
@@ -224,7 +224,7 @@ WSGI_APPLICATION = PROJECT_NAME + '.wsgi.application'
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth
 # -----------------------------------------------------------------------------
 
-# if 'wagtail.wagtailcore' in INSTALLED_APPS:
+# if 'wagtail.core' in INSTALLED_APPS:
 #     LOGIN_URL = '/wagtail/login/'
 # else:
 #     LOGIN_URL = '/admin/login/'

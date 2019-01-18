@@ -12,12 +12,12 @@ from utils.adminextra.autocomplete_tree_admin import InlineAutocompleteAdmin
 
 class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
     # factoidpersonkey = models.IntegerField()
-    factoid = models.ForeignKey('Factoid')
-    person = models.ForeignKey('Person',
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True, )
+    person = models.ForeignKey('Person', on_delete=models.CASCADE, 
                                related_name='assoc_factoid_person')
     # person = AjaxForeignKeyField('Person', (('name', {})))
     role = models.ForeignKey(
-        'Role', null=True, blank=True, verbose_name="role",)
+        'Role', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="role",)
     nameoriglang = models.CharField(
         max_length=765, null=True, blank=True,
         verbose_name="nameoriglang", )
@@ -104,10 +104,10 @@ class AssocFactoidPerson(mymodels.TimeStampedHiddenModel):
 
 class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
     # factoidpersonkey = models.IntegerField()
-    factoid = models.ForeignKey('Factoid')
-    person = models.ForeignKey('Person')
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True, )
+    person = models.ForeignKey('Person', on_delete=models.CASCADE,  null=True, blank=True)
     role = models.ForeignKey(
-        'Role', null=True, blank=True, verbose_name="role", default=4)
+        'Role', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="role", default=4)
     nameoriglang = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="nameoriglang", )
     nametranslation = models.CharField(
@@ -149,9 +149,9 @@ class AssocFactoidWitness(mymodels.TimeStampedHiddenModel):
 
 class AssocFactoidProanima(mymodels.TimeStampedHiddenModel):
     # factoidpersonkey = models.IntegerField()
-    factoidtrans = models.ForeignKey('Factoid')
-    person = models.ForeignKey('Person')
-    role = models.ForeignKey('Role', null=True, blank=True,
+    factoidtrans = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True, )
+    person = models.ForeignKey('Person', on_delete=models.CASCADE,  null=True, blank=True)
+    role = models.ForeignKey('Role', on_delete=models.CASCADE,  null=True, blank=True,
                              verbose_name="role",
                              limit_choices_to={'id__in': [14, 22, 23, 30,
                                                           34, 40, 41]},
@@ -253,10 +253,10 @@ def save_helperAssociation(assoc):
 
 class AssocHelperPerson(mymodels.TimeStampedHiddenModel):
     # factoidpersonkey = models.IntegerField()
-    factoid = models.ForeignKey('Factoid')
-    person = models.ForeignKey('Person', related_name='helperperson')
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
+    person = models.ForeignKey('Person', on_delete=models.CASCADE,  related_name='helperperson')
     role = models.ForeignKey(
-        'Role', null=True, blank=True, verbose_name="role", )
+        'Role', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="role", )
     nameoriglang = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="nameoriglang", )
     nametranslation = models.CharField(
@@ -296,8 +296,8 @@ class AssocHelperPerson(mymodels.TimeStampedHiddenModel):
 # ++++
 class AssocFactoidPoss_alms(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
-    poss_alms = models.ForeignKey('Poss_Alms', verbose_name="alms",)
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
+    poss_alms = models.ForeignKey('Poss_Alms', on_delete=models.CASCADE,  verbose_name="alms",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
@@ -330,9 +330,9 @@ class AssocFactoidPoss_almsInline(InlineAutocompleteAdmin):
 # ++++
 class AssocFactoidPoss_unfreep(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
     poss_unfree_persons = models.ForeignKey(
-        'Poss_Unfree_persons', verbose_name="unfree persons",)
+        'Poss_Unfree_persons', on_delete=models.CASCADE,  verbose_name="unfree persons",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
@@ -364,9 +364,9 @@ class AssocFactoidPoss_unfreepInline(InlineAutocompleteAdmin):
 # ++++
 class AssocFactoidPoss_revenuesilver(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
     poss_revsilver = models.ForeignKey(
-        'Poss_Revenues_silver', verbose_name="revenues in silver",)
+        'Poss_Revenues_silver', on_delete=models.CASCADE,  verbose_name="revenues in silver",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
@@ -398,9 +398,9 @@ class AssocFactoidPoss_revsilverInline(InlineAutocompleteAdmin):
 # ++++
 class AssocFactoidPoss_revenuekind(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
     poss_revkind = models.ForeignKey(
-        'Poss_Revenues_kind', verbose_name="revenues in kind",)
+        'Poss_Revenues_kind', on_delete=models.CASCADE,  verbose_name="revenues in kind",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
@@ -432,9 +432,9 @@ class AssocFactoidPoss_revkindInline(InlineAutocompleteAdmin):
 # ++++
 class AssocFactoidPoss_pgeneral(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
     poss_pgeneral = models.ForeignKey(
-        'Poss_General', verbose_name="possessions in general",)
+        'Poss_General', on_delete=models.CASCADE,  verbose_name="possessions in general",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
@@ -467,10 +467,10 @@ class AssocFactoidPoss_pgeneralInline(InlineAutocompleteAdmin):
 class AssocFactoidPoss_office(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
     factoid = models.ForeignKey(
-        'Factoid',
+        'Factoid', on_delete=models.CASCADE, 
         related_name='assocfactoidpossoffice'
     )
-    poss_office = models.ForeignKey('Poss_Office', verbose_name="office",)
+    poss_office = models.ForeignKey('Poss_Office', on_delete=models.CASCADE,  verbose_name="office",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
@@ -502,8 +502,8 @@ class AssocFactoidPoss_officeInline(InlineAutocompleteAdmin):
 # ++++
 class AssocFactoidPoss_objects(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
-    poss_object = models.ForeignKey('Poss_Objects', verbose_name="objects",)
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
+    poss_object = models.ForeignKey('Poss_Objects', on_delete=models.CASCADE,  verbose_name="objects",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True,
         verbose_name="original text",)
@@ -536,8 +536,8 @@ class AssocFactoidPoss_objectsInline(InlineAutocompleteAdmin):
 # ++++
 class AssocFactoidPoss_lands(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
-    poss_land = models.ForeignKey('Poss_Lands', verbose_name="lands",)
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
+    poss_land = models.ForeignKey('Poss_Lands', on_delete=models.CASCADE,  verbose_name="lands",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(
@@ -569,8 +569,8 @@ class AssocFactoidPoss_landsInline(InlineAutocompleteAdmin):
 # ++++
 class AssocFactoidPrivileges(mymodels.TimeStampedHiddenModel):
     """(used to be called 'Factoidpossession')"""
-    factoid = models.ForeignKey('Factoid')
-    privilege = models.ForeignKey('Privileges', verbose_name="privileges",)
+    factoid = models.ForeignKey('Factoid', on_delete=models.CASCADE,  null=True, blank=True)
+    privilege = models.ForeignKey('Privileges', on_delete=models.CASCADE,  verbose_name="privileges",)
     originaltext = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="original text",)
     helper_inferred = models.BooleanField(

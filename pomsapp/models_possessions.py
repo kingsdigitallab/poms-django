@@ -21,13 +21,13 @@ class Privileges(mymodels.PomsModel):
         verbose_name="name extension",)
     notes = models.TextField(null=True, blank=True,
                              verbose_name="notes",)
-    parent = models.ForeignKey('self', null=True, blank=True,
+    parent = models.ForeignKey('self', on_delete=models.CASCADE,  null=True, blank=True,
                                verbose_name="parent",
                                related_name='children')
     extraid = models.IntegerField(
         null=True, blank=True, verbose_name="useful unused field",)
     place = models.ForeignKey(
-        'Place', null=True, blank=True,
+        'Place', on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="related place (not used)",)
     util_topancestor = models.CharField(
         max_length=765, null=True, blank=True,
@@ -97,7 +97,7 @@ class PossessionNew(mymodels.PomsModel):
     extraid = models.IntegerField(
         null=True, blank=True, verbose_name="useful unused field",)
     place = models.ForeignKey(
-        'Place', null=True, blank=True, verbose_name="related place",)
+        'Place', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="related place",)
     notes = models.TextField(null=True, blank=True,
                              verbose_name="notes",)
     util_topancestor = models.CharField(
@@ -180,7 +180,7 @@ class PossessionNew(mymodels.PomsModel):
 class Poss_Alms(PossessionNew):
     """(Poss Alms description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children')
+        'self', on_delete=models.CASCADE,  null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -214,7 +214,7 @@ class Poss_Alms(PossessionNew):
 class Poss_Lands(PossessionNew):
     """(Lands description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children')
+        'self', on_delete=models.CASCADE,  null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -248,7 +248,7 @@ class Poss_Lands(PossessionNew):
 class Poss_Objects(PossessionNew):
     """(Objects description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children')
+        'self', on_delete=models.CASCADE,  null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -282,7 +282,7 @@ class Poss_Objects(PossessionNew):
 class Poss_Revenues_silver(PossessionNew):
     """(Revenues in silver description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children')
+        'self', on_delete=models.CASCADE,  null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -316,7 +316,7 @@ class Poss_Revenues_silver(PossessionNew):
 class Poss_Revenues_kind(PossessionNew):
     """(Lands description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children')
+        'self', on_delete=models.CASCADE,  null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -350,7 +350,7 @@ class Poss_Revenues_kind(PossessionNew):
 class Poss_General(PossessionNew):
     """(Lands description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children')
+        'self', on_delete=models.CASCADE,  null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -384,7 +384,7 @@ class Poss_General(PossessionNew):
 class Poss_Office(PossessionNew):
     """(Lands description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children')
+        'self', on_delete=models.CASCADE,  null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
@@ -418,7 +418,7 @@ class Poss_Office(PossessionNew):
 class Poss_Unfree_persons(PossessionNew):
     """(Lands description)"""
     parent = models.ForeignKey(
-        'self', null=True, blank=True, related_name='children')
+        'self', on_delete=models.CASCADE,  null=True, blank=True, related_name='children')
 
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field

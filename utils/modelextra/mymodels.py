@@ -90,12 +90,12 @@ class PomsModel(TimeStampedModel):
                                  is under review by the editorial team")
     internal_notes = models.TextField(
         blank=True, verbose_name="internal_notes")
-    created_by = models.ForeignKey(User, blank=True, null=True,
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE,  blank=True, null=True,
                                    related_name="created_%(class)s",
                                    editable=True,
                                    help_text="No need to edit:\
                                    automatically set when saving")
-    updated_by = models.ForeignKey(User, blank=True, null=True,
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE,  blank=True, null=True,
                                    related_name="updated_%(class)s",
                                    editable=True,
                                    help_text="No need to edit:\

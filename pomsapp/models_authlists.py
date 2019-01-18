@@ -148,7 +148,7 @@ class TitleType(mymodels.PomsAuthorityList):
 
     """(TitleType description)"""
     placefk = models.ForeignKey(
-        'Place', null=True, blank=True, verbose_name="Place related",)
+        'Place', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="Place related",)
 
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
         related_search_fields = {'placefk': ('name',), }
@@ -322,7 +322,7 @@ class Relationshiptype(mymodels.PomsAuthorityList):
 
     """(Relationshiptype description)"""
     metatype = models.ForeignKey(
-        'Relationshipmetatype', null=True, blank=True,
+        'Relationshipmetatype', on_delete=models.CASCADE,  null=True, blank=True,
         verbose_name="relation type",)
     # name = models.CharField(max_length=600)
 

@@ -7,7 +7,7 @@ Based on Geoffroy Noel's KdlWp2Wt command from Culture Case
 from kdl_wordpress2wagtail.management.commands.kdlwp2wt import (
     Command as KdlWp2Wt)
 from pomsapp_wagtail.models import HomePage, IndexPage, RichTextPage
-from wagtail.wagtailimages.models import Image
+from wagtail.images.models import Image
 from willow import Image as WillowImage
 import re
 from django.conf import settings

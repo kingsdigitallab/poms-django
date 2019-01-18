@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin.sites import site
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from pomsapp.actions_models import *  # noqa
+from django.urls import reverse
 
 #
 # ASSOCIATIONs
@@ -387,9 +388,10 @@ class Person(mymodels.PomsModel):
     # returns all associations form a person:  method useful for template
     # rendering
 
-    @models.permalink
+
     def get_absolute_url(self):
-        return ('person_detail', [str(self.id)])
+        return reverse('person_detail', args=[self.id])
+
 
     def save(self, force_insert=False, force_update=False,
              calculate_floruits=False):
@@ -713,9 +715,10 @@ class Source(mymodels.PomsModel):
 
     get_factoids.allow_tags = True
 
-    @models.permalink
+
     def get_absolute_url(self):
-        return ('source_detail', [str(self.id)])
+        return reverse('source_detail', args=[self.id])
+
 
     class Meta:
         pass
@@ -943,9 +946,9 @@ class Matrix(Source):
 
     get_databrowse_url.allow_tags = True
 
-    @models.permalink
+
     def get_absolute_url(self):
-        return ('matrix_detail', [str(self.id)])
+        return reverse('matrix_detail', args=[self.id])
 
     class Admin(NoLookupsForeignKeyAutocompleteAdmin):
         related_search_fields = {'owner': ('persondisplayname',), }
@@ -1326,9 +1329,9 @@ class Factoid(mymodels.PomsModel):
                      "search facet (todo: supersede via a proper extension\
                      of the faceted browser)")
 
-    @models.permalink
+
     def get_absolute_url(self):
-        return ('factoid_detail', [str(self.id)])
+        return reverse('factoid_detail', args=[self.id])
 
     def force_inferred(self):
         """the inferred_type field can be calculated only by running a\
@@ -2249,9 +2252,9 @@ class Place(mymodels.PomsModel):
     geom = PointField(null=True, blank=True)
     objects = GeoManager()
 
-    @models.permalink
+
     def get_absolute_url(self):
-        return ('place_detail', [str(self.id)])
+        return reverse('place_detail', args=[self.id])
 
     def get_admin_url(self):
         from django.core import urlresolvers

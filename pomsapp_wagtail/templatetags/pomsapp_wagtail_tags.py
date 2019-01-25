@@ -5,6 +5,7 @@ from wagtail.core.models import Page
 register = template.Library()
 
 
+
 def has_menu_children(page):
     return page.get_children().live().in_menu().exists()
 
@@ -43,7 +44,7 @@ def get_menu_pages(context, page):
             'current_page': page, 'siblings': siblings}
 
 
-@register.assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def get_site_root(context):
     """Returns the site root Page, not the implementation-specific model used.
 

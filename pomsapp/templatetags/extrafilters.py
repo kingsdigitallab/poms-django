@@ -15,7 +15,7 @@ MONTHS_ABBREVIATIONS = {'January': 'Jan.', 'February': 'Feb.',
                         'November': 'Nov.', 'December': 'Dec.'}
 
 
-register = Library()
+
 
 
 @register.filter(name='strip_empty_lines')

@@ -8,6 +8,8 @@ from django.contrib.admin.sites import site
 from django_extensions.admin import ForeignKeyAutocompleteAdmin
 from pomsapp.actions_models import *  # noqa
 from django.urls import reverse
+from django.db.models import Manager as GeoManager
+
 
 #
 # ASSOCIATIONs

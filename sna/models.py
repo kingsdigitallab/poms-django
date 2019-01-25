@@ -32,7 +32,7 @@ rgb_validators = [
 
 
 class LegendItem(models.Model):
-    visualisation = models.ForeignKey('GephiVis')
+    visualisation = models.ForeignKey('GephiVis', on_delete=models.CASCADE)
     category_description = models.CharField(max_length=50)
     red = models.IntegerField(default=255,
                               validators=rgb_validators)

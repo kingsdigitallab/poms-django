@@ -48,7 +48,7 @@ urlpatterns = [
         name='previous_landholders'),
     url(r'^' + prefix + 'admin/contributions/$',
         poms_custom_admin_views.contributions, name='contributions'),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', admin.site.urls),
 
     # REGISTRATION:  TESTING
     url(r'^' + prefix + 'accounts/', include('registration.urls')),

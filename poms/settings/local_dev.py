@@ -33,6 +33,7 @@ SECRET_KEY = ''
 # http://django-debug-toolbar.readthedocs.org/en/latest/
 # -----------------------------------------------------------------------------
 
+"""
 try:
     import debug_toolbar  # noqa
 
@@ -42,3 +43,4 @@ try:
     DEBUG_TOOLBAR_PATCH_SETTINGS = True
 except ImportError:
     pass
+"""

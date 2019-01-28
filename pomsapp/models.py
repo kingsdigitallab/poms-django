@@ -1124,7 +1124,7 @@ class ExtraTitleCreationFrom(forms.ModelForm):
         empty_label="(Nothing)",
         label="title [warning: creates a new title-factoid]",
         widget=widgets.ForeignKeyRawIdWidget(
-            ManyToOneRel(TitleType, 'id', 'id'), site)
+             ManyToOneRel(TitleType, 'id', 'id'), site)
 
     )
     bygraceofgod = forms.BooleanField(required=False, label="by grace of..")

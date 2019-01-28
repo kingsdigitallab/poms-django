@@ -150,8 +150,11 @@ class TitleType(mymodels.PomsAuthorityList):
     placefk = models.ForeignKey(
         'Place', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="Place related",)
 
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
-        related_search_fields = {'placefk': ('name',), }
+    class Admin(admin.ModelAdmin):
+        #related_search_fields = {'placefk': ('name',), }
+        autocomplete_fields = [
+            'placefk'
+        ]
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""

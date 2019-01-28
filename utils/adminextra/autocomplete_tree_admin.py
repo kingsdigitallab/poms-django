@@ -639,137 +639,138 @@ class NoLookupsForeignKeyAutocompleteAdmin(admin.ModelAdmin):
 #  ======================================
 
 
-class InlineAutocompleteAdmin(admin.TabularInline):
-    """
-    Admin class for models using the autocomplete feature in inlines.
 
-    At the moment, this autocomplete works only if the admin
-    of the model including the inline-admin is
-    itself a subclass of an autocomplete Admin
-    (e.g., ForeignKeyAutocompleteAdmin)
-
-    """
-
-    related_search_fields = {}
-    related_string_functions = {}
-
-    # def __call__(self, request, url):
-    #      if url is None:
-    #    	  pass
-    #      elif url == 'foreignkey_autocomplete':
-    #    	  return self.foreignkey_autocomplete(request)
-    #      return super(ForeignKeyAutocompleteAdmin, self)
-    # .__call__(request, url)
-
-    def get_urls(self):
-        urls = super(InlineAutocompleteAdmin, self).get_urls()
-        search_url = [
-            url(r'^foreignkey_autocomplete/$',
-                self.admin_site.admin_view(self.foreignkey_autocomplete))
-        ]
-        return search_url + urls
-
-    def foreignkey_autocomplete(self, request):
-        """
-        Searches in the fields of the given related model and returns the
-        result as a simple string to be used by the jQuery Autocomplete plugin
-        """
-        query = request.GET.get('q', None)
-        app_label = request.GET.get('app_label', None)
-        model_name = request.GET.get('model_name', None)
-        search_fields = request.GET.get('search_fields', None)
-        object_pk = request.GET.get('object_pk', None)
-
-        try:
-            to_string_function = self.related_string_functions[model_name]
-        except KeyError:
-            if six.PY3:
-                to_string_function = lambda x: x.__str__()
-            else:
-                to_string_function = lambda x: x.__unicode__()
-
-        if search_fields and app_label and model_name and (query or object_pk):
-            def construct_search(field_name):
-                # use different lookup methods depending on the notation
-                if field_name.startswith('^'):
-                    return "%s__istartswith" % field_name[1:]
-                elif field_name.startswith('='):
-                    return "%s__iexact" % field_name[1:]
-                elif field_name.startswith('@'):
-                    return "%s__search" % field_name[1:]
-                else:
-                    return "%s__icontains" % field_name
-
-            model = apps.get_model(app_label, model_name)
-
-            queryset = model._default_manager.all()
-            data = ''
-            if query:
-                for bit in query.split():
-                    or_queries = [models.Q(**{
-                        construct_search(smart_str(field_name)): smart_str(
-                            bit)}) for field_name in search_fields.split(',')]
-                    other_qs = QuerySet(model)
-                    other_qs.query.select_related = \
-                        queryset.query.select_related
-                    other_qs = other_qs.filter(
-                        reduce(operator.or_, or_queries))
-                    queryset = queryset & other_qs
-
-                additional_filter = self.get_related_filter(model, request)
-                if additional_filter:
-                    queryset = queryset.filter(additional_filter)
-
-                if self.autocomplete_limit:
-                    queryset = queryset[:self.autocomplete_limit]
-
-                data = ''.join(
-                    [six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in
-                     queryset])
-            elif object_pk:
-                try:
-                    obj = queryset.get(pk=object_pk)
-                except Exception:  # FIXME: use stricter exception checking
-                    pass
-                else:
-                    data = to_string_function(obj)
-            return HttpResponse(data, content_type='text/plain')
-        return HttpResponseNotFound()
-
-    def get_help_text(self, field_name, model_name):
-        searchable_fields = self.related_search_fields.get(field_name, None)
-        if searchable_fields:
-            help_kwargs = {
-                'model_name': model_name,
-                'field_list': get_text_list(searchable_fields, _('and')),
-            }
-            return _(
-                'Use the left field to do %(model_name)s\
-                lookups in the fields %(field_list)s.') % help_kwargs
-        return ''
-
-    # this method gets called when creating the
-    # formfields - probably this is what you need to extend
-    #  in the replicated version of ForeignKeyAutocompleteAdmin
-
-    def formfield_for_dbfield(self, db_field, **kwargs):
-        """
-        Overrides the default widget for Foreignkey fields if they are
-        specified in the related_search_fields class attribute.
-        """
-        if (isinstance(db_field, models.ForeignKey) and
-                db_field.name in self.related_search_fields):
-            model_name = db_field.rel.to._meta.object_name
-            help_text = self.get_help_text(db_field.name, model_name)
-            if kwargs.get('help_text'):
-                help_text = u'%s %s' % (kwargs['help_text'], help_text)
-            kwargs['widget'] = InlineSearchInput(db_field.rel,
-                                                 self.admin_site,
-                                                 self.related_search_fields[
-                                                     db_field.name])  # noqa
-            kwargs['help_text'] = help_text
-        return super(InlineAutocompleteAdmin,
-                     self).formfield_for_dbfield(db_field, **kwargs)
+# class InlineAutocompleteAdmin(admin.TabularInline):
+#     """
+#     Admin class for models using the autocomplete feature in inlines.
+#
+#     At the moment, this autocomplete works only if the admin
+#     of the model including the inline-admin is
+#     itself a subclass of an autocomplete Admin
+#     (e.g., ForeignKeyAutocompleteAdmin)
+#
+#     """
+#
+#     related_search_fields = {}
+#     related_string_functions = {}
+#
+#     # def __call__(self, request, url):
+#     #      if url is None:
+#     #    	  pass
+#     #      elif url == 'foreignkey_autocomplete':
+#     #    	  return self.foreignkey_autocomplete(request)
+#     #      return super(ForeignKeyAutocompleteAdmin, self)
+#     # .__call__(request, url)
+#
+#     def get_urls(self):
+#         urls = super(InlineAutocompleteAdmin, self).get_urls()
+#         search_url = [
+#             url(r'^foreignkey_autocomplete/$',
+#                 self.admin_site.admin_view(self.foreignkey_autocomplete))
+#         ]
+#         return search_url + urls
+#
+#     def foreignkey_autocomplete(self, request):
+#         """
+#         Searches in the fields of the given related model and returns the
+#         result as a simple string to be used by the jQuery Autocomplete plugin
+#         """
+#         query = request.GET.get('q', None)
+#         app_label = request.GET.get('app_label', None)
+#         model_name = request.GET.get('model_name', None)
+#         search_fields = request.GET.get('search_fields', None)
+#         object_pk = request.GET.get('object_pk', None)
+#
+#         try:
+#             to_string_function = self.related_string_functions[model_name]
+#         except KeyError:
+#             if six.PY3:
+#                 to_string_function = lambda x: x.__str__()
+#             else:
+#                 to_string_function = lambda x: x.__unicode__()
+#
+#         if search_fields and app_label and model_name and (query or object_pk):
+#             def construct_search(field_name):
+#                 # use different lookup methods depending on the notation
+#                 if field_name.startswith('^'):
+#                     return "%s__istartswith" % field_name[1:]
+#                 elif field_name.startswith('='):
+#                     return "%s__iexact" % field_name[1:]
+#                 elif field_name.startswith('@'):
+#                     return "%s__search" % field_name[1:]
+#                 else:
+#                     return "%s__icontains" % field_name
+#
+#             model = apps.get_model(app_label, model_name)
+#
+#             queryset = model._default_manager.all()
+#             data = ''
+#             if query:
+#                 for bit in query.split():
+#                     or_queries = [models.Q(**{
+#                         construct_search(smart_str(field_name)): smart_str(
+#                             bit)}) for field_name in search_fields.split(',')]
+#                     other_qs = QuerySet(model)
+#                     other_qs.query.select_related = \
+#                         queryset.query.select_related
+#                     other_qs = other_qs.filter(
+#                         reduce(operator.or_, or_queries))
+#                     queryset = queryset & other_qs
+#
+#                 additional_filter = self.get_related_filter(model, request)
+#                 if additional_filter:
+#                     queryset = queryset.filter(additional_filter)
+#
+#                 if self.autocomplete_limit:
+#                     queryset = queryset[:self.autocomplete_limit]
+#
+#                 data = ''.join(
+#                     [six.u('%s|%s\n') % (to_string_function(f), f.pk) for f in
+#                      queryset])
+#             elif object_pk:
+#                 try:
+#                     obj = queryset.get(pk=object_pk)
+#                 except Exception:  # FIXME: use stricter exception checking
+#                     pass
+#                 else:
+#                     data = to_string_function(obj)
+#             return HttpResponse(data, content_type='text/plain')
+#         return HttpResponseNotFound()
+#
+#     def get_help_text(self, field_name, model_name):
+#         searchable_fields = self.related_search_fields.get(field_name, None)
+#         if searchable_fields:
+#             help_kwargs = {
+#                 'model_name': model_name,
+#                 'field_list': get_text_list(searchable_fields, _('and')),
+#             }
+#             return _(
+#                 'Use the left field to do %(model_name)s\
+#                 lookups in the fields %(field_list)s.') % help_kwargs
+#         return ''
+#
+#     # this method gets called when creating the
+#     # formfields - probably this is what you need to extend
+#     #  in the replicated version of ForeignKeyAutocompleteAdmin
+#
+#     def formfield_for_dbfield(self, db_field, **kwargs):
+#         """
+#         Overrides the default widget for Foreignkey fields if they are
+#         specified in the related_search_fields class attribute.
+#         """
+#         if (isinstance(db_field, models.ForeignKey) and
+#                 db_field.name in self.related_search_fields):
+#             model_name = db_field.rel.to._meta.object_name
+#             help_text = self.get_help_text(db_field.name, model_name)
+#             if kwargs.get('help_text'):
+#                 help_text = u'%s %s' % (kwargs['help_text'], help_text)
+#             kwargs['widget'] = InlineSearchInput(db_field.rel,
+#                                                  self.admin_site,
+#                                                  self.related_search_fields[
+#                                                      db_field.name])  # noqa
+#             kwargs['help_text'] = help_text
+#         return super(InlineAutocompleteAdmin,
+#                      self).formfield_for_dbfield(db_field, **kwargs)
 
 
 

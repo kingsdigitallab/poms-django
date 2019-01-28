@@ -67,13 +67,11 @@ class Privileges(mymodels.PomsModel):
         exit += blank_or_string(self.name)
         return exit
 
-    def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
-            'admin:pomsapp_privileges_change', args=(self.id,))
-        # return "/%sadmin/pomsapp/person/%s" % (django_settings.URL_PREFIX,
-        # self.id)
-    get_admin_url.allow_tags = True
+    # def get_admin_url(self):
+    #     from django.core import urlresolvers
+    #     return urlresolvers.reverse(
+    #         'admin:pomsapp_privileges_change', args=(self.id,))
+    # get_admin_url.allow_tags = True
 
     def __unicode__(self):
         return self.__nameandparent__()

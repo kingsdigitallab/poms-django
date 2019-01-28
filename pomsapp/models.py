@@ -412,9 +412,11 @@ class Person(mymodels.PomsModel):
     class Meta:
         ordering = ["persondisplayname"]
 
-    class Admin(FkAutocompleteAdmin):  # admin.ModelAdmin
+    class Admin(admin.ModelAdmin):  #
         # related_search_fields = { 'genderkey': ('name',), }
-        related_search_fields = {'relatedplace': ('name',), }
+        #related_search_fields = {'relatedplace': ('name',), }
+        search_fields = ['persondisplayname']
+        autocomplete_fields = ['relatedplace']
         ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
@@ -820,10 +822,13 @@ class Charter(Source):
         verbose_name = "Document"
         ordering = ['id']
 
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(admin.ModelAdmin):
 
-        related_search_fields = {'placefk': ('name',), }
+        #related_search_fields = {'placefk': ('name',), }
         ordering = ('-updated_at',)
+        autocomplete_fields = [
+            'placefk'
+        ]
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -952,8 +957,11 @@ class Matrix(Source):
     def get_absolute_url(self):
         return reverse('matrix_detail', args=[self.id])
 
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
-        related_search_fields = {'owner': ('persondisplayname',), }
+    class Admin(admin.ModelAdmin):
+        #related_search_fields = {'owner': ('persondisplayname',), }
+        autocomplete_fields = [
+            'owner'
+        ]
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -1045,9 +1053,12 @@ class Seal(Source):
 
     get_databrowse_url.allow_tags = True
 
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
-        related_search_fields = {'charter_field': (
-            'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+    class Admin(admin.ModelAdmin):
+        #related_search_fields = {'charter_field': (
+        #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        autocomplete_fields = [
+            'charter_field'
+        ]
         ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
@@ -1124,59 +1135,73 @@ class ExtraTitleCreationFrom(forms.ModelForm):
 #
 # new extended inline that lets create Title factoids on the fly!
 # inline used on Transaction factoids only
-# admin.TabularInline     InlineAutocompleteAdmin
-class AssocPersonInline_extended(InlineAutocompleteAdmin):
+# admin.TabularInline     admin.TabularInline
+class AssocPersonInline_extended(admin.TabularInline):
 
     model = AssocFactoidPerson
     verbose_name = 'Associated person'
     verbose_name_plural = 'Associated people'
     # raw_id_fields = ('person', ) #'person', TOFIX
     extra = 20
-    related_search_fields = {
-        'person': ('persondisplayname',),
-        'role': ('name',),
-    }
+    #related_search_fields = {
+    #    'person': ('persondisplayname',),
+    #    'role': ('name',),
+    #}
     # this form is just added to the normal inline
+    autocomplete_fields = [
+        'person',
+        'role'
+    ]
     form = ExtraTitleCreationFrom
     # formset = MyFormset
 
 
 # inline used on non transaction factoids
-# admin.TabularInline  InlineAutocompleteAdmin
-class AssocPersonInline(InlineAutocompleteAdmin):
+# admin.TabularInline  admin.TabularInline
+class AssocPersonInline(admin.TabularInline):
     model = AssocFactoidPerson
     verbose_name = 'Associated person'
     verbose_name_plural = 'Associated people'
     extra = 4
-    related_search_fields = {
-        'person': ('persondisplayname',),
-        'role': ('name',),
-    }
+    # related_search_fields = {
+    #     'person': ('persondisplayname',),
+    #     'role': ('name',),
+    # }
+    autocomplete_fields = [
+        'person',
+        'role'
+    ]
 
 
-class AssocWitnessInline(InlineAutocompleteAdmin):
+class AssocWitnessInline(admin.TabularInline):
     model = AssocFactoidWitness
     # raw_id_fields = ('person',)
     verbose_name = 'Associated witness'
     verbose_name_plural = 'Associated witnesses'
     extra = 10
     # exclude = ['role']    # role is assigned by default
-    related_search_fields = {
-        'person': ('persondisplayname',),
-    }
+    # related_search_fields = {
+    #     'person': ('persondisplayname',),
+    # }
+    autocomplete_fields = [
+        'person',
+    ]
     form = ExtraTitleCreationFrom
 
 
-class AssocProanimaInline(InlineAutocompleteAdmin):
+class AssocProanimaInline(admin.TabularInline):
     model = AssocFactoidProanima
     # raw_id_fields = ('person',)
     verbose_name = 'Associated ProAnima person'
     verbose_name_plural = 'Associated ProAnima people'
     extra = 2
     # exclude = ['role']
-    related_search_fields = {
-        'person': ('persondisplayname',),
-    }
+    # related_search_fields = {
+    #     'person': ('persondisplayname',),
+    # }
+    autocomplete_fields = [
+        'person',
+    ]
     form = ExtraTitleCreationFrom
 
 
@@ -1373,10 +1398,13 @@ class Factoid(mymodels.PomsModel):
         return self.shortdesc or "no description"
 
     # todo temporary to solve autcomplete issue, will be removed in 2.0
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(admin.ModelAdmin):
             # raw_id_fields = ('sourcekey', )
-            related_search_fields = {'sourcekey': (
-                'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+            #related_search_fields = {'sourcekey': (
+            #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+            autocomplete_fields = [
+                'sourcekey'
+            ]
             ordering = ('-updated_at',)
 
 
@@ -1422,10 +1450,14 @@ class FactTitle(Factoid):
             return None
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(admin.ModelAdmin):
         # raw_id_fields = ('sourcekey', )
-        related_search_fields = {'sourcekey': (
-            'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        #related_search_fields = {'sourcekey': (
+        #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        autocomplete_fields = [
+            'sourcekey'
+        ]
+
         ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
@@ -1573,13 +1605,18 @@ class FactRelationship(Factoid):
         super(FactRelationship, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(admin.ModelAdmin):
         # raw_id_fields = ('sourcekey', )
-        related_search_fields = {
-            'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
-            'placefielty': ('name',),
-            'person':('persondisplayname ',)
-        }
+        # related_search_fields = {
+        #     'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
+        #     'placefielty': ('name',),
+        #     'person':('persondisplayname ',)
+        # }
+        autocomplete_fields = [
+            'sourcekey',
+            'placefielty',
+            'people'
+        ]
         ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
@@ -1679,11 +1716,15 @@ class FactReference(Factoid):
         super(FactReference, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(admin.ModelAdmin):
         # raw_id_fields = ('sourcekey', )
-        related_search_fields = {
-            'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
-            'placefielty': ('name',), }
+        # related_search_fields = {
+        #     'sourcekey': ('hammondnumber', 'hammondnumb2', 'hammondnumb3'),
+        #     'placefielty': ('name',), }
+        autocomplete_fields = [
+            'sourcekey',
+            'placefielty'
+        ]
         ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
@@ -1818,10 +1859,13 @@ class FactPossession(Factoid):
         super(FactPossession, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(admin.ModelAdmin):
         # raw_id_fields = ('sourcekey', )
-        related_search_fields = {'sourcekey': (
-            'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        # related_search_fields = {'sourcekey': (
+        #     'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        autocomplete_fields = [
+            'sourcekey'
+        ]
         ordering = ('-updated_at',)
 
 
@@ -1999,12 +2043,14 @@ class FactTransaction(Factoid):
         super(FactTransaction, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
-    class Admin(NoLookupsForeignKeyAutocompleteAdmin):
+    class Admin(admin.ModelAdmin):
         ordering = ('-updated_at',)
         # raw_id_fields = ('sourcekey', )
-        related_search_fields = {'sourcekey': (
-            'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
-        ordering = ('-updated_at',)
+        autocomplete_fields = ['sourcekey']
+        #related_search_fields = {'sourcekey': (
+        #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+
+
 
         def save_model(self, request, obj, form, change):
             # adds the user information when the rec is saved
@@ -2328,6 +2374,7 @@ class Place(mymodels.PomsModel):
     # =========>>>>>>> the FEINCMS admin!!!!!!!!!!!!!!!!!
     class Admin(AutocompleteTreeEditor):
         # list_display = ('possname',)
+
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""

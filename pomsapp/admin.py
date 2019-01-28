@@ -2,7 +2,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from pomsapp.models import *  # noqa
 from utils.adminextra.autocomplete_tree_admin import AutocompleteTreeEditor
-
+from django.contrib import admin
 
 class BasicAdmin(admin.ModelAdmin):
     pass
@@ -269,11 +269,46 @@ admin.site.register(Place, Place.Admin)
 # ++++++++++++++++++++++++++++++
 # admin definition for main DOMAIN models
 
+# Created these objects to add search fields to make them work
+# with Django 2 autocomplete
 
+class SourceAdmin(admin.ModelAdmin):
+    search_fields = ['hammondnumber','hammondnumb2','hammondnumb3','get_hammondnumber']
+
+
+class RoleAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+class Poss_AlmsAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+class Poss_UnfreepersonsAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+class Poss_OfficeAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+class Poss_ObjectsAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+class Poss_LandAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+class PrivilegeAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+
+
+#admin.site.register(Privileges,PrivilegeAdmin)
+#admin.site.register(Poss_Lands,Poss_LandAdmin)
+#admin.site.register(Poss_Objects,Poss_ObjectsAdmin)
+#admin.site.register(Poss_Office,Poss_OfficeAdmin)
+#admin.site.register(Poss_Unfree_persons,Poss_UnfreepersonsAdmin)
+#admin.site.register(Poss_Alms,Poss_AlmsAdmin)
+admin.site.register(Source, SourceAdmin)
 admin.site.register(Charter, Charter.Admin)
 admin.site.register(Seal, Seal.Admin)
 admin.site.register(Matrix, Matrix.Admin)
-admin.site.register(Role)
+admin.site.register(Role, RoleAdmin)
 admin.site.register(Person, Person.Admin)
 admin.site.register(Factoid, Factoid.Admin)
 admin.site.register(FactTitle, FactTitle.Admin)

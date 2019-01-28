@@ -1,6 +1,7 @@
 from django.db import models
 import utils.modelextra.mymodels as mymodels
-from utils.adminextra.autocomplete_tree_admin import InlineAutocompleteAdmin
+#from utils.adminextra.autocomplete_tree_admin import InlineAutocompleteAdmin
+from django.contrib import admin
 
 
 #  ====================================
@@ -313,16 +314,16 @@ class AssocFactoidPoss_alms(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_almsInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_almsInline(admin.TabularInline):
     model = AssocFactoidPoss_alms
     # raw_id_fields = ('poss_alms',)
     verbose_name_plural = 'Alms (ex possessions)'
     exclude = ('helper_inferred',)
     extra = 1
-    related_search_fields = {
-
-        'poss_alms': ('name',),
-    }
+    # related_search_fields = {
+    #     'poss_alms': ('name',),
+    # }
+    autocomplete_fields = ['poss_alms']
 
 
 # ++++
@@ -348,15 +349,16 @@ class AssocFactoidPoss_unfreep(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_unfreepInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_unfreepInline(admin.TabularInline):
     model = AssocFactoidPoss_unfreep
     # raw_id_fields = ('poss_unfree_persons', )
     verbose_name_plural = 'Unfree persons (ex possessions)'
     exclude = ('helper_inferred',)
     extra = 1
-    related_search_fields = {
-        'poss_unfree_persons': ('name',),
-    }
+    # related_search_fields = {
+    #     'poss_unfree_persons': ('name',),
+    # }
+    autocomplete_fields = ['poss_unfree_persons']
 
 
 # ++++
@@ -382,15 +384,20 @@ class AssocFactoidPoss_revenuesilver(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_revsilverInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_revsilverInline(admin.TabularInline):
     model = AssocFactoidPoss_revenuesilver
     # raw_id_fields = ('poss_revsilver', )
+    search_fields = ['name']
     verbose_name_plural = 'Revenues in silver (ex possessions)'
     exclude = ('helper_inferred',)
     extra = 1
-    related_search_fields = {
-        'poss_revsilver': ('name',),
-    }
+    # related_search_fields = {
+    #     'poss_revsilver': ('name',),
+    # }
+    autocomplete_fields = [
+        'poss_revsilver'
+    ]
+
 
 
 # ++++
@@ -416,15 +423,19 @@ class AssocFactoidPoss_revenuekind(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_revkindInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_revkindInline(admin.TabularInline):
     model = AssocFactoidPoss_revenuekind
     # raw_id_fields = ('poss_revkind', )
+    search_fields = ['name']
     verbose_name_plural = 'Revenues in kind (ex possessions)'
     exclude = ('helper_inferred',)
     extra = 1
-    related_search_fields = {
-        'poss_revkind': ('name',),
-    }
+    # related_search_fields = {
+    #     'poss_revkind': ('name',),
+    # }
+    autocomplete_fields = [
+        'poss_revkind'
+    ]
 
 
 # ++++
@@ -450,15 +461,19 @@ class AssocFactoidPoss_pgeneral(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_pgeneralInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_pgeneralInline(admin.TabularInline):
     model = AssocFactoidPoss_pgeneral
     # raw_id_fields = ('poss_pgeneral', )
+    search_fields = ['name']
     verbose_name_plural = 'Possessions in general (ex possessions)'
     exclude = ('helper_inferred',)
     extra = 1
-    related_search_fields = {
-        'poss_pgeneral': ('name',),
-    }
+    # related_search_fields = {
+    #     'poss_pgeneral': ('name',),
+    # }
+    autocomplete_fields = [
+        'poss_pgeneral'
+    ]
 
 
 # ++++
@@ -486,15 +501,19 @@ class AssocFactoidPoss_office(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_officeInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_officeInline(admin.TabularInline):
     model = AssocFactoidPoss_office
     # raw_id_fields = ('poss_office', )
     verbose_name_plural = 'Office (ex. possessions)'
+    search_fields = ['name']
     exclude = ('helper_inferred',)
     extra = 1
-    related_search_fields = {
-        'poss_office': ('name',),
-    }
+    # related_search_fields = {
+    #     'poss_office': ('name',),
+    # }
+    autocomplete_fields = [
+        'poss_office'
+    ]
 
 
 # ++++
@@ -520,15 +539,19 @@ class AssocFactoidPoss_objects(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_objectsInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_objectsInline(admin.TabularInline):
     model = AssocFactoidPoss_objects
     # raw_id_fields = ('poss_object', )
     verbose_name_plural = 'Objects (ex. possessions)'
     exclude = ('helper_inferred',)
+    search_fields = ['name']
     extra = 1
-    related_search_fields = {
-        'poss_object': ('name',),
-    }
+    # related_search_fields = {
+    #     'poss_object': ('name',),
+    # }
+    autocomplete_fields = [
+        'poss_object'
+    ]
 
 
 # ++++
@@ -553,15 +576,19 @@ class AssocFactoidPoss_lands(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPoss_landsInline(InlineAutocompleteAdmin):
+class AssocFactoidPoss_landsInline(admin.TabularInline):
     model = AssocFactoidPoss_lands
     # raw_id_fields = ('poss_land', )
     verbose_name_plural = 'Lands (ex. possessions)'
     exclude = ('helper_inferred',)
     extra = 4
-    related_search_fields = {
-        'poss_land': ('name', ),  # 'name',
-    }
+    search_fields = ['name']
+    # related_search_fields = {
+    #     'poss_land': ('name', ),  # 'name',
+    # }
+    autocomplete_fields = [
+        'poss_land'
+    ]
 
 
 # ++++
@@ -586,12 +613,17 @@ class AssocFactoidPrivileges(mymodels.TimeStampedHiddenModel):
 # inline definition
 
 
-class AssocFactoidPrivilegesInline(InlineAutocompleteAdmin):
+class AssocFactoidPrivilegesInline(admin.TabularInline):
     model = AssocFactoidPrivileges
     # raw_id_fields = ('privilege', )
     verbose_name_plural = 'Privileges'
     exclude = ('helper_inferred',)
+    search_fields = ['name']
     extra = 2
-    related_search_fields = {
-        'privilege': ('name',),
-    }
+    # related_search_fields = {
+    #     'privilege': ('name',),
+    # }
+    autocomplete_fields = [
+        'privilege'
+    ]
+

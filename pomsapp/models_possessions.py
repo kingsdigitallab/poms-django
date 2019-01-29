@@ -2,7 +2,7 @@ from django.db import models
 from utils.myutils import blank_or_string
 import utils.modelextra.mymodels as mymodels
 import mptt
-
+from django.urls import reverse
 
 #########################
 # POSSESSIONS and PRIVILEGES
@@ -68,8 +68,8 @@ class Privileges(mymodels.PomsModel):
         return exit
 
     # def get_admin_url(self):
-    #     from django.core import urlresolvers
-    #     return urlresolvers.reverse(
+    #     
+    #     return reverse(
     #         'admin:pomsapp_privileges_change', args=(self.id,))
     # get_admin_url.allow_tags = True
 
@@ -194,8 +194,8 @@ class Poss_Alms(PossessionNew):
         ordering = ['tree_id', 'lft', ]
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        
+        return reverse(
             'admin:pomsapp_poss_alms_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
@@ -228,8 +228,8 @@ class Poss_Lands(PossessionNew):
         ordering = ['tree_id', 'lft']
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        
+        return reverse(
             'admin:pomsapp_poss_lands_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
@@ -262,8 +262,8 @@ class Poss_Objects(PossessionNew):
         ordering = ['tree_id', 'lft']
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        
+        return reverse(
             'admin:pomsapp_poss_objects_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
@@ -296,8 +296,8 @@ class Poss_Revenues_silver(PossessionNew):
         ordering = ['tree_id', 'lft']
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        
+        return reverse(
             'admin:pomsapp_poss_revenues_silver_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
@@ -330,8 +330,8 @@ class Poss_Revenues_kind(PossessionNew):
         ordering = ['tree_id', 'lft']
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        
+        return reverse(
             'admin:pomsapp_poss_revenues_kind_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
@@ -364,8 +364,8 @@ class Poss_General(PossessionNew):
         ordering = ['tree_id', 'lft']
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        
+        return reverse(
             'admin:pomsapp_poss_general_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
@@ -398,8 +398,8 @@ class Poss_Office(PossessionNew):
         ordering = ['tree_id', 'lft']
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        
+        return reverse(
             'admin:pomsapp_poss_office_change', args=(self.id,))
     get_admin_url.allow_tags = True
 
@@ -432,8 +432,8 @@ class Poss_Unfree_persons(PossessionNew):
         ordering = ['tree_id', 'lft']
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        
+        return reverse(
             'admin:pomsapp_poss_unfree_persons_change', args=(self.id,))
     get_admin_url.allow_tags = True
 

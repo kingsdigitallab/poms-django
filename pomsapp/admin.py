@@ -294,11 +294,11 @@ class Poss_ObjectsAdmin(admin.ModelAdmin):
 class Poss_LandAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
-class PrivilegeAdmin(admin.ModelAdmin):
+class TransactiontypeAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-#admin.site.register(Privileges,PrivilegeAdmin)
+admin.site.register(Transactiontype,TransactiontypeAdmin)
 #admin.site.register(Poss_Lands,Poss_LandAdmin)
 #admin.site.register(Poss_Objects,Poss_ObjectsAdmin)
 #admin.site.register(Poss_Office,Poss_OfficeAdmin)

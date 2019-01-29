@@ -1,13 +1,11 @@
 from django.conf.urls import *  # noqa
 from django.contrib.gis.db.models import *  # noqa
 from django.db.models import Manager as GeoManager
-from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django_select2.forms import (
     Select2Widget
 )
 
-import utils.modelextra.mymodels as mymodels
 # from settings import print
 from pomsapp.actions_models import *  # noqa
 #
@@ -372,8 +370,7 @@ class Person(mymodels.PomsModel):
             return []
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        return reverse(
             'admin:pomsapp_person_change', args=(self.id,))
         # return "/%sadmin/pomsapp/person/%s" % (django_settings.URL_PREFIX,
         # self.id)
@@ -413,7 +410,10 @@ class Person(mymodels.PomsModel):
         # related_search_fields = { 'genderkey': ('name',), }
         # related_search_fields = {'relatedplace': ('name',), }
         search_fields = ['persondisplayname']
-        autocomplete_fields = ['relatedplace']
+        autocomplete_fields = ['relatedplace',
+                               'moderngaelicforename',
+                               'medievalgaelicforename',
+                               ]
         ordering = ('-updated_at',)
 
         def save_model(self, request, obj, form, change):
@@ -783,8 +783,8 @@ class Charter(Source):
                   search - see actionsmodels", )
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+
+        return reverse(
             'admin:pomsapp_charter_change', args=(self.id,))
         # return "/%sadmin/pomsapp/charter/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
@@ -941,8 +941,7 @@ class Matrix(Source):
         blank=True, null=True, max_length=300, verbose_name="catalogue")
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        return reverse(
             'admin:pomsapp_matrix_change', args=(self.id,))
         # return "/%sadmin/pomsapp/matrix/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
@@ -1044,8 +1043,7 @@ class Seal(Source):
         verbose_name="Link to Scran.ac.uk", blank=True, null=True, )
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+        return reverse(
             'admin:pomsapp_seal_change', args=(self.id,))
         # return "/%sadmin/pomsapp/seal/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
@@ -1519,8 +1517,8 @@ class FactTitle(Factoid):
             js = ("js/admin_fixes/admin_fixes.js",)
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+
+        return reverse(
             'admin:pomsapp_facttitle_change', args=(self.id,))
         # return "/%sadmin/pomsapp/facttitle/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
@@ -1552,8 +1550,8 @@ class FactRelationship(Factoid):
         verbose_name="related place (for fealty relationships)", )
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+
+        return reverse(
             'admin:pomsapp_factrelationship_change', args=(self.id,))
         # return "/%sadmin/pomsapp/factrelationship/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
@@ -1700,8 +1698,8 @@ class FactReference(Factoid):
         verbose_name="related place (for fielty relationships)", )
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+
+        return reverse(
             'admin:pomsapp_factreference_change', args=(self.id,))
         # return "/%sadmin/pomsapp/FactReference/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
@@ -1808,8 +1806,8 @@ class FactPossession(Factoid):
     # add a method for showing possessions in a list
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+
+        return reverse(
             'admin:pomsapp_factpossession_change', args=(self.id,))
         # return "/%sadmin/pomsapp/factpossession/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
@@ -1952,8 +1950,8 @@ class FactTransaction(Factoid):
     """The main factoid at the moment"""
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+
+        return reverse(
             'admin:pomsapp_facttransaction_change', args=(self.id,))
         # return "/%sadmin/pomsapp/facttransaction/%s" %
         # (django_settings.URL_PREFIX_EXTRA, self.id)
@@ -2056,7 +2054,9 @@ class FactTransaction(Factoid):
     class Admin(admin.ModelAdmin):
         ordering = ('-updated_at',)
         # raw_id_fields = ('sourcekey', )
-        autocomplete_fields = ['sourcekey']
+        autocomplete_fields = ['sourcekey',
+                               'transactiontype'
+                               ]
 
         # related_search_fields = {'sourcekey': (
         #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
@@ -2316,8 +2316,8 @@ class Place(mymodels.PomsModel):
         return reverse('place_detail', args=[self.id])
 
     def get_admin_url(self):
-        from django.core import urlresolvers
-        return urlresolvers.reverse(
+
+        return reverse(
             'admin:pomsapp_place_change', args=(self.id,))
 
     get_admin_url.allow_tags = True

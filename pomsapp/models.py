@@ -1,16 +1,15 @@
-from django.db.models.fields.related import ManyToOneRel
-from django.contrib.admin import widgets
 from django.conf.urls import *  # noqa
 from django.contrib.gis.db.models import *  # noqa
-from django.utils.translation import ugettext_lazy as _
-# from settings import print
-from django.contrib.admin.sites import site
-from django_extensions.admin import ForeignKeyAutocompleteAdmin
-from pomsapp.actions_models import *  # noqa
-from django.urls import reverse
 from django.db.models import Manager as GeoManager
+from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
+from django_select2.forms import (
+    Select2Widget
+)
 
-
+import utils.modelextra.mymodels as mymodels
+# from settings import print
+from pomsapp.actions_models import *  # noqa
 #
 # ASSOCIATIONs
 #
@@ -23,7 +22,6 @@ from pomsapp.models_authlists import *  # noqa
 # POSSESSIONS and PRIVILEGES
 #
 from pomsapp.models_possessions import *  # noqa
-import utils.modelextra.mymodels as mymodels
 
 
 #  TEMP
@@ -62,15 +60,15 @@ class Person(mymodels.PomsModel):
         max_length=50, null=True, blank=True,
         verbose_name="post-modifier", )
     florlowkey = models.ForeignKey(
-        'Floruit', on_delete=models.CASCADE,  null=True, blank=True,
+        'Floruit', on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="FROM  :: century", related_name='flor_lowKey',
     )
     florhikey = models.ForeignKey(
-        'Floruit', on_delete=models.CASCADE,  null=True, blank=True,
+        'Floruit', on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="TO  :: century", related_name='flor_hiKey', )
 
     genderkey = models.ForeignKey(
-        'Gender', on_delete=models.CASCADE,  null=True, blank=True,
+        'Gender', on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="Gender", default=3)
 
     forename = models.CharField(
@@ -98,12 +96,13 @@ class Person(mymodels.PomsModel):
         blank=True, )
     # mikele: 18/1/10
     moderngaelicforename = models.ForeignKey(
-        ModernGaelicForename, on_delete=models.CASCADE,  null=True, blank=True,
+        ModernGaelicForename, on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="modern gaelic forename", )
     moderngaelicsurname = models.CharField(
         blank=True, max_length=100, verbose_name="modern gaelic surname")
     medievalgaelicforename = models.ForeignKey(
-        MedievalGaelicForename, on_delete=models.CASCADE,  null=True, blank=True,
+        MedievalGaelicForename, on_delete=models.CASCADE, null=True,
+        blank=True,
         verbose_name="medieval gaelic forename", )
     medievalgaelicsurname = models.CharField(
         blank=True, max_length=100, verbose_name="medieval gaelic surname")
@@ -250,8 +249,8 @@ class Person(mymodels.PomsModel):
         if not whattype:
             # return ALL  [this supersedes what used to be called
             # get_all_associations]
-            return list(self.getassocfactoids()) +\
-                list(self.getassocfactoidproanimas()) + list(
+            return list(self.getassocfactoids()) + \
+                   list(self.getassocfactoidproanimas()) + list(
                 self.assocfactoidwitness())
 
         elif whattype in ['possession', 'relationship',
@@ -291,8 +290,8 @@ class Person(mymodels.PomsModel):
         """
         if not whattype:
             return list(self.factoids.all(
-            )) + list(self.factoidsproanima.all()) +\
-                list(self.factoidswitness.all())
+            )) + list(self.factoidsproanima.all()) + \
+                   list(self.factoidswitness.all())
         elif whattype in ['possession', 'relationship',
                           'title/occupation', 'transaction']:
             if not ordering:
@@ -390,10 +389,8 @@ class Person(mymodels.PomsModel):
     # returns all associations form a person:  method useful for template
     # rendering
 
-
     def get_absolute_url(self):
         return reverse('person_detail', args=[self.id])
-
 
     def save(self, force_insert=False, force_update=False,
              calculate_floruits=False):
@@ -414,7 +411,7 @@ class Person(mymodels.PomsModel):
 
     class Admin(admin.ModelAdmin):  #
         # related_search_fields = { 'genderkey': ('name',), }
-        #related_search_fields = {'relatedplace': ('name',), }
+        # related_search_fields = {'relatedplace': ('name',), }
         search_fields = ['persondisplayname']
         autocomplete_fields = ['relatedplace']
         ordering = ('-updated_at',)
@@ -439,7 +436,7 @@ class Person(mymodels.PomsModel):
                     persons_to_merge.append(obj)
             if len(main_persons) == 1:
                 feedback = merge_persons_inner(main_persons[
-                    0], persons_to_merge)
+                                                   0], persons_to_merge)
                 self.message_user(request, "Records %s succesfully\
                     merged into [%s]" % (
                     feedback[1], feedback[0]))
@@ -468,48 +465,48 @@ class Person(mymodels.PomsModel):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['helper_merge', 'editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['helper_merge', 'editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }
              ),
             ('Names in headline form (automatically generated)',
              {'fields':
-              ['persondisplayname', 'standardmedievalname',
-               'moderngaelicname', ]
+                  ['persondisplayname', 'standardmedievalname',
+                   'moderngaelicname', ]
               }
              ),
             ('',
              {'fields':
-              ['genderkey', 'persondescription', 'relatedplace']}),
+                  ['genderkey', 'persondescription', 'relatedplace']}),
             ('Name components',
              {'fields':
-              ['forename', 'surname', 'sonof', 'patronym',
-               'ofstring', 'placeandinst', 'datestring']
+                  ['forename', 'surname', 'sonof', 'patronym',
+                   'ofstring', 'placeandinst', 'datestring']
               }
              ),
             ('Medieval Gaelic Name components',
              {'fields':
-              ['medievalgaelicforename', 'medievalgaelicsurname']
+                  ['medievalgaelicforename', 'medievalgaelicsurname']
               }
              ),
             ('Modern Gaelic Name components',
              {'fields':
-              ['moderngaelicforename', 'moderngaelicsurname']
+                  ['moderngaelicforename', 'moderngaelicsurname']
               }
              ),
             ('Floruits',
              {'fields':  # to be ORDERED
-              ['helper_floruits',
-               ('florlowkey', 'floruitstartpre',
-                'floruitstartyr', 'floruitstartpost'),
-               ('florhikey', 'floruitendpre', 'floruitendyr',
-                'floruitendpost'), ]}),
+                  ['helper_floruits',
+                   ('florlowkey', 'floruitstartpre',
+                    'floruitstartyr', 'floruitstartpost'),
+                   ('florhikey', 'floruitendpre', 'floruitendyr',
+                    'floruitendpost'), ]}),
             ('Links to PoNE',
              {'fields':  # to be ORDERED
-              ['ponelink', 'ponelink_sureness']
+                  ['ponelink', 'ponelink_sureness']
               }),
         ]
 
@@ -638,11 +635,12 @@ class Source(mymodels.PomsModel):
         null=True, blank=True, verbose_name="dating notes", )
 
     language = models.ForeignKey(
-        Language, on_delete=models.CASCADE,  null=True, blank=True, verbose_name="language",
+        Language, on_delete=models.CASCADE, null=True, blank=True,
+        verbose_name="language",
         default=1)
     # 2010-08-18 => new inferred grantor category
     grantor_category = models.ForeignKey(
-        GrantorCategory, on_delete=models.CASCADE,  null=True, blank=True,
+        GrantorCategory, on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="grantor category")
 
     helper_hammond = models.CharField(
@@ -651,7 +649,7 @@ class Source(mymodels.PomsModel):
         for faster ordering", null=True,
         blank=True, )
     helper_keywordsearch = models.TextField(
-        verbose_name="Field for the keyword search", null=True, blank=True,)
+        verbose_name="Field for the keyword search", null=True, blank=True, )
     helper_daterange = models.CharField(
         blank=True, null=True, max_length=100,
         verbose_name="helper field for date ranges - automatically generated\
@@ -719,10 +717,8 @@ class Source(mymodels.PomsModel):
 
     get_factoids.allow_tags = True
 
-
     def get_absolute_url(self):
         return reverse('source_detail', args=[self.id])
-
 
     class Meta:
         pass
@@ -743,7 +739,8 @@ class Source(mymodels.PomsModel):
 
 class Charter(Source):
     chartertypekey = models.ForeignKey(
-        'Chartertype', on_delete=models.CASCADE,  blank=True, null=True, verbose_name="document type")
+        'Chartertype', on_delete=models.CASCADE, blank=True, null=True,
+        verbose_name="document type")
 
     ischirograph = models.BooleanField(
         default=False, verbose_name="Chirograph?")
@@ -756,7 +753,8 @@ class Charter(Source):
         max_length=765, null=True, blank=True,
         verbose_name="Place (document)", )
     placefk = models.ForeignKey(
-        'Place', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="Place", )
+        'Place', on_delete=models.CASCADE, null=True, blank=True,
+        verbose_name="Place", )
 
     letterpatent = models.BooleanField(
         default=False, verbose_name="referred to as letter patent")
@@ -824,7 +822,7 @@ class Charter(Source):
 
     class Admin(admin.ModelAdmin):
 
-        #related_search_fields = {'placefk': ('name',), }
+        # related_search_fields = {'placefk': ('name',), }
         ordering = ('-updated_at',)
         autocomplete_fields = [
             'placefk'
@@ -854,41 +852,43 @@ class Charter(Source):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('ID',
              {'fields':
-              ['source_tradid', (
-                  'hammondnumber', 'hammondnumb2', 'hammondnumb3',
-                  'hammondext', 'mofa_flag'), ]
+                  ['source_tradid', (
+                      'hammondnumber', 'hammondnumb2', 'hammondnumb3',
+                      'hammondext', 'mofa_flag'), ]
               }),
             ('Description',
              {'fields':
-              ['chartertypekey', ('ischirograph', 'letterpatent',),
-               'language', 'doctypenotes',
-               'description', 'sourcefordataentry']
+                  ['chartertypekey', ('ischirograph', 'letterpatent',),
+                   'language', 'doctypenotes',
+                   'description', 'sourcefordataentry']
               }),
             ('Dates',
              {'fields':
-              [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
-               ('from_modifier', 'from_weekday', 'from_day',
-                'from_modifier2', 'from_month', 'from_season', 'from_year'),
-               ('to_modifier', 'to_weekday', 'to_day',
-                'to_modifier2', 'to_month', 'to_season', 'to_year'),
-               'firmdate', 'probabledate', 'datingnotes', 'helper_copydates']
+                  [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
+                   ('from_modifier', 'from_weekday', 'from_day',
+                    'from_modifier2', 'from_month', 'from_season',
+                    'from_year'),
+                   ('to_modifier', 'to_weekday', 'to_day',
+                    'to_modifier2', 'to_month', 'to_season', 'to_year'),
+                   'firmdate', 'probabledate', 'datingnotes',
+                   'helper_copydates']
               }),
             ('Place date',
              {'fields':
-              ['placedatemodern', 'placedatedoc', 'placefk']
+                  ['placedatemodern', 'placedatedoc', 'placefk']
               }),
             ('Other info',
              {'fields':
-              [('origcontemp', 'duporigcontemp', 'orignoncontemp',
-                'duporignoncontemp'), 'notes']
+                  [('origcontemp', 'duporigcontemp', 'orignoncontemp',
+                    'duporignoncontemp'), 'notes']
               }),
 
         ]
@@ -923,9 +923,11 @@ class Charter(Source):
 # ===> explore how to pass data from one admin view to another one
 class Matrix(Source):
     shape = models.ForeignKey(
-        'MatrixShape', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="matrix shape", )
+        'MatrixShape', on_delete=models.CASCADE, null=True, blank=True,
+        verbose_name="matrix shape", )
     owner = models.ForeignKey(
-        'Person', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="Owner", )
+        'Person', on_delete=models.CASCADE, null=True, blank=True,
+        verbose_name="Owner", )
     identifier = models.CharField(max_length=100, verbose_name="identifier")
     image_desc = models.TextField(
         blank=True, null=True, verbose_name="image description (obverse)")
@@ -953,12 +955,11 @@ class Matrix(Source):
 
     get_databrowse_url.allow_tags = True
 
-
     def get_absolute_url(self):
         return reverse('matrix_detail', args=[self.id])
 
     class Admin(admin.ModelAdmin):
-        #related_search_fields = {'owner': ('persondisplayname',), }
+        # related_search_fields = {'owner': ('persondisplayname',), }
         autocomplete_fields = [
             'owner'
         ]
@@ -978,20 +979,20 @@ class Matrix(Source):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('Main info',
              {'fields':
-              ['owner', 'identifier', 'shape', 'image_desc',
-               'image_desc_rev', 'legend_obv', 'legend_rev']
+                  ['owner', 'identifier', 'shape', 'image_desc',
+                   'image_desc_rev', 'legend_obv', 'legend_rev']
               }),
             ('Other info',
              {'fields':
-              ['catalogue', 'notes']
+                  ['catalogue', 'notes']
               }),
         ]
 
@@ -1008,19 +1009,23 @@ class Matrix(Source):
 class Seal(Source):
     """(Seal description)"""
     charter_field = models.ForeignKey(
-        'Charter', on_delete=models.CASCADE,  verbose_name="charter", blank=True, null=True,
+        'Charter', on_delete=models.CASCADE, verbose_name="charter",
+        blank=True, null=True,
         db_column='charter_id')
     matrix_field = models.ForeignKey(
         'Matrix', on_delete=models.CASCADE,
         verbose_name="matrix",
         db_column='matrix_id')
     color = models.ForeignKey(
-        'SealColor', on_delete=models.CASCADE,  verbose_name="seal color", blank=True, null=True, )
+        'SealColor', on_delete=models.CASCADE, verbose_name="seal color",
+        blank=True, null=True, )
     att_type_surv = models.ForeignKey(
-        'AttachmentType', on_delete=models.CASCADE,  related_name="surv_attach_of",
+        'AttachmentType', on_delete=models.CASCADE,
+        related_name="surv_attach_of",
         verbose_name="Attachment type",
         blank=True, null=True, )
-    # att_type_notsurv = models.ForeignKey('AttachmentType', on_delete=models.CASCADE,
+    # att_type_notsurv = models.ForeignKey('AttachmentType',
+    # on_delete=models.CASCADE,
     # related_name = "nonsurv_attach_of",
     # verbose_name="Attachment type (not surviving)", blank=True, null=True,)
     # twosided = models.BooleanField(default=False, verbose_name="two sided?")
@@ -1054,7 +1059,7 @@ class Seal(Source):
     get_databrowse_url.allow_tags = True
 
     class Admin(admin.ModelAdmin):
-        #related_search_fields = {'charter_field': (
+        # related_search_fields = {'charter_field': (
         #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
         autocomplete_fields = [
             'charter_field'
@@ -1077,24 +1082,24 @@ class Seal(Source):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('',
              {'fields':
-              ['charter_field', ]
+                  ['charter_field', ]
               }),
             ('Seal info',
              {'fields':
-              ['matrix_field', 'color', 'att_type_surv', 'countersealed',
-               'archive', 'archiverefnumber', 'conditionnote']
+                  ['matrix_field', 'color', 'att_type_surv', 'countersealed',
+                   'archive', 'archiverefnumber', 'conditionnote']
               }),
             ('Links',
              {'fields':
-              ['scranlink']
+                  ['scranlink']
               }),
         ]
 
@@ -1123,8 +1128,9 @@ class ExtraTitleCreationFrom(forms.ModelForm):
         required=False, queryset=TitleType.objects.all(),
         empty_label="(Nothing)",
         label="title [warning: creates a new title-factoid]",
-        widget=widgets.ForeignKeyRawIdWidget(
-             ManyToOneRel(TitleType, 'id', 'id'), site)
+        widget=Select2Widget
+        # widget=widgets.ForeignKeyRawIdWidget(
+        #     ManyToOneRel(TitleType, 'id', 'id'), site)
 
     )
     bygraceofgod = forms.BooleanField(required=False, label="by grace of..")
@@ -1137,16 +1143,15 @@ class ExtraTitleCreationFrom(forms.ModelForm):
 # inline used on Transaction factoids only
 # admin.TabularInline     admin.TabularInline
 class AssocPersonInline_extended(admin.TabularInline):
-
     model = AssocFactoidPerson
     verbose_name = 'Associated person'
     verbose_name_plural = 'Associated people'
     # raw_id_fields = ('person', ) #'person', TOFIX
     extra = 20
-    #related_search_fields = {
+    # related_search_fields = {
     #    'person': ('persondisplayname',),
     #    'role': ('name',),
-    #}
+    # }
     # this form is just added to the normal inline
     autocomplete_fields = [
         'person',
@@ -1210,8 +1215,9 @@ class AssocProanimaInline(admin.TabularInline):
 # ================================
 class Factoid(mymodels.PomsModel):
     inferred_type = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name="inferred type",)
-    sourcekey = models.ForeignKey('Source', on_delete=models.CASCADE,  verbose_name="Document",
+        max_length=100, null=True, blank=True, verbose_name="inferred type", )
+    sourcekey = models.ForeignKey('Source', on_delete=models.CASCADE,
+                                  verbose_name="Document",
                                   related_name='factoids')
     people = models.ManyToManyField(
         Person, through='AssocFactoidPerson', related_name='factoids',
@@ -1356,7 +1362,6 @@ class Factoid(mymodels.PomsModel):
                      "search facet (todo: supersede via a proper extension\
                      of the faceted browser)")
 
-
     def get_absolute_url(self):
         return reverse('factoid_detail', args=[self.id])
 
@@ -1399,20 +1404,21 @@ class Factoid(mymodels.PomsModel):
 
     # todo temporary to solve autcomplete issue, will be removed in 2.0
     class Admin(admin.ModelAdmin):
-            # raw_id_fields = ('sourcekey', )
-            #related_search_fields = {'sourcekey': (
-            #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
-            autocomplete_fields = [
-                'sourcekey'
-            ]
-            ordering = ('-updated_at',)
+        # raw_id_fields = ('sourcekey', )
+        # related_search_fields = {'sourcekey': (
+        #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
+        autocomplete_fields = [
+            'sourcekey'
+        ]
+        ordering = ('-updated_at',)
 
 
 class FactTitle(Factoid):
     """(in poms-linnet this used to be called 'Title')"""
     # factoidkey = models.IntegerField()  --> not needed anymore
     #  there must be a title
-    titletypekey = models.ForeignKey('TitleType', on_delete=models.CASCADE,  verbose_name="title type",)
+    titletypekey = models.ForeignKey('TitleType', on_delete=models.CASCADE,
+                                     verbose_name="title type", )
     # these two are booleans, but's there are some strange '-1' in the db..
     # maybe it'll break
     bygraceofgod = models.BooleanField(
@@ -1452,7 +1458,7 @@ class FactTitle(Factoid):
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
     class Admin(admin.ModelAdmin):
         # raw_id_fields = ('sourcekey', )
-        #related_search_fields = {'sourcekey': (
+        # related_search_fields = {'sourcekey': (
         #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
         autocomplete_fields = [
             'sourcekey'
@@ -1480,29 +1486,30 @@ class FactTitle(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('Source',
              {'fields':
-              ['sourcekey', ]
+                  ['sourcekey', ]
               }),
             ('Description',
              {'fields':
-              ['titletypekey', 'shortdesc', 'bygraceofgod',
-               'byanotherdivineinvocation', 'notes']
+                  ['titletypekey', 'shortdesc', 'bygraceofgod',
+                   'byanotherdivineinvocation', 'notes']
               }),
             ('Dates',
              {'fields':
-              [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
-               ('from_modifier', 'from_weekday', 'from_day',
-                'from_modifier2', 'from_month', 'from_season', 'from_year'),
-               ('to_modifier', 'to_weekday', 'to_day',
-                'to_modifier2', 'to_month', 'to_season', 'to_year'),
-               'firmdate', 'probabledate', 'datingnotes', ]
+                  [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
+                   ('from_modifier', 'from_weekday', 'from_day',
+                    'from_modifier2', 'from_month', 'from_season',
+                    'from_year'),
+                   ('to_modifier', 'to_weekday', 'to_day',
+                    'to_modifier2', 'to_month', 'to_season', 'to_year'),
+                   'firmdate', 'probabledate', 'datingnotes', ]
               }),
 
         ]
@@ -1538,10 +1545,10 @@ class FactTitle(Factoid):
 class FactRelationship(Factoid):
     """(FactRelationship description)"""
     relationship = models.ForeignKey(
-        Relationshiptype, on_delete=models.CASCADE,  null=True, blank=True,
+        Relationshiptype, on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="relationship", )
     placefielty = models.ForeignKey(
-        'Place', on_delete=models.CASCADE,  null=True, blank=True,
+        'Place', on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="related place (for fealty relationships)", )
 
     def get_admin_url(self):
@@ -1642,28 +1649,29 @@ class FactRelationship(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('Source',
              {'fields':
-              ['sourcekey', ]
+                  ['sourcekey', ]
               }),
             ('Description',
              {'fields':
-              ['relationship', 'shortdesc', 'notes', 'placefielty']
+                  ['relationship', 'shortdesc', 'notes', 'placefielty']
               }),
             ('Dates',
              {'fields':
-              [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
-               ('from_modifier', 'from_weekday', 'from_day',
-                'from_modifier2', 'from_month', 'from_season', 'from_year'),
-               ('to_modifier', 'to_weekday', 'to_day',
-                'to_modifier2', 'to_month', 'to_season', 'to_year'),
-               'firmdate', 'probabledate', 'datingnotes', ]
+                  [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
+                   ('from_modifier', 'from_weekday', 'from_day',
+                    'from_modifier2', 'from_month', 'from_season',
+                    'from_year'),
+                   ('to_modifier', 'to_weekday', 'to_day',
+                    'to_modifier2', 'to_month', 'to_season', 'to_year'),
+                   'firmdate', 'probabledate', 'datingnotes', ]
               }),
 
         ]
@@ -1685,9 +1693,10 @@ class FactRelationship(Factoid):
 class FactReference(Factoid):
     """(FactReference description)"""
     reference = models.ForeignKey(
-        Referencetype, on_delete=models.CASCADE,  null=True, blank=True, verbose_name="reference", )
+        Referencetype, on_delete=models.CASCADE, null=True, blank=True,
+        verbose_name="reference", )
     placefielty = models.ForeignKey(
-        'Place', on_delete=models.CASCADE,  null=True, blank=True,
+        'Place', on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="related place (for fielty relationships)", )
 
     def get_admin_url(self):
@@ -1750,28 +1759,29 @@ class FactReference(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('Source',
              {'fields':
-              ['sourcekey', ]
+                  ['sourcekey', ]
               }),
             ('Description',
              {'fields':
-              ['reference', 'shortdesc', 'notes', 'placefielty']
+                  ['reference', 'shortdesc', 'notes', 'placefielty']
               }),
             ('Dates',
              {'fields':
-              [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
-               ('from_modifier', 'from_weekday', 'from_day',
-                'from_modifier2', 'from_month', 'from_season', 'from_year'),
-               ('to_modifier', 'to_weekday', 'to_day',
-                'to_modifier2', 'to_month', 'to_season', 'to_year'),
-               'firmdate', 'probabledate', 'datingnotes', ]
+                  [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
+                   ('from_modifier', 'from_weekday', 'from_day',
+                    'from_modifier2', 'from_month', 'from_season',
+                    'from_year'),
+                   ('to_modifier', 'to_weekday', 'to_day',
+                    'to_modifier2', 'to_month', 'to_season', 'to_year'),
+                   'firmdate', 'probabledate', 'datingnotes', ]
               }),
 
         ]
@@ -1868,7 +1878,6 @@ class FactPossession(Factoid):
         ]
         ordering = ('-updated_at',)
 
-
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
             if getattr(obj, 'created_by', None) is None:
@@ -1898,28 +1907,29 @@ class FactPossession(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('Source',
              {'fields':
-              ['sourcekey', ]
+                  ['sourcekey', ]
               }),
             ('Description',
              {'fields':
-              ['shortdesc', 'notes']
+                  ['shortdesc', 'notes']
               }),
             ('Dates',
              {'fields':
-              [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
-               ('from_modifier', 'from_weekday', 'from_day',
-                'from_modifier2', 'from_month', 'from_season', 'from_year'),
-               ('to_modifier', 'to_weekday', 'to_day',
-                'to_modifier2', 'to_month', 'to_season', 'to_year'),
-               'firmdate', 'probabledate', 'datingnotes', ]
+                  [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
+                   ('from_modifier', 'from_weekday', 'from_day',
+                    'from_modifier2', 'from_month', 'from_season',
+                    'from_year'),
+                   ('to_modifier', 'to_weekday', 'to_day',
+                    'to_modifier2', 'to_month', 'to_season', 'to_year'),
+                   'firmdate', 'probabledate', 'datingnotes', ]
               }),
 
         ]
@@ -1957,7 +1967,7 @@ class FactTransaction(Factoid):
     get_databrowse_url.allow_tags = True
 
     transactiontype = models.ForeignKey(
-        Transactiontype, on_delete=models.CASCADE,  null=True, blank=True,
+        Transactiontype, on_delete=models.CASCADE, null=True, blank=True,
         verbose_name="type of transaction", )
 
     isprimary = models.BooleanField(default=False, verbose_name="Primary")
@@ -2047,10 +2057,9 @@ class FactTransaction(Factoid):
         ordering = ('-updated_at',)
         # raw_id_fields = ('sourcekey', )
         autocomplete_fields = ['sourcekey']
-        #related_search_fields = {'sourcekey': (
+
+        # related_search_fields = {'sourcekey': (
         #    'hammondnumber', 'hammondnumb2', 'hammondnumb3'), }
-
-
 
         def save_model(self, request, obj, form, change):
             # adds the user information when the rec is saved
@@ -2092,22 +2101,22 @@ class FactTransaction(Factoid):
                     stringa_title = assoc + "_set-" + str(i) + "-title"
                     titleid = req.get(stringa_title, None)
                     stringa_grace = assoc + "_set-" + \
-                        str(i) + "-bygraceofgod"
+                                    str(i) + "-bygraceofgod"
                     gracegod = req.get(stringa_grace, None)
                     stringa_divine = assoc + "_set-" + \
-                        str(i) + "-byanotherdivineinvocation"
+                                     str(i) + "-byanotherdivineinvocation"
                     divineinvocation = req.get(stringa_divine, None)
                     # the person info
                     stringa_person = assoc + "_set-" + str(i) + "-person"
                     personid = req.get(stringa_person, None)
                     stringa_origlanguage = assoc + \
-                        "_set-" + str(i) + "-nameoriglang"
+                                           "_set-" + str(i) + "-nameoriglang"
                     originallanguage = req.get(stringa_origlanguage, None)
                     stringa_translation = assoc + \
-                        "_set-" + str(i) + "-nametranslation"
+                                          "_set-" + str(i) + "-nametranslation"
                     nametranslation = req.get(stringa_translation, None)
                     stringa_medieval = assoc + "_set-" + \
-                        str(i) + "-standardmedievalform"
+                                       str(i) + "-standardmedievalform"
                     medievalform = req.get(stringa_medieval, None)
                     if titleid:  # then get the right fields and
                         # creates a title factoid
@@ -2178,30 +2187,32 @@ class FactTransaction(Factoid):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('Source and transaction type',
              {'fields':
-              ['sourcekey', 'transactiontype', ('isprimary', 'isdare',
-                                                'verbsnotspecified',
-                                                'isexchange', 'conveth')]
+                  ['sourcekey', 'transactiontype', ('isprimary', 'isdare',
+                                                    'verbsnotspecified',
+                                                    'isexchange', 'conveth')]
               }),
             ('Description',
              {'fields':
-              ['shortdesc', 'notes']
+                  ['shortdesc', 'notes']
               }),
             ('Dates',
              {'fields':
-              [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
-               ('from_modifier', 'from_weekday', 'from_day',
-                'from_modifier2', 'from_month', 'from_season', 'from_year'),
-               ('to_modifier', 'to_weekday', 'to_day',
-                'to_modifier2', 'to_month', 'to_season', 'to_year'),
-               'firmdate', 'probabledate', 'datingnotes', 'helper_floruits']
+                  [('has_firmdate', 'has_firmdayonly', 'undated', 'eitheror'),
+                   ('from_modifier', 'from_weekday', 'from_day',
+                    'from_modifier2', 'from_month', 'from_season',
+                    'from_year'),
+                   ('to_modifier', 'to_weekday', 'to_day',
+                    'to_modifier2', 'to_month', 'to_season', 'to_year'),
+                   'firmdate', 'probabledate', 'datingnotes',
+                   'helper_floruits']
               }),
             ('Clauses: tenendas and exemption',
              {'fields': ['tenendas', 'tenendasclauseolang', 'exemptions',
@@ -2210,34 +2221,34 @@ class FactTransaction(Factoid):
               }),
             ('Clauses: renders',
              {'fields':
-              ['renderdates', 'rendernominal', ],
+                  ['renderdates', 'rendernominal', ],
               'classes': ['collapse']
               }),
             ('Clauses: sicut clause, add. legal pertinents,\
              returns/renders and common burdens',
              {'fields':
-              ['sicutclauses', 'legalpertinents', 'returnsmilitary',
-               'returnsrenders', 'commonburdens', ],
+                  ['sicutclauses', 'legalpertinents', 'returnsmilitary',
+                   'returnsrenders', 'commonburdens', ],
               'classes': ['collapse']
               }),
             ('Clauses: other tickboxes',
              {'fields':
-              [('previouschartermention', 'previouschirographmention'),
-               'perambulation', 'ismalediction', 'corroborationsealing',
-               'bothaddressorsmentioned',
-               'warrandice'
-               ],
+                  [('previouschartermention', 'previouschirographmention'),
+                   'perambulation', 'ismalediction', 'corroborationsealing',
+                   'bothaddressorsmentioned',
+                   'warrandice'
+                   ],
               'classes': ['collapse']
               }),
             ('Spiritual benefits:',
              {'fields':
-              ['spiritualbenefits',
-               ],
+                  ['spiritualbenefits',
+                   ],
               'classes': ['collapse']
               }),
             ('Witnesses',
              {'fields':
-              ['genericwitnesses', 'testemeipso', ]
+                  ['genericwitnesses', 'testemeipso', ]
               }),
         ]
 
@@ -2279,7 +2290,8 @@ class Place(mymodels.PomsModel):
     specificname = models.CharField(
         max_length=765, null=True, blank=True, verbose_name="specific name", )
     parent = models.ForeignKey(
-        'Place', on_delete=models.CASCADE,  null=True, blank=True, verbose_name="parent place",
+        'Place', on_delete=models.CASCADE, null=True, blank=True,
+        verbose_name="parent place",
         related_name="children", )
     # NJ new field for place tpyes derived from possession names
     place_types = models.ManyToManyField('PlaceType', blank=True)
@@ -2299,7 +2311,6 @@ class Place(mymodels.PomsModel):
         null=True, blank=True, )
     geom = PointField(null=True, blank=True)
     objects = GeoManager()
-
 
     def get_absolute_url(self):
         return reverse('place_detail', args=[self.id])
@@ -2349,7 +2360,8 @@ class Place(mymodels.PomsModel):
             if x not in ret:
                 ret.append(x)
         for x in Factoid.objects.filter(
-                assocfactoidposs_revenuesilver__poss_revsilver__place__id=self.id):  # noqa
+                assocfactoidposs_revenuesilver__poss_revsilver__place__id
+                =self.id):  # noqa
             if x not in ret:
                 ret.append(x)
         for x in Factoid.objects.filter(
@@ -2364,7 +2376,8 @@ class Place(mymodels.PomsModel):
             if x not in ret:
                 ret.append(x)
         for x in Factoid.objects.filter(
-                assocfactoidposs_unfreep__poss_unfree_persons__place__id=self.id):  # noqa
+                assocfactoidposs_unfreep__poss_unfree_persons__place__id
+                =self.id):  # noqa
             if x not in ret:
                 ret.append(x)
 
@@ -2374,7 +2387,6 @@ class Place(mymodels.PomsModel):
     # =========>>>>>>> the FEINCMS admin!!!!!!!!!!!!!!!!!
     class Admin(AutocompleteTreeEditor):
         # list_display = ('possname',)
-
 
         def save_model(self, request, obj, form, change):
             """adds the user information when the rec is saved"""
@@ -2407,20 +2419,20 @@ class Place(mymodels.PomsModel):
         fieldsets = [
             ('Administration',
              {'fields':
-              ['editedrecord', 'review', 'internal_notes',
-               ('created_at', 'created_by'),
-               ('updated_at', 'updated_by')
-               ],
+                  ['editedrecord', 'review', 'internal_notes',
+                   ('created_at', 'created_by'),
+                   ('updated_at', 'updated_by')
+                   ],
               'classes': ['collapse']
               }),
             ('Description',
              {'fields':
-              ['name', 'genericname', 'articletext',
-               'specificname', 'parent', 'notes', 'place_types']
+                  ['name', 'genericname', 'articletext',
+                   'specificname', 'parent', 'notes', 'place_types']
               }),
             ('Geographic',
              {'fields':
-              ['geom', ]
+                  ['geom', ]
               })
         ]
 
@@ -2467,7 +2479,6 @@ class Place(mymodels.PomsModel):
 
 
 mptt.register(Place, )
-
 
 # =============================================================================
 #  SIGNALS; removed on 2012-06-18 as the save() action addressed the same issue

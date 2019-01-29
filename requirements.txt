@@ -7,6 +7,7 @@ django-libsass
 django-model-utils
 django-redis
 django-registration<3
+django_select2
 mysqlclient
 django-mptt
 redis

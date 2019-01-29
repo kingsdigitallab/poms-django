@@ -97,6 +97,7 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [  # your project apps here
     'pomsapp_wagtail',
     'kdl_wordpress2wagtail',
+    'django_select2',
     'wagtail.core',
     'wagtail.admin',
     'wagtail.documents',

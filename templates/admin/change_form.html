@@ -2,5 +2,12 @@
 {% load i18n admin_urls staticfiles%}
 {% block extrastyle %}
     <!-- inherited -->{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}">
-<link rel="stylesheet" type="text/css" href="{% static "css/custom_admin.css" %}">{% endblock %}
 
+<link rel="stylesheet" type="text/css" href="{% static "css/custom_admin.css" %}">
+
+{{ form.media.css }}
+{% endblock %}
+
+{%  block footer %}
+{{ form.media.js }}
+{%  endblock %}

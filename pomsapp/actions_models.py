@@ -134,6 +134,7 @@ def copy_dates_over(obj_from, obj_to):
                                     'probabledate': ""}
     try:
         for x in datefields.items():
+            # Turn these into timezone dates (legacy ones naive)
             setattr(obj_to, x[0], getattr(obj_from, x[0]))
         return True
     except BaseException:

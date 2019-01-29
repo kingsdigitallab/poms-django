@@ -6,6 +6,7 @@ import datetime
 import re
 from django.db.models import DateTimeField, SlugField
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 
 try:
     import uuid
@@ -23,7 +24,9 @@ class CreationDateTimeField(DateTimeField):
     """
 
     def __init__(self, *args, **kwargs):
+        now = timezone.now()
         kwargs.setdefault('editable', True)
+        kwargs.setdefault('blank', True)
         kwargs.setdefault('blank', True)
         kwargs.setdefault('default', datetime.datetime.now)
         DateTimeField.__init__(self, *args, **kwargs)

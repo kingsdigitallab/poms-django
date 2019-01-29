@@ -64,6 +64,7 @@ urlpatterns = [
     url(r'^' + prefix + 'sna/', include('sna.urls')),
     # todo removed for now
     # url(r'^' + prefix + 'labs/', include('labsapp.urls')),
+    url(r'^select2/', include('django_select2.urls')),
 
     url(r'^wagtail/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),

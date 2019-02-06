@@ -1,7 +1,7 @@
 
 // make certain fields uneditable
 function update_document() {
-	
+	$ = jQuery;
 	$("#id_firmdate").attr("DISABLED", "DISABLED");
 	$("#lookup_sourcekey").attr("SIZE", "50");
 	$("#lookup_placefielty").attr("SIZE", "50");

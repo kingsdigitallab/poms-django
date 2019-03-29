@@ -2,7 +2,7 @@
 
 from django.contrib.gis.geos import GEOSGeometry
 from django.shortcuts import render
-
+from pomsapp.views import PomsFacetedBrowse
 from pomsapp.models import Place
 
 

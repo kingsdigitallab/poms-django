@@ -69,6 +69,13 @@ class PomsIndex(indexes.SearchIndex):
     place_name = indexes.CharField(faceted=True, null=True, default='')
     place_parent = indexes.CharField(faceted=True, null=True, default='')
 
+    #Extra fields for map display
+    charter_id = indexes.IntegerField(null=True)
+    source_tradid = indexes.CharField(null=True, default='')
+    place_types = indexes.MultiValueField(
+        null=True)
+
+
     surnames = indexes.MultiValueField(
         faceted=True,
         null=True)
@@ -302,6 +309,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
+
         self.prepared_data = super(PersonIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'person'
 
@@ -545,6 +553,7 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         self.prepared_data['hammondnumb2'] = source.hammondnumb2
         self.prepared_data['hammondnumb3'] = source.hammondnumb3
 
+
         self.prepared_data[
             'surnames'
         ] = list(poms_models.Person.objects.filter(
@@ -611,6 +620,13 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         charters = poms_models.Charter.objects.filter(
             factoids=obj
         ).distinct()
+
+        """
+                charter_id = indexes.IntegerField(null=True)
+            source_tradid = indexes.CharField(null=True, default='')
+            place_types = indexes.MultiValueField(
+                null=True) 
+                """
 
         if charters.count() > 0:
             documenttype = list()
@@ -1143,6 +1159,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             'titles'] = list(poms_models.TitleType.objects.filter(
                 facttitle__helper_places=obj
             ).distinct().values_list('name', flat=True))
+        self.prepared_data['places'] = [obj.name]
 
         # Get charters
         charters = poms_models.Charter.objects.filter(

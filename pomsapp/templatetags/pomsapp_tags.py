@@ -1,5 +1,6 @@
 from django import template
 from pomsapp_wagtail.models import HomePage
+from pomsapp.models import Place,Factoid,Person,Source,Charter
 
 register = template.Library()
 
@@ -238,3 +239,55 @@ def citation_format(obj):
 
     else:
         return "<not available>"
+
+"""
+Take an object and make it into an index of places
+for output on a map
+"""
+@register.inclusion_tag('pomsapp/tags/map_results.html',
+                        takes_context=True)
+def results_map(context, object_list, index_type):
+    places = {}
+    for result in object_list:
+        if result.places is not None:
+            for p in result.places:
+                if p not in places:
+                    # Add a new index
+                    place = Place.objects.filter(name=p)[0]
+                    places[p] = {'place':place,'people': [],"charters":[],"placetypes":[],"place_types":[]}
+                    for type in place.place_types.all():
+                        places[p]['place_types'].append(type)
+                if 'person' in index_type:
+                    places[p]['people'].append({'id':result.object_id, 'name':result.persondisplayname})
+                if 'source' in index_type:
+                    places[p]['charters'].append({"id": result.object.id,
+                                                  "source_tradid": result.object.source_tradid})
+                if 'factoid' in index_type:
+                    factoid = result.object
+                    for person in Person.objects.filter(
+                            factoids=factoid
+                    ).distinct():
+                        places[p]['people'].append({'id': person.id,
+                                                'name': person.persondisplayname})
+                    charters = Charter.objects.filter(
+                        factoids=factoid
+                    ).distinct()
+                    for c in charters:
+                        places[p]['charters'].append({"id": c.id,
+                                                      "source_tradid":
+                                                          c.source_tradid})
+                    """
+                elif index_type is 'factoid':
+                    places[p]['charters'].append({"id":result.charter_id,"name":result.source_tradid})
+                elif index_type is 'place':
+                    for type in result.place_types:
+                        places[p]['placetypes'].append(type)
+                        """
+
+                """
+                "charters": [{% for charter in p.charter_set.all %}  {"id":{{ charter.pk}},"name":"{{ charter.source_tradid|safe }}" {% if not forloop.last%} }, {% else %} } {% endif %} {% endfor %} ],
+            "placetypes":[{% for type in p.place_types.all %}"{{ type }}"{% if forloop.last %}{% else %},{% endif %}{% endfor %}],
+                "place_types":[{% for type in p.place_types.all %}"{{ type }}"{% if forloop.last %}{% else %},{% endif %}{% endfor %}],
+                """
+    return {'places':places}
+

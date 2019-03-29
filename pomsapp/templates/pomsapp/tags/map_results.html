@@ -1,0 +1,40 @@
+{% load wagtailcore_tags pomsapp_tags %}
+<script>
+
+    var featureCollection = {
+        "type": "FeatureCollection",
+        "features": [
+            {% for name,p in places.items %}
+                {% if p.place.geom %}
+                    {
+                        "type": "Feature",
+                        "properties":
+                            {
+                                "name": "{{ p.place.name|safe }}",
+                                "id": "{{ p.place.id }}",
+                                "parent": "{{ p.place.parent.name }}",
+                                "people": [{% for person in p.people %}  {
+                                    "id":{{ person.id}}, "name": "{{ person.name|safe }}"
+                                    {% if not forloop.last%} }, {% else %} } {% endif %} {% endfor %} ]
+                    ,
+                    "charters": [{% for charter in p.charters %}  {"id":{{ charter.id}},"name":"{{ charter.source_tradid|safe }}" {% if not forloop.last%} }, {% else %} } {% endif %} {% endfor %}],
+                    "placetypes": [{% for type in p.place_types %}"{{ type }}"{% if forloop.last %}{% else %},{% endif %} {% endfor %}],
+                    "place_types": [],
+                    },
+                    {% if p.place.geom.geojson %}
+                        "geometry" : {{ p.place.geom.geojson|safe }}
+                        {% if not forloop.last %} },{% else%} }  {% endif %}
+                    {% else %}
+                        {% if not forloop.last %} },{% else%} }  {% endif %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+    ]
+    }
+    $(document).ready(function() {
+
+        parseMapResults(featureCollection);
+    }
+    );
+</script>

@@ -7,7 +7,9 @@
 
 {% if object_list %}
     <h2>{% if selected_facets|length > 1 %}Matching Records{% else %}Showing All Records{% endif %} <dfn>(<span
-            id="rec_num">{{ page_obj.paginator.count }} </span>)</dfn></h2>
+            id="rec_num">{{ page_obj.paginator.count }} </span>)</dfn>
+    <a href="/map/search/{% add_facet_link querydict 'order_by' "startdate" %}&order_by={% get_order_by "startdate" %}">Map results</a>
+    </h2>
 
 
     {% else %}

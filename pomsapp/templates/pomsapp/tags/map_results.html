@@ -19,7 +19,7 @@
                     ,
                     "charters": [{% for charter in p.charters %}  {"id":{{ charter.id}},"name":"{{ charter.source_tradid|safe }}" {% if not forloop.last%} }, {% else %} } {% endif %} {% endfor %}],
                     "placetypes": [{% for type in p.place_types %}"{{ type }}"{% if forloop.last %}{% else %},{% endif %} {% endfor %}],
-                    "place_types": [],
+                    "place_types": [{% for type in p.place_types %}"{{ type }}"{% if forloop.last %}{% else %},{% endif %} {% endfor %}],
                     },
                     {% if p.place.geom.geojson %}
                         "geometry" : {{ p.place.geom.geojson|safe }}

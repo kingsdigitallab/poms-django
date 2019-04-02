@@ -45,6 +45,7 @@
 
 
 {% block contents %}
+    <h2><a href="{% url 'search' %}{% add_facet_link querydict 'order_by' "startdate" %}">Back to results</a> </h2>
     <div>
         <div id="map" class="browse-map">
         </div>

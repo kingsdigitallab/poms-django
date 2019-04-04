@@ -1227,11 +1227,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             ).distinct().values_list('name', flat=True)
         )
 
-        self.prepared_data['places'] = list(
-            poms_models.Place.objects.filter(
-                helper_factoids__helper_places=obj
-            ).distinct().values_list('name', flat=True)
-        )
+        self.prepared_data['places'] = [obj.name]
 
         self.prepared_data['roles'] = list(
             poms_models.Role.objects.filter(

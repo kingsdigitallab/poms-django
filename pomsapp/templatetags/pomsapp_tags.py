@@ -1,7 +1,7 @@
 from django import template
 
-from pomsapp.models import Place, Charter, FactTransaction
 from pomsapp.models import AssocFactoidPoss_lands, AssocFactoidPerson
+from pomsapp.models import Place, FactTransaction, FactPossession
 from pomsapp_wagtail.models import HomePage
 
 register = template.Library()
@@ -263,7 +263,7 @@ def results_map(context, object_list, index_type):
                     # Add a new index
                     place = Place.objects.filter(name=p)[0]
                     places[p] = {'place': place, 'people': [], "charters": [],
-                                  "factoids": [], "placetypes": [],
+                                 "factoids": [], "placetypes": [],
                                  "place_types": []}
                     for type in place.place_types.all():
                         places[p]['place_types'].append(type)
@@ -284,17 +284,25 @@ def results_map(context, object_list, index_type):
                          "source_tradid":
                              result.object.source_tradid})
                 elif 'factoid' in index_type:
+                    factoid = None
                     if 'transaction' in result.inferred_type:
-                        transaction = FactTransaction.objects.get(id=result.object_id)
+                        factoid = FactTransaction.objects.get(
+                            id=result.object_id)
+                    elif 'possession' in result.inferred_type:
+                        factoid = FactPossession.objects.get(
+                            id=result.object_id)
+                    if factoid:
                         source = result.object.sourcekey
                         charter = source.charter
-                        land=''
-                        #result.object.assocfactoidperson_set.object_list
-                        if AssocFactoidPoss_lands.objects.filter(factoid=result.object).count() > 0:
-                            pland = AssocFactoidPoss_lands.objects.filter(factoid=result.object)[0]
+                        land = ''
+                        # result.object.assocfactoidperson_set.object_list
+                        if AssocFactoidPoss_lands.objects.filter(
+                                factoid=result.object).count() > 0:
+                            pland = AssocFactoidPoss_lands.objects.filter(
+                                factoid=result.object)[0]
                             land = pland.poss_land.name
                         if len(result.description) > 50:
-                            description = result.description[0:48]+'...'
+                            description = result.description[0:48] + '...'
                         else:
                             description = result.description
                         assoc_persons = AssocFactoidPerson.objects.filter(
@@ -303,28 +311,33 @@ def results_map(context, object_list, index_type):
                         assoc_persons_array = []
                         for assoc_p in assoc_persons:
                             assoc_persons_array.append({
-                                'person_id':assoc_p.person.id,
-                                'role':assoc_p.role,
-                                'person':assoc_p.person
+                                'person_id': assoc_p.person.id,
+                                'role': assoc_p.role,
+                                'person': assoc_p.person
                             })
-                        places[p]['factoids'].append({"id":result.object_id,
-                        'description':description,
-                        'inferred_type':transaction.transactiontype,
-                        #transactiontype
-                        "name":result.source_tradid,
-                        "possland":land,
-                        "firmdate": charter.firmdate,
-                        "charter_id": charter.id,
-                        'hammondnumber':result.source.__str__(),
-                        "assoc_persons": assoc_persons_array
-                        }
-                        )
+                        places[p]['factoids'].append({"id": result.object_id,
+                                                      'description':
+                                                          description,
+                                                      'inferred_type':
+                                                          factoid.inferred_type,
+                                                      # transactiontype
+                                                      "name":
+                                                          result.source_tradid,
+                                                      "possland": land,
+                                                      "firmdate":
+                                                          charter.firmdate,
+                                                      "charter_id": charter.id,
+                                                      'hammondnumber':
+                                                          result.source.__str__(),
+                                                      "assoc_persons":
+                                                          assoc_persons_array
+                                                      }
+                                                     )
 
 
                 elif index_type is 'place':
                     for type in result.place_types:
                         places[p]['placetypes'].append(type)
-
 
                 """
                 "charters": [{% for charter in p.charter_set.all %}  {"id":{

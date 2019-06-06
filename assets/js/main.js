@@ -247,7 +247,11 @@ function parseMapResults(data) {
 };
 
 function getPopup(props) {
-    str = '<table class="simple headersX"><tbody><tr><th><a href="/record/place/' + props.id + '">' + props.name + '</a>, '+ props.parent +'</th></tr>';
+    var span="";
+    if (props.factoids.length > 0) {
+        span = ' colspan="4"';
+    }
+    str = '<table class="simple headersX"><tbody><tr><th'+span+'><a href="/record/place/' + props.id + '">' + props.name + '</a>, '+ props.parent +'</th></tr>';
 
     if (props.people.length > 0) {
         str += '<tr><th>People:</th></tr>';
@@ -263,17 +267,13 @@ function getPopup(props) {
         }
     }
     if (props.factoids.length > 0) {
-        str += '<tr><th>Factoids:</th></tr>';
+        str += '<tr><th colspan="4">Factoids:</th></tr>';
         for (f in props.factoids) {
             str += '<td><a href="/record/factoid/' + props.factoids[f].id + '">'
-                + props.factoids[f].description + '</a><br/>'
-                + props.factoids[f].inferred_type + '<br/>'
-                + props.factoids[f].possland + '<br/>'
-                + '<a href="/record/source/' + props.charter_id + '">'+ props.factoids[f].hammondnumber + '</a><br/> ' + props.factoids[f].firmdate ;
-                for (ap in props.factoids[f].assoc_persons){
-                    str+="<br/>"+props.factoids[f].assoc_persons[ap].role+": ";
-                    str+="<a href=\"/record/person/"+props.factoids[f].assoc_persons[ap].person_id+"\">"+props.factoids[f].assoc_persons[ap].person+"</a>";
-                }
+                + props.factoids[f].description + '</a></td><td>'
+                + props.factoids[f].inferred_type + '</td><td>'
+                + '<a href="/record/source/' + props.charter_id + '">'+ props.factoids[f].hammondnumber + '</a></td><td>'
+                + props.factoids[f].firmdate+'</td>';
             if (f!=0){
                 str +="<hr/>"
             }

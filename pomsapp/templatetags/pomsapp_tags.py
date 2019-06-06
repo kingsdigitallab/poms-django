@@ -1,6 +1,8 @@
 from django import template
+
+from pomsapp.models import Place, Charter, FactTransaction
+from pomsapp.models import AssocFactoidPoss_lands, AssocFactoidPerson
 from pomsapp_wagtail.models import HomePage
-from pomsapp.models import Place,Factoid,Person,Source,Charter
 
 register = template.Library()
 
@@ -38,7 +40,7 @@ facet_display_names = {
     'index_type': 'Result type',
     "legalpertinents": "Legal Pertinents",
     "transfeatures": "Transaction Features",
-    "sourcesfeatures":" Source Features"
+    "sourcesfeatures": " Source Features"
 
 }
 
@@ -73,9 +75,9 @@ def filter_querystring(qd, facet=None, value=None):
     # else:
     if 'order_by' in facet:
         if 'order_by' in q:
-            del(q['order_by'])
+            del (q['order_by'])
         if 'page' in q:
-            del(q['page'])
+            del (q['page'])
     elif 'page' in facet:
         q['page'] = value
     elif 'index_type' in facet:
@@ -103,9 +105,9 @@ def add_reset_link(qd, facet=None, value=None):
     to reset search at top"""
     q = qd.copy()
     if 'max_date' in q:
-        del(q['max_date'])
+        del (q['max_date'])
     if 'min_date' in q:
-        del(q['min_date'])
+        del (q['min_date'])
     if 'q' in q:
         del (q['q'])
     return '?{0}'.format(q.urlencode())
@@ -125,7 +127,8 @@ def get_order_by(context, order_by):
 
     if field in context:
         context_order_by = context[field][1:] if context[
-            field][0] == '-' else context[field]
+                                                     field][0] == '-' else \
+            context[field]
 
         if order_by == context_order_by:
             if context[field][0] != '-':
@@ -230,7 +233,8 @@ def citation_format(obj):
         return " seal-matrix, no. %d" % obj.id
 
     elif obj.__class__.__name__ in (
-        'FactTitle', 'FactPossession', 'FactTransaction', 'FactRelationship',
+            'FactTitle', 'FactPossession', 'FactTransaction',
+            'FactRelationship',
             'FactReference'):
         return " %s factoid, no. %d" % (obj.inferred_type, obj.id)
 
@@ -240,54 +244,96 @@ def citation_format(obj):
     else:
         return "<not available>"
 
+
 """
 Take an object and make it into an index of places
 for output on a map
 """
+
+
 @register.inclusion_tag('pomsapp/tags/map_results.html',
                         takes_context=True)
 def results_map(context, object_list, index_type):
     places = {}
     for result in object_list:
+        # Places put in search indexes
         if result.places is not None:
             for p in result.places:
                 if p not in places:
                     # Add a new index
                     place = Place.objects.filter(name=p)[0]
-                    places[p] = {'place':place,'people': [],"charters":[],"placetypes":[],"place_types":[]}
+                    places[p] = {'place': place, 'people': [], "charters": [],
+                                  "factoids": [], "placetypes": [],
+                                 "place_types": []}
                     for type in place.place_types.all():
                         places[p]['place_types'].append(type)
                 if 'person' in index_type:
-                    places[p]['people'].append({'id':result.object_id, 'name':result.persondisplayname})
+                    # name and floruits
+                    places[p]['people'].append(
+                        {'id': result.object_id,
+                         'name':
+                             result.persondisplayname,
+                         'floruit':
+                             result.object.nice_floruits})
                 if 'source' in index_type:
-                    places[p]['charters'].append({"id": result.object.id,
-                                                  "source_tradid": result.object.source_tradid})
-                if 'factoid' in index_type:
-                    factoid = result.object
-                    for person in Person.objects.filter(
-                            factoids=factoid
-                    ).distinct():
-                        places[p]['people'].append({'id': person.id,
-                                                'name': person.persondisplayname})
-                    charters = Charter.objects.filter(
-                        factoids=factoid
-                    ).distinct()
-                    for c in charters:
-                        places[p]['charters'].append({"id": c.id,
-                                                      "source_tradid":
-                                                          c.source_tradid})
-                    """
-                elif index_type is 'factoid':
-                    places[p]['charters'].append({"id":result.charter_id,"name":result.source_tradid})
+                    charter = result.object.charter
+                    places[p]['charters'].append(
+                        {"id": charter.id,
+                         "firmdate": charter.firmdate,
+                         'hammondnumber': result.object.__str__(),
+                         "source_tradid":
+                             result.object.source_tradid})
+                elif 'factoid' in index_type:
+                    if 'transaction' in result.inferred_type:
+                        transaction = FactTransaction.objects.get(id=result.object_id)
+                        source = result.object.sourcekey
+                        charter = source.charter
+                        land=''
+                        #result.object.assocfactoidperson_set.object_list
+                        if AssocFactoidPoss_lands.objects.filter(factoid=result.object).count() > 0:
+                            pland = AssocFactoidPoss_lands.objects.filter(factoid=result.object)[0]
+                            land = pland.poss_land.name
+                        if len(result.description) > 50:
+                            description = result.description[0:48]+'...'
+                        else:
+                            description = result.description
+                        assoc_persons = AssocFactoidPerson.objects.filter(
+                            factoid=result.object
+                        )
+                        assoc_persons_array = []
+                        for assoc_p in assoc_persons:
+                            assoc_persons_array.append({
+                                'person_id':assoc_p.person.id,
+                                'role':assoc_p.role,
+                                'person':assoc_p.person
+                            })
+                        places[p]['factoids'].append({"id":result.object_id,
+                        'description':description,
+                        'inferred_type':transaction.transactiontype,
+                        #transactiontype
+                        "name":result.source_tradid,
+                        "possland":land,
+                        "firmdate": charter.firmdate,
+                        "charter_id": charter.id,
+                        'hammondnumber':result.source.__str__(),
+                        "assoc_persons": assoc_persons_array
+                        }
+                        )
+
+
                 elif index_type is 'place':
                     for type in result.place_types:
                         places[p]['placetypes'].append(type)
-                        """
+
 
                 """
-                "charters": [{% for charter in p.charter_set.all %}  {"id":{{ charter.pk}},"name":"{{ charter.source_tradid|safe }}" {% if not forloop.last%} }, {% else %} } {% endif %} {% endfor %} ],
-            "placetypes":[{% for type in p.place_types.all %}"{{ type }}"{% if forloop.last %}{% else %},{% endif %}{% endfor %}],
-                "place_types":[{% for type in p.place_types.all %}"{{ type }}"{% if forloop.last %}{% else %},{% endif %}{% endfor %}],
+                "charters": [{% for charter in p.charter_set.all %}  {"id":{
+                { charter.pk}},"name":"{{ charter.source_tradid|safe }}" {% 
+                if not forloop.last%} }, {% else %} } {% endif %} {% endfor 
+                %} ],
+            "placetypes":[{% for type in p.place_types.all %}"{{ type }}"{% 
+            if forloop.last %}{% else %},{% endif %}{% endfor %}],
+                "place_types":[{% for type in p.place_types.all %}"{{ type 
+                }}"{% if forloop.last %}{% else %},{% endif %}{% endfor %}],
                 """
-    return {'places':places}
-
+    return {'places': places}

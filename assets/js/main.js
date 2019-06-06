@@ -247,28 +247,37 @@ function parseMapResults(data) {
 };
 
 function getPopup(props) {
-    str = '<table class="simple headersX"><tbody><tr><th><a href="/record/place/' + props.id + '">' + props.name + '</a></th></tr>';
-    str += '<tr><th>' + props.parent + '</th></tr>';
-    if (props.place_types.length > 0) {
-        str += '<tr><th>Possessions:</th></tr>';
-        str += '<tr><td>'
-        for (p in props.placetypes) {
-            str += props.placetypes[p] + ', '
-        }
-        str += '</td></tr>'
-    }
-
+    str = '<table class="simple headersX"><tbody><tr><th><a href="/record/place/' + props.id + '">' + props.name + '</a>, '+ props.parent +'</th></tr>';
 
     if (props.people.length > 0) {
         str += '<tr><th>People:</th></tr>';
         for (p in props.people) {
-            str += '<tr><td><a href="/record/person/' + props.people[p].id + '">' + props.people[p].name + '</a></td></tr>'
+            str += '<tr><td><a href="/record/person/' + props.people[p].id + '">' + props.people[p].name + '</a> '+ props.people[p].floruit +'</td></tr>'
         }
     }
     if (props.charters.length > 0) {
-        str += '<tr><th>Charters:</th></tr>';
+        str += '<tr><th>Source:</th></tr>';
         for (c in props.charters) {
-            str += '<tr><td><a href="/record/source/' + props.charters[c].id + '">' + props.charters[c].name + '</a></td></tr>'
+            str += '<tr><td><a href="/record/source/' + props.charters[c].id + '">'
+                + props.charters[c].hammondnumber + '</a> ' + props.charters[c].firmdate +'</td></tr>'
+        }
+    }
+    if (props.factoids.length > 0) {
+        str += '<tr><th>Factoids:</th></tr>';
+        for (f in props.factoids) {
+            str += '<td><a href="/record/factoid/' + props.factoids[f].id + '">'
+                + props.factoids[f].description + '</a><br/>'
+                + props.factoids[f].inferred_type + '<br/>'
+                + props.factoids[f].possland + '<br/>'
+                + '<a href="/record/source/' + props.charter_id + '">'+ props.factoids[f].hammondnumber + '</a><br/> ' + props.factoids[f].firmdate ;
+                for (ap in props.factoids[f].assoc_persons){
+                    str+="<br/>"+props.factoids[f].assoc_persons[ap].role+": ";
+                    str+="<a href=\"/record/person/"+props.factoids[f].assoc_persons[ap].person_id+"\">"+props.factoids[f].assoc_persons[ap].person+"</a>";
+                }
+            if (f!=0){
+                str +="<hr/>"
+            }
+            str += "</td></tr>";
         }
     }
     str += '</tbody></table>'

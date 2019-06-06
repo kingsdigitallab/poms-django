@@ -14,12 +14,28 @@
                                 "id": "{{ p.place.id }}",
                                 "parent": "{{ p.place.parent.name }}",
                                 "people": [{% for person in p.people %}  {
-                                    "id":{{ person.id}}, "name": "{{ person.name|safe }}"
+                                    "id":{{ person.id}}, "name": "{{ person.name|safe }}",
+                                    "floruit": "{{ person.floruit|safe }}"
                                     {% if not forloop.last%} }, {% else %} } {% endif %} {% endfor %} ]
                     ,
                     "charters": [{% for charter in p.charters %}  {
                         "id":{{ charter.id}},
+                        "firmdate": "{{ charter.firmdate }}",
+                         'hammondnumber': "{{ charter.hammondnumber }}",
                         "name": "{{ charter.source_tradid|safe }}" {% if not forloop.last%} }, {% else %} } {% endif %}
+                    {% endfor %}]
+                    ,
+                    "factoids": [{% for factoid in p.factoids %}  {
+                        "id":{{ factoid.id}},
+                        "firmdate": "{{ factoid.firmdate }}",
+                        "hammondnumber": "{{ factoid.hammondnumber }}",
+                        "description": "{{ factoid.description }}",
+                        "inferred_type": "{{ factoid.inferred_type|safe }}",
+                        "charter_id": {{ factoid.charter_id }},
+                        "possland": "{{ factoid.possland }}",
+                        "assoc_persons":[{% for ap in factoid.assoc_persons %}{person_id:{{ ap.person_id }},role:"{{ ap.role }}",person:"{{ ap.person }}"}{% if forloop.last %}{% else %},{% endif %} {% endfor %}],
+
+                    {% if not forloop.last%} }, {% else %} } {% endif %}
                     {% endfor %}]
                     ,
                     "placetypes":[{% for type in p.place_types %}"{{ type }}"{% if forloop.last %}{% else %},{% endif %} {% endfor %}]

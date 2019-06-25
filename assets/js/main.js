@@ -401,7 +401,7 @@ function initMap()
     });
 
     charterMarker = L.AwesomeMarkers.icon({
-        icon: 'legal',
+        icon: 'balance-scale',
         markerColor: 'green',
         prefix: 'fa'
     });
@@ -569,8 +569,10 @@ function initMap()
                 }
                 else if (feature.properties.charters.length > 0) {
                     marker = new L.marker(latlng, {icon: charterMarker});
-                    //  marker = new L.circleMarker(latlng)
                     feature.properties['style'] = 'charter'
+                }else if (feature.properties.factoids.length > 0) {
+                    marker = new L.marker(latlng, {icon: charterMarker});
+                    feature.properties['style'] = 'factoid'
                 }
                 else {
                     marker = new L.marker(latlng, {icon: plainMarker});

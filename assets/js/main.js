@@ -254,20 +254,20 @@ function getPopup(props) {
     str = '<table class="simple headersX"><tbody><tr><th'+span+'><a href="/record/place/' + props.id + '">' + props.name + '</a>, '+ props.parent +'</th></tr>';
 
     if (props.people.length > 0) {
-        str += '<tr><th>People:</th></tr>';
+        //str += '<tr><th>People:</th></tr>';
         for (p in props.people) {
             str += '<tr><td><a href="/record/person/' + props.people[p].id + '">' + props.people[p].name + '</a> '+ props.people[p].floruit +'</td></tr>'
         }
     }
     if (props.charters.length > 0) {
-        str += '<tr><th>Source:</th></tr>';
+        //str += '<tr><th>Source:</th></tr>';
         for (c in props.charters) {
             str += '<tr><td><a href="/record/source/' + props.charters[c].id + '">'
                 + props.charters[c].hammondnumber + '</a> ' + props.charters[c].firmdate +'</td></tr>'
         }
     }
     if (props.factoids.length > 0) {
-        str += '<tr><th colspan="4">Factoids:</th></tr>';
+        //str += '<tr><th colspan="4">Factoids:</th></tr>';
         for (f in props.factoids) {
             str += '<td><a href="/record/factoid/' + props.factoids[f].id + '">'
                 + props.factoids[f].description + '</a></td><td>'
@@ -401,8 +401,14 @@ function initMap()
     });
 
     charterMarker = L.AwesomeMarkers.icon({
-        icon: 'balance-scale',
+        icon: 'book',
         markerColor: 'green',
+        prefix: 'fa'
+    });
+
+    factoidMarker = L.AwesomeMarkers.icon({
+        icon: 'balance-scale',
+        markerColor: 'blue',
         prefix: 'fa'
     });
 
@@ -571,7 +577,7 @@ function initMap()
                     marker = new L.marker(latlng, {icon: charterMarker});
                     feature.properties['style'] = 'charter'
                 }else if (feature.properties.factoids.length > 0) {
-                    marker = new L.marker(latlng, {icon: charterMarker});
+                    marker = new L.marker(latlng, {icon: factoidMarker});
                     feature.properties['style'] = 'factoid'
                 }
                 else {

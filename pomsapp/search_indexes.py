@@ -3,6 +3,7 @@ import pomsapp.models as poms_models
 from django.conf import settings as settings
 from haystack import indexes
 
+
 """
 Replacing the result types with four indexes:
 
@@ -35,6 +36,32 @@ result_types = [{'label': 'factoid__sourcekeys',
     500 records.  For testing only.
     """
 PARTIAL_INDEX_MAX_ID = 500
+
+"""
+Find a string date range that date falls within
+Ranges defined by Matthew Hammond as:
+'1314-29'
+'1329-1371'
+'1371-1406'?
+
+"""
+DATE_RANGES = [
+    ['1314-29',1314,1329],
+    ['1329-1371',1329,1371],
+    ['1371-1406',1371,1406],
+]
+def getDateRange(start_date,end_date=0):
+    ranges=[]
+    if start_date:
+        for range in DATE_RANGES:
+            if end_date > 0:
+                if ((range[1] >= start_date and range[2] <= start_date)
+                    or (range[1] >= end_date and range[2] <= end_date)):
+                    ranges.append(range[0])
+            elif start_date > 0:
+                if (range[1] >= start_date and range[2] <= start_date):
+                    ranges.append(range[0])
+    return ranges
 
 
 class PomsIndex(indexes.SearchIndex):
@@ -112,10 +139,11 @@ class PomsIndex(indexes.SearchIndex):
     startdate = indexes.IntegerField(
         faceted=True,
         null=True)
-    daterange = indexes.CharField(
-        null=True)
+    daterange = indexes.MultiValueField(
+        faceted=True,
+        null=True
+    )
     documenttype = indexes.MultiValueField(
-
         faceted=True,
         null=True
     )
@@ -378,7 +406,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
                     'startdate'] = obj.floruitendyr
 
         self.prepared_data[
-            'daterange'] = obj.helper_daterange
+            'daterange'] = getDateRange(obj.floruitstartyr,obj.floruitendyr)
 
         # Get charters
         charters = poms_models.Charter.objects.filter(
@@ -434,7 +462,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         )
 
         self.prepared_data['possrevsilver'] = list(
-            poms_models.Poss_Revenues_kind.objects.filter(
+            poms_models.Poss_Revenues_silver.objects.filter(
                 factoid__people=obj
             ).distinct().values_list('name', flat=True)
         )
@@ -609,7 +637,7 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
             'startdate'] = obj.from_year
 
         self.prepared_data[
-            'daterange'] = obj.helper_daterange
+            'daterange'] = getDateRange(obj.from_year)
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
@@ -678,7 +706,7 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
         )
 
         self.prepared_data['possrevsilver'] = list(
-            poms_models.Poss_Revenues_kind.objects.filter(
+            poms_models.Poss_Revenues_silver.objects.filter(
                 factoid=obj
             ).distinct().values_list('name', flat=True)
         )
@@ -860,7 +888,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
             'startdate'] = obj.from_year
 
         self.prepared_data[
-            'daterange'] = obj.helper_daterange
+            'daterange'] = getDateRange(obj.from_year)
 
         self.prepared_data[
             'titles'] = list(poms_models.TitleType.objects.filter(
@@ -937,7 +965,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         )
 
         self.prepared_data['possrevsilver'] = list(
-            poms_models.Poss_Revenues_kind.objects.filter(
+            poms_models.Poss_Revenues_silver.objects.filter(
                 factoid__sourcekey=obj
             ).distinct().values_list('name', flat=True)
         )
@@ -1120,7 +1148,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
             if len(startdates) > 0:
                 self.prepared_data[
                     'daterange'
-                ] = '{}-{}'.format(
+                ] = getDateRange(
                     startdates[0],
                     enddates[-1]
                 )
@@ -1216,7 +1244,7 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
         )
 
         self.prepared_data['possrevsilver'] = list(
-            poms_models.Poss_Revenues_kind.objects.filter(
+            poms_models.Poss_Revenues_silver.objects.filter(
                 factoid__helper_places=obj
             ).distinct().values_list('name', flat=True)
         )

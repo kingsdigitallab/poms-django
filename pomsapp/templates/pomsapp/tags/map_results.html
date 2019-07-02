@@ -5,7 +5,7 @@
         "type": "FeatureCollection",
         "features": [
             {% for name,p in places.items %}
-                {% if p.place.geom %}
+                {% if p.place.geom and p.place.parent.pk > 0 %}
                     {
                         "type": "Feature",
                         "properties":

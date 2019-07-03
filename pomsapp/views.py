@@ -38,6 +38,9 @@ class PomsFacetedBrowse(FacetedSearchView):
 
     facet_group_fields = {
         "hidden": ['startdate'],
+        "daterange":[
+            'daterange',
+        ],
         "person": [
             "surnames",
             "forenames",

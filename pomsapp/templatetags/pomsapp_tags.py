@@ -9,6 +9,7 @@ register = template.Library()
 facet_display_names = {
     'person': 'People and Institutions',
     'source': 'Sources',
+    'daterange' :'Date ranges',
     'termsoftenure': 'Terms of tenure',
     'gender': 'gender/type',
     'titles': 'Titles/occupations',

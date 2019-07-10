@@ -55,11 +55,11 @@ def getDateRange(start_date,end_date=0):
     if start_date:
         for range in DATE_RANGES:
             if end_date > 0:
-                if ((range[1] >= start_date and range[2] <= start_date)
-                    or (range[1] >= end_date and range[2] <= end_date)):
+                if ((start_date >= range[1] and start_date <= range[2])
+                    or (end_date >= range[1] and end_date <= range[2])):
                     ranges.append(range[0])
             elif start_date > 0:
-                if (range[1] >= start_date and range[2] <= start_date):
+                if (start_date >= range[1] and start_date <= range[2]):
                     ranges.append(range[0])
     return ranges
 
@@ -326,8 +326,11 @@ class PomsIndex(indexes.SearchIndex):
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
         if settings.PARTIAL_INDEX:
-            return self.get_model().objects.filter(
+            """return self.get_model().objects.filter(
                 id__lt=PARTIAL_INDEX_MAX_ID
+            )"""
+            return self.get_model().objects.filter(
+                from_year__gt=1314
             )
         else:
             return self.get_model().objects.all()

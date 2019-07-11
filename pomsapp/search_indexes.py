@@ -331,7 +331,7 @@ class PomsIndex(indexes.SearchIndex):
             )"""
             return self.get_model().objects.filter(
                 from_year__gt=1314
-            )
+            )[500]
         else:
             return self.get_model().objects.all()
 

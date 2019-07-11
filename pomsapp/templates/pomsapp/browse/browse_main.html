@@ -92,6 +92,7 @@
 
                             {# we have a list of tuples like this: #}
                             {# [(<FacetsGroup1>, [(<Facet1>, [[<FacetValue1>, <FacetValue2>], [<FacetValue3>, <FacetValue4>]]), ('troupe country', [etc..])]), (......)] #}
+                            {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='daterange' facet_group_label='Date ranges' facet_group_facets=facet_group_fields.daterange %}
                             {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='person' facet_group_label='People and institutions' facet_group_facets=facet_group_fields.person %}
                             {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='source' facet_group_label='Sources' facet_group_facets=facet_group_fields.source %}
                             {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='relationship' facet_group_label='Relationships' facet_group_facets=facet_group_fields.relationship %}

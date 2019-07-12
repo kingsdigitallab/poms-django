@@ -278,10 +278,13 @@ def results_map(context, object_list, index_type):
                              result.object.nice_floruits})
                 if 'source' in index_type:
                     charter = result.object.charter
+                    placedate = ''
+                    if charter.placefk:
+                        placedate = charter.placefk.name
                     places[p]['charters'].append(
                         {"id": charter.id,
                          #"firmdate": charter.firmdate,
-                         "firmdate": charter.placefk,
+                        "firmdate": placedate,
                          'hammondnumber': result.object.__str__(),
                          "source_tradid":
                              result.object.source_tradid})

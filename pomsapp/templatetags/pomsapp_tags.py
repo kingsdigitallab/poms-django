@@ -281,7 +281,7 @@ def results_map(context, object_list, index_type):
                     places[p]['charters'].append(
                         {"id": charter.id,
                          #"firmdate": charter.firmdate,
-                         "firmdate": result.object.placefk,
+                         "firmdate": charter.placefk,
                          'hammondnumber': result.object.__str__(),
                          "source_tradid":
                              result.object.source_tradid})

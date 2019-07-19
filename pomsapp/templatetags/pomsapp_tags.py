@@ -260,17 +260,23 @@ def results_map(context, object_list, index_type):
         # Places put in search indexes
         if result.places is not None:
             for p in result.places:
-                if p not in places:
+                placename = p
+                if 'source' in index_type:
+                    # use 'placedate' rather than place
+                    charter = result.object.charter
+                    if charter.placefk:
+                        placename = charter.placefk.name
+                if placename not in places:
                     # Add a new index
-                    place = Place.objects.filter(name=p)[0]
-                    places[p] = {'place': place, 'people': [], "charters": [],
+                    place = Place.objects.filter(name=placename)[0]
+                    places[placename] = {'place': place, 'people': [], "charters": [],
                                  "factoids": [], "placetypes": [],
                                  "place_types": []}
                     for type in place.place_types.all():
-                        places[p]['place_types'].append(type)
+                        places[placename]['place_types'].append(type)
                 if 'person' in index_type:
                     # name and floruits
-                    places[p]['people'].append(
+                    places[placename]['people'].append(
                         {'id': result.object_id,
                          'name':
                              result.persondisplayname,
@@ -278,13 +284,10 @@ def results_map(context, object_list, index_type):
                              result.object.nice_floruits})
                 if 'source' in index_type:
                     charter = result.object.charter
-                    placedate = ''
-                    if charter.placefk:
-                        placedate = charter.placefk.name
-                    places[p]['charters'].append(
+                    places[placename]['charters'].append(
                         {"id": charter.id,
                          #"firmdate": charter.firmdate,
-                        "firmdate": placedate,
+                        "firmdate": charter.firmdate,
                          'hammondnumber': result.object.__str__(),
                          "source_tradid":
                              result.object.source_tradid})
@@ -320,7 +323,7 @@ def results_map(context, object_list, index_type):
                                 'role': assoc_p.role,
                                 'person': assoc_p.person
                             })
-                        places[p]['factoids'].append({"id": result.object_id,
+                        places[placename]['factoids'].append({"id": result.object_id,
                                                       'description':
                                                           description,
                                                       'inferred_type':
@@ -342,7 +345,7 @@ def results_map(context, object_list, index_type):
 
                 elif index_type is 'place':
                     for type in result.place_types:
-                        places[p]['placetypes'].append(type)
+                        places[placename]['placetypes'].append(type)
 
                 """
                 "charters": [{% for charter in p.charter_set.all %}  {"id":{

@@ -50,6 +50,8 @@ facet_display_names = {
 @register.simple_tag
 def add_facet_link(qd, facet=None, value=None):
     q = filter_querystring(qd, facet, value)
+    if type(q) is str:
+        return q
     return '?{0}'.format(q.urlencode())
 
 
@@ -67,37 +69,39 @@ def filter_querystring(qd, facet=None, value=None):
         :rtype: `str`
 
         """
-    q = qd.copy()
-    # qd['page'] = 1
-    # if 'printme' in qd:
-    #     del qd['printme']
-    # if 'index_type' in facet:
-    #
-    # else:
-    if 'order_by' in facet:
-        if 'order_by' in q:
-            del (q['order_by'])
-        if 'page' in q:
-            del (q['page'])
-    elif 'page' in facet:
-        q['page'] = value
-    elif 'index_type' in facet:
-        q['index_type'] = value
-    elif 'clear_all' in facet:
-        # Remove all selected facets
-        del q['selected_facets']
-    else:
-        facets = q.getlist('selected_facets', [])
-        if len(facet) > 0:
-            facet_value = '{0}_exact:{1}'.format(
-                facet, value)
-            for f in facets:
-                if facet in f:
-                    facets.remove(f)
-            if len(str(value)) > 0 and 'clear' not in str(value):
-                facets.append(facet_value)
-        q.setlist('selected_facets', facets)
-    return q
+    if qd and type(qd) is not str:
+        q = qd.copy()
+        # qd['page'] = 1
+        # if 'printme' in qd:
+        #     del qd['printme']
+        # if 'index_type' in facet:
+        #
+        # else:
+        if 'order_by' in facet:
+            if 'order_by' in q:
+                del (q['order_by'])
+            if 'page' in q:
+                del (q['page'])
+        elif 'page' in facet:
+            q['page'] = value
+        elif 'index_type' in facet:
+            q['index_type'] = value
+        elif 'clear_all' in facet:
+            # Remove all selected facets
+            del q['selected_facets']
+        else:
+            facets = q.getlist('selected_facets', [])
+            if len(facet) > 0:
+                facet_value = '{0}_exact:{1}'.format(
+                    facet, value)
+                for f in facets:
+                    if facet in f:
+                        facets.remove(f)
+                if len(str(value)) > 0 and 'clear' not in str(value):
+                    facets.append(facet_value)
+            q.setlist('selected_facets', facets)
+        return q
+    return qd
 
 
 @register.simple_tag

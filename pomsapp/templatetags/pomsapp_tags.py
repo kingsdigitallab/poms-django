@@ -69,7 +69,7 @@ def filter_querystring(qd, facet=None, value=None):
         :rtype: `str`
 
         """
-    if qd and type(qd) is not str:
+    if type(qd) is not str:
         q = qd.copy()
         # qd['page'] = 1
         # if 'printme' in qd:

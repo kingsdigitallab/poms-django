@@ -345,12 +345,9 @@ class PomsIndex(indexes.SearchIndex):
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
         if settings.PARTIAL_INDEX:
-            """return self.get_model().objects.filter(
-                id__lt=PARTIAL_INDEX_MAX_ID
-            )"""
             return self.get_model().objects.filter(
-                from_year__gt=1314
-            )[500]
+                id__lt=PARTIAL_INDEX_MAX_ID
+            )
         else:
             return self.get_model().objects.all()
 

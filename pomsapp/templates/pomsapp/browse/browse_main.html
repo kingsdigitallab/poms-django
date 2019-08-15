@@ -38,21 +38,15 @@
             <!-- Tab Headers -->
 
             <input id="tab3" type="radio" name="tabs" {% if index_type == 'person' %}checked{% endif %}>
-            <label for="tab3"><a href="
-
-                        {% url 'search' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions
+            <label for="tab3"><a href="{% url 'search' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions
                 <span>({{ index_type_counts.person }})</span></a></label>
 
             <input id="tab1" type="radio" name="tabs" {% if index_type == 'factoid' %}checked{% endif %}>
-            <label for="tab1"><a href="
-
-                        {% url 'search' %}{% add_facet_link querydict 'index_type' 'factoid' %}">Factoids
+            <label for="tab1"><a href="{% url 'search' %}{% add_facet_link querydict 'index_type' 'factoid' %}">Factoids
                 <span>({{ index_type_counts.factoid }})</span></a></label>
 
             <input id="tab2" type="radio" name="tabs" {% if index_type == 'source' %}checked{% endif %}>
-            <label for="tab2"><a href="
-
-                        {% url 'search' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources
+            <label for="tab2"><a href="{% url 'search' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources
                 <span>({{ index_type_counts.source }})</span></a></label>
 
 

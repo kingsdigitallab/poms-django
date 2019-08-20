@@ -273,7 +273,7 @@ admin.site.register(Place, Place.Admin)
 # with Django 2 autocomplete
 
 class SourceAdmin(admin.ModelAdmin):
-    search_fields = ['hammondnumber','hammondnumb2','hammondnumb3','get_hammondnumber']
+    search_fields = ['hammondnumber','hammondnumb2','hammondnumb3','helper_hammond']
 
 
 class RoleAdmin(admin.ModelAdmin):

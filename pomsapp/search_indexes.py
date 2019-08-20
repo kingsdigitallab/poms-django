@@ -1104,6 +1104,22 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
         return self.prepared_data
 
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        if settings.PARTIAL_INDEX:
+            return self.get_model().objects.filter(
+                id__lt=PARTIAL_INDEX_MAX_ID,
+                hammondnumb2__gt=0,
+                hammondnumber__gt=0,
+                hammondnumb3__gt=0,
+            )
+        else:
+            return self.get_model().objects.filter(
+                hammondnumb2__gt=0,
+                hammondnumber__gt=0,
+                hammondnumb3__gt=0,
+            )
+
     def get_model(self):
         return poms_models.Source
 

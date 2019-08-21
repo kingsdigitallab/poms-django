@@ -247,10 +247,10 @@ admin.site.register(ModernGaelicForename, AuthListAudiofileAdmin)
 # ++++++++++++++++++++++++++++++
 # admin definition for TREE models
 
-
+# Poss_Lands,
 possessions_lists = [Privileges, Poss_Alms, Poss_Unfree_persons,
                      Poss_Revenues_silver, Poss_Revenues_kind,
-                     Poss_Office, Poss_Objects, Poss_Lands,
+                     Poss_Office, Poss_Objects,
                      Poss_General, ]  # Possession
 
 for possession in possessions_lists:
@@ -299,7 +299,7 @@ class TransactiontypeAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Transactiontype,TransactiontypeAdmin)
-#admin.site.register(Poss_Lands,Poss_LandAdmin)
+admin.site.register(Poss_Lands,Poss_LandAdmin)
 #admin.site.register(Poss_Objects,Poss_ObjectsAdmin)
 #admin.site.register(Poss_Office,Poss_OfficeAdmin)
 #admin.site.register(Poss_Unfree_persons,Poss_UnfreepersonsAdmin)

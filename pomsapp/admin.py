@@ -293,6 +293,10 @@ class Poss_ObjectsAdmin(admin.ModelAdmin):
 
 class Poss_LandAdmin(admin.ModelAdmin):
     search_fields = ['name']
+    autocomplete_fields = [
+        'place',
+        'parent'
+    ]
 
 class TransactiontypeAdmin(admin.ModelAdmin):
     search_fields = ['name']

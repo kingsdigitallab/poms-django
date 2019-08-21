@@ -788,7 +788,7 @@ try:
 
     #  just merging the effects of the two classes..
     class AutocompleteTreeEditor(
-        FkAutocompleteAdmin, feincms_tree_editor.TreeEditor):
+        feincms_tree_editor.TreeEditor):
         def __init__(self, *args, **kwargs):
             super(AutocompleteTreeEditor, self).__init__(*args, **kwargs)
 except ImportError:

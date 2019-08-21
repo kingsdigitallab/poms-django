@@ -2414,7 +2414,10 @@ class Place(mymodels.PomsModel):
         list_filter = ['updated_at', 'created_by__username',
                        'editedrecord', 'review', 'util_topancestor']
         search_fields = ['id', 'name']
-        related_search_fields = {'parent': ('name',), }
+        #related_search_fields = {'parent': ('name',), }
+        autocomplete_fields = [
+            'parent'
+        ]
         filter_horizontal = ['place_types', ]
         fieldsets = [
             ('Administration',

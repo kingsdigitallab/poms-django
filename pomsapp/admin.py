@@ -221,21 +221,21 @@ class AuthListAudiofileAdmin(admin.ModelAdmin):
 
 # ++++++++++++++++++++++++++++++
 # authority lists admin definition
-auth_lists = [MatrixShape, SealColor, AttachmentType, Role, Gender,
+auth_lists = [MatrixShape, SealColor, AttachmentType, Gender,
               Chartertype, Relationshipmetatype, Occupationtype,
               Exemptiontype, Nominalrendertype, Proanimagenerictypes,
               Renderdate, Sicutclausetype,
               Tenendasclauseoptions,
-              Transactiontype, LegalPertinents, Returns_military,
+              LegalPertinents, Returns_military,
               Returns_renders, CommonBurdens, Language,
               Referencetype]
 
+for auth in auth_lists:
+    admin.site.register(auth, AuthListStandardAdmin)
 
-def func(x):
-    return admin.site.register(x, AuthListStandardAdmin)
-
-
-map(func, auth_lists)
+# def func(x):
+#     return admin.site.register(x, AuthListStandardAdmin)
+# map(func, auth_lists)
 
 # ad hoc auth admins
 admin.site.register(Relationshiptype, Relationshiptype.Admin)

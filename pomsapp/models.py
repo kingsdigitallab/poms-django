@@ -1188,6 +1188,7 @@ class AssocWitnessInline(admin.TabularInline):
     # }
     autocomplete_fields = [
         'person',
+        'role'
     ]
     form = ExtraTitleCreationFrom
 

@@ -10,12 +10,12 @@ from pomsapp.models_authlists import (GrantorCategory, Proanimagenerictypes,
 ######################
 
 
-"""
-if settings.LOCAL_SERVER:
-    EXTRA_SAVING_ACTIONS = False
-else:
-    EXTRA_SAVING_ACTIONS = True
-"""
+
+#if settings.LOCAL_SERVER:
+#    EXTRA_SAVING_ACTIONS = False
+#else:
+EXTRA_SAVING_ACTIONS = True
+
 
 
 def create_helperDateRange(obj):
@@ -468,7 +468,9 @@ def create_helper_surnames(obj):
     # return x.strip()
 
     # old searchsurname: applies to 'surname' field only
-    obj.searchsurname = trimsurname(sur)
+    obj.searchsurname = ''
+    if sur is not None:
+        obj.searchsurname = trimsurname(sur)
     #  new searchsurnames fr FB
     obj.helper_bigsurname = combine_surname_fields(obj)
     obj.helper_searchbigsur = trimsurname(obj.helper_bigsurname)

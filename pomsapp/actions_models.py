@@ -9,10 +9,13 @@ from pomsapp.models_authlists import (GrantorCategory, Proanimagenerictypes,
 # MODELS UTILS
 ######################
 
+
+"""
 if settings.LOCAL_SERVER:
     EXTRA_SAVING_ACTIONS = False
 else:
     EXTRA_SAVING_ACTIONS = True
+"""
 
 
 def create_helperDateRange(obj):

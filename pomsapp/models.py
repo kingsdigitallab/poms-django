@@ -906,7 +906,7 @@ class Charter(Source):
         # self.source_tradid)
         out = "Document %s/%s/%s %s (%s)" % (
             self.hammondnumber or '0', self.hammondnumb2 or '0',
-            self.hammondnumb3 or '0', self.hammondext,
+            self.hammondnumb3 or '0', self.hammondext or '',
             self.source_tradid)
         return out
 

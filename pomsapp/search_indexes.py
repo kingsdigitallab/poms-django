@@ -2,11 +2,14 @@
 from django.conf import settings as settings
 from django.db.models import Q
 from haystack import indexes
-
 import pomsapp.models as poms_models
 
+# save each person/source on index to force rerunning of
+# floruit/firmdate calculations
+AUTO_SAVE = True
+
 """
-Replacing the result types with four indexes:
+Replacing the DJFacet result types with four indexes:
 
 #   label = interface name / uniquename = internal name / infospace: a Model
 or a QuerySet instance
@@ -346,11 +349,15 @@ class PomsIndex(indexes.SearchIndex):
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
         if settings.PARTIAL_INDEX:
-            return self.get_model().objects.filter(
+            index_q = self.get_model().objects.filter(
                 id__lt=PARTIAL_INDEX_MAX_ID
             )
         else:
-            return self.get_model().objects.all()
+            index_q = self.get_model().objects.all()
+        if AUTO_SAVE:
+            for o in index_q:
+                o.save()
+        return index_q
 
 
 class PersonIndex(PomsIndex, indexes.Indexable):

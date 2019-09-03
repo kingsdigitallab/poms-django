@@ -1231,6 +1231,7 @@ class Factoid(mymodels.PomsModel):
 
     helper_places = models.ManyToManyField(
         'Place',
+        blank=True,null=True,
         verbose_name="helper M2M table used to speed up searched in FB,\
                      from all factoids to all places (bypassing "
                      "the possessions)",

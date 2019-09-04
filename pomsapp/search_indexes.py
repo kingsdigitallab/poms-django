@@ -351,12 +351,9 @@ class PomsIndex(indexes.SearchIndex):
         if settings.PARTIAL_INDEX:
             index_q = self.get_model().objects.filter(
                 id__lt=PARTIAL_INDEX_MAX_ID
-            )
+            ).order_by('pk')
         else:
             index_q = self.get_model().objects.all()
-        if AUTO_SAVE:
-            for o in index_q:
-                o.save()
         return index_q
 
 
@@ -364,7 +361,9 @@ class PersonIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
-
+        # force save of the object if auto_save
+        if AUTO_SAVE:
+            obj.save()
         self.prepared_data = super(PersonIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'person'
 
@@ -597,6 +596,9 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
+        # force save of the object if auto_save
+        if AUTO_SAVE:
+            obj.save()
         self.prepared_data = super(FactoidIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'factoid'
         self.prepared_data[
@@ -860,6 +862,9 @@ class SourceIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
+        # force save of the object if auto_save
+        if AUTO_SAVE:
+            obj.save()
         self.prepared_data = super(SourceIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'source'
         self.prepared_data['calendar_number'] = obj.hammondnumber

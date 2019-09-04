@@ -108,7 +108,6 @@ class Person(mymodels.PomsModel):
     relatedplace = models.ForeignKey(
         'Place', on_delete=models.CASCADE,
         null=True,
-        blank=True,
         verbose_name="Related place [reference\
                      extracted from place-institutional]",
         help_text="Experimental Feature: this value has\
@@ -117,7 +116,7 @@ class Person(mymodels.PomsModel):
     # 2010-11-17: new helper table to facilitate querying places' hierarchies
     # from person (for FB specifically)
     helper_places = models.ManyToManyField(
-        'Place',
+        'Place',blank=True,
         verbose_name="helper M2M table used to speed up searched\
                      in FB, from all persons to all places",
         related_name='helper_persons')
@@ -393,7 +392,7 @@ class Person(mymodels.PomsModel):
              calculate_floruits=False):
         # create the searchsurname field
         if EXTRA_SAVING_ACTIONS:
-            super(Person, self).save(force_insert, force_update)
+            # super(Person, self).save(force_insert, force_update)
             self = create_helper_surnames(self)
             if self.helper_floruits:
                 # update 'floruitstartyr' and  'floruitendyr'
@@ -800,7 +799,6 @@ class Charter(Source):
     def save(self, force_insert=False, force_update=False):
         """fills out the helper_hnumber field"""
         if EXTRA_SAVING_ACTIONS:
-            super(Charter, self).save(force_insert, force_update)
             handle_tickboxes(self)
             temp = self.get_hammondnumber()
 
@@ -1231,7 +1229,7 @@ class Factoid(mymodels.PomsModel):
 
     helper_places = models.ManyToManyField(
         'Place',
-        blank=True,null=True,
+        blank=True,
         verbose_name="helper M2M table used to speed up searched in FB,\
                      from all factoids to all places (bypassing "
                      "the possessions)",
@@ -1430,7 +1428,7 @@ class FactTitle(Factoid):
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
         if EXTRA_SAVING_ACTIONS:
-            super(FactTitle, self).save(force_insert, force_update)
+
             if self.shortdesc == "":
                 self.shortdesc = self.titletypekey.name
             self.firmdate = create_firmdate(self)
@@ -1604,7 +1602,7 @@ class FactRelationship(Factoid):
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
         if EXTRA_SAVING_ACTIONS:
-            super(FactRelationship, self).save(force_insert, force_update)
+
             self.firmdate = create_firmdate(self)
             self = create_helperKeywordsearch(self)
             self = fix_inferredType(self)
@@ -1717,7 +1715,7 @@ class FactReference(Factoid):
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
         if EXTRA_SAVING_ACTIONS:
-            super(FactReference, self).save(force_insert, force_update)
+
             self.firmdate = create_firmdate(self)
             self = create_helperKeywordsearch(self)
             self = fix_inferredType(self)
@@ -1861,7 +1859,7 @@ class FactPossession(Factoid):
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
         if EXTRA_SAVING_ACTIONS:
-            super(FactPossession, self).save(force_insert, force_update)
+
             self.firmdate = create_firmdate(self)
             self = create_helperKeywordsearch(self)
             self = fix_inferredType(self)
@@ -2041,7 +2039,7 @@ class FactTransaction(Factoid):
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
         if EXTRA_SAVING_ACTIONS:
-            super(FactTransaction, self).save(force_insert, force_update)
+
             handle_tickboxes(self)
             self.firmdate = create_firmdate(self)
             # calc floruits of related people (fixed on 2012-08-20)
@@ -2327,8 +2325,7 @@ class Place(mymodels.PomsModel):
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
         if EXTRA_SAVING_ACTIONS:
-            super(Place, self).save(
-                force_insert, force_update)  # Call the "real" save() method.
+
             name = self.get_root().name
             self.util_topancestor = name
             self = create_helperKeywordsearch(self)

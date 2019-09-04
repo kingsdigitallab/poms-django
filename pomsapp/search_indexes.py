@@ -369,7 +369,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
                 id__lt=PARTIAL_INDEX_MAX_ID
             ).order_by('pk')
         else:
-            index_q = self.get_model().objects.filter(pk__gt=5900).order_by(
+            index_q = self.get_model().objects.filter().order_by(
                 'pk'
             )
         return index_q

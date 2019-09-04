@@ -360,6 +360,20 @@ class PomsIndex(indexes.SearchIndex):
 class PersonIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
+    """temporary to test save fix, will be removed in later commit
+    """
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        if settings.PARTIAL_INDEX:
+            index_q = self.get_model().objects.filter(
+                id__lt=PARTIAL_INDEX_MAX_ID
+            ).order_by('pk')
+        else:
+            index_q = self.get_model().objects.filter().order_by(
+                'pk'
+            )
+        return index_q
+
     def prepare(self, obj):
         # force save of the object if auto_save
         if AUTO_SAVE:

@@ -58,15 +58,15 @@ class Person(mymodels.PomsModel):
         max_length=50, null=True, blank=True,
         verbose_name="post-modifier", )
     florlowkey = models.ForeignKey(
-        'Floruit', on_delete=models.CASCADE, null=True, blank=True,
+        'Floruit', on_delete=models.CASCADE, null=True,
         verbose_name="FROM  :: century", related_name='flor_lowKey',
     )
     florhikey = models.ForeignKey(
-        'Floruit', on_delete=models.CASCADE, null=True, blank=True,
+        'Floruit', on_delete=models.CASCADE, null=True,
         verbose_name="TO  :: century", related_name='flor_hiKey', )
 
     genderkey = models.ForeignKey(
-        'Gender', on_delete=models.CASCADE, null=True, blank=True,
+        'Gender', on_delete=models.CASCADE, null=True,
         verbose_name="Gender", default=3)
 
     forename = models.CharField(
@@ -94,13 +94,12 @@ class Person(mymodels.PomsModel):
         blank=True, )
     # mikele: 18/1/10
     moderngaelicforename = models.ForeignKey(
-        ModernGaelicForename, on_delete=models.CASCADE, null=True, blank=True,
+        ModernGaelicForename, on_delete=models.CASCADE, null=True,
         verbose_name="modern gaelic forename", )
     moderngaelicsurname = models.CharField(
         blank=True, max_length=100, verbose_name="modern gaelic surname")
     medievalgaelicforename = models.ForeignKey(
         MedievalGaelicForename, on_delete=models.CASCADE, null=True,
-        blank=True,
         verbose_name="medieval gaelic forename", )
     medievalgaelicsurname = models.CharField(
         blank=True, max_length=100, verbose_name="medieval gaelic surname")

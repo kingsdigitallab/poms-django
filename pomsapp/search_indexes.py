@@ -360,8 +360,7 @@ class PomsIndex(indexes.SearchIndex):
 class PersonIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
-    """temporary to test save fix, will be removed in later commit
-    """
+
     def index_queryset(self, using=None):
         """Used when the entire index for model is updated."""
         if settings.PARTIAL_INDEX:

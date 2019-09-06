@@ -115,7 +115,7 @@ def all_dates_blank(obj):
                                     'datingnotes': "", 'probabledate': ""}
 
     for x in datefields.items():
-        if getattr(obj, x[0]) != x[1]:
+        if getattr(obj, x[0]) != None and getattr(obj, x[0]) != x[1]:
             return False
     return True
 

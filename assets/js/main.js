@@ -248,25 +248,26 @@ function parseMapResults(data) {
 
 function getPopup(props) {
     var span="";
-    if (props.factoids.length > 0) {
+    console.log(props);
+    if (props.factoids && props.factoids.length > 0) {
         span = ' colspan="4"';
     }
     str = '<table class="simple headersX"><tbody><tr><th'+span+'><a href="/record/place/' + props.id + '">' + props.name + '</a>, '+ props.parent +'</th></tr>';
 
-    if (props.people.length > 0) {
+    if (props.people && props.people.length > 0) {
         //str += '<tr><th>People:</th></tr>';
         for (p in props.people) {
             str += '<tr><td><a href="/record/person/' + props.people[p].id + '">' + props.people[p].name + '</a> '+ props.people[p].floruit +'</td></tr>'
         }
     }
-    if (props.charters.length > 0) {
+    if (props.charters && props.charters.length > 0) {
         //str += '<tr><th>Source:</th></tr>';
         for (c in props.charters) {
             str += '<tr><td><a href="/record/source/' + props.charters[c].id + '">'
                 + props.charters[c].hammondnumber + '</a> ' + props.charters[c].firmdate +'</td></tr>'
         }
     }
-    if (props.factoids.length > 0) {
+    if (props.factoids && props.factoids.length > 0) {
         //str += '<tr><th colspan="4">Factoids:</th></tr>';
         for (f in props.factoids) {
             str += '<td><a href="/record/factoid/' + props.factoids[f].id + '">'
@@ -573,7 +574,7 @@ function initMap()
                         //marker = new L.circleMarker(latlng)
                     }
                 }
-                else if (feature.properties.charters.length > 0) {
+                /*else if (feature.properties.charters.length > 0) {
                     marker = new L.marker(latlng, {icon: charterMarker});
                     feature.properties['style'] = 'charter'
                 }else if (feature.properties.factoids.length > 0) {
@@ -584,7 +585,7 @@ function initMap()
                     marker = new L.marker(latlng, {icon: plainMarker});
                     //marker = new L.circleMarker(latlng)
                     feature.properties['style'] = 'place'
-                }
+                }*/
 
                 oms.addMarker(marker);
                 //oms.addLayer(marker);

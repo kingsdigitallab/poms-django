@@ -267,9 +267,9 @@
                 $('.hdp').after('<div id="map" style="border-style:solid;border-width:1px;width:auto;height:250px;margin-right:100px;margin-right:20px;margin-left:20px;"></div>');
 
                 map = new L.map('map', {maxZoom: 12, zoomControl: true});
-                layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+                layer = new L.TileLayer('https://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
                     {attribution: 'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
-                modern = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
+                modern = new L.TileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
 
                 switcher = new L.control.layers({'Modern': modern, 'Topography': layer}, {}).addTo(map);
 

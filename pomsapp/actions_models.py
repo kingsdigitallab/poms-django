@@ -876,7 +876,7 @@ def handle_tickboxes(obj_instance):
     elif obj_instance._meta.verbose_name == 'fact transaction':
         print(
             "Adding m2m reference to TransTickboxes table for\
-            Transaction [%d]" % obj_instance.id)
+            Transaction {}".format(obj_instance.id))
         # first clear existing rels
         obj_instance.helper_tickboxes.clear()
         if obj_instance.isprimary:

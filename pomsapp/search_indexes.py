@@ -610,8 +610,8 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
     def prepare(self, obj):
         # force save of the object if auto_save
-        if AUTO_SAVE:
-            obj.save()
+        #if AUTO_SAVE:
+        #    obj.save()
         self.prepared_data = super(FactoidIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'factoid'
         self.prepared_data[
@@ -943,7 +943,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         charters = poms_models.Charter.objects.filter(
             factoids__sourcekey=obj
         ).distinct()
-
+        places = list()
         if charters.count() > 0:
             documenttype = list()
             documentcategory = list()
@@ -953,6 +953,9 @@ class SourceIndex(PomsIndex, indexes.Indexable):
             sourcesfeatures = list()
 
             for c in charters:
+                # Add placedate to places
+                if c.placefk:
+                    places.append(c.placefk.name)
                 if c.chartertypekey:
                     documenttype.append(c.chartertypekey.name)
                 documentcategory.append(c.hammondnumber)
@@ -989,6 +992,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
             self.prepared_data['language'] = [l for l in set(languages)]
             self.prepared_data['sourcesfeatures'] = [d for d in
                                                      set(sourcesfeatures)]
+            self.prepared_data['places'] = places
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
@@ -1020,11 +1024,15 @@ class SourceIndex(PomsIndex, indexes.Indexable):
             ).distinct().values_list('name', flat=True)
         )
 
+
+        """
+        Disabled to get placedates from charter above
+        may need to be added as well
         self.prepared_data['places'] = list(
             poms_models.Place.objects.filter(
                 helper_factoids__sourcekey=obj
             ).distinct().values_list('name', flat=True)
-        )
+        )"""
 
         self.prepared_data['roles'] = list(
             poms_models.Role.objects.filter(

@@ -396,8 +396,8 @@ class Person(mymodels.PomsModel):
             if self.helper_floruits:
                 # update 'floruitstartyr' and  'floruitendyr'
                 self = build_floruits(self)
-            self = create_helperKeywordsearch(self)
-            self = create_helperDateRange(self)
+            #self = create_helperKeywordsearch(self)
+            #self = create_helperDateRange(self)
         super(Person, self).save(
             force_insert, force_update)  # Call the "real" save() method.
 
@@ -798,7 +798,7 @@ class Charter(Source):
     def save(self, force_insert=False, force_update=False):
         """fills out the helper_hnumber field"""
         if EXTRA_SAVING_ACTIONS:
-            handle_tickboxes(self)
+            #handle_tickboxes(self)
             temp = self.get_hammondnumber()
 
             self.helper_hnumber = temp
@@ -808,8 +808,8 @@ class Charter(Source):
                 copy_charter_dates2factoids(self)
             if not self.grantor_category:
                 assign_grantorCategory(self)
-            self = create_helperKeywordsearch(self)
-            self = create_helperDateRange(self)
+            #self = create_helperKeywordsearch(self)
+            #self = create_helperDateRange(self)
         super(Charter, self).save(force_insert, force_update)
 
     class Meta:
@@ -1431,9 +1431,9 @@ class FactTitle(Factoid):
             if self.shortdesc == "":
                 self.shortdesc = self.titletypekey.name
             self.firmdate = create_firmdate(self)
-            self = create_helperKeywordsearch(self)
+            #self = create_helperKeywordsearch(self)
             self = fix_inferredType(self)
-            self = create_helperDateRange(self)
+            #self = create_helperDateRange(self)
         super(FactTitle, self).save(force_insert, force_update)
 
     def get_primaryPersons(self):
@@ -1601,11 +1601,10 @@ class FactRelationship(Factoid):
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
         if EXTRA_SAVING_ACTIONS:
-
             self.firmdate = create_firmdate(self)
-            self = create_helperKeywordsearch(self)
+            #self = create_helperKeywordsearch(self)
             self = fix_inferredType(self)
-            self = create_helperDateRange(self)
+            #self = create_helperDateRange(self)
         super(FactRelationship, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
@@ -1716,9 +1715,9 @@ class FactReference(Factoid):
         if EXTRA_SAVING_ACTIONS:
 
             self.firmdate = create_firmdate(self)
-            self = create_helperKeywordsearch(self)
+            #self = create_helperKeywordsearch(self)
             self = fix_inferredType(self)
-            self = create_helperDateRange(self)
+            #self = create_helperDateRange(self)
         super(FactReference, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
@@ -1860,9 +1859,9 @@ class FactPossession(Factoid):
         if EXTRA_SAVING_ACTIONS:
 
             self.firmdate = create_firmdate(self)
-            self = create_helperKeywordsearch(self)
+            #self = create_helperKeywordsearch(self)
             self = fix_inferredType(self)
-            self = create_helperDateRange(self)
+            #self = create_helperDateRange(self)
         super(FactPossession, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
@@ -2038,15 +2037,14 @@ class FactTransaction(Factoid):
     def save(self, force_insert=False, force_update=False):
         """fills out the firmdate field"""
         if EXTRA_SAVING_ACTIONS:
-
-            handle_tickboxes(self)
+            #handle_tickboxes(self)
             self.firmdate = create_firmdate(self)
             # calc floruits of related people (fixed on 2012-08-20)
             updateFloruitsFromTransaction(self)
-            self = create_helperKeywordsearch(self)
+            #self = create_helperKeywordsearch(self)
             self = fix_inferredType(self)
             self = fix_spiritualBenefits(self)
-            self = create_helperDateRange(self)
+            #self = create_helperDateRange(self)
         super(FactTransaction, self).save(force_insert, force_update)
 
     # ForeignKeyAutocompleteAdmin or AutocompleteModelAdmin
@@ -2327,7 +2325,7 @@ class Place(mymodels.PomsModel):
 
             name = self.get_root().name
             self.util_topancestor = name
-            self = create_helperKeywordsearch(self)
+            #self = create_helperKeywordsearch(self)
         super(Place, self).save(
             force_insert, force_update)  # Call the "real" save() method.
 

@@ -509,10 +509,12 @@ class Person(mymodels.PomsModel):
         ]
 
     def __str__(self):
-        return self.persondisplayname
+        if self.persondisplayname is not None:
+            return self.persondisplayname
+        return ''
 
     def __unicode__(self):
-        return self.persondisplayname
+        return self.__str__()
 
     table_order = 5
 

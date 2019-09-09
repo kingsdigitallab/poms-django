@@ -310,8 +310,10 @@ def build_floruits(person_instance):
                    'Bearer of letters', 'Juror']
     candidates_from = []
     candidates_to = []
-
-    print("====FLORUITS: ===== [person %d]" % person_instance.id)
+    label = 'New'
+    if person_instance.id is not None:
+        label = person_instance.id
+    print("====FLORUITS: ===== [person {}]".format(label))
 
     # load all candidates:
     #  witnesses are in there through a dedicated M2M
@@ -322,8 +324,8 @@ def build_floruits(person_instance):
                 if transaction.isprimary is True and\
                         transaction.eitheror is False and\
                         transaction.undated is False:
-                    print("FLORUITS: witness in transaction %s" %
-                          transaction)
+                    print("FLORUITS: witness in transaction {}".format(
+                        transaction))
                     candidates_from.append(transaction.from_year)
                     if transaction.from_year:
                         candidates_to.append(transaction.from_year)
@@ -339,8 +341,9 @@ def build_floruits(person_instance):
                         if transaction.isprimary is True and\
                                 transaction.eitheror is False and\
                                 transaction.undated is False:
-                            print("FLORUITS: %s in transaction %s" %
-                                  (x.role.name, transaction))
+                            print("FLORUITS: {} in transaction {}".format(
+                                x.role.name, transaction
+                            ))
                             candidates_from.append(transaction.from_year)
                             if transaction.has_firmdate:
                                 candidates_to.append(transaction.from_year)
@@ -607,7 +610,8 @@ def createPersonSurface_name(obj):
     """
     # procedure for creating the surface name
     sur = getattr(obj, 'surname', None)
-    if getattr(obj, 'persondisplayname', None) == "":
+    if (getattr(obj, 'persondisplayname', None) is None or \
+            getattr(obj, 'persondisplayname', None) != ""):
         composed_name = ""
         fore = getattr(obj, 'forename', None)
         sonof = getattr(obj, 'sonof', None)
@@ -624,7 +628,8 @@ def createPersonSurface_name(obj):
             composed_name += ", " + sonof + " " + patr
         if place:
             composed_name += ", " + ofstr + " " + place
-        composed_name += " " + dates
+        if dates:
+            composed_name += " " + dates
         obj.persondisplayname = composed_name.strip()
         print("*********Creating  surface name")
 

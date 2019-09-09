@@ -106,7 +106,7 @@ class Person(mymodels.PomsModel):
 
     relatedplace = models.ForeignKey(
         'Place', on_delete=models.CASCADE,
-        null=True,
+        null=True,blank=True,
         verbose_name="Related place [reference\
                      extracted from place-institutional]",
         help_text="Experimental Feature: this value has\

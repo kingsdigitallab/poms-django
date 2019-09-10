@@ -605,61 +605,7 @@ GRANTOR_CATEGORIES = {
 }
 
 
-def createPersonSurface_name(obj):
-    """ called from the admin model instance
-    """
-    # procedure for creating the surface name
-    sur = getattr(obj, 'surname', None)
-    if (getattr(obj, 'persondisplayname', None) is None or \
-            getattr(obj, 'persondisplayname', None) != ""):
-        composed_name = ""
-        fore = getattr(obj, 'forename', None)
-        sonof = getattr(obj, 'sonof', None)
-        patr = getattr(obj, 'patronym', None)
-        ofstr = getattr(obj, 'ofstring', None)
-        place = getattr(obj, 'placeandinst', None)
-        dates = getattr(obj, 'datestring', None)
 
-        if sur:
-            composed_name = fore + " " + sur
-        else:
-            composed_name = fore
-        if patr:
-            composed_name += ", " + sonof + " " + patr
-        if place:
-            composed_name += ", " + ofstr + " " + place
-        if dates:
-            composed_name += " " + dates
-        obj.persondisplayname = composed_name.strip()
-        print("*********Creating  surface name")
-
-    # procedure for creating the medieval gaelic name
-    field1 = getattr(obj, 'standardmedievalname', None)
-    if field1 is None or field1.strip() == "" or field1.strip() == u"":
-        print("*********Creating  standardmedievalname")
-        composed_name = ""
-        medievalfore = getattr(obj, 'medievalgaelicforename', "")
-        medievalsur = getattr(obj, 'medievalgaelicsurname', "")
-        if medievalfore:
-            composed_name = "%s %s" % (medievalfore.name, medievalsur)
-        else:
-            composed_name = "%s %s" % ("", medievalsur)
-        obj.standardmedievalname = composed_name.strip()
-
-    # procedure for creating the modern gaelic name
-    field2 = getattr(obj, 'moderngaelicname', None)
-    if field2 is None or field2.strip() == "" or field2.strip() == u"":
-        print("*********Creating moderngaelicname")
-        composed_name = ""
-        modernfore = getattr(obj, 'moderngaelicforename', "")
-        modernsur = getattr(obj, 'moderngaelicsurname', "")
-        if modernfore:
-            composed_name = "%s %s" % (modernfore.name, modernsur)
-        else:
-            composed_name = "%s %s" % ("", modernsur)
-        obj.moderngaelicname = composed_name.strip()
-
-    return obj
 
 
 def assign_grantorCategory(sourceInstance):

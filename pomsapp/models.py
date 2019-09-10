@@ -419,7 +419,6 @@ class Person(mymodels.PomsModel):
             if getattr(obj, 'created_by', None) is None:
                 obj.created_by = request.user
             obj.updated_by = request.user
-            obj = createPersonSurface_name(obj)
             obj.save()
 
         actions = ['merge_people_action']

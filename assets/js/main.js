@@ -248,7 +248,8 @@ function parseMapResults(data) {
 
 function getPopup(props) {
     var span="";
-    console.log(props);
+    // Use for debugging only
+    //console.log(props);
     if (props.factoids && props.factoids.length > 0) {
         span = ' colspan="4"';
     }
@@ -564,20 +565,20 @@ function initMap()
                 layer.bindPopup(getPopup(props), {minWidth: '300'})
             },
             pointToLayer: function (feature, latlng) {
-                if (feature.properties.people.length > 0) {
+                if (feature.properties.people && feature.properties.people.length > 0) {
                     marker = new L.marker(latlng, {icon: personMarker});
                     //{ marker =  new L.circleMarker(latlng);
                     feature.properties['style'] = 'person';
                     // Are there charters as well?
-                    if (feature.properties.charters.length > 0) {
+                    if (feature.properties.charters && feature.properties.charters.length > 0) {
                         marker = new L.marker(latlng, {icon: personCharterMarker});
                         //marker = new L.circleMarker(latlng)
                     }
                 }
-                /*else if (feature.properties.charters.length > 0) {
+                else if (feature.properties.charters && feature.properties.charters.length > 0) {
                     marker = new L.marker(latlng, {icon: charterMarker});
                     feature.properties['style'] = 'charter'
-                }else if (feature.properties.factoids.length > 0) {
+                }else if (feature.properties.factoids && feature.properties.factoids.length > 0) {
                     marker = new L.marker(latlng, {icon: factoidMarker});
                     feature.properties['style'] = 'factoid'
                 }
@@ -585,8 +586,7 @@ function initMap()
                     marker = new L.marker(latlng, {icon: plainMarker});
                     //marker = new L.circleMarker(latlng)
                     feature.properties['style'] = 'place'
-                }*/
-
+                }
                 oms.addMarker(marker);
                 //oms.addLayer(marker);
                 return marker

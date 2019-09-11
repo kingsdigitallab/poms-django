@@ -270,6 +270,8 @@ def poms_italic(stringa):
     Manually replacing the first 3 appearances of poms-italic syntax
     Not very elegant, but it gets the job done
     """
+    if stringa is None:
+        return ""
     try:
         s = stringa.replace("_", "<em>", 1)
         s = s.replace("_", "</em>", 1)

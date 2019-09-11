@@ -251,10 +251,33 @@ def citation_format(obj):
 
 
 """
+I've separated this out due to the issue with placedates  
+"""
+def add_source_to_map(obj,places):
+    charter = obj.charter
+    if charter.placefk:
+        placename = charter.placefk.name
+        if placename not in places:
+            # Add a new index
+            place = Place.objects.filter(name=placename)[0]
+            places[placename] = {'place': place, 'people': [], "charters": [],
+                                 "factoids": [], "placetypes": [],
+                                 "place_types": []}
+            for type in place.place_types.all():
+                places[placename]['place_types'].append(type)
+        places[placename]['charters'].append(
+            {"id": charter.id,
+             # "firmdate": charter.firmdate,
+             "firmdate": charter.firmdate,
+             'hammondnumber': obj.__str__(),
+             "source_tradid":
+                 obj.source_tradid})
+    
+
+"""
 Take an object and make it into an index of places
 for output on a map
 """
-
 
 @register.inclusion_tag('pomsapp/tags/map_results.html',
                         takes_context=True)
@@ -262,7 +285,12 @@ def results_map(context, object_list, index_type):
     places = {}
     for result in object_list:
         # Places put in search indexes
-        if result.places is not None:
+        # special for sources
+        if 'source' in index_type:
+            if result.object is not None:
+                add_source_to_map(result.object,places)
+
+        elif result.places is not None:
             for p in result.places:
                 placename = p
                 if 'source' in index_type:
@@ -286,6 +314,7 @@ def results_map(context, object_list, index_type):
                              result.persondisplayname,
                          'floruit':
                              result.object.nice_floruits})
+                """
                 if 'source' in index_type:
                     charter = result.object.charter
                     places[placename]['charters'].append(
@@ -295,7 +324,8 @@ def results_map(context, object_list, index_type):
                          'hammondnumber': result.object.__str__(),
                          "source_tradid":
                              result.object.source_tradid})
-                elif 'factoid' in index_type:
+                """
+                if 'factoid' in index_type:
                     factoid = None
                     if 'transaction' in result.inferred_type:
                         factoid = FactTransaction.objects.get(

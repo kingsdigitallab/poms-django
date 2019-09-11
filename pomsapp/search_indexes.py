@@ -951,9 +951,15 @@ class SourceIndex(PomsIndex, indexes.Indexable):
             placedatemodern = list()
             languages = list()
             sourcesfeatures = list()
+            places = list(
+                poms_models.Place.objects.filter(
+                    helper_factoids__sourcekey=obj
+                ).distinct().values_list('name', flat=True)
+            )
 
             for c in charters:
-
+                if c.placefk:
+                    places.append(c.placefk.name)
                 if c.chartertypekey:
                     documenttype.append(c.chartertypekey.name)
                 documentcategory.append(c.hammondnumber)
@@ -991,6 +997,8 @@ class SourceIndex(PomsIndex, indexes.Indexable):
             self.prepared_data['sourcesfeatures'] = [d for d in
                                                      set(sourcesfeatures)]
 
+            self.prepared_data['places'] = places
+
 
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
@@ -1025,11 +1033,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
 
 
-        self.prepared_data['places'] = list(
-            poms_models.Place.objects.filter(
-                helper_factoids__sourcekey=obj
-            ).distinct().values_list('name', flat=True)
-        )
+
 
         self.prepared_data['roles'] = list(
             poms_models.Role.objects.filter(

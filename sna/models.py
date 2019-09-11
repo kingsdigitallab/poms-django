@@ -10,7 +10,7 @@ STYLE_CHOICES = (('Straight', 'straight'), ('Curvy', 'curvy'),)
 class GephiVis(models.Model):
     description = models.CharField(max_length=100)
     notes = models.TextField(null=True, blank=True)
-    file = models.FileField(upload_to='sna_assets/', max_length=500)
+    file = models.FileField(upload_to='media/sna_assets/', max_length=500)
     style = models.CharField(max_length=20,
                              choices=STYLE_CHOICES,
                              default='Curvy')

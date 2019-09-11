@@ -6,7 +6,7 @@ import pomsapp.models as poms_models
 
 # save each person/source on index to force rerunning of
 # floruit/firmdate calculations
-AUTO_SAVE = True
+
 
 """
 Replacing the DJFacet result types with four indexes:
@@ -374,9 +374,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         return index_q
 
     def prepare(self, obj):
-        # force save of the object if auto_save
-        if AUTO_SAVE:
-            obj.save()
+
         self.prepared_data = super(PersonIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'person'
 
@@ -876,8 +874,6 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
     def prepare(self, obj):
         # force save of the object if auto_save
-        if AUTO_SAVE:
-            obj.save()
         self.prepared_data = super(SourceIndex, self).prepare(obj)
         self.prepared_data['index_type'] = 'source'
         self.prepared_data['calendar_number'] = obj.hammondnumber

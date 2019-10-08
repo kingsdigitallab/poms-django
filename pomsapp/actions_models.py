@@ -41,7 +41,7 @@ def create_helperDateRange(obj):
     if obj.__class__.__name__ == 'Person':
         print(
             "Creating create_helperDateRange\
-            text for person id[%d]" % obj.id)
+            text for person id[{}]".format(obj.id))
         try:
             test = assignRangeFromSelection(
                 obj.floruitstartyr, obj.floruitendyr)
@@ -51,14 +51,16 @@ def create_helperDateRange(obj):
         except BaseException:
             print(
                 "************\nProblem with\
-                person id[%d]\n************" % (obj.id))
+                person id[{}]\n************".format(
+                    obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ in ('Source', 'Charter'):
 
         print(
-            "Saving create_helperDateRange text for source id[%d]" % obj.id)
+            "Saving create_helperDateRange text for source id[{}]".format(
+                obj.id))
         try:
             test = assignRangeFromSelection(obj.from_year, obj.to_year)
             if test:
@@ -67,14 +69,14 @@ def create_helperDateRange(obj):
         except BaseException:
             print(
                 "************\nProblem with source\
-                id[%d]\n************" % (obj.id))
+                id[{}]\n************".format(obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ in ('FactTitle', 'FactPossession',
                                     'FactTransaction', 'FactRelationship',
                                     'FactReference'):
-        print("Saving create_helperDateRange text for %s id[%d]" % (
+        print("Saving create_helperDateRange text for {} id[{}]".format(
             obj.__class__.__name__, obj.id))
         try:
             test = assignRangeFromSelection(obj.from_year, obj.to_year)
@@ -84,7 +86,7 @@ def create_helperDateRange(obj):
         except BaseException:
             print(
                 "************\nProblem with\
-                factoid id[%d]\n************" % (obj.id))
+                factoid id[{}]\n************".format(obj.id))
             pass
         return obj
 
@@ -365,10 +367,10 @@ def build_floruits(person_instance):
             candidates_from.append(0)
         if not candidates_to:
             candidates_to.append(0)
-        print("====fromCandidates: = %s =	... highest is *%d*" %
-              (candidates_from, max(candidates_from)))
-        print("====toCandidates: = %s = ... lowest is *%d*" %
-              (candidates_to, min(candidates_to)))
+        print("====fromCandidates: = {} =	... highest is *{}*".format(
+              candidates_from, max(candidates_from)))
+        print("====toCandidates: = {} = ... lowest is *{}*".format(
+              candidates_to, min(candidates_to)))
 
         if max(candidates_from) > min(candidates_to):
             print("FLORUITS: swapping values!")
@@ -397,20 +399,20 @@ def merge_persons_inner(main_person, person_list):
                                   p.persondescription)
             for a in p.assocfactoidperson_set.all():
                 a.person = main_person
-                txt += "==>added factoid [%d, %s]\n" % (
+                txt += "==>added factoid [{}, {}]\n".format(
                     a.factoid.id, a.factoid)
                 a.save()
             for a in p.assocfactoidwitness_set.all():
                 a.person = main_person
-                txt += "==>added witness [%d, %s]\n" % (
+                txt += "==>added witness [{}, {}]\n".format(
                     a.factoid.id, a.factoid)
                 a.save()
             for a in p.assocfactoidproanima_set.all():
                 a.person = main_person
-                txt += "==>added proanima [%d, %s]\n" % (
+                txt += "==>added proanima [{}, {}]\n".format(
                     a.factoid.id, a.factoid)
                 a.save()
-            p.persondisplayname = "%s :: MERGED INTO [%d] ..OK TO DELETE" % (
+            p.persondisplayname = "%s :: MERGED INTO [{}] ..OK TO DELETE".format(
                 p.persondisplayname, main_person.id)
             p.save()
     main_person.internal_notes = txt
@@ -637,8 +639,8 @@ def assign_grantorCategory(sourceInstance):
                             flag = 1
                             break
         if flag == 0:
-            print("Assign_Grantorcategory:	 source[%d]	 h1[%s]\
-                h2[%s] h3[%s] ===>	%s" % (sourceInstance.id,
+            print("Assign_Grantorcategory:	 source[{}]	 h1[{}]\
+                h2[{}] h3[{}] ===>	{}".format(sourceInstance.id,
                                           str(sourceInstance.hammondnumber),
                                           str(sourceInstance.hammondnumb2),
                                           str(sourceInstance.hammondnumb3),
@@ -654,9 +656,9 @@ def assign_grantorCategory(sourceInstance):
             sourceInstance.grantor_category = category
             break
     if flag == 1:
-        print("Assign_Grantorcategory: source[%d] h1[%s] h2[%s]\
-        h3[%s] ===> FAILED (no adequate\
-        mapping found)" % (sourceInstance.id,
+        print("Assign_Grantorcategory: source[{}] h1[{}] h2[{}]\
+        h3[{}] ===> FAILED (no adequate\
+        mapping found)".format(sourceInstance.id,
                            str(sourceInstance.hammondnumber),
                            str(sourceInstance.hammondnumb2),
                            str(sourceInstance.hammondnumb3)))
@@ -696,7 +698,7 @@ def create_helperKeywordsearch(obj):
     #  now do the actions:
     if obj.__class__.__name__ == 'Person':
         print(
-            "Creating helperKeywordsearch text for person id[%d] " % obj.id)
+            "Creating helperKeywordsearch text for person id[{}] ".format(obj.id))
         string = ""
         try:
             string += obj.persondisplayname + " "
@@ -710,14 +712,14 @@ def create_helperKeywordsearch(obj):
         except BaseException:
             print(
                 "************\nProblem with person\
-                id[%d]\n************" % (obj.id))
+                id[{}]\n************".format(obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ in ('Source', 'Charter'):
 
         print(
-            "Saving helperKeywordsearch text for source id[%d]" % obj.id)
+            "Saving helperKeywordsearch text for source id[{}]".format(obj.id))
         string = ""
         try:
             string += obj.helper_hnumber + " "  # if it's a charter
@@ -731,14 +733,14 @@ def create_helperKeywordsearch(obj):
         except BaseException:
             print(
                 "************\nProblem with source\
-                id[%d]\n************" % (obj.id))
+                id[{}]\n************".format(obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ in ('FactTitle', 'FactPossession',
                                     'FactTransaction', 'FactRelationship',
                                     'FactReference'):
-        print("Saving helperKeywordsearch text for %s id[%d]" % (
+        print("Saving helperKeywordsearch text for {} id[{}]".format(
             obj.__class__.__name__, obj.id))
         string = ""
         try:
@@ -753,13 +755,14 @@ def create_helperKeywordsearch(obj):
         except BaseException:
             print(
                 "************\nProblem with factoid\
-                id[%d]\n************" % (obj.id))
+                id[{}]\n************".format(obj.id))
             pass
         return obj
 
     elif obj.__class__.__name__ == 'Place':
         print(
-            "Creating helperKeywordsearch text for place id[%d] " % obj.id)
+            "Creating helperKeywordsearch text for place id[{}] ".format(
+                obj.id))
         string = ""
         try:
             string += obj.name + " "
@@ -774,7 +777,7 @@ def create_helperKeywordsearch(obj):
         except BaseException:
             print(
                 "************\nProblem with\
-                place id[%d]\n************" % (obj.id))
+                place id[{}]\n************".format(obj.id))
             pass
         return obj
 
@@ -797,7 +800,7 @@ def handle_tickboxes(obj_instance):
         # it's a charter
         print(
             "Adding m2m reference to DocTickboxes table for\
-            Charter [%d]" % obj_instance.id)
+            Charter [{}]".format(obj_instance.id))
         # first clear existing rels
         obj_instance.helper_tickboxes.clear()
         if obj_instance.ischirograph:

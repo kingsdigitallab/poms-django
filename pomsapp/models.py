@@ -2437,11 +2437,11 @@ class Place(mymodels.PomsModel):
         ]
 
         class Media:
-            js = ('/media/static/js/leaflet.js',
-                  '/media/static/js/admin_fixes/add_leaflet_field.js')
+            js = ('/static/js/leaflet.js',
+                  '/static/js/admin_fixes/add_leaflet_field.js')
             css = {
-                'all': ('/media/static/css/add_leaflet_field.css',
-                        '/media/static/js/leaflet.css'),
+                'all': ('/static/css/add_leaflet_field.css',
+                        '/static/js/leaflet.css'),
             }
 
     def get_children_by_name(self):

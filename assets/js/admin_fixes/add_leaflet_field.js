@@ -1,3 +1,5 @@
+// Fix to update new ref to jquery
+var $=jQuery;
 function geocode() {
 	$('#geocode-select').html('');
         var val = $('#geocoder').val();

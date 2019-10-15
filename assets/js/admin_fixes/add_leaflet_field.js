@@ -1,5 +1,6 @@
 // Fix to update new ref to jquery
 var $=jQuery;
+
 function geocode() {
 	$('#geocode-select').html('');
         var val = $('#geocoder').val();
@@ -36,6 +37,10 @@ function centreMap(l){
 
 
 $(document).ready(function(){
+	//Create Google and WGS84 projections
+	var marker=null;
+	var gProj = proj4('EPSG:3857')
+	var wgsProj = proj4('EPSG:4326')
 	$('#id_geom').parent().parent().after(
 	   "<div class='form-row map'>"+
 		"<div>"+
@@ -62,13 +67,18 @@ $(document).ready(function(){
 	geomWKT = $('#id_geom').html();
 	$('.form-row.geom').hide();
 	geomError = false
+	// Parse text field to object
+	point = JSON.parse(geomWKT);
+	// Reproject coordinates
+	var reprojectedPoint = proj4(gProj,wgsProj,[m.coordinates[1],m.coordinates[0]]);
+
 	// get LatLng :
 	if (geomWKT != ''){
 		try{ 	
-	   geomLng = parseFloat(geomWKT.split(' ')[1].split('(')[1])
-   	   geomLat = parseFloat(geomWKT.split(' ')[2].split(')')[0])
+	   //geomLng = parseFloat(geomWKT.split(' ')[1].split('(')[1])
+   	   //geomLat = parseFloat(geomWKT.split(' ')[2].split(')')[0])
    	   // Plot any existing points
-   	   marker = new L.marker([geomLat,geomLng],{draggable:true}).addTo(map);
+   	   marker = new L.marker([reprojectedPoint[0],reprojectedPoint[1]],{draggable:true}).addTo(map);
    	   map.setView([geomLat,geomLng],6);
    	}
    	catch(e){

@@ -2438,6 +2438,7 @@ class Place(mymodels.PomsModel):
 
         class Media:
             js = ('/static/js/leaflet.js',
+                  '/static/js/proj4s.js',
                   '/static/js/admin_fixes/add_leaflet_field.js')
             css = {
                 'all': ('/static/css/add_leaflet_field.css',

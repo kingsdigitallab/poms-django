@@ -2323,9 +2323,9 @@ class Place(mymodels.PomsModel):
     def save(self, force_insert=False, force_update=False):
         # create the util_topancestor field
         if EXTRA_SAVING_ACTIONS:
-
-            name = self.get_root().name
-            self.util_topancestor = name
+            if self.pk is not None:
+                name = self.get_root().name
+                self.util_topancestor = name
             #self = create_helperKeywordsearch(self)
         super(Place, self).save(
             force_insert, force_update)  # Call the "real" save() method.

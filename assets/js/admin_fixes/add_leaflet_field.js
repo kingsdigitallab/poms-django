@@ -1,5 +1,10 @@
 // Fix to update new ref to jquery
 var $=jQuery;
+var gProj = proj4('EPSG:3857')
+var wgsProj = proj4('EPSG:4326')
+
+
+
 
 function geocode() {
 	$('#geocode-select').html('');
@@ -31,17 +36,20 @@ function listPoints(locations){
 function centreMap(l){
 	var loc = new L.LatLng( parseFloat(locationList[l].lat),parseFloat(locationList[l].lon));
 	marker.setLatLng(loc);
-	$('#id_geom').html('POINT ('+ marker.getLatLng().lng +' '+ marker.getLatLng().lat +')')
+	//$('#id_geom').html('POINT ('+ marker.getLatLng().lng +' '+ marker.getLatLng().lat +')')
+        // Need to reproject marker since Django upgrade back to EPSG3857
+        var markerReproj = proj4(wgsProj,gProj,[ marker.getLatLng().lng, marker.getLatLng().lat ])
+
+        $('#id_geom').html('{"type":"Point","coordinates":[' + markerReproj[0] + ',' +  
+        markerReproj[1] + ']}')
 }
 
 
 
 $(document).ready(function(){
 	//Create Google and WGS84 projections
-	var marker=null;
-	var gProj = proj4('EPSG:3857')
-	var wgsProj = proj4('EPSG:4326')
-	$('#id_geom').parent().parent().after(
+	marker=null;
+	$('#id_geom').parent().parent().parent().parent().before(
 	   "<div class='form-row map'>"+
 		"<div>"+
 		"<div id='map'>"+
@@ -49,6 +57,10 @@ $(document).ready(function(){
 		"</div><!--end container-->" +
 		"</div><!--end form row -->"		
 		);
+
+        // Hide open layers map  
+        //$('.form-row .map').hide();
+
     	
 	$('#map').before('<form id="geocode-form"><label for="geocoder">Place search:</label><input id="geocoder" type="text"></input>'+
 	'<input type="button" style="margin:10px;" onclick="geocode()" value="Submit"/><select id="geocode-select"></select></form>');
@@ -68,18 +80,21 @@ $(document).ready(function(){
 	$('.form-row.geom').hide();
 	geomError = false
 	// Parse text field to object
-	point = JSON.parse(geomWKT);
+	//m = JSON.parse(geomWKT);
 	// Reproject coordinates
-	var reprojectedPoint = proj4(gProj,wgsProj,[m.coordinates[1],m.coordinates[0]]);
+	//reprojectedPoint = proj4(gProj,wgsProj,[m.coordinates[0],m.coordinates[1]]);
 
 	// get LatLng :
 	if (geomWKT != ''){
 		try{ 	
+	        m = JSON.parse(geomWKT);
+        	// Reproject coordinates
+        	reprojectedPoint = proj4(gProj,wgsProj,[m.coordinates[0],m.coordinates[1]]);
 	   //geomLng = parseFloat(geomWKT.split(' ')[1].split('(')[1])
    	   //geomLat = parseFloat(geomWKT.split(' ')[2].split(')')[0])
    	   // Plot any existing points
-   	   marker = new L.marker([reprojectedPoint[0],reprojectedPoint[1]],{draggable:true}).addTo(map);
-   	   map.setView([geomLat,geomLng],6);
+   	   marker = new L.marker([reprojectedPoint[1],reprojectedPoint[0]],{draggable:true}).addTo(map);
+   	   map.setView([reprojectedPoint[1],reprojectedPoint[0]],6);
    	}
    	catch(e){
    		geomError = true;
@@ -89,14 +104,16 @@ $(document).ready(function(){
    }
    else {
    	geomError = true;
-   	marker = new L.marker([0,0],{draggable:true}).addTo(map);
+   	marker = new L.marker([58,0],{draggable:true}).addTo(map);
    }
-	
 
 	marker.on('dragend',function(){
-		$('#id_geom').html('POINT ('+ marker.getLatLng().lng +' '+ marker.getLatLng().lat +')')
+		//$('#id_geom').html('POINT ('+ marker.getLatLng().lng +' '+ marker.getLatLng().lat +')')
+
+	        var markerReproj = proj4(wgsProj,gProj,[ marker.getLatLng().lng, marker.getLatLng().lat ])
+
+        	$('#id_geom').html('{"type":"Point","coordinates":[' + markerReproj[0] + ',' +
+        	markerReproj[1] + ']}')
+
 	});
-	
-		
-		
 })

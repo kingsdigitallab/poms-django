@@ -40,7 +40,8 @@ class Privileges(mymodels.PomsModel):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Privileges, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Privileges, self).save(force_insert, force_update)
@@ -184,7 +185,8 @@ class Poss_Alms(PossessionNew):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Poss_Alms, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Poss_Alms, self).save(force_insert, force_update)
@@ -218,7 +220,8 @@ class Poss_Lands(PossessionNew):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Poss_Lands, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Poss_Lands, self).save(force_insert, force_update)
@@ -252,7 +255,8 @@ class Poss_Objects(PossessionNew):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Poss_Objects, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Poss_Objects, self).save(force_insert, force_update)
@@ -286,7 +290,8 @@ class Poss_Revenues_silver(PossessionNew):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Poss_Revenues_silver, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Poss_Revenues_silver, self).save(force_insert, force_update)
@@ -320,7 +325,8 @@ class Poss_Revenues_kind(PossessionNew):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Poss_Revenues_kind, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Poss_Revenues_kind, self).save(force_insert, force_update)
@@ -354,7 +360,8 @@ class Poss_General(PossessionNew):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Poss_General, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Poss_General, self).save(force_insert, force_update)
@@ -388,7 +395,8 @@ class Poss_Office(PossessionNew):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Poss_Office, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Poss_Office, self).save(force_insert, force_update)
@@ -422,7 +430,8 @@ class Poss_Unfree_persons(PossessionNew):
         # create the util_topancestor field
         # Call the "real" save() method.
         super(Poss_Unfree_persons, self).save(force_insert, force_update)
-        name = self.get_root().name
+        if self.pk is not None:
+            name = self.get_root().name
         self.util_topancestor = name
         # Call the "real" save() method.
         super(Poss_Unfree_persons, self).save(force_insert, force_update)

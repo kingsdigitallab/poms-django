@@ -295,6 +295,41 @@ def updateFloruitsFromTransaction(trans):
             "++ transaction requested to save FLORUITS -\
             DENIED cause trans.helper_floruits = False..")
 
+"""
+helper for build floruits to add appropriate floruit date candidates
+
+"""
+def parse_transaction(candidates_from,candidates_to, transaction,role):
+    cand = ''
+    if transaction.has_firmdate:
+        cand = ' Firmdate:{}'.format(
+            transaction.from_year
+        )
+        candidates_from.append(transaction.from_year)
+        candidates_to.append(transaction.from_year)
+    elif transaction.from_year and transaction.to_year:
+        cand = ' from:{} to:{}'.format(
+            transaction.from_year,
+            transaction.to_year,
+        )
+        candidates_to.append(transaction.from_year)
+        candidates_from.append(transaction.to_year)
+    elif transaction.from_year:
+        cand = ' using from only:{}'.format(
+            transaction.from_year,
+        )
+        candidates_to.append(transaction.from_year)
+        candidates_from.append(transaction.from_year)
+    elif transaction.to_year:
+        cand = ' using to only:{}'.format(
+            transaction.to_year,
+        )
+        candidates_to.append(transaction.to_year)
+        candidates_from.append(transaction.to_year)
+    print("FLORUITS: {} in transaction {}, {} ".format(
+            role, transaction, cand))
+
+
 
 def build_floruits(person_instance):
     """Helper method for constructing the floruits.
@@ -308,6 +343,7 @@ def build_floruits(person_instance):
                    'Party 3', 'Consentor', 'Dated by hand of', 'Inspector',
                    'Scribe', 'Sealer',
                    'Signatory', 'Witness', 'Judge', 'Recipient of fealty',
+                   'Performer (submission, fealty, homage, oath)',
                    'Performer of fealty',
                    'Bearer of letters', 'Juror']
     candidates_from = []
@@ -326,13 +362,8 @@ def build_floruits(person_instance):
                 if transaction.isprimary is True and\
                         transaction.eitheror is False and\
                         transaction.undated is False:
-                    print("FLORUITS: witness in transaction {}".format(
-                        transaction))
-                    candidates_from.append(transaction.from_year)
-                    if transaction.from_year:
-                        candidates_to.append(transaction.from_year)
-                    else:
-                        candidates_to.append(transaction.to_year)
+                    parse_transaction(candidates_from, candidates_to,
+                                      transaction, 'witness')
     # now all the other AssocFactoid
     for x in person_instance.assoc_factoid_person.all():
         if x.factoid.get_right_subclass():
@@ -343,14 +374,15 @@ def build_floruits(person_instance):
                         if transaction.isprimary is True and\
                                 transaction.eitheror is False and\
                                 transaction.undated is False:
-                            print("FLORUITS: {} in transaction {}".format(
-                                x.role.name, transaction
-                            ))
-                            candidates_from.append(transaction.from_year)
-                            if transaction.has_firmdate:
-                                candidates_to.append(transaction.from_year)
-                            else:
-                                candidates_to.append(transaction.to_year)
+                            # print("FLORUITS: {} in transaction {}".format(
+                            #     x.role.name, transaction
+                            # ))
+                            # candidates_from.append(transaction.from_year)
+                            # if transaction.has_firmdate:
+                            #     candidates_to.append(transaction.from_year)
+                            # else:
+                            #     candidates_to.append(transaction.to_year)
+                            parse_transaction(candidates_from,candidates_to,transaction,x.role.name)
 
     if (len(candidates_from) > 0 and len(candidates_to) > 0):
         #  filtering out 0 and None
@@ -367,18 +399,18 @@ def build_floruits(person_instance):
             candidates_from.append(0)
         if not candidates_to:
             candidates_to.append(0)
-        print("====fromCandidates: = {} =	... highest is *{}*".format(
-              candidates_from, max(candidates_from)))
-        print("====toCandidates: = {} = ... lowest is *{}*".format(
-              candidates_to, min(candidates_to)))
+        print("====fromCandidates: = {} =	... earliest is *{}*".format(
+              candidates_from, min(candidates_from)))
+        print("====toCandidates: = {} = ... latest is *{}*".format(
+              candidates_to, max(candidates_to)))
 
-        if max(candidates_from) > min(candidates_to):
+        if min(candidates_from) > max(candidates_to):
             print("FLORUITS: swapping values!")
-            person_instance.floruitstartyr = min(candidates_to)
-            person_instance.floruitendyr = max(candidates_from)
+            person_instance.floruitstartyr = max(candidates_to)
+            person_instance.floruitendyr = min(candidates_from)
         else:
-            person_instance.floruitstartyr = max(candidates_from)
-            person_instance.floruitendyr = min(candidates_to)
+            person_instance.floruitstartyr = min(candidates_from)
+            person_instance.floruitendyr = max(candidates_to)
 
         # the instance is saved in the main Person save() method
     return person_instance

@@ -159,7 +159,7 @@ def person_detail(request, person_id):
 
         vals = {}
 
-        vals['possessionFact'] =\
+        vals['possessionFact'] = \
             person.get_association_factoids('possession',
                                             chosen_ordering)
         vals['relationshipFact'] = person.get_association_factoids(
@@ -168,7 +168,7 @@ def person_detail(request, person_id):
                                                             chosen_ordering)
         vals['transactionFact'] = person.get_association_factoids(
             'transaction', chosen_ordering)
-        vals['proanimaFact'] =\
+        vals['proanimaFact'] = \
             person.get_association_factoids('proanima',
                                             proanima_chosen_ordering)
         vals['witnessFact'] = person.get_association_factoids('witness',
@@ -457,12 +457,13 @@ def factoid_detail(request, factoid_id):
             items.tot = tot
             items.type = tab  # a string repr of the type, eg 'possessionFact'
 
-            return_str = render(request,
-                                'pomsapp/includes/factoid_tabs.html',
-                                tab,
-                                {'record': factoid,
-                                 'active_ordering': ordering_string,
-                                 tab: items, })
+            return_str = render_to_string(
+                'pomsapp/includes/factoid_tabs.html',
+                {'record': factoid,
+                 'active_ordering': ordering_string,
+                 tab: items },
+                request
+            )
             return HttpResponse(return_str)
 
     vals = {}
@@ -681,8 +682,8 @@ def place_detail(request, place_id):
                                if x.inferred_type == "transaction"]
 
     if vals['peopleAssoc'] or vals['documentAssoc'] or vals[
-            'possessionFact'] or vals['relationshipFact'] or vals[
-            'transactionFact']:
+        'possessionFact'] or vals['relationshipFact'] or vals[
+        'transactionFact']:
         someRelatedValues = True  # flag for template
     else:
         someRelatedValues = False

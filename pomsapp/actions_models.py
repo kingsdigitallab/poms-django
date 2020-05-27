@@ -1,21 +1,19 @@
-from django.utils.encoding import smart_text
 import datetime
-from django.conf import settings
+
+from django.utils.encoding import smart_text
+
 from pomsapp.models_authlists import (GrantorCategory, Proanimagenerictypes,
                                       DocTickboxes, TransTickboxes)
-
 
 ######################
 # MODELS UTILS
 ######################
 
 
-
-#if settings.LOCAL_SERVER:
+# if settings.LOCAL_SERVER:
 #    EXTRA_SAVING_ACTIONS = False
-#else:
+# else:
 EXTRA_SAVING_ACTIONS = True
-
 
 
 def create_helperDateRange(obj):
@@ -105,16 +103,16 @@ def all_dates_blank(obj):
             that it can be called by all the
             subclasses of factoid """
 
-    datefields = {	 'has_firmdate': False, 'has_firmdayonly': False,
-                    'undated': False, 'eitheror': False,
-                    'from_modifier': "", 'from_weekday': None,
-                    'from_day': None,
-                    'from_modifier2': "", 'from_month': None,
-                    'from_season': None, 'from_year': None,
-                    'to_modifier': "", 'to_weekday': None, 'to_day': None,
-                    'to_modifier2': "", 'to_month': None,
-                    'to_season': None, 'to_year': None,
-                                    'datingnotes': "", 'probabledate': ""}
+    datefields = {'has_firmdate': False, 'has_firmdayonly': False,
+                  'undated': False, 'eitheror': False,
+                  'from_modifier': "", 'from_weekday': None,
+                  'from_day': None,
+                  'from_modifier2': "", 'from_month': None,
+                  'from_season': None, 'from_year': None,
+                  'to_modifier': "", 'to_weekday': None, 'to_day': None,
+                  'to_modifier2': "", 'to_month': None,
+                  'to_season': None, 'to_year': None,
+                  'datingnotes': "", 'probabledate': ""}
 
     for x in datefields.items():
         if getattr(obj, x[0]) != None and getattr(obj, x[0]) != x[1]:
@@ -125,18 +123,18 @@ def all_dates_blank(obj):
 def copy_dates_over(obj_from, obj_to):
     """ copies all the dates from one obj (=charter) to another (=factoid)"""
 
-    datefields = {	'has_firmdate': False, 'has_firmdayonly': False,
-                   'undated': False, 'eitheror': False,
-                   'from_modifier': "", 'from_weekday': None,
-                   'from_day': None,
-                                    'from_modifier2': "", 'from_month': None,
-                                    'from_season': None, 'from_year': None,
-                                    'to_modifier': "", 'to_weekday': None,
-                                    'to_day': None,
-                                    'to_modifier2': "", 'to_month': None,
-                                    'to_season': None, 'to_year': None,
-                                    'firmdate': "", 'datingnotes': "",
-                                    'probabledate': ""}
+    datefields = {'has_firmdate': False, 'has_firmdayonly': False,
+                  'undated': False, 'eitheror': False,
+                  'from_modifier': "", 'from_weekday': None,
+                  'from_day': None,
+                  'from_modifier2': "", 'from_month': None,
+                  'from_season': None, 'from_year': None,
+                  'to_modifier': "", 'to_weekday': None,
+                  'to_day': None,
+                  'to_modifier2': "", 'to_month': None,
+                  'to_season': None, 'to_year': None,
+                  'firmdate': "", 'datingnotes': "",
+                  'probabledate': ""}
     try:
         for x in datefields.items():
             # Turn these into timezone dates (legacy ones naive)
@@ -157,7 +155,7 @@ def create_firmdate(obj):
         datefrom = ""
         dateto = ""
 
-        if obj.has_firmdayonly:	 # '15 Dec, 1154 x 1159'
+        if obj.has_firmdayonly:  # '15 Dec, 1154 x 1159'
             year1 = ""
             year2 = ""
             if obj.from_modifier:
@@ -239,7 +237,7 @@ def fix_inferredType(factoid_instance):
     if not factoid_instance.inferred_type and EXTRA_SAVING_ACTIONS:
         try:
             if factoid_instance.get_right_subclass()[0]:
-                factoid_instance.inferred_type =\
+                factoid_instance.inferred_type = \
                     factoid_instance.get_right_subclass()[0]
         except BaseException:
             print("Error!!!!")
@@ -266,9 +264,9 @@ def updateFloruitsFromTransaction(trans):
     """
     # if trans.helper_floruits:
     if False:  # 2012-08-20: disabled because of an 'operational error'
-                # cropping up - needs to be debugged properly
-                # might have to do with several users working on same model
-                # instance with multiple related rows..
+        # cropping up - needs to be debugged properly
+        # might have to do with several users working on same model
+        # instance with multiple related rows..
         print("++ transaction requested to SAVE FLORUITS")
         person_candidates = []
         # 2012-06-22: updated
@@ -295,11 +293,15 @@ def updateFloruitsFromTransaction(trans):
             "++ transaction requested to save FLORUITS -\
             DENIED cause trans.helper_floruits = False..")
 
+
 """
 helper for build floruits to add appropriate floruit date candidates
 
 """
-def parse_transaction(candidates_from,candidates_to, transaction,role):
+
+
+def parse_transaction(candidates_from, candidates_to, transaction, role,
+                      print_msgs=True):
     cand = ''
     if transaction.has_firmdate:
         cand = ' Firmdate:{}'.format(
@@ -326,12 +328,12 @@ def parse_transaction(candidates_from,candidates_to, transaction,role):
         )
         candidates_to.append(transaction.to_year)
         candidates_from.append(transaction.to_year)
-    print("FLORUITS: {} in transaction {}, {} ".format(
+    if print_msgs:
+        print("FLORUITS: {} in transaction {}, {} ".format(
             role, transaction, cand))
 
 
-
-def build_floruits(person_instance):
+def build_floruits(person_instance, print_msgs=True):
     """Helper method for constructing the floruits.
     Rule: In transactions, each dates-pair is expressed in the form A x B.
               Select the highest A and the lowest B.
@@ -351,7 +353,8 @@ def build_floruits(person_instance):
     label = 'New'
     if person_instance.id is not None:
         label = person_instance.id
-    print("====FLORUITS: ===== [person {}]".format(label))
+    if print_msgs:
+        print("====FLORUITS: ===== [person {}]".format(label))
 
     # load all candidates:
     #  witnesses are in there through a dedicated M2M
@@ -359,11 +362,11 @@ def build_floruits(person_instance):
         if x.factoid.get_right_subclass():
             if x.factoid.get_right_subclass()[0] == "transaction":
                 transaction = x.factoid.get_right_subclass()[1]
-                if transaction.isprimary is True and\
-                        transaction.eitheror is False and\
+                if transaction.isprimary is True and \
+                        transaction.eitheror is False and \
                         transaction.undated is False:
                     parse_transaction(candidates_from, candidates_to,
-                                      transaction, 'witness')
+                                      transaction, 'witness', print_msgs)
     # now all the other AssocFactoid
     for x in person_instance.assoc_factoid_person.all():
         if x.factoid.get_right_subclass():
@@ -371,8 +374,8 @@ def build_floruits(person_instance):
                 if x.role:
                     if x.role.name in valid_roles:
                         transaction = x.factoid.get_right_subclass()[1]
-                        if transaction.isprimary is True and\
-                                transaction.eitheror is False and\
+                        if transaction.isprimary is True and \
+                                transaction.eitheror is False and \
                                 transaction.undated is False:
                             # print("FLORUITS: {} in transaction {}".format(
                             #     x.role.name, transaction
@@ -382,7 +385,10 @@ def build_floruits(person_instance):
                             #     candidates_to.append(transaction.from_year)
                             # else:
                             #     candidates_to.append(transaction.to_year)
-                            parse_transaction(candidates_from,candidates_to,transaction,x.role.name)
+                            parse_transaction(
+                                candidates_from, candidates_to,
+                                transaction, x.role.name, print_msgs
+                            )
 
     if (len(candidates_from) > 0 and len(candidates_to) > 0):
         #  filtering out 0 and None
@@ -399,13 +405,15 @@ def build_floruits(person_instance):
             candidates_from.append(0)
         if not candidates_to:
             candidates_to.append(0)
-        print("====fromCandidates: = {} =	... earliest is *{}*".format(
-              candidates_from, min(candidates_from)))
-        print("====toCandidates: = {} = ... latest is *{}*".format(
-              candidates_to, max(candidates_to)))
+        if print_msgs:
+            print("====fromCandidates: = {} =	... earliest is *{}*".format(
+                candidates_from, min(candidates_from)))
+            print("====toCandidates: = {} = ... latest is *{}*".format(
+                candidates_to, max(candidates_to)))
 
         if min(candidates_from) > max(candidates_to):
-            print("FLORUITS: swapping values!")
+            if print_msgs:
+                print("FLORUITS: swapping values!")
             person_instance.floruitstartyr = max(candidates_to)
             person_instance.floruitendyr = min(candidates_from)
         else:
@@ -444,7 +452,8 @@ def merge_persons_inner(main_person, person_list):
                 txt += "==>added proanima [{}, {}]\n".format(
                     a.factoid.id, a.factoid)
                 a.save()
-            p.persondisplayname = "%s :: MERGED INTO [{}] ..OK TO DELETE".format(
+            p.persondisplayname = "%s :: MERGED INTO [{}] ..OK TO " \
+                                  "DELETE".format(
                 p.persondisplayname, main_person.id)
             p.save()
     main_person.internal_notes = txt
@@ -525,121 +534,118 @@ def create_helper_surnames(obj):
 
 GRANTOR_CATEGORIES = {
     'Kings of Scots':
-    {'hammondnumber': 1, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 9},
-        'Queens of Scots':
-    {'hammondnumber': 1, 'hammondnumb2__gte': 10, 'hammondnumb2__lte': 12},
-        'Kings of the Isle of Man':
-    {'hammondnumber': 1, 'hammondnumb2__gte': 13, 'hammondnumb2__lte': 19},
-        'Kings of England':
-    {'hammondnumber': 1, 'hammondnumb2__gte': 20, 'hammondnumb2__lte': 27},
-        'Scottish bishops':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 13},
-        'English bishops':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 14, 'hammondnumb2__lte': 30},
-        'Other bishops':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 31, 'hammondnumb2__lte': 34},
-        'Secular cathedral chapters':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 35, 'hammondnumb2__lte': 45},
-        'Archdeacons and officials':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 46, 'hammondnumb2__lte': 50},
-        'Deans and parish clergy':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 51, 'hammondnumb2__lte': 54},
-        'Other clerics':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 55, 'hammondnumb2__lte': 60},
-        'Celi De':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 61, 'hammondnumb2__lte': 63},
-        'Scottish monks':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 64, 'hammondnumb2__lte': 82},
-        'Non-Scottish monks':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 83, 'hammondnumb2__lte': 92},
-        'Canons regular':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 93,
-     'hammondnumb2__lte': 103},
-        'Friars':
-    {'hammondnumber': 2, 'hammondnumb2': 104},
-        'Collegiate churches':
-    {'hammondnumber': 2, 'hammondnumb2': 105},
-        'Military orders':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 106,
-     'hammondnumb2__lte': 109},
-        'Papal documents':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 121,
-     'hammondnumb2__lte': 160},
-        'Papal legates':
-    {'hammondnumber': 2, 'hammondnumb2__gte': 200,
-     'hammondnumb2__lte': 205},
-        'Members of the royal family':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 9},
-        'Scottish earls and countesses':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 10, 'hammondnumb2__lte': 22},
+        {'hammondnumber': 1, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 9},
+    'Queens of Scots':
+        {'hammondnumber': 1, 'hammondnumb2__gte': 10, 'hammondnumb2__lte': 12},
+    'Kings of the Isle of Man':
+        {'hammondnumber': 1, 'hammondnumb2__gte': 13, 'hammondnumb2__lte': 19},
+    'Kings of England':
+        {'hammondnumber': 1, 'hammondnumb2__gte': 20, 'hammondnumb2__lte': 27},
+    'Scottish bishops':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 13},
+    'English bishops':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 14, 'hammondnumb2__lte': 30},
+    'Other bishops':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 31, 'hammondnumb2__lte': 34},
+    'Secular cathedral chapters':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 35, 'hammondnumb2__lte': 45},
+    'Archdeacons and officials':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 46, 'hammondnumb2__lte': 50},
+    'Deans and parish clergy':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 51, 'hammondnumb2__lte': 54},
+    'Other clerics':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 55, 'hammondnumb2__lte': 60},
+    'Celi De':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 61, 'hammondnumb2__lte': 63},
+    'Scottish monks':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 64, 'hammondnumb2__lte': 82},
+    'Non-Scottish monks':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 83, 'hammondnumb2__lte': 92},
+    'Canons regular':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 93,
+         'hammondnumb2__lte': 103},
+    'Friars':
+        {'hammondnumber': 2, 'hammondnumb2': 104},
+    'Collegiate churches':
+        {'hammondnumber': 2, 'hammondnumb2': 105},
+    'Military orders':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 106,
+         'hammondnumb2__lte': 109},
+    'Papal documents':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 121,
+         'hammondnumb2__lte': 160},
+    'Papal legates':
+        {'hammondnumber': 2, 'hammondnumb2__gte': 200,
+         'hammondnumb2__lte': 205},
+    'Members of the royal family':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 9},
+    'Scottish earls and countesses':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 10, 'hammondnumb2__lte': 22},
     # 2010-07-01 new
-        'Non-Scottish earls and countesses':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 23, 'hammondnumb2__lte': 27},
-        'Major lordships':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 28, 'hammondnumb2__lte': 38},
-        'Scottish families, ABC':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 40,
-     'hammondnumb2__lte': 189},
-        'Scottish families, DEF':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 190,
-     'hammondnumb2__lte': 239},
-        'Scottish families, GHI':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 240,
-     'hammondnumb2__lte': 304},
-        'Scottish families, JKL':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 305,
-     'hammondnumb2__lte': 374},
-        'Scottish families, MNO':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 375,
-     'hammondnumb2__lte': 459},
-        'Scottish families, PQR':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 450,
-     'hammondnumb2__lte': 519},
-        'Scottish families, STU':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 520,
-     'hammondnumb2__lte': 584},
-        'Scottish families, VWXYZ':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 585,
-     'hammondnumb2__lte': 624},
-        'Bishop\'s relatives':
-    {'hammondnumber': 3, 'hammondnumb2': 625},
-        'Burgesses':
-    {'hammondnumber': 3, 'hammondnumb2__gte': 630,
-     'hammondnumb2__lte': 648},
-        'Agreements: kings and queens':
-    {'hammondnumber': 4, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 2},
-        'Agreements: between ecclesiastics':
-    {'hammondnumber': 4, 'hammondnumb2__gte': 3, 'hammondnumb2__lte': 14},
-        'Agreements: ecclesiastics and lay':
-    {'hammondnumber': 4, 'hammondnumb2__gte': 15, 'hammondnumb2__lte': 25},
-        'Agreements: between laypeople':
-    {'hammondnumber': 4, 'hammondnumb2': 26},
-        'Papal legates and auditors':
-    {'hammondnumber': 4, 'hammondnumb2__gte': 30, 'hammondnumb2__lte': 31},
-        'Papal judges delegate':
-    {'hammondnumber': 4, 'hammondnumb2': 32},
-        'Settlements: bishops and other religious':
-    {'hammondnumber': 4, 'hammondnumb2__gte': 33, 'hammondnumb2__lte': 35},
-        'Church court documents (misc)':
-    {'hammondnumber': 4, 'hammondnumb2': 36},
-        'Secular court documents (misc)':
-    {'hammondnumber': 4, 'hammondnumb2': 37},
-        'Inquests':
-    {'hammondnumber': 4, 'hammondnumb2': 38},
-        'Perambulations':
-    {'hammondnumber': 4, 'hammondnumb2__gte': 39, 'hammondnumb2__lte': 40},
-        'Royal ambassadors':
-    {'hammondnumber': 4, 'hammondnumb2': 41},
-        'National councils':
-    {'hammondnumber': 4, 'hammondnumb2': 42},
-        'ERA documents':
-    {'hammondnumber': 5, },
-        'Fealties and Homages (post-1286)':
-    {'hammondnumber': 6, },
+    'Non-Scottish earls and countesses':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 23, 'hammondnumb2__lte': 27},
+    'Major lordships':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 28, 'hammondnumb2__lte': 38},
+    'Scottish families, ABC':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 40,
+         'hammondnumb2__lte': 189},
+    'Scottish families, DEF':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 190,
+         'hammondnumb2__lte': 239},
+    'Scottish families, GHI':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 240,
+         'hammondnumb2__lte': 304},
+    'Scottish families, JKL':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 305,
+         'hammondnumb2__lte': 374},
+    'Scottish families, MNO':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 375,
+         'hammondnumb2__lte': 459},
+    'Scottish families, PQR':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 450,
+         'hammondnumb2__lte': 519},
+    'Scottish families, STU':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 520,
+         'hammondnumb2__lte': 584},
+    'Scottish families, VWXYZ':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 585,
+         'hammondnumb2__lte': 624},
+    'Bishop\'s relatives':
+        {'hammondnumber': 3, 'hammondnumb2': 625},
+    'Burgesses':
+        {'hammondnumber': 3, 'hammondnumb2__gte': 630,
+         'hammondnumb2__lte': 648},
+    'Agreements: kings and queens':
+        {'hammondnumber': 4, 'hammondnumb2__gte': 1, 'hammondnumb2__lte': 2},
+    'Agreements: between ecclesiastics':
+        {'hammondnumber': 4, 'hammondnumb2__gte': 3, 'hammondnumb2__lte': 14},
+    'Agreements: ecclesiastics and lay':
+        {'hammondnumber': 4, 'hammondnumb2__gte': 15, 'hammondnumb2__lte': 25},
+    'Agreements: between laypeople':
+        {'hammondnumber': 4, 'hammondnumb2': 26},
+    'Papal legates and auditors':
+        {'hammondnumber': 4, 'hammondnumb2__gte': 30, 'hammondnumb2__lte': 31},
+    'Papal judges delegate':
+        {'hammondnumber': 4, 'hammondnumb2': 32},
+    'Settlements: bishops and other religious':
+        {'hammondnumber': 4, 'hammondnumb2__gte': 33, 'hammondnumb2__lte': 35},
+    'Church court documents (misc)':
+        {'hammondnumber': 4, 'hammondnumb2': 36},
+    'Secular court documents (misc)':
+        {'hammondnumber': 4, 'hammondnumb2': 37},
+    'Inquests':
+        {'hammondnumber': 4, 'hammondnumb2': 38},
+    'Perambulations':
+        {'hammondnumber': 4, 'hammondnumb2__gte': 39, 'hammondnumb2__lte': 40},
+    'Royal ambassadors':
+        {'hammondnumber': 4, 'hammondnumb2': 41},
+    'National councils':
+        {'hammondnumber': 4, 'hammondnumb2': 42},
+    'ERA documents':
+        {'hammondnumber': 5, },
+    'Fealties and Homages (post-1286)':
+        {'hammondnumber': 6, },
 }
-
-
-
 
 
 def assign_grantorCategory(sourceInstance):
@@ -652,7 +658,7 @@ def assign_grantorCategory(sourceInstance):
         for innerConstraint in GRANTOR_CATEGORIES[constraint]:
             attrs = innerConstraint.split("__")
             value = GRANTOR_CATEGORIES[constraint][innerConstraint]
-            if len(attrs) == 1:	 # eg: "hammondnumb2".split("__")[0]
+            if len(attrs) == 1:  # eg: "hammondnumb2".split("__")[0]
                 if getattr(sourceInstance, attrs[0], None):
                     if not (getattr(sourceInstance, attrs[0], None) == value):
                         flag = 1
@@ -673,10 +679,13 @@ def assign_grantorCategory(sourceInstance):
         if flag == 0:
             print("Assign_Grantorcategory:	 source[{}]	 h1[{}]\
                 h2[{}] h3[{}] ===>	{}".format(sourceInstance.id,
-                                          str(sourceInstance.hammondnumber),
-                                          str(sourceInstance.hammondnumb2),
-                                          str(sourceInstance.hammondnumb3),
-                                          constraint))
+                                                 str(
+                                                     sourceInstance.hammondnumber),
+                                                 str(
+                                                     sourceInstance.hammondnumb2),
+                                                 str(
+                                                     sourceInstance.hammondnumb3),
+                                                 constraint))
             # we have a match: save the item and stop iterating through the
             # GRANTOR_CATEGORIES
             cat = GrantorCategory.objects.filter(name=constraint)
@@ -691,9 +700,9 @@ def assign_grantorCategory(sourceInstance):
         print("Assign_Grantorcategory: source[{}] h1[{}] h2[{}]\
         h3[{}] ===> FAILED (no adequate\
         mapping found)".format(sourceInstance.id,
-                           str(sourceInstance.hammondnumber),
-                           str(sourceInstance.hammondnumb2),
-                           str(sourceInstance.hammondnumb3)))
+                               str(sourceInstance.hammondnumber),
+                               str(sourceInstance.hammondnumb2),
+                               str(sourceInstance.hammondnumb3)))
     return sourceInstance
 
 
@@ -730,7 +739,8 @@ def create_helperKeywordsearch(obj):
     #  now do the actions:
     if obj.__class__.__name__ == 'Person':
         print(
-            "Creating helperKeywordsearch text for person id[{}] ".format(obj.id))
+            "Creating helperKeywordsearch text for person id[{}] ".format(
+                obj.id))
         string = ""
         try:
             string += obj.persondisplayname + " "
@@ -837,27 +847,27 @@ def handle_tickboxes(obj_instance):
         obj_instance.helper_tickboxes.clear()
         if obj_instance.ischirograph:
             ischirograph, created = DocTickboxes.objects.get_or_create(
-                name="Chirograph",)
+                name="Chirograph", )
             obj_instance.helper_tickboxes.add(ischirograph)
         if obj_instance.letterpatent:
             letterpatent, created = DocTickboxes.objects.get_or_create(
-                name="Letter Patent",)
+                name="Letter Patent", )
             obj_instance.helper_tickboxes.add(letterpatent)
         if obj_instance.origcontemp:
             origcontemp, created = DocTickboxes.objects.get_or_create(
-                name="Original (contemporary)",)
+                name="Original (contemporary)", )
             obj_instance.helper_tickboxes.add(origcontemp)
         if obj_instance.duporigcontemp:
             duporigcontemp, created = DocTickboxes.objects.get_or_create(
-                name="Duplicate Original (contemporary)",)
+                name="Duplicate Original (contemporary)", )
             obj_instance.helper_tickboxes.add(duporigcontemp)
         if obj_instance.orignoncontemp:
             orignoncontemp, created = DocTickboxes.objects.get_or_create(
-                name="Original (non-contemporary)",)
+                name="Original (non-contemporary)", )
             obj_instance.helper_tickboxes.add(orignoncontemp)
         if obj_instance.duporignoncontemp:
             duporignoncontemp, created = DocTickboxes.objects.get_or_create(
-                name="Duplicate Original (non-contemporary)",)
+                name="Duplicate Original (non-contemporary)", )
             obj_instance.helper_tickboxes.add(duporignoncontemp)
     elif obj_instance._meta.verbose_name == 'fact transaction':
         print(
@@ -867,61 +877,61 @@ def handle_tickboxes(obj_instance):
         obj_instance.helper_tickboxes.clear()
         if obj_instance.isprimary:
             isprimary, created = TransTickboxes.objects.get_or_create(
-                name="Primary Transaction",)
+                name="Primary Transaction", )
             obj_instance.helper_tickboxes.add(isprimary)
         if obj_instance.isdare:
             isdare, created = TransTickboxes.objects.get_or_create(
-                name="Dare",)
+                name="Dare", )
             obj_instance.helper_tickboxes.add(isdare)
         if obj_instance.isexchange:
             isexchange, created = TransTickboxes.objects.get_or_create(
-                name="Exchange",)
+                name="Exchange", )
             obj_instance.helper_tickboxes.add(isexchange)
         if obj_instance.verbsnotspecified:
             verbsnotspecified, created = TransTickboxes.objects.get_or_create(
-                name="Verbs not specified",)
+                name="Verbs not specified", )
             obj_instance.helper_tickboxes.add(verbsnotspecified)
         if obj_instance.conveth:
             conveth, created = TransTickboxes.objects.get_or_create(
-                name="Conveth",)
+                name="Conveth", )
             obj_instance.helper_tickboxes.add(conveth)
         if obj_instance.genericwitnesses:
             genericwitnesses, created = TransTickboxes.objects.get_or_create(
-                name="Witnesses in original, but not copied into cartulary",)
+                name="Witnesses in original, but not copied into cartulary", )
             obj_instance.helper_tickboxes.add(genericwitnesses)
         if obj_instance.testemeipso:
             testemeipso, created = TransTickboxes.objects.get_or_create(
-                name="Teste Me Ipso",)
+                name="Teste Me Ipso", )
             obj_instance.helper_tickboxes.add(testemeipso)
         if obj_instance.previouschartermention:
-            previouschartermention, created =\
+            previouschartermention, created = \
                 TransTickboxes.objects.get_or_create(
-                    name="Previous mention of charter",)
+                    name="Previous mention of charter", )
             obj_instance.helper_tickboxes.add(previouschartermention)
         if obj_instance.previouschirographmention:
-            previouschirographmention, created =\
+            previouschirographmention, created = \
                 TransTickboxes.objects.get_or_create(
-                    name="Previous mention of chirograph",)
+                    name="Previous mention of chirograph", )
             obj_instance.helper_tickboxes.add(previouschirographmention)
         if obj_instance.perambulation:
             perambulation, created = TransTickboxes.objects.get_or_create(
-                name="Perambulation",)
+                name="Perambulation", )
             obj_instance.helper_tickboxes.add(perambulation)
         if obj_instance.corroborationsealing:
-            corroborationsealing, created =\
+            corroborationsealing, created = \
                 TransTickboxes.objects.get_or_create(
-                    name="Corroboration/Sealing",)
+                    name="Corroboration/Sealing", )
             obj_instance.helper_tickboxes.add(corroborationsealing)
         if obj_instance.ismalediction:
             ismalediction, created = TransTickboxes.objects.get_or_create(
-                name="malediction",)
+                name="malediction", )
             obj_instance.helper_tickboxes.add(ismalediction)
         if obj_instance.bothaddressorsmentioned:
-            bothaddressorsmentioned, created =\
+            bothaddressorsmentioned, created = \
                 TransTickboxes.objects.get_or_create(
-                    name="Both addressors mentioned",)
+                    name="Both addressors mentioned", )
             obj_instance.helper_tickboxes.add(bothaddressorsmentioned)
         if obj_instance.warrandice:
             warrandice, created = TransTickboxes.objects.get_or_create(
-                name="Warrandice",)
+                name="Warrandice", )
             obj_instance.helper_tickboxes.add(warrandice)

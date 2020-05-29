@@ -269,14 +269,14 @@ def updateFloruitsFromTransaction(trans):
         # instance with multiple related rows..
         print("++ transaction requested to SAVE FLORUITS")
         person_candidates = []
-        # 2012-06-22: updated
         valid_roles = ['Grantor', 'Beneficiary', 'Addressor', 'Addressee',
-                       'Party 1',
-                       'Party 2', 'Party 3', 'Consentor', 'Dated by hand of',
-                       'Inspector', 'Scribe', 'Sealer', 'Signatory',
-                       'Witness',
-                       'Judge', 'Recipient of fealty', 'Performer of fealty',
-                       'Bearer of letters', 'Juror']
+                       'Party 1', 'Party 2',
+                       'Party 3', 'Consentor', 'Dated by hand of', 'Inspector',
+                       'Scribe', 'Sealer',
+                       'Signatory', 'Witness', 'Judge', 'Recipient of fealty',
+                       'Performer (submission, fealty, homage, oath)',
+                       'Performer of fealty', 'Prisoner', 'Prisoner (Dunbar)',
+                       'Recipient', 'Bearer of letters', 'Juror']
 
         for x in trans.witnesses.all():
             person_candidates.append(x)
@@ -346,8 +346,9 @@ def build_floruits(person_instance, print_msgs=True):
                    'Scribe', 'Sealer',
                    'Signatory', 'Witness', 'Judge', 'Recipient of fealty',
                    'Performer (submission, fealty, homage, oath)',
-                   'Performer of fealty',
-                   'Bearer of letters', 'Juror']
+                   'Performer of fealty','Prisoner','Prisoner (Dunbar)',
+                    'Recipient','Bearer of letters', 'Juror']
+
     candidates_from = []
     candidates_to = []
     label = 'New'

@@ -41,3 +41,4 @@ class Command(BaseCommand):
                     )
                 #msg+='\n'
                 print(msg)
+                person.save()

@@ -19,7 +19,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Get all people that are indexed
-        people = Person.objects.filter(pk__gte=5176).order_by(
+        people = Person.objects.filter().order_by(
                 'pk'
             )
         for person in people:

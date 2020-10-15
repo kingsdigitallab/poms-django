@@ -19,14 +19,18 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         # Get all people that are indexed
-        people = Person.objects.filter().order_by(
+        people = Person.objects.filter(pk__gte=5176).order_by(
                 'pk'
             )
         for person in people:
+            print(
+                'Person {}, {}\n '.format(person.pk, person))
             start_year = person.floruitstartyr
             end_year = person.floruitendyr
             # Run floruit
             build_floruits(person, False)
+            import pdb
+            pdb.set_trace()
             if (start_year != person.floruitstartyr or
                     end_year != person.floruitendyr):
                 # if different, add to output

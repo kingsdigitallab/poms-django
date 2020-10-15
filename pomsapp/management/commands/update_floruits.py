@@ -29,8 +29,6 @@ class Command(BaseCommand):
             end_year = person.floruitendyr
             # Run floruit
             build_floruits(person, False)
-            import pdb
-            pdb.set_trace()
             if (start_year != person.floruitstartyr or
                     end_year != person.floruitendyr):
                 # if different, add to output

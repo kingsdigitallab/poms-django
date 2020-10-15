@@ -415,8 +415,12 @@ def build_floruits(person_instance, print_msgs=True):
 
         if (len(candidates_from) + len(candidates_to)) == 2:
             # only one witness, use lowest number of it for both
-            person_instance.floruitstartyr = candidates_to[0]
-            person_instance.floruitendyr = candidates_to[0]
+            if candidates_to[0] > 0:
+                person_instance.floruitstartyr = candidates_to[0]
+                person_instance.floruitendyr = candidates_to[0]
+            elif candidates_from[0] > 0:
+                person_instance.floruitstartyr = candidates_from[0]
+                person_instance.floruitendyr = candidates_from[0]
         elif min(candidates_from) > max(candidates_to):
             if print_msgs:
                 print("FLORUITS: swapping values!")

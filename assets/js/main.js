@@ -422,8 +422,8 @@ function initMap()
 
     $('#map').height(mapHeight)
     map = new L.map('map', {crs: L.CRS.EPSG3857, scrollWheelZoom: false});
-    layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
-        {attribution: 'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'}).addTo(map);
+    //layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+    //    {attribution: 'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'}).addTo(map);
     modern = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}")
     regions = new L.tileLayer.wms('/geoserver/gwc/service/wms?', {
             layers: 'PDE_Postgres:scotland_regions_simple',
@@ -470,7 +470,7 @@ function initMap()
     map.addLayer(drawnItems);
     oms = new OverlappingMarkerSpiderfier(map);
 
-    switcher = new L.control.layers({'Terrain': layer, 'Modern': modern}, {
+    switcher = new L.control.layers({'Modern': modern}, {
         'Modern regions': regions,
         'OS 1st Ed. 1885-1990 (1 inch)': os_1st_ed,
         'Medieval Land use': land_use,

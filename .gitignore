@@ -69,3 +69,4 @@ playbook.retry
 data.sql.gz
 data.tar.gz
 compose/.env
+volumes/node_modules

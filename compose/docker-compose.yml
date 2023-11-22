@@ -2,6 +2,8 @@ version: '3.1'
 
 volumes:
   poms_mysql_data: {}
+  poms_solr_data: { }
+  poms_elasticsearch_data: { }
 
 
 services:
@@ -27,30 +29,53 @@ services:
       - "3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    healthcheck:
-      test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES;'
-      timeout: 10s
-      interval: 5s
-      retries: 10
+#    healthcheck:
+#      test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES;'
+#      timeout: 10s
+#      interval: 5s
+#      retries: 10
     env_file:
       - .env
 
+  # Core config at /opt/solr/server/solr/mycores/pbw/conf
+#  solr:
+#    image: solr:6.6.5
+#    container_name: poms_solr
+#    ports:
+#      - "8983:8983"
+#    volumes:
+#      - poms_solr_data:/var/solr
+#    command:
+#      - solr-precreate
+#      - poms
+  elasticsearch:
+    image: elasticsearch:7.10.1
+    volumes:
+      - poms_elasticsearch_data:/usr/share/elasticsearch/data
+    env_file:
+      - .env
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    restart: unless-stopped
+
   django:
-    container_name: pbw_liv
+    container_name: poms_liv
     build:
-      context: .
-      dockerfile: ./django/Dockerfile
+      context: ../
+      dockerfile: ./compose/django/Dockerfile
+    command: /start
     restart: always
     ports:
       - 8080:8080
 
     environment:
-      VIRTUAL_HOST: testapp.projects.cch.kcl.ac.uk
+      VIRTUAL_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost"
+      LETSENCRYPT_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost"
       VIRTUAL_PROTO: http
-      VIRTUAL_PORT: 8080
-      LETSENCRYPT_HOST: testapp.projects.cch.kcl.ac.uk
-    volumes:
-      - ../testapp/config:/etc/testapp/config:ro
+      VIRTUAL_PORT: 8000
+    #volumes:
+    #  - ../testapp/config:/etc/testapp/config:ro
 
 networks:
   default:

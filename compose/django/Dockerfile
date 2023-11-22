@@ -12,20 +12,20 @@ RUN apt-get update \
   && apt-get install -y default-libmysqlclient-dev \
   #&& apt-get install -y python-mysqldb python-dev
   # ldap depedndencies
-  && apt-get install -y libldap2-dev libsasl2-dev ldap-utils
+  && apt-get install -y libldap2-dev libsasl2-dev ldap-utils \
   #&& apt-get install -y libxml2-dev libxslt-dev python-dev \
   #&& apt-get install -y python3-lxml \
   #gdal libraries
-  #&& apt-get install -y binutils libproj-dev gdal-bin
+  && apt-get install -y binutils libproj-dev gdal-bin
 
 WORKDIR /app
-COPY requirements.txt /app
-COPY ddhldap/requirements.txt /app/ddhldap/
+COPY ./volumes/requirements.txt /app
+#COPY ddhldap/requirements.txt /app/ddhldap/
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY --chown=django:django ./compose/local/django/start /start
+COPY --chown=django:django ./compose/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 COPY --chown=django:django ./volumes /app

@@ -1,23 +1,18 @@
 version: '3.1'
 
 volumes:
-  poms_mysql_data: {}
-  poms_solr_data: { }
+  poms_mysql_data: { }
   poms_elasticsearch_data: { }
 
 
 services:
   nginx-proxy:
-    restart: always
-    image: nginxproxy/nginx-proxy
+    image: nginxproxy/nginx-proxy:1.4
+    restart: unless-stopped
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ../nginx/certs:/etc/nginx/certs
-      - ../nginx/vhost:/etc/nginx/vhost.d
-      - ../nginx/html:/usr/share/nginx/html
 
   db:
     image: library/mysql:5.7.35
@@ -29,25 +24,14 @@ services:
       - "3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#    healthcheck:
-#      test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES;'
-#      timeout: 10s
-#      interval: 5s
-#      retries: 10
+    #    healthcheck:
+    #      test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES;'
+    #      timeout: 10s
+    #      interval: 5s
+    #      retries: 10
     env_file:
       - .env
 
-  # Core config at /opt/solr/server/solr/mycores/pbw/conf
-#  solr:
-#    image: solr:6.6.5
-#    container_name: poms_solr
-#    ports:
-#      - "8983:8983"
-#    volumes:
-#      - poms_solr_data:/var/solr
-#    command:
-#      - solr-precreate
-#      - poms
   elasticsearch:
     image: elasticsearch:7.10.1
     volumes:
@@ -60,20 +44,56 @@ services:
     restart: unless-stopped
 
   django:
-    container_name: poms_liv
     build:
       context: ../
       dockerfile: ./compose/django/Dockerfile
     command: /start
-    restart: always
-    ports:
-      - 8080:8080
-
+    container_name: poms_liv
+    depends_on:
+      - db
+      - elasticsearch
+    env_file:
+      - .env
+    restart: unless-stopped
+    expose:
+      - 8000
     environment:
-      VIRTUAL_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost"
-      LETSENCRYPT_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost"
+      VIRTUAL_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
+      VIRTUAL_PATH: "/"
       VIRTUAL_PROTO: http
       VIRTUAL_PORT: 8000
+
+  nginx:
+    build:
+      context: ..
+      dockerfile: ./compose/nginx/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8001"
+    volumes:
+      - ./volumes/django/static:/usr/share/nginx/static:ro
+    environment:
+      VIRTUAL_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
+      VIRTUAL_PATH: "~^/(static/|redist/|robots.txt)"
+      VIRTUAL_PROTO: http
+      VIRTUAL_PORT: 8001
+
+#       - ../volumes/django/static:/app/static
+    #  django:
+    #    container_name: poms_liv
+    #    build:
+    #      context: ../
+    #      dockerfile: ./compose/django/Dockerfile
+    #    command: /start
+    #    restart: always
+    #    ports:
+    #      - 8080:8080
+    #
+    #    environment:
+    #      VIRTUAL_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost"
+    #      LETSENCRYPT_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost"
+    #      VIRTUAL_PROTO: http
+    #      VIRTUAL_PORT: 8000
     #volumes:
     #  - ../testapp/config:/etc/testapp/config:ro
 

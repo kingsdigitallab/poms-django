@@ -19,7 +19,7 @@ RUN apt-get update \
   && apt-get install -y binutils libproj-dev gdal-bin
 
 WORKDIR /app
-COPY ./volumes/django/requirements.txt /app
+COPY ./requirements.txt /app
 #COPY ddhldap/requirements.txt /app/ddhldap/
 
 RUN pip install --upgrade pip
@@ -28,7 +28,7 @@ RUN pip install -r requirements.txt
 COPY --chown=django:django ./compose/django/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
-COPY --chown=django:django ./volumes/django /app
+COPY --chown=django:django . /app
 
 #RUN python manage.py migrate
 #RUN python manage.py collectstatic --noinput

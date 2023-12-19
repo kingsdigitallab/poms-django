@@ -1,9 +1,5 @@
 version: '3.1'
 
-volumes:
-  poms_mysql_data: { }
-  poms_elasticsearch_data: { }
-
 
 services:
   nginx-proxy:
@@ -18,7 +14,7 @@ services:
     image: library/mysql:5.7.35
     container_name: poms_mysql
     volumes:
-      - poms_mysql_data:/var/lib/mysql
+      - ../volumes/local_mysql_data:/var/lib/mysql
     restart: unless-stopped
     expose:
       - "3306"
@@ -35,7 +31,7 @@ services:
   elasticsearch:
     image: elasticsearch:7.10.1
     volumes:
-      - poms_elasticsearch_data:/usr/share/elasticsearch/data
+      - ../volumes/poms_elasticsearch_data:/usr/share/elasticsearch/data
     env_file:
       - .env
     ports:
@@ -55,6 +51,8 @@ services:
     env_file:
       - .env
     restart: unless-stopped
+    volumes:
+      - ../volumes/django/static:/app/static
     expose:
       - 8000
     environment:
@@ -71,7 +69,7 @@ services:
     expose:
       - "8001"
     volumes:
-      - ./volumes/django/static:/usr/share/nginx/static:ro
+      - ../volumes/django/static:/usr/share/nginx/static:ro
     environment:
       VIRTUAL_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
       VIRTUAL_PATH: "~^/(static/|redist/|robots.txt)"

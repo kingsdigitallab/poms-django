@@ -64,9 +64,9 @@ local.py
 logs/
 static/
 playbook.retry
+volumes/*
 
 # Data
 data.sql.gz
 data.tar.gz
 compose/.env
-volumes/node_modules

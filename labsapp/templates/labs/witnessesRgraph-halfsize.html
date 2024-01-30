@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<title>{{experiment_title}}</title>
+	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+	<meta name="generator" content="HAPedit 3.1">
+	
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/jqeasypanel.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/navbar.css"/>
+	
+	<style type="text/css">
+		html,body{margin:0;padding:0}
+		body{font: 76% arial,sans-serif}
+		p{margin:0 10px 10px}
+		a{display:block;color: #981793;padding:10px}
+		div#header h1{height:60px;line-height:60px;margin:0;
+		  padding-left:10px;background: #EEE;color: #79B30B}
+
+		div#content p{line-height:1.4}
+		div#navigation{background:#B9CAFF}
+		div#extra{
+			margin: 17px 32px 2px 2px;
+			color: grey; font-size: 25px;}
+
+		div#footer{background: #333;color: #FFF}
+		div#footer p{margin:0;padding:5px 10px}
+
+/*		div#wrapper{float:left;width:100%;margin-left:-33%}
+		div#content{margin-left:33%}*/
+		div#wrapper{float:left;width:70%;}
+		div#content{overflow: hidden;}
+		div#footer{width:70%}	
+		
+		div#navigation{float:right;width:30%}
+		div#extra{float:right;clear:right;width:26%}
+		
+		div#subfooter{
+			clear:both;width:95%; 
+			margin: 20px 10px 10px 30px;
+			color: grey; font-size: 25px;}
+			
+		.tnum {color: #660033; margin-bottom: 10px; font-size: 14px;}
+		span.smalllinks {font-size: 9px; display: inline-block;}
+		.smalllinks a { margin-left: 10px; margin-right: 1px; display: inline;}
+		
+		#jqeasytrigger.top  {background: darkorange; padding-bottom: 18px;}
+		#jqeasypanel  {background: lightgoldenrodyellow;}
+		
+		#googleTab {margin-bottom: -10px;}
+		
+		#infovis {
+		    position:relative;
+		    margin:auto;
+		    overflow:hidden;
+		}
+		
+		.infobox {font-size: 12px;}
+		.infobox a {color: #981793;padding:0px; display: inline;}
+		.infobox dt { color: white; background: lightSalmon; margin-top: 5px; margin-bottom: 5px;}
+		.infobox dd { color: black; margin-left: 0px; margin-bottom: 5px;}
+		.infobox dd:hover { background: lightyellow;}
+		
+		.graphlink {color: darkslateblue;}
+/*		.graphlink:hover {background: darkslateblue; color: white;}*/
+		
+		.graph_action {background: darkgreen; color: white; padding: 4px;}
+		.graph_action:hover {color: yellow;}
+		
+		.graph_focus {background: #603; color: white; display: inline; padding: 4px;}
+		.graph_focus:hover {color: yellow;}
+		
+		
+	</style>
+
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}labs/css/jquery.qtip.min.css" />
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery1.6/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.jqEasyPanel.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+	{# autocomplete stuff #}
+	<script type="text/javascript" src="{{ STATIC_URL }}autocomplete2/js/jquery-ui-1.8.17.custom.min.js"></script>
+	<link href="{{ STATIC_URL }}autocomplete2/css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" media="screen">
+	<!-- JIT Library File -->
+	<script language="javascript" type="text/javascript" src="{{STATIC_URL}}labs/js/jit.js"></script>
+	<script language="javascript" type="text/javascript" src="{{STATIC_URL}}labs/js/witnessesRgraph-halfsize.js"></script>
+	
+	
+</head>
+
+<script type="text/javascript" charset="utf-8">
+	var json = {{json|safe}}
+	
+	$(document).ready(function() {
+		init(json);
+
+		$('#jqeasypanel').jqEasyPanel({height: '350px'});
+	});
+	
+</script>
+
+
+<body>
+	
+{% include "labs/components/snippet_jqeasypanel.html" %}
+	
+	
+<div id="container">
+	
+	<span id="vis_main_id" style="display:none;" name="{{vis_main_transaction.shortdesc}}">{{vis_main_transaction.id}}</span>
+		
+	<div id="wrapper">
+		<div id="content" style="background-color:#1a1a1a;color:#ccc;">
+
+			<div id="infovis" style="background-color:#1a1a1a;color:#ccc;"></div>    
+			
+
+		</div>
+	</div>
+
+	<div id="navigation">
+		Graph original starting point: <a style="color: black;" title="Click to re-center the main node" href="javascript:focus_node('tr_{{vis_main_transaction.id}}');">{{vis_main_transaction.shortdesc}}</a>
+	</div>
+	<div id="extra">
+		{# asd #}
+	</div>
+	
+	<div id="footer"><p id="footertext"></p></div>
+	
+	
+	<div id="subfooter">
+		{# <div class='tnum'>Some text here<span class='smalllinks'>small</small></div> #}
+		{# <div>Other text</div> #}
+	</div>
+	
+	
+	
+	
+</div>  {# end of container #}
+
+
+
+</body>
+</html>

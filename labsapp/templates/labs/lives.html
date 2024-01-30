@@ -1,0 +1,215 @@
+{% load extrafilters %}
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<head>
+
+	
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/jqeasypanel.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/navbar.css"/>
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}labs/css/jquery.qtip.min.css" />
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery1.6/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.jqEasyPanel.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+	{# autocomplete stuff #}
+	<script type="text/javascript" src="{{ STATIC_URL }}autocomplete2/js/jquery-ui-1.8.17.custom.min.js"></script>
+	<link href="{{ STATIC_URL }}autocomplete2/css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" media="screen">
+
+	<style>
+		
+		/*ovverride*/
+		#googletab {
+			margin-bottom: 0px;
+		}
+		
+		.ui-tooltip, .qtip{
+			min-width: 750px;
+			max-width: 1000px;
+		}
+
+		.ui-tooltip-bootstrap .ui-tooltip-titlebar {
+			font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
+		}
+
+		.ui-tooltip a {
+			color: black;
+		}
+				
+		#header {
+			background: Lavender;
+		}
+		
+		#header	a {text-decoration:none; }
+		#header a:link { color: blue;}
+		#header a:visited { color: blue} 
+		#header a:hover {color: blue }
+			
+		#body {
+			color: black; 
+			font-size: 10px;
+			}
+			
+		#names:hover {
+			background: yellow; 
+			font-size: 17px; 
+			}
+		
+		.numbers {color: grey;}
+		
+		.dates {font-size: 11px;}
+	
+	</style>
+	
+	<script> 
+	$(document).ready(function() {
+	
+
+
+		$("#surname_{{surname}}").css({background: "yellow"});
+		$("#forename_{{forename}}").css({background: "yellow"});
+		$("#daterange_{{activedate}}").css({background: "yellow"});
+		$("#agerange_{{activeage}}").css({background: "yellow"});
+			
+		// topPanel
+		
+		$('#jqeasypanel').jqEasyPanel({height: '300px'});		
+		
+
+		// LINK for the person info
+	
+
+		$('#body span.names').each(function(){
+			$(this).qtip({
+				content: {
+					text: '<img height="20" src="{{ STATIC_URL }}labs/img/loading.gif" alt="Loading..." />',
+					ajax: {
+						url: $(this).attr('name') // Use the name attribute of each element for the url to load
+					},
+					title: {
+						// Give the tooltip box a title 
+						// text: $(this).attr('title'), 
+						text: $(this).attr('title') + " (<a href='" + $(this).attr('href') + "#'>show full record</a> | <a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)", 
+						button: true
+					}
+				},
+				// style: {
+				// 	// classes: 'ui-tooltip-bootstrap ui-tooltip-shadow' ,
+				// 	width: 700,
+				// },
+
+				show: {
+					// event: 'mouseenter',
+					// delay: 100,
+					event: 'click',
+					// delay: 10,
+					solo: true // Only show one tooltip at a time
+				},
+
+				position: {
+					my: 'center', // ...at the center of the viewport
+					at: 'center',
+					target: $(window),
+							},	
+
+				hide: 'unfocus',
+				})
+			})	
+		// Make sure it doesn't follow the link when we click it
+		.click(function(event) { event.preventDefault(); });
+
+
+	// 	final parenthesis
+	});
+	
+	
+	
+	</script>
+
+
+
+	<title>People's active years</title>
+
+</head>
+
+<body>
+
+
+
+
+	{% include "labs/components/snippet_jqeasypanel.html" %}
+	
+	
+	
+	<div id="container">
+	
+	
+			{# <span class="trigger"> #}
+			{# 	<span class="namesspan" style="font-size: {{p.0}}px;">  #}
+			{# 		<a class="names" name="ajax/personinfo?item={{p.1.id}}" href="{{p.1.get_absolute_url}}">{{p.1.persondisplayname}}</a> #}
+			{# 	</span>  #}
+			{# </span> #}
+			{# <span class="numbers">{{p.2}}</span> <br/> #}
+
+
+	
+		<div id="header">
+			<b>Surname:</b><span class="nothing">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+			{% for letter in alpha  %}
+				<span><a id="surname_{{ letter }}" href="?surname={{ letter }}"> {{ letter }} </a></span>
+				<span class="nothing">&nbsp;&nbsp;</span>
+			{% endfor %}
+			<br />
+			<b>Forename:</b><span class="nothing">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+			{% for letter in alpha  %}
+				<span><a id="forename_{{letter}}"href="?forename={{ letter }}"> {{ letter }} </a></span>
+				<span class="nothing">&nbsp;&nbsp;</span>
+			{% endfor %}		
+			<br />
+			<b>Floruit start date:</b><span class="nothing">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+			{% for date in datesrange  %}
+				<span class='dates'><a id="daterange_{{date.1.0}}" href="?date={{ date.1.0 }}"> {{ date.0 }} </a></span>
+				<span class="nothing">&nbsp;&nbsp;</span>
+			{% endfor %}		
+			<br />
+			<b>Active Years (total):</b><span class="nothing">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+			{% for age in agerange  %}
+				<span class='ages'><a id="agerange_{{age}}" href="?age={{ age}}"> {{ age }} </a></span>
+				<span class="nothing">&nbsp;&nbsp;</span>
+			{% endfor %}		
+			<br />
+			<hr>
+
+		</div>
+
+		<br />		
+		{% for p in peoplelist  %}
+		<div id="body">
+			<span id="{{p.0.id}}" class="trigger">
+				<span  class="stars"> 
+					{{p.1}} <span id='names' class="names" title="Active years: {{p.2}}" name="/labs/popularitycloud/ajax/personinfo?item={{p.0.id}}" href="{{p.0.get_absolute_url}}">{{p.0.persondisplayname}} {{p.0.nice_floruits|safe}}</span>
+				</span> 
+			</span>
+			{# <span class="numbers">{{p.2}}</span> #} <br/>
+		</div>	
+		{% endfor %}
+	
+	
+	
+
+		{# end of container #}
+	</div>   
+
+
+<br /><br /><br /><br />
+	
+</body>
+
+
+</html>

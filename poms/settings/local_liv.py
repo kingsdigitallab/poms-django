@@ -1,6 +1,6 @@
 from .base import *  # noqa
 
-ALLOWED_HOSTS = ['poms.kdl.kcl.ac.uk']
+ALLOWED_HOSTS = ['poms.kdl.kcl.ac.uk','poms-os.kdl.kcl.ac.uk', 'poms.app.cch.kcl.ac.uk']
 
 INTERNAL_IPS = INTERNAL_IPS + ['']
 

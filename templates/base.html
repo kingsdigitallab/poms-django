@@ -1,53 +1,101 @@
-{% load staticfiles compress  %}
+{% load compress staticfiles pomsapp_wagtail_tags wagtailcore_tags pomsapp_tags %}
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{% block meta_title %}{% endblock %} | People of Medieval Scotland</title>
-  <meta name="author" content="King's Digital Lab">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    {% block titlepage %}
+        <title>{{ PROJECT_TITLE }}</title>
+    {% endblock %}
 
-  {% compress css %}
-  <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/main.scss' %}">
-  {% endcompress %}
+    {# Shared main CSS #}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/main.scss' %}">
+    {% endcompress %}
+
+    {% block load_css %}
+    {% endblock %}
+    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="{% static 'js/jquery.overlabel.js' %}"></script>
+
+    {% block load_js %}
+    {% endblock %}
+    {% compress js %}
+        <script src="{% static 'js/main.js' %}"></script>
+    {% endcompress %}
+
+
+
+    {# FontAwesome #}
+    <script defer src="{% static 'fonts/FontAwesome/js/all.js' %}"></script>
 </head>
-<body>
-  <header>
+<body{% if record_splash_page %} id="recordPage"{% endif %}>
+
+{% block header %}
     {% include 'includes/header.html' %}
-  </header>
+{% endblock %}
 
-  <nav>
-    {% include 'includes/navigation.html' %}
-  </nav>
+{% block navigation %}
+    {% get_site_root as site_root %}
+    {% main_menu root=site_root current_page=self %}
+{% endblock %}
 
-  <main>
-    {% block title %}{% endblock %}
-    {% block main %}
+{% block subnav %}
+{% endblock %}
+
+{# Elliott, we should rename these <div> IDs for better semantic - Ginestra #}
+<div id="wagtail-wrapper"{% if djfacet_splashpage %} class="splash"{% endif %}>
+    {% block breadcrumbs %}
+        <div id="breadcrumbs">
+
+            {% breadcrumbs current_page=self %}
+
+        </div>
     {% endblock %}
-  </main>
+    <div id="secondary-nav">
 
-  <footer>
-    {% block footer %}
-    {% include 'includes/footer.html' %}
-    {% endblock %}
-  </footer>
+        {% block small_links %}
+        {% endblock %}
+    </div>
 
-  {% compress js %}
-  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
 
-  <script src="{% static 'js/main.js' %}"></script>
-  {% endcompress %}
+        {% block tabs_titles %}
+        {% endblock %}
 
-  {% block footer_scripts %}{% endblock %}
 
-  {% compress js %}
-  <script src="{% static 'js/google_analytics.js' %}"></script>
-  <script>
-    ga('create', '{{ GA_ID }}', 'auto');
+        {% block permalink %}
+        {% endblock %}
+
+        {% block contents %}
+        {% endblock %}
+
+</div>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-68207578-1', 'auto');
     ga('send', 'pageview');
-  </script>
-  {% endcompress %}
+</script>
+
+{% block footer %}
+    {% include 'includes/footer.html' %}
+{% endblock %}
+
+{% block body_closing %}
+{% endblock %}
+
+
 </body>
 </html>

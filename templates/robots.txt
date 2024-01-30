@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /search/
+Disallow: /browse/
+Disallow: /labs/connectionscloud/
+Disallow: /labs/relationships/
+Disallow: /labs/peoplelives/
+Disallow: /labs/longevitychart/ 
+Disallow: /labs/popularitycloud/ 
+Disallow: /labs/witnesses/ 

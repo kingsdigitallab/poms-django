@@ -1,0 +1,690 @@
+{% load extrafilters %}
+<!-- Tab Content -->
+{# ----------- #}
+{# ASSOCFACTOIDPERSON_SET #}
+{# ----------- #}
+
+{% if assocfactoidperson_set.object_list %}
+    <section id="content1" class="tab-content">
+        <div id="{{ assocfactoidperson_set.type }}">
+
+
+            {% block assocfactoidperson_set %}
+
+                {% with assocfactoidperson_set as items %}
+                    {% include "pomsapp/record/paginator_record.html" %}
+                {% endwith %}
+
+                <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+                <br/>
+
+                <table>
+                    <tr>
+                        <th><a class="paginate" data-page="1" data-ordering="date1"
+                               data-tab="{{ assocfactoidperson_set.type }}">Role</a></th>
+                        <th><a class="paginate" data-page="1" data-ordering="personname"
+                               data-tab="{{ assocfactoidperson_set.type }}">Name</a></th>
+                        <th>Name (original language)</th>
+                        <th>Name (translation)</th>
+                        <th>Floruits</th>
+                    </tr>
+
+                    {% for a in assocfactoidperson_set.object_list %}
+
+                        <tr>
+                            <td>{{ a.role }}</a></td>
+                            <td><a href="{% url 'person_detail' a.person.id %}"
+                                   title="click to show">{{ a.person }}</a></td>
+                            <td>{{ a.nameoriglang }}</a></td>
+                            <td>{{ a.nametranslation }}</a></td>
+                            <td>{{ a.person.nice_floruits|safe }}</td>
+                        </tr>
+
+
+                    {% endfor %}
+
+
+                </table>
+
+
+                <br/><br/>
+
+
+            {% endblock assocfactoidperson_set %}
+
+
+        </div>
+        {# end of fragment1 #}
+    </section>
+{% endif %}
+
+
+
+
+
+{# ----------- #}
+{# ASSOCFACTOIDWITNESS_SET #}
+{# ----------- #}
+
+{% if assocfactoidwitness_set.object_list %}
+    <section id="content2" class="tab-content">
+        <div id="{{ assocfactoidwitness_set.type }}">
+
+
+            {% block assocfactoidwitness_set %}
+
+                {% with assocfactoidwitness_set as items %}
+                    {% include "pomsapp/record/paginator_record.html" %}
+                {% endwith %}
+
+                <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+                <br/>
+
+                <table>
+                    <tr>
+                        <th><a class="paginate" data-page="1" data-ordering="personname"
+                               data-tab="{{ assocfactoidperson_set.type }}">Name</a></th>
+                        <th>Name (original language)</th>
+                        <th>Name (translation)</th>
+                        <th>Floruits</th>
+                        <th><a class="paginate" data-page="1" data-ordering="orderno"
+                               data-tab="{{ assocfactoidperson_set.type }}">Order</a></th>
+                    </tr>
+
+                    {% for a in assocfactoidwitness_set.object_list %}
+
+                        <tr>
+                            <td><a href="{% url 'person_detail' a.person.id %}"
+                                   title="click to show">{{ a.person }}</a></td>
+                            <td>{{ a.nameoriglang }}</a></td>
+                            <td>{{ a.nametranslation }}</a></td>
+                            <td>{{ a.person.nice_floruits|safe }}</td>
+                            <td>{{ a.orderno }}</td>
+                        </tr>
+
+
+                    {% endfor %}
+
+
+                </table>
+
+
+                <br/><br/>
+
+
+            {% endblock assocfactoidwitness_set %}
+
+
+        </div>
+        {# end of fragment1 #}
+    </section>
+{% endif %}
+
+
+
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPROANIMA_SET #}
+{# ----------- #}
+
+{% if assocfactoidproanima_set.object_list %}
+<section id="content3" class="tab-content">
+    <div id="{{ assocfactoidproanima_set.type }}">
+
+
+        {% block assocfactoidproanima_set %}
+
+            {% with assocfactoidproanima_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <br/>
+
+            <table>
+                <tr>
+                    <th><a class="paginate" data-page="1" data-ordering="date1"
+                           data-tab="{{ assocfactoidproanima_set.type }}">Role</a></th>
+                    <th><a class="paginate" data-page="1" data-ordering="personname"
+                           data-tab="{{ assocfactoidproanima_set.type }}">Name</a></th>
+                    <th>Name (original language)</th>
+                    <th>Name (translation)</th>
+                    <th>Floruits</th>
+                </tr>
+
+                {% for a in assocfactoidproanima_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.role }}</a></td>
+                        <td><a href="{% url 'person_detail' a.person.id %}"
+                               title="click to show">{{ a.person }}</a></td>
+                        <td>{{ a.nameoriglang }}</a></td>
+                        <td>{{ a.nametranslation }}</a></td>
+                        <td>{{ a.person.nice_floruits|safe }}</td>
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+
+            <br/><br/>
+
+
+        {% endblock assocfactoidproanima_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+    </section>
+{% endif %}
+
+
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPOSS_LANDS_SET #}
+{# ----------- #}
+
+{% if assocfactoidposs_lands_set.object_list %}
+<section id="content4" class="tab-content">
+    <div id="{{ assocfactoidposs_lands_set.type }}">
+
+
+        {% block assocfactoidposs_lands_set %}
+
+            {% with assocfactoidposs_lands_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <br/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidposs_lands_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidposs_lands_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidposs_lands_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.poss_land.util_topancestor }}</td>
+                        <td>{{ a.poss_land.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.poss_land.place %}
+                            <a href="{% url 'place_detail' a.poss_land.place.id %}"
+                               title="Show details">{{ a.poss_land.place.name }}</a>{% endif %}</td>
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+
+            <br/><br/>
+
+
+        {% endblock assocfactoidposs_lands_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+
+
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPOSS_ALMS_SET #}
+{# ----------- #}
+
+{% if assocfactoidposs_alms_set.object_list %}
+<section id="content5" class="tab-content">
+    <div id="{{ assocfactoidposs_alms_set.type }}">
+
+
+        {% block assocfactoidposs_alms_set %}
+
+            {% with assocfactoidposs_alms_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <br/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidposs_alms_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidposs_alms_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidposs_alms_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.poss_alms.util_topancestor }}</td>
+                        <td>{{ a.poss_alms.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.poss_alms.place %}
+                            <a href="{% url 'place_detail' a.poss_alms.place.id %}"
+                               title="Show details">{{ a.poss_alms.place.name }}</a>{% endif %}</td>
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+
+            <br/><br/>
+
+
+        {% endblock assocfactoidposs_alms_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPOSS_OBJECTS_SET #}
+{# ----------- #}
+
+{% if assocfactoidposs_objects_set.object_list %}
+<section id="content6" class="tab-content">
+    <div id="{{ assocfactoidposs_objects_set.type }}">
+
+
+        {% block assocfactoidposs_objects_set %}
+
+            {% with assocfactoidposs_objects_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidposs_objects_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidposs_objects_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidposs_objects_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.poss_object.util_topancestor }}</td>
+                        <td>{{ a.poss_object.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.poss_object.place %}
+                            <a href="{% url 'place_detail' a.poss_object.place.id %}"
+                               title="Show details">{{ a.poss_object.place.name }}</a>{% endif %}</td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+        {% endblock assocfactoidposs_objects_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPOSS_OFFICE_SET #}
+{# ----------- #}
+
+{% if assocfactoidposs_office_set.object_list %}
+<section id="content7" class="tab-content">
+    <div id="{{ assocfactoidposs_office_set.type }}">
+
+
+        {% block assocfactoidposs_office_set %}
+
+            {% with assocfactoidposs_office_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidposs_office_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidposs_office_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidposs_office_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.poss_office.util_topancestor }}</td>
+                        <td>{{ a.poss_office.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.poss_office.place %}
+                            <a href="{% url 'place_detail' a.poss_office.place.id %}"
+                               title="Show details">{{ a.poss_office.place.name }}</a>{% endif %}</td>
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+        {% endblock assocfactoidposs_office_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPOSS_PGENERAL_SET #}
+{# ----------- #}
+
+{% if assocfactoidposs_pgeneral_set.object_list %}
+<section id="content8" class="tab-content">
+    <div id="{{ assocfactoidposs_pgeneral_set.type }}">
+
+
+        {% block assocfactoidposs_pgeneral_set %}
+
+            {% with assocfactoidposs_pgeneral_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidposs_pgeneral_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidposs_pgeneral_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidposs_pgeneral_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.poss_pgeneral.util_topancestor }}</td>
+                        <td>{{ a.poss_pgeneral.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.poss_pgeneral.place %}
+                            <a href="{% url 'place_detail' a.poss_pgeneral.place.id %}"
+                               title="Show details">{{ a.poss_pgeneral.place.name }}</a>{% endif %}</td>
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+        {% endblock assocfactoidposs_pgeneral_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPOSS_REVENUEKIND_SET #}
+{# ----------- #}
+
+{% if assocfactoidposs_revenuekind_set.object_list %}
+<section id="content9" class="tab-content">
+    <div id="{{ assocfactoidposs_revenuekind_set.type }}">
+
+
+        {% block assocfactoidposs_revenuekind_set %}
+
+            {% with assocfactoidposs_revenuekind_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidposs_revenuekind_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidposs_revenuekind_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidposs_revenuekind_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.poss_revkind.util_topancestor }}</td>
+                        <td>{{ a.poss_revkind.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.poss_revkind.place %}
+                            <a href="{% url 'place_detail' a.poss_revkind.place.id %}"
+                               title="Show details">{{ a.poss_revkind.place.name }}</a>{% endif %}</td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+        {% endblock assocfactoidposs_revenuekind_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPOSS_REVENUESILVER_SET #}
+{# ----------- #}
+
+{% if assocfactoidposs_revenuesilver_set.object_list %}
+<section id="content10" class="tab-content">
+    <div id="{{ assocfactoidposs_revenuesilver_set.type }}">
+
+
+        {% block assocfactoidposs_revenuesilver_set %}
+
+            {% with assocfactoidposs_revenuesilver_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidposs_revenuesilver_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidposs_revenuesilver_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidposs_revenuesilver_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.poss_revsilver.util_topancestor }}</td>
+                        <td>{{ a.poss_revsilver.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.poss_revsilver.place %}
+                            <a href="{% url 'place_detail' a.poss_revsilver.place.id %}"
+                               title="Show details">{{ a.poss_revsilver.place.name }}</a>{% endif %}</td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+        {% endblock assocfactoidposs_revenuesilver_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPOSS_UNFREEP_SET #}
+{# ----------- #}
+
+{% if assocfactoidposs_unfreep_set.object_list %}
+<section id="content11" class="tab-content">
+    <div id="{{ assocfactoidposs_unfreep_set.type }}">
+
+
+        {% block assocfactoidposs_unfreep_set %}
+
+            {% with assocfactoidposs_unfreep_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidposs_unfreep_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidposs_unfreep_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidposs_unfreep_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.poss_unfree_persons.util_topancestor }}</td>
+                        <td>{{ a.poss_unfree_persons.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.poss_unfree_persons.place %}
+                            <a href="{% url 'place_detail' a.poss_unfree_persons.place.id %}"
+                               title="Show details">{{ a.poss_unfree_persons.place.name }}</a>{% endif %}</td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+        {% endblock assocfactoidposs_unfreep_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+
+
+
+
+{# ----------- #}
+{# ASSOCFACTOIDPRIVILEGES_SET #}
+{# ----------- #}
+
+{% if assocfactoidprivileges_set.object_list %}
+<section id="content12" class="tab-content">
+    <div id="{{ assocfactoidprivileges_set.type }}">
+
+
+        {% block assocfactoidprivileges_set %}
+
+            {% with assocfactoidprivileges_set as items %}
+                {% include "pomsapp/record/paginator_record.html" %}
+            {% endwith %}
+
+            <input type="hidden" class="active_ordering" value="{{ active_ordering }}"/>
+
+            <table>
+                <tr>
+                    {# <th><a class="{{active_ordering|infer_class:'posstype'}}" onClick="update_related_factoids('1', 'posstype', '{{assocfactoidprivileges_set.type}}')">Type</a></th> #}
+                    {# 				    <th><a class="{{active_ordering|infer_class:'possname'}}" onClick="update_related_factoids('1', 'possname', '{{assocfactoidprivileges_set.type}}')">Name</a></th> #}
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Original Text</th>
+                    <th>Related Place</th>
+                </tr>
+
+                {% for a in assocfactoidprivileges_set.object_list %}
+
+                    <tr>
+                        <td>{{ a.privilege.util_topancestor }}</td>
+                        <td>{{ a.privilege.name }}</td>
+                        <td>{{ a.originaltext }}</a></td>
+                        <td>{% if a.privilege.place %}
+                            <a href="{% url 'place_detail' a.privilege.place.id %}"
+                               title="Show details">{{ a.privilege.place.name }}</a>{% endif %}</td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+
+            </table>
+
+        {% endblock assocfactoidprivileges_set %}
+
+
+    </div>
+    {# end of fragment1 #}
+</section>
+{% endif %}
+<!-- end Tab Content -->

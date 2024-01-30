@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load extrafilters pomsapp_tags pomsapp_wagtail_tags %}
+
+{% block load_css %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+{% endblock %}
+
+{% block titlepage %}
+    <title>Search | {{ PROJECT_TITLE }}</title>
+{% endblock %}
+
+{% block subnav %}
+
+{% endblock %}
+
+{% block breadcrumbs %}
+        <div id="breadcrumbs">
+        {% get_wagtail_page 'search' as wagtail_page %}
+            {% breadcrumbs current_page=wagtail_page extra=record %}
+
+        </div>
+    {% endblock %}
+
+
+{% block tabs_titles %}
+{% endblock %}
+
+{% block small_links %}
+{% endblock %}
+
+{% block permalink %}
+{% endblock %}
+
+<div class="wrapper">
+    {% block contents %}
+        <div id="pseudo-tabs">
+            <!-- Tab Headers -->
+
+            <input id="tab3" type="radio" name="tabs" {% if index_type == 'person' %}checked{% endif %}>
+            <label for="tab3"><a href="{% url 'search' %}{% add_facet_link querydict 'index_type' 'person' %}">People and Institutions
+                <span>({{ index_type_counts.person }})</span></a></label>
+
+            <input id="tab1" type="radio" name="tabs" {% if index_type == 'factoid' %}checked{% endif %}>
+            <label for="tab1"><a href="{% url 'search' %}{% add_facet_link querydict 'index_type' 'factoid' %}">Factoids
+                <span>({{ index_type_counts.factoid }})</span></a></label>
+
+            <input id="tab2" type="radio" name="tabs" {% if index_type == 'source' %}checked{% endif %}>
+            <label for="tab2"><a href="{% url 'search' %}{% add_facet_link querydict 'index_type' 'source' %}">Sources
+                <span>({{ index_type_counts.source }})</span></a></label>
+
+
+
+            <input id="tab4" type="radio" name="tabs" {% if index_type == 'place' %}checked{% endif %}>
+            <label for="tab4"><a href="
+                        {% url 'search' %}{% add_facet_link querydict 'index_type' 'place' %}">Places
+                <span>({{ index_type_counts.place }})</span></a></label>
+
+            <!-- end Tab Headers -->
+
+            <!-- Tab Content -->
+            <section id="content" class="pseudo-tabcontent">
+                {% block sidebar %}
+                    <div class="facet-sidebar">
+
+                        <h2>Facets</h2>
+                        {% if selected_facets %}
+                            <div id="selected-facets">
+                                <h4>Selected facet types</h4>
+                                <ul>
+                                    {% for facet in selected_facets %}
+                                        {% selected_facet facet %}
+                                    {% endfor %}
+                                </ul>
+                                <a href="{% url 'search' %}{% add_facet_link querydict 'clear_all' 'clear' %}">
+                                    <h5>Clear all</h5></a>
+                            </div>
+                        {% endif %}
+
+
+
+
+
+                        {# start of accordion #}
+                        <ul id="accordion" class="nvh m1">
+
+                            {# we have a list of tuples like this: #}
+                            {# [(<FacetsGroup1>, [(<Facet1>, [[<FacetValue1>, <FacetValue2>], [<FacetValue3>, <FacetValue4>]]), ('troupe country', [etc..])]), (......)] #}
+                            {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='daterange' facet_group_label='Date ranges' facet_group_facets=facet_group_fields.daterange %}
+                            {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='person' facet_group_label='People and institutions' facet_group_facets=facet_group_fields.person %}
+                            {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='source' facet_group_label='Sources' facet_group_facets=facet_group_fields.source %}
+                            {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='relationship' facet_group_label='Relationships' facet_group_facets=facet_group_fields.relationship %}
+                            {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='transaction' facet_group_label='Transactions' facet_group_facets=facet_group_fields.transaction %}
+                            {% include 'pomsapp/includes/facet_groups.html' with facet_group_names='termsoftenure' facet_group_label='Terms of tenure' facet_group_facets=facet_group_fields.termsoftenure %}
+
+                        </ul>
+                        {#  end of accordion  #}
+
+                    </div>
+                {% endblock %}
+
+
+                {% block main_content %}
+                    <div class="main">
+                        <h2>Search</h2> <!-- Search form -->
+                        <form id="search_form" action=".">
+                            {% if selected_facets %}
+                                {% for facet in selected_facets %}
+                                    <input type="hidden" name="selected_facets" value="{{ facet }}">
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if index_type %}
+                                <input type="hidden" name="index_type" value="{{ index_type }}">
+                            {% endif %}
+                            <fieldset>
+                                <label for="bs_input">
+                                    Keyword(s)
+                                </label>
+
+                                <input id="bs_input" type="text" name="q"{% if 'q' in form.data %}
+                                       value="{{ form.data.q }}"{% else %}
+                                       value=""{% endif %}>
+                                <div id="date_range">
+                                    <span>
+                                        <label for="min">Year from</label>
+
+                                        <input type="number" name="min_date" value="{{ min_date }}" id="id_min_date">
+                                    </span>
+
+                                                <span>
+
+                                        <label for="id_max_date">Year to</label>
+                                        <input type="number" name="max_date" value="{{ max_date }}" data-track-theme="b"
+                                               id="id_max_date">
+                                    </span>
+                                </div>
+
+                                <div class="g-ranger" id="range"></div>
+                            </fieldset>
+
+
+                            <fieldset>
+                                <button class="primary">Apply</button>
+
+                                <a href="{% add_reset_link querydict %}">Reset</a>
+                            </fieldset>
+                        </form> <!-- End Search form -->
+                        <!-- TO: Old selected facets
+                <div id="facets">
+                    {% block controlbar %}
+
+                    <ul class="menu">
+                    <li><h2>Selected Terms</h2></li>
+                                <li><a title="why do I see these results?" onClick="explain_results()"><i
+                                        class="fas fa-question-circle"></i></a></li>
+                                <li><a href="{% url 'search' %}" id="empty_controls">Remove all</a></li>
+                                {# This below should be rethought #}
+
+                                {# <li class="i1"><a href="#" title="Save Terms"><b>Save Terms</b></a></li> #}
+                                {# <li class="i2"><a href="#" title="Load Terms"><b>Load Terms</b></a></li> #}
+                            </ul>
+
+                            {# 2010-07-07 hidden fields for BlockUI message #}
+                            {# No idea what these two <div>s do, blockUImessage1 and blockUImessage2 - Ginestra #}
+                            <div id="blockUImessage1" style="display:none">
+                            </div>
+
+                            <div id="blockUImessage2" style="display:none">
+                            </div>
+                        {% endblock %}
+
+                    <div id="results">
+                        {% block results %}
+                        <!-- hidden fields with useful data -->
+                            {# e.g. a db field to do the ordering on: 'shortdesc', or an annotation command: 'annotate=factoid' #}
+                            <input type="hidden" id="active_ordering" value="default">
+                            <input type="hidden" id="refresh_facets" value="{{ count_is_active }}">
+                            <!-- end of hidden fields -->
+
+                            <div id="results_factoid">
+                                {# in order to use the inner block we must move it before the FOR command!!! #}
+                                {% block inner_results %}
+                                    {% with search_template='search' %}
+                                        {% include 'pomsapp/browse/snippet_results.html' %}
+                                    {% endwith %}
+                                {% endblock inner_results %}
+                            </div>
+
+                        {% endblock %}
+                    </div>
+                    </div>
+                    <div id="search">
+                        {% block search %}
+
+                        {% endblock %}
+                    </div>
+                    </div>
+                {% endblock %}
+        </section> <!-- End Tab content -->
+        </div> <!-- End Tab id -->
+    {% endblock %}
+</div> <!-- End Tab id -->
+
+{% block load_js %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $( function() {
+            $("#range").slider({
+                range: true,
+                min: {{ form.DATE_MINIMUM }},
+                max: {{ form.DATE_MAXIMUM }},
+                values: [{{ min_date }}, {{ max_date }}],
+                slide: function (event, ui) {
+                    $("#id_min_date").val(ui.values[0]); // + " - $" + ui.values[ 1 ] );
+                    $("#id_max_date").val(ui.values[1]);
+
+                }
+            });
+        });
+    </script>
+{% endblock %}

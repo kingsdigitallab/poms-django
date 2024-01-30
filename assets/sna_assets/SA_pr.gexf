@@ -1,0 +1,1554 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gexf xmlns="http://www.gexf.net/1.2draft" version="1.2" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd">
+  <meta lastmodifieddate="2016-04-18">
+    <creator>Gephi 0.8.1</creator>
+    <description></description>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static">
+    <attributes class="node" mode="static">
+      <attribute id="degree" title="Degree" type="integer">
+        <default>0</default>
+      </attribute>
+      <attribute id="eigencentrality" title="Eigenvector Centrality" type="double">
+        <default>0.0</default>
+      </attribute>
+      <attribute id="PoMS ID" title="PoMS ID" type="string"></attribute>
+      <attribute id="Name" title="Name" type="string"></attribute>
+      <attribute id="Gender" title="Gender" type="string"></attribute>
+    </attributes>
+    <nodes>
+      <node id="1" label="Chapter of St Andrews">
+        <attvalues>
+          <attvalue for="degree" value="0"></attvalue>
+          <attvalue for="eigencentrality" value="0.0"></attvalue>
+          <attvalue for="PoMS ID" value="2508"></attvalue>
+          <attvalue for="Name" value="Chapter of St Andrews"></attvalue>
+          <attvalue for="Gender" value="I"></attvalue>
+        </attvalues>
+        <viz:size value="10.0"></viz:size>
+        <viz:position x="727.1528" y="-291.89093" z="0.0"></viz:position>
+        <viz:color r="66" g="227" b="227"></viz:color>
+      </node>
+      <node id="2" label="Patrick, abbot of Dunfermline  (fl.1202-17x1223)">
+        <attvalues>
+          <attvalue for="degree" value="4"></attvalue>
+          <attvalue for="eigencentrality" value="0.022433413"></attvalue>
+          <attvalue for="PoMS ID" value="803"></attvalue>
+          <attvalue for="Name" value="Patrick, abbot of Dunfermline  (fl.1202-17x1223)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.4486685"></viz:size>
+        <viz:position x="1153.2421" y="-449.80237" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="3" label="Gilbert, abbot of Arbroath (fl.x1208-19x25)">
+        <attvalues>
+          <attvalue for="degree" value="4"></attvalue>
+          <attvalue for="eigencentrality" value="0.022433413"></attvalue>
+          <attvalue for="PoMS ID" value="465"></attvalue>
+          <attvalue for="Name" value="Gilbert, abbot of Arbroath (fl.x1208-19x25)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.4486685"></viz:size>
+        <viz:position x="1208.4988" y="-74.76192" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="4" label="Guy, abbot of Lindores (d.1219)">
+        <attvalues>
+          <attvalue for="degree" value="4"></attvalue>
+          <attvalue for="eigencentrality" value="0.022433413"></attvalue>
+          <attvalue for="PoMS ID" value="474"></attvalue>
+          <attvalue for="Name" value="Guy, abbot of Lindores (d.1219)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.4486685"></viz:size>
+        <viz:position x="1512.865" y="-648.027" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="5" label="John, prior of May (fl.c.1204-15)">
+        <attvalues>
+          <attvalue for="degree" value="4"></attvalue>
+          <attvalue for="eigencentrality" value="0.022433413"></attvalue>
+          <attvalue for="PoMS ID" value="1933"></attvalue>
+          <attvalue for="Name" value="John, prior of May (fl.c.1204-15)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.4486685"></viz:size>
+        <viz:position x="1617.4843" y="-229.50897" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="6" label="Laurence of Thornton, archdeacon of St Andrews (d.1238x40)">
+        <attvalues>
+          <attvalue for="degree" value="10"></attvalue>
+          <attvalue for="eigencentrality" value="0.060000085"></attvalue>
+          <attvalue for="PoMS ID" value="835"></attvalue>
+          <attvalue for="Name" value="Laurence of Thornton, archdeacon of St Andrews (d.1238x40)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.200002"></viz:size>
+        <viz:position x="915.49335" y="-752.3489" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="7" label="Robert, bishop of Ross (d.1249)">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.045441892"></attvalue>
+          <attvalue for="PoMS ID" value="815"></attvalue>
+          <attvalue for="Name" value="Robert, bishop of Ross (d.1249)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.908838"></viz:size>
+        <viz:position x="1271.8296" y="-997.23004" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="8" label="William, abbot of Dunfermline (I) (fl.1223)">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.045441892"></attvalue>
+          <attvalue for="PoMS ID" value="4515"></attvalue>
+          <attvalue for="Name" value="William, abbot of Dunfermline (I) (fl.1223)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.908838"></viz:size>
+        <viz:position x="242.78757" y="-1597.5015" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="9" label="Ralph of Lamley, bishop of Aberdeen (d.1247)">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.045441892"></attvalue>
+          <attvalue for="PoMS ID" value="2220"></attvalue>
+          <attvalue for="Name" value="Ralph of Lamley, bishop of Aberdeen (d.1247)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.908838"></viz:size>
+        <viz:position x="289.9191" y="-1155.7122" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="10" label="William del Bois, chancellor (d.1232)">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.045441892"></attvalue>
+          <attvalue for="PoMS ID" value="42"></attvalue>
+          <attvalue for="Name" value="William del Bois, chancellor (d.1232)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.908838"></viz:size>
+        <viz:position x="656.66644" y="-1049.4875" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="11" label="Matthew Scott, bishop-elect of Dunkeld (d.1230)">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.045441892"></attvalue>
+          <attvalue for="PoMS ID" value="864"></attvalue>
+          <attvalue for="Name" value="Matthew Scott, bishop-elect of Dunkeld (d.1230)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.908838"></viz:size>
+        <viz:position x="1001.84076" y="-1297.3544" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="12" label="Hugh of North Berwick, master">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.045441892"></attvalue>
+          <attvalue for="PoMS ID" value="51"></attvalue>
+          <attvalue for="Name" value="Hugh of North Berwick, master"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.908838"></viz:size>
+        <viz:position x="634.55945" y="-1504.878" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="13" label="Andrew Fraser, knight">
+        <attvalues>
+          <attvalue for="degree" value="1"></attvalue>
+          <attvalue for="eigencentrality" value="0.001188332"></attvalue>
+          <attvalue for="PoMS ID" value="1958"></attvalue>
+          <attvalue for="Name" value="Andrew Fraser, knight"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.0237665"></viz:size>
+        <viz:position x="78.63598" y="-759.899" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="14" label="Henry of Denmuir, knight (fl.1260s-90)">
+        <attvalues>
+          <attvalue for="degree" value="1"></attvalue>
+          <attvalue for="eigencentrality" value="0.001188332"></attvalue>
+          <attvalue for="PoMS ID" value="8556"></attvalue>
+          <attvalue for="Name" value="Henry of Denmuir, knight (fl.1260s-90)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="10.0237665"></viz:size>
+        <viz:position x="481.17276" y="-638.5685" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="15" label="Matthew, bishop of Aberdeen (d.1199)">
+        <attvalues>
+          <attvalue for="degree" value="14"></attvalue>
+          <attvalue for="eigencentrality" value="0.629544545"></attvalue>
+          <attvalue for="PoMS ID" value="2"></attvalue>
+          <attvalue for="Name" value="Matthew, bishop of Aberdeen (d.1199)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="22.59089"></viz:size>
+        <viz:position x="368.67758" y="1225.2214" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="16" label="Duncan (II), earl of Fife (d.1204)">
+        <attvalues>
+          <attvalue for="degree" value="18"></attvalue>
+          <attvalue for="eigencentrality" value="0.692221649"></attvalue>
+          <attvalue for="PoMS ID" value="13"></attvalue>
+          <attvalue for="Name" value="Duncan (II), earl of Fife (d.1204)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="23.844433"></viz:size>
+        <viz:position x="690.45636" y="950.30774" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="17" label="Michael, clerk (St Andrews)">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.261044955"></attvalue>
+          <attvalue for="PoMS ID" value="3286"></attvalue>
+          <attvalue for="Name" value="Michael, clerk (St Andrews)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.2209"></viz:size>
+        <viz:position x="717.93225" y="1479.1375" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="18" label="Gilla Micheil, the younger">
+        <attvalues>
+          <attvalue for="degree" value="4"></attvalue>
+          <attvalue for="eigencentrality" value="0.146849933"></attvalue>
+          <attvalue for="PoMS ID" value="5043"></attvalue>
+          <attvalue for="Name" value="Gilla Micheil, the younger"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="12.936998"></viz:size>
+        <viz:position x="-160.6017" y="1622.008" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="19" label="Gilla Muire, brother [of?]">
+        <attvalues>
+          <attvalue for="degree" value="4"></attvalue>
+          <attvalue for="eigencentrality" value="0.146849933"></attvalue>
+          <attvalue for="PoMS ID" value="5044"></attvalue>
+          <attvalue for="Name" value="Gilla Muire, brother [of?]"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="12.936998"></viz:size>
+        <viz:position x="269.65607" y="1630.5704" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="20" label="John Scott, bishop of Dunkeld (d.1203)">
+        <attvalues>
+          <attvalue for="degree" value="11"></attvalue>
+          <attvalue for="eigencentrality" value="0.583960361"></attvalue>
+          <attvalue for="PoMS ID" value="850"></attvalue>
+          <attvalue for="Name" value="John Scott, bishop of Dunkeld (d.1203)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="21.679207"></viz:size>
+        <viz:position x="-101.39362" y="818.29205" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="21" label="Gilbert or Gilla Brigte, earl of Strathearn (d.1223)">
+        <attvalues>
+          <attvalue for="degree" value="11"></attvalue>
+          <attvalue for="eigencentrality" value="0.583960361"></attvalue>
+          <attvalue for="PoMS ID" value="260"></attvalue>
+          <attvalue for="Name" value="Gilbert or Gilla Brigte, earl of Strathearn (d.1223)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="21.679207"></viz:size>
+        <viz:position x="179.03871" y="390.67987" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="22" label="Gilchrist, earl of Mar">
+        <attvalues>
+          <attvalue for="degree" value="11"></attvalue>
+          <attvalue for="eigencentrality" value="0.583960361"></attvalue>
+          <attvalue for="PoMS ID" value="785"></attvalue>
+          <attvalue for="Name" value="Gilchrist, earl of Mar"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="21.679207"></viz:size>
+        <viz:position x="295.74265" y="800.05475" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="23" label="Malcolm (I), earl of Fife (d.1229)">
+        <attvalues>
+          <attvalue for="degree" value="11"></attvalue>
+          <attvalue for="eigencentrality" value="0.583960361"></attvalue>
+          <attvalue for="PoMS ID" value="782"></attvalue>
+          <attvalue for="Name" value="Malcolm (I), earl of Fife (d.1229)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="21.679207"></viz:size>
+        <viz:position x="813.19" y="143.14291" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="24" label="Adam of Kilconquhar, brother of Earl Duncan (father of Duncan)">
+        <attvalues>
+          <attvalue for="degree" value="11"></attvalue>
+          <attvalue for="eigencentrality" value="0.583960361"></attvalue>
+          <attvalue for="PoMS ID" value="3023"></attvalue>
+          <attvalue for="Name" value="Adam of Kilconquhar, brother of Earl Duncan (father of Duncan)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="21.679207"></viz:size>
+        <viz:position x="604.35175" y="489.74237" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="25" label="William Hay (I), lord of Errol (d.c.1201)">
+        <attvalues>
+          <attvalue for="degree" value="11"></attvalue>
+          <attvalue for="eigencentrality" value="0.583960361"></attvalue>
+          <attvalue for="PoMS ID" value="24"></attvalue>
+          <attvalue for="Name" value="William Hay (I), lord of Errol (d.c.1201)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="21.679207"></viz:size>
+        <viz:position x="-39.305817" y="1219.5182" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="26" label="Adam of Ceres, knight (fl.1154x1200)">
+        <attvalues>
+          <attvalue for="degree" value="16"></attvalue>
+          <attvalue for="eigencentrality" value="0.668082996"></attvalue>
+          <attvalue for="PoMS ID" value="889"></attvalue>
+          <attvalue for="Name" value="Adam of Ceres, knight (fl.1154x1200)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="23.36166"></viz:size>
+        <viz:position x="988.0002" y="679.71967" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="27" label="Henry Revel">
+        <attvalues>
+          <attvalue for="degree" value="11"></attvalue>
+          <attvalue for="eigencentrality" value="0.583960361"></attvalue>
+          <attvalue for="PoMS ID" value="966"></attvalue>
+          <attvalue for="Name" value="Henry Revel"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="21.679207"></viz:size>
+        <viz:position x="411.3551" y="50.210342" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="28" label="Ranulf de Wat, archdeacon of St Andrews (d.1209)">
+        <attvalues>
+          <attvalue for="degree" value="24"></attvalue>
+          <attvalue for="eigencentrality" value="1.0"></attvalue>
+          <attvalue for="PoMS ID" value="829"></attvalue>
+          <attvalue for="Name" value="Ranulf de Wat, archdeacon of St Andrews (d.1209)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="30.0"></viz:size>
+        <viz:position x="-239.66708" y="409.8801" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="29" label="William of Hailes, master, dean of St Andrews (fl.1189x98)">
+        <attvalues>
+          <attvalue for="degree" value="11"></attvalue>
+          <attvalue for="eigencentrality" value="0.583960361"></attvalue>
+          <attvalue for="PoMS ID" value="770"></attvalue>
+          <attvalue for="Name" value="William of Hailes, master, dean of St Andrews (fl.1189x98)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="21.679207"></viz:size>
+        <viz:position x="1000.90125" y="1212.5795" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="30" label="Baldred Bisset (d.1311x)">
+        <attvalues>
+          <attvalue for="degree" value="7"></attvalue>
+          <attvalue for="eigencentrality" value="0.063622964"></attvalue>
+          <attvalue for="PoMS ID" value="2374"></attvalue>
+          <attvalue for="Name" value="Baldred Bisset (d.1311x)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.272459"></viz:size>
+        <viz:position x="-361.61658" y="-779.5819" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="31" label="Nicholas of Baledgarno, master">
+        <attvalues>
+          <attvalue for="degree" value="7"></attvalue>
+          <attvalue for="eigencentrality" value="0.063622964"></attvalue>
+          <attvalue for="PoMS ID" value="5177"></attvalue>
+          <attvalue for="Name" value="Nicholas of Baledgarno, master"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.272459"></viz:size>
+        <viz:position x="-1262.8269" y="-1023.87256" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="32" label="John Scott (de Monethy), master, rector of schools">
+        <attvalues>
+          <attvalue for="degree" value="7"></attvalue>
+          <attvalue for="eigencentrality" value="0.063622964"></attvalue>
+          <attvalue for="PoMS ID" value="5178"></attvalue>
+          <attvalue for="Name" value="John Scott (de Monethy), master, rector of schools"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.272459"></viz:size>
+        <viz:position x="-106.65286" y="-1186.3789" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="33" label="Michael of Stirling, burgess">
+        <attvalues>
+          <attvalue for="degree" value="7"></attvalue>
+          <attvalue for="eigencentrality" value="0.063622964"></attvalue>
+          <attvalue for="PoMS ID" value="5179"></attvalue>
+          <attvalue for="Name" value="Michael of Stirling, burgess"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.272459"></viz:size>
+        <viz:position x="-589.6497" y="-1551.8936" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="34" label="R., clerk (St Andrews)">
+        <attvalues>
+          <attvalue for="degree" value="7"></attvalue>
+          <attvalue for="eigencentrality" value="0.063622964"></attvalue>
+          <attvalue for="PoMS ID" value="5180"></attvalue>
+          <attvalue for="Name" value="R., clerk (St Andrews)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.272459"></viz:size>
+        <viz:position x="-170.60121" y="-1609.2582" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="35" label="William Frere, archdeacon of Lothian (fl.1285-1310)">
+        <attvalues>
+          <attvalue for="degree" value="7"></attvalue>
+          <attvalue for="eigencentrality" value="0.063622964"></attvalue>
+          <attvalue for="PoMS ID" value="3307"></attvalue>
+          <attvalue for="Name" value="William Frere, archdeacon of Lothian (fl.1285-1310)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.272459"></viz:size>
+        <viz:position x="-508.19568" y="-1172.734" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="36" label="Richard of Whitton, master">
+        <attvalues>
+          <attvalue for="degree" value="7"></attvalue>
+          <attvalue for="eigencentrality" value="0.063622964"></attvalue>
+          <attvalue for="PoMS ID" value="270"></attvalue>
+          <attvalue for="Name" value="Richard of Whitton, master"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.272459"></viz:size>
+        <viz:position x="-966.54785" y="-1316.4153" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="37" label="Thomas of Ayton, master">
+        <attvalues>
+          <attvalue for="degree" value="7"></attvalue>
+          <attvalue for="eigencentrality" value="0.063622964"></attvalue>
+          <attvalue for="PoMS ID" value="2846"></attvalue>
+          <attvalue for="Name" value="Thomas of Ayton, master"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="11.272459"></viz:size>
+        <viz:position x="-805.0592" y="-898.7954" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="38" label="William, chaplain of Dairsie">
+        <attvalues>
+          <attvalue for="degree" value="18"></attvalue>
+          <attvalue for="eigencentrality" value="0.618777889"></attvalue>
+          <attvalue for="PoMS ID" value="3073"></attvalue>
+          <attvalue for="Name" value="William, chaplain of Dairsie"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="22.375557"></viz:size>
+        <viz:position x="-1073.0339" y="522.916" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="39" label="Ralph, clerk of Bishop Roger of St Andrews">
+        <attvalues>
+          <attvalue for="degree" value="15"></attvalue>
+          <attvalue for="eigencentrality" value="0.495550995"></attvalue>
+          <attvalue for="PoMS ID" value="3057"></attvalue>
+          <attvalue for="Name" value="Ralph, clerk of Bishop Roger of St Andrews"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="19.91102"></viz:size>
+        <viz:position x="-673.42487" y="-434.19672" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="40" label="John, clerk of Bishop-elect Roger">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.277993571"></attvalue>
+          <attvalue for="PoMS ID" value="5209"></attvalue>
+          <attvalue for="Name" value="John, clerk of Bishop-elect Roger"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.559872"></viz:size>
+        <viz:position x="-1613.7876" y="297.7409" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="41" label="German (St Andrews)">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.277993571"></attvalue>
+          <attvalue for="PoMS ID" value="5210"></attvalue>
+          <attvalue for="Name" value="German (St Andrews)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.559872"></viz:size>
+        <viz:position x="-1077.3107" y="-607.3182" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="42" label="Robert of Roxburgh">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.277993571"></attvalue>
+          <attvalue for="PoMS ID" value="5211"></attvalue>
+          <attvalue for="Name" value="Robert of Roxburgh"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.559872"></viz:size>
+        <viz:position x="-919.8282" y="-85.49154" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="43" label="Aiulf, master (fl.1189x98)">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.277993571"></attvalue>
+          <attvalue for="PoMS ID" value="5212"></attvalue>
+          <attvalue for="Name" value="Aiulf, master (fl.1189x98)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.559872"></viz:size>
+        <viz:position x="-1519.2728" y="-638.3512" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="44" label="Alexander Francis (the Frenchman)">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.277993571"></attvalue>
+          <attvalue for="PoMS ID" value="5213"></attvalue>
+          <attvalue for="Name" value="Alexander Francis (the Frenchman)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.559872"></viz:size>
+        <viz:position x="-1651.8938" y="-152.66725" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="45" label="Adam, smith, burgess of St Andrews">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.277993571"></attvalue>
+          <attvalue for="PoMS ID" value="22631"></attvalue>
+          <attvalue for="Name" value="Adam, smith, burgess of St Andrews"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.559872"></viz:size>
+        <viz:position x="-508.3665" y="-32.32831" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="46" label="John of Bearford">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.277993571"></attvalue>
+          <attvalue for="PoMS ID" value="3060"></attvalue>
+          <attvalue for="Name" value="John of Bearford"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.559872"></viz:size>
+        <viz:position x="-1289.7888" y="-276.1318" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="47" label="William of Airdit">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.277993571"></attvalue>
+          <attvalue for="PoMS ID" value="5214"></attvalue>
+          <attvalue for="Name" value="William of Airdit"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.559872"></viz:size>
+        <viz:position x="-1247.7078" y="162.00864" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="48" label="Odo of Kinninmonth, steward, marischal (d.c.1195)">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.18871222"></attvalue>
+          <attvalue for="PoMS ID" value="1022"></attvalue>
+          <attvalue for="Name" value="Odo of Kinninmonth, steward, marischal (d.c.1195)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="13.774244"></viz:size>
+        <viz:position x="1200.8096" y="340.34433" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="49" label="Matthew, master, brother of John ">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.18871222"></attvalue>
+          <attvalue for="PoMS ID" value="2779"></attvalue>
+          <attvalue for="Name" value="Matthew, master, brother of John "></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="13.774244"></viz:size>
+        <viz:position x="1318.5757" y="978.1479" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="50" label="Robert, chaplain of Perth">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.18871222"></attvalue>
+          <attvalue for="PoMS ID" value="3059"></attvalue>
+          <attvalue for="Name" value="Robert, chaplain of Perth"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="13.774244"></viz:size>
+        <viz:position x="1613.9822" y="202.92448" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="51" label="Samuel of Perth">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.18871222"></attvalue>
+          <attvalue for="PoMS ID" value="5295"></attvalue>
+          <attvalue for="Name" value="Samuel of Perth"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="13.774244"></viz:size>
+        <viz:position x="1516.1593" y="620.2717" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="52" label="John of Leicester, bishop of Dunkeld (d.1214)">
+        <attvalues>
+          <attvalue for="degree" value="13"></attvalue>
+          <attvalue for="eigencentrality" value="0.492704564"></attvalue>
+          <attvalue for="PoMS ID" value="493"></attvalue>
+          <attvalue for="Name" value="John of Leicester, bishop of Dunkeld (d.1214)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="19.854092"></viz:size>
+        <viz:position x="-537.96375" y="693.69385" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="53" label="Marchisius de Aubini (d.1216x25)">
+        <attvalues>
+          <attvalue for="degree" value="13"></attvalue>
+          <attvalue for="eigencentrality" value="0.492704564"></attvalue>
+          <attvalue for="PoMS ID" value="427"></attvalue>
+          <attvalue for="Name" value="Marchisius de Aubini (d.1216x25)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="19.854092"></viz:size>
+        <viz:position x="-711.1971" y="328.5817" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="54" label="Geoffrey of Cranford">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.257493835"></attvalue>
+          <attvalue for="PoMS ID" value="3086"></attvalue>
+          <attvalue for="Name" value="Geoffrey of Cranford"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.149877"></viz:size>
+        <viz:position x="208.50784" y="-316.4265" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="55" label="Roger, clerk of Bishop Roger of St Andrews">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.257493835"></attvalue>
+          <attvalue for="PoMS ID" value="5438"></attvalue>
+          <attvalue for="Name" value="Roger, clerk of Bishop Roger of St Andrews"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.149877"></viz:size>
+        <viz:position x="-76.1913" y="11.597212" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="56" label="Geoffrey, clerk of Bishop Roger of St Andrews">
+        <attvalues>
+          <attvalue for="degree" value="6"></attvalue>
+          <attvalue for="eigencentrality" value="0.257493835"></attvalue>
+          <attvalue for="PoMS ID" value="5439"></attvalue>
+          <attvalue for="Name" value="Geoffrey, clerk of Bishop Roger of St Andrews"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="15.149877"></viz:size>
+        <viz:position x="-220.18105" y="-389.35455" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="57" label="Richard, chaplain of Bishop Roger of St Andrews">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.390237637"></attvalue>
+          <attvalue for="PoMS ID" value="3072"></attvalue>
+          <attvalue for="Name" value="Richard, chaplain of Bishop Roger of St Andrews"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="17.804752"></viz:size>
+        <viz:position x="-1450.6316" y="702.4167" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="58" label="Richard of Leicester, chaplain of Bishop Roger of St Andrews">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.390237637"></attvalue>
+          <attvalue for="PoMS ID" value="3096"></attvalue>
+          <attvalue for="Name" value="Richard of Leicester, chaplain of Bishop Roger of St Andrews"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="17.804752"></viz:size>
+        <viz:position x="-928.674" y="1334.6105" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="59" label="Andrew, dean of Lothian/Tyninghame (fl.1194-1214)">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.390237637"></attvalue>
+          <attvalue for="PoMS ID" value="414"></attvalue>
+          <attvalue for="Name" value="Andrew, dean of Lothian/Tyninghame (fl.1194-1214)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="17.804752"></viz:size>
+        <viz:position x="-565.91626" y="1514.9214" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="60" label="John, dean of Kinghorn (fl.1195x98-1200x02)">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.390237637"></attvalue>
+          <attvalue for="PoMS ID" value="2939"></attvalue>
+          <attvalue for="Name" value="John, dean of Kinghorn (fl.1195x98-1200x02)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="17.804752"></viz:size>
+        <viz:position x="-879.441" y="906.4837" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="61" label="William of Lyne, master (fl.1197-1202)">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.390237637"></attvalue>
+          <attvalue for="PoMS ID" value="1266"></attvalue>
+          <attvalue for="Name" value="William of Lyne, master (fl.1197-1202)"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="17.804752"></viz:size>
+        <viz:position x="-477.78812" y="1124.8976" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+      <node id="62" label="Stephen of Beverley, master">
+        <attvalues>
+          <attvalue for="degree" value="9"></attvalue>
+          <attvalue for="eigencentrality" value="0.390237637"></attvalue>
+          <attvalue for="PoMS ID" value="3116"></attvalue>
+          <attvalue for="Name" value="Stephen of Beverley, master"></attvalue>
+          <attvalue for="Gender" value="M"></attvalue>
+        </attvalues>
+        <viz:size value="17.804752"></viz:size>
+        <viz:position x="-1254.9677" y="1055.5475" z="0.0"></viz:position>
+        <viz:color r="137" g="227" b="47"></viz:color>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="2" target="3">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="2" target="4">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="2" target="5">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="2" target="6">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="3" target="4">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="3" target="5">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="3" target="6">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="4" target="5">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="4" target="6">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="5" target="6">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6" target="7">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6" target="8">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6" target="9">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6" target="10">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6" target="11">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="6" target="12">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="7" target="8">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="7" target="9">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="7" target="10">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="7" target="11">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="7" target="12">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8" target="9">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8" target="10">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8" target="11">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="8" target="12">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="9" target="10">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="9" target="11">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="9" target="12">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="10" target="11">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="10" target="12">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="11" target="12">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="13" target="14">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="16" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="17">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="18">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="19">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="20">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="21">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="22">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="23">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="24">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="25">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="26">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="15" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="17" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="18">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="19">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="20">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="21">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="22">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="23">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="24">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="25">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="26" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="48">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="49">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="50">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="16" target="51">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17" target="18">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17" target="19">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17" target="26">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17" target="48">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17" target="49">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17" target="50">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="17" target="51">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="18" target="19">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="21">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="22">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="23">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="24">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="25">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="26">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="20" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21" target="22">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21" target="23">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21" target="24">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21" target="25">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21" target="26">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="21" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="22" target="23">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="22" target="24">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="22" target="25">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="22" target="26">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="22" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="22" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="22" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="23" target="24">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="23" target="25">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="23" target="26">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="23" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="23" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="23" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="24" target="25">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="24" target="26">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="24" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="24" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="24" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="25" target="26">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="25" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="25" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="25" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26" target="27">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26" target="48">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26" target="49">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26" target="50">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="26" target="51">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="27" target="28">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="27" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="29">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="38">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="39">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="52" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="53" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="54">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="55">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="56">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="57">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="58">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="59">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="60">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="61">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="28" target="62">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30" target="31" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30" target="32" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30" target="33" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30" target="34" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30" target="35" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30" target="36" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="30" target="37" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31" target="32">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31" target="33">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31" target="34">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31" target="35">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31" target="36">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="31" target="37">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="32" target="33">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="32" target="34">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="32" target="35">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="32" target="36">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="32" target="37">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="33" target="34">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="33" target="35">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="33" target="36">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="33" target="37">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="34" target="35">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="34" target="36">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="34" target="37">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="35" target="36">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="35" target="37">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="36" target="37">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="39">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="40">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="41">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="42">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="43">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="44">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="45">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="46">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="52">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="53">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="57">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="58">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="59">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="60">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="61">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="38" target="62">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="40">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="41">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="42">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="43">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="44">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="45">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="46">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="52">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="53">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="54">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="55">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="39" target="56">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="40" target="41">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="40" target="42">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="40" target="43">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="40" target="44">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="40" target="45">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="40" target="46">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="40" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="41" target="42">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="41" target="43">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="41" target="44">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="41" target="45">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="41" target="46">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="41" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="42" target="43">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="42" target="44">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="42" target="45">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="42" target="46">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="42" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="43" target="44">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="43" target="45">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="43" target="46">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="43" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="44" target="45">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="44" target="46">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="44" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="45" target="46">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="45" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="46" target="47">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="48" target="49">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="48" target="50">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="48" target="51">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="49" target="50">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="49" target="51">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="50" target="51">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="53" weight="2.0">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="54">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="55">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="56">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="57">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="58">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="59">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="60">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="61">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="52" target="62">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="54">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="55">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="56">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="57">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="58">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="59">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="60">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="61">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="53" target="62">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="54" target="55">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="54" target="56">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="55" target="56">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57" target="58">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57" target="59">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57" target="60">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57" target="61">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="57" target="62">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="58" target="59">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="58" target="60">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="58" target="61">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="58" target="62">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="59" target="60">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="59" target="61">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="59" target="62">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="60" target="61">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="60" target="62">
+        <attvalues></attvalues>
+      </edge>
+      <edge source="61" target="62">
+        <attvalues></attvalues>
+      </edge>
+    </edges>
+  </graph>
+</gexf>

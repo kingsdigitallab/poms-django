@@ -1,0 +1,12 @@
+{% extends "pomsapp/record/record_base.html" %}
+
+{% block contents %}
+<div class="hdp">
+  <h1>Page not found: {{request_path}}</h1>
+</div>
+<hr>
+<div class="ct">
+	<h2>Sorry but the object you requested does not exist - please go back and try again</h2>
+</div>
+<hr>
+{% endblock %}

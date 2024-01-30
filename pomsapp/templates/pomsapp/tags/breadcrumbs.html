@@ -1,0 +1,21 @@
+{% load wagtailcore_tags pomsapp_tags%}
+<!-- Ecclesiastical Charter Witnesses > Priors of St Andrews (H2/97/) -->
+<ul class="breadcrumbs">
+    <li>
+        <a href="{% pageurl root %}">{{ root.title }}</a>
+    </li>
+
+    {% for page in pages %}
+    <li>
+        {% if forloop.last and not extra %}
+        > {{ page.title }}
+        {% else %}
+         > <a href="{% pageurl page %}">{{ page.title }}</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+
+    {% if extra %}
+    <li> > {{ extra }}</li>
+    {% endif %}
+</ul>

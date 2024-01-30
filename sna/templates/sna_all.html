@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load extrafilters pomsapp_tags pomsapp_wagtail_tags static %}
+
+{% block titlepage  %}
+  <title>POMS SNA: {{ viz.description }}</title>
+{% endblock %}
+
+
+{% block breadcrumb %}
+
+    <div id="breadcrumbs">
+    {% get_wagtail_page 'sna' as wagtail_page %}
+        {% breadcrumbs current_page=wagtail_page extra=record %}
+
+    </div>
+{% endblock %}
+
+{% block small_links %}
+{% endblock %}
+
+
+
+
+{% block load_css  %}
+
+<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}sna_assets/a.css">
+<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}sna_assets/s.css">
+<!-- link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}sna_assets/p.css" -->
+
+<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}sna_assets/jquery.css">
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sna_assets/styles/gexfjs.css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}sna_assets/styles/jquery-ui-1.10.3.custom.min.css" />
+{% endblock %}
+
+
+
+
+
+{% block load_js  %}
+
+<script src="{{ STATIC_URL }}sna_assets/analytics.js" async=""></script>
+
+<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}sna_assets/jquery-ui.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/functions_record.js"></script>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<script type="text/javascript">
+   // Fallback in case JQuery CDN isn't available
+   if (typeof jQuery == 'undefined') {
+      document.write(unescape("%3Cscript type='text/javascript' src='{{ STATIC_URL }}sna_assets/js/jquery-2.0.2.min.js'%3E%3C/script%3E"));
+   }
+</script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/js/jquery.mousewheel.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/js/gexfjs.js"></script>
+
+
+<script type="text/javascript" src="js/{{ viz.id }}/{{ viz.get_style_display }}.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}sna_assets/jquery_002.js"></script>
+
+{% endblock %}
+
+
+
+
+{% block permalink %}
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block contents %}
+<!-- <h1>{{ viz.file.url }}</h1> -->
+<div id="gw">
+     <div id="cs">
+          <!-- ######################### -->
+          <div class="hdp">
+            <table width="100%">
+                 <tr>
+      {# include "sna_selector_form.html" #}
+            <td id="sna-recherche" align="left">
+
+            <label for="sna-selector">Choose graph: </label>
+            <select id="sna-selector">
+              <option>---</option>
+              {% for v in visualisations %}
+                <option id="selection-{{ v.id }}" value="/sna/all/{{ v.id }}" >{{ v.description }}</option>
+              {% endfor %}
+            </select>
+            </td>
+            <td align="middle">
+                Currently viewing: <strong>{{ viz.description }}</strong>
+            </td>
+            {% if viz.legenditem_set.all %}
+            <td align="middle">
+                <table>
+                {% for l in viz.legenditem_set.all %}
+                <tr>
+                    <td>{{ l.category_description }}</td>
+                    <td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="rgb({{ l.red}},{{l.green}},{{l.blue}})" /></svg></td>
+                </tr>
+                {% endfor %}
+                </table>
+            </td>            
+            {% endif %}
+{# end include #}
+
+             <td align="right">
+              <form id="recherche" align="right">Locate an individual:
+                <input id="searchinput" class="inputgris" autocomplete="off">
+                <input id="searchsubmit" type="submit">
+              </form>
+             </td>
+          </tr>
+            
+            <tr>
+              
+             <td colspan="{% if viz.legenditem_set.all %}4{% else %}3{% endif %}" align="right">(Powered by Raphael Velt's <a href="https://github.com/raphv/gexf-js">gexf-js</a> software.)</td>
+             </tr>
+            
+           </table>
+               
+               
+            <script>
+
+            $('#sna-selector').on('change',function(){
+                window.location = ( $(this).val() )
+            })
+
+            $('#{{ type }}-selection').attr('selected','selected');
+
+
+
+            </script>                 
+               
+          </div> <!-- div class="hdp" -->
+     </div> <!-- div id="cs" -->
+     
+</div> <!-- div id="gw" -->
+
+<div id="gexfjsContent">
+     <!-- from gexf-js  -->
+     <div id="zonecentre" class="gradient">
+          <canvas id="carte" width="0" height="0"></canvas>
+          <ul id="ctlzoom">
+            <li><a href="#" id="zoomPlusButton" title="S'approcher"> </a></li>
+            <li id="zoomSliderzone">
+               <div id="zoomSlider"></div> <!-- div id="zoomSlider" -->
+            </li>
+            <li><a href="#" id="zoomMinusButton" title="S'éloigner"> </a></li>
+            <li><a href="#" id="lensButton"> </a></li>
+             <li><a href="#" id="edgesButton"> </a></li>
+          </ul>
+     </div> <!-- div id="zonecentre" -->
+     <div id="overviewzone" class="gradient">
+          <canvas id="overview" width="0" height="0"></canvas>
+     </div> <!-- div id="overviewzone" class="gradient" -->
+     <div id="leftcolumn">
+          <div id="unfold">
+               <a href="#" id="aUnfold" class="rightarrow"> </a>
+          </div> <!-- div id="unfold" -->
+          <div id="leftcontent"></div> <!-- div id="leftcontent" -->
+     </div> <!-- div id="leftcontent" -->
+     <!-- end from gexf-js -->
+</div> <!-- div id="gexfjsContent" -->
+<div id="autocomplete"></div>
+{% endblock %}
+

@@ -1,0 +1,14 @@
+{% if start_page %}
+{# if it is the start page, make sure you reload the results when the page has finished loading.. #}
+<script type="text/javascript">
+	$(function() {
+ 		reload_results();
+	});
+ </script>
+
+{% else %}
+	<p>No results... you might have accumulated inconsistent search terms.</p>
+    <p>Try removing some search terms, or start from scratch by clicking on 'remove all'</p>
+{% endif %}
+
+<p>&#8250;&#8250;DemoSite</p>

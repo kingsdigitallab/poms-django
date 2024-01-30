@@ -1,0 +1,161 @@
+{% load extrafilters %}
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<head>
+
+
+	
+	<style>
+
+
+		.names {color: black; }
+		.names:hover {background: yellow; }
+		
+		.numbers {color: grey;}
+		
+		a {text-decoration:none}
+		
+
+		#jqeasytrigger.top  {background: lightcoral;}
+		.ui-autocomplete-loading { background: white url('{{ STATIC_URL }}autocomplete2/css/ui-lightness/images/ui-anim_basic_16x16.gif') right center no-repeat; }
+		
+		
+		#connections {margin-top: 35px; padding: 20px 10px 15px 15px;}
+	
+	
+	</style>
+	
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/jqeasypanel.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/navbar.css"/>
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}labs/css/jquery.qtip.min.css" />
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery1.6/jquery.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.jqEasyPanel.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery.qtip.min.js"></script>
+	{# autocomplete stuff #}
+	<script type="text/javascript" src="{{ STATIC_URL }}autocomplete2/js/jquery-ui-1.8.17.custom.min.js"></script>
+	<link href="{{ STATIC_URL }}autocomplete2/css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="stylesheet" type="text/css" media="screen">
+
+	<style>
+		
+		.ui-tooltip, .qtip{
+			min-width: 750px;
+			max-width: 1000px;
+/*			width: 800px;
+			overflow: auto;
+			max-height: 400px;
+			margin-top: 150px;
+			margin-left: 100px;*/
+		}
+
+		.ui-tooltip-bootstrap .ui-tooltip-titlebar {
+			font-size: 14px; font-weight: bold; background: #294C81; color: #fff;
+		}
+
+		.ui-tooltip a {
+			color: black;
+		}		
+	
+	</style>
+	
+	<script> 
+	$(document).ready(function() {
+	
+		// topPanel
+		
+		$('#jqeasypanel').jqEasyPanel({height: '250px'});		
+		
+
+		// LINK for the person info
+	
+
+		$('#container a.names').each(function(){
+			$(this).qtip({
+				content: {
+					text: '<img height="20" src="{{ STATIC_URL }}labs/img/loading.gif" alt="Loading..." />',
+					ajax: {
+						url: $(this).attr('name') // Use the name attribute of each element for the url to load
+					},
+					title: {
+						// Give the tooltip box a title 
+						// text: $(this).attr('title'), 
+						text: "Record Preview (<a href='" + $(this).attr('href') + "#'>show full record</a> | <a target='_blank' href='" + $(this).attr('href') + "#'>new tab</a>)", 
+						button: true
+					}
+				},
+				// style: {
+				// 	// classes: 'ui-tooltip-bootstrap ui-tooltip-shadow' ,
+				// 	width: 700,
+				// },
+
+				show: {
+					// event: 'mouseenter',
+					// delay: 100,
+					event: 'click',
+					solo: true // Only show one tooltip at a time
+				},
+
+				position: {
+					my: 'center', // ...at the center of the viewport
+					at: 'center',
+					target: $(window),
+							},	
+
+				hide: 'unfocus',
+				})
+			})	
+		// Make sure it doesn't follow the link when we click it
+		.click(function(event) { event.preventDefault(); });
+
+
+	// 	final parenthesis
+	});
+	
+	
+	
+	</script>
+
+
+
+	<title>Popularity Cloud</title>
+
+</head>
+
+<body>
+
+
+
+
+	{% include "labs/components/snippet_jqeasypanel.html" %}
+	
+	
+	
+	<div id="container">
+	
+	
+		{% for p in peoplelist  %}
+
+			<span class="trigger">
+				<span class="namesspan" style="font-size: {{p.0}}px;"> 
+					<a class="names" name="ajax/personinfo?item={{p.1.id}}" href="{{p.1.get_absolute_url}}">{{p.1.persondisplayname}}</a>
+				</span> 
+			</span>
+			<span class="numbers">{{p.2}}</span> <br/>
+
+		{% endfor %}
+	
+	
+
+		{# end of container #}
+	</div>   
+
+
+<br /><br /><br /><br />
+	
+</body>
+
+
+</html>

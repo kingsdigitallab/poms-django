@@ -1,0 +1,93 @@
+
+
+ <div id="historyContent" class="fancyview" style="display: none;">
+
+
+	{# BASIC SEARCH #}
+
+	{% if ksearch_history %}
+		<hr>
+		<h4>You recently searched for:</h4> <br />
+		<ul id="ksearch_history">
+		{% for dict in ksearch_history %}
+
+				<li>
+
+				<a href="/search?query={{dict.query}}&amp;basic_search_type={{dict.basic_search_type}}">
+					&#x27;{{dict.query}}&#x27;
+					<span>in</span>
+					{{dict.basic_search_type|capfirst}}s
+					{% if dict.years %}
+					<span>between</span>
+					{{dict.years}}
+					{% endif %}
+				</a>
+				</li>
+
+			<br />		
+	    {% endfor %}
+		</ul>
+	{% endif %}
+
+
+
+
+	{# BROWSE #}
+	
+	{% if fsearch_history %}
+		<hr>
+		<h4>You recently browsed for:</h4> <br />
+		<ul id="fsearch_history">
+		{% for action in fsearch_history %}
+
+			{% ifequal action.0 "search"  %}
+				<li id="" class="first">
+				<a href="/search/?resulttype={{action.1.uniquename}}{{action.3}}">
+					<span class="activeResType">{{action.1.label}}</span> using: 										
+						{% for facetValue in  action.2 %}
+
+							<b>{{facetValue.displayname}}</b> ({{facetValue.facet.name}})</span>&nbsp;
+							{% if not forloop.last %}
+								 &amp;&amp;  
+							{% endif %}
+
+						{% endfor %}
+					</a>
+
+				<br />
+			{% endifequal %}
+
+			<br />		
+	    {% endfor %}
+		</ul>
+	{% endif %}
+
+
+	
+	
+	
+	{# RECORDS #}
+	
+	
+	{% if record_history %}
+		<hr>
+		<h4>You recently viewed records:</h4> <br />
+		<ul id="record_history">
+		{% for dict in record_history %}
+
+				<li>
+
+				<a href="/record/{{dict.type}}/{{dict.number}}/">
+					{{dict.type|capfirst}}: {{dict.name}}
+				</a>
+				</li>
+
+			<br />		
+	    {% endfor %}
+		</ul>
+	{% endif %}
+	
+
+
+
+</div>

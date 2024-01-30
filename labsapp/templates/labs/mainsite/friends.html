@@ -1,0 +1,28 @@
+{% extends "labs/mainsite/labs_index.html" %}
+
+
+
+{% block labs_contents %}
+	
+<dl>
+	<h3>Dynamic Connections Cloud</h3>	
+	
+	<p>The PoMS database contains more than 80000 facts about 20000 people who lived in medieval Scotland. 
+	How were these people related? Can we explore these connections in a more interactive, game-like manner than the classic database-like structures?</p>
+	
+	
+	<h4>Navigating via personal acquaintances <a href="connectionscloud/go" class="launch" title="launch" target="_blank">launch</a></h4>
+	<p>	This experimental app lets you browse incrementally the network of relationships linking persons to other persons or institutions. Click on an item to put it into the 'chain of connections', or to explore it further on the main PoMS database. 
+	<br /><br />
+	The size of the items at the bottom of the screen depends on the number of factoids two agents have in common.
+	</p>
+	<br />
+	<a href="connectionscloud/go" target="_blank"><img src="{{ STATIC_URL }}labs/img/screenshots/friends1.png" alt="screenshot" height="250" /></a>
+	
+	<br />
+	
+	
+{% endblock %}		
+
+
+

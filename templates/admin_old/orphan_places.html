@@ -1,0 +1,66 @@
+{% extends "admin/base_site.html" %} 
+
+{% load extrafilters %}
+
+
+
+{% block title %}List of 'orphan' places{% endblock %} 
+
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="/db/admin/pomsapp/">Back to the admin</a></div>{% endblock %}
+
+{# I disabled this block cause it was giving bad paths for the login/out URLs #}
+{% block userlinks %}From here you can see all the orphan Place records{% endblock %}
+
+
+{% block content %} 
+<div id="content-main"> 
+	<h1>List of Place records that are not in a hierarchy (= no father and no children)</h1> 
+	
+	<div class="module">
+
+	{% if list %}
+	
+	{# {% regroup list by user as user_list %} #}
+		
+	
+	<ul>
+		
+		<table id="change-history">
+	        <thead>
+		        <tr>
+		            <th scope="col">Place id</th>
+		            <th scope="col">Place name</th>
+		            <th scope="col">Associated person</th>
+		        </tr>
+	        </thead>
+	        
+			<tbody>
+				
+				
+				{% for place in list %}
+	
+	    {# <br /><p><h2>{{ usr.grouper }}</h2></p><br /> #}
+	    
+		        <tr class="{% cycle 'row1' 'row2' %}">
+		            <td>{{ place.id }}</td>
+		            <td><a href="{{place.get_admin_url}}" target="_blank" title="edit">{{ place.name }}</a></td>
+		            <td>{{ place.person_set.all|printmany_withabsoluteurl|safe }}</td>
+		        </tr>
+		
+	        	{% endfor %}
+	
+	        </tbody>
+	
+	    </table>
+
+	</ul>
+	
+	
+	
+	{% else %}
+	    <p>There is no Place record to display</p>
+	{% endif %}
+	</div>	
+	
+</div> 
+{% endblock %}

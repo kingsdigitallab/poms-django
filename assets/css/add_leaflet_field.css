@@ -1,0 +1,15 @@
+#map {
+	height:400px;
+	width:100%;
+	float:left;
+	border: 1px solid #ccc;
+	vertical-align: top; !important;
+}
+
+
+
+#geocoder {
+	float:clear;
+}
+
+

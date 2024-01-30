@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+	<head>
+		<title>People of Medieval Scotland : homepage</title>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+				
+		<style type="text/css" media="screen">
+			a {color: darkblue;}
+			a:hover {color: white; background:darkblue;}
+			a.helpdesk {color: darkred;}
+			a.helpdesk:hover {color: white; background:darkred;}
+			.closed {background: darkgrey;}
+			.resolved {background: orange;}
+			.open {background: yellow;}
+		</style>
+		
+	</head>
+	<body>
+		<div id="header">
+			
+			{% block header %}
+				<h1>The People of Medieval Scotland Project</h1>
+			{% endblock %}
+
+		</div>
+		
+		
+		<div class="colmask maincolumn">
+			<div class="innercolumn">
+				
+				Summary of objects in the DB on {% now "jS F Y H:i" %}: <br /><br />
+				
+				<table border="1" cellspacing="10" cellpadding="5">
+					<tr><th>Name</th><th>Items</th></tr>
+					{% for m in models  %}
+					<tr><td>{{m.0}}</td><td>{{m.1}}</td></tr>
+					{% endfor %}
+				</table>
+
+
+
+				
+				
+			</div>
+		</div>
+		
+		
+		<div id="footer">
+			<hr>
+			<p>If you're an editor, continue on to the <a href="/admin">Administrative site</a> or the <a href="/helpdesk">Helpdesk</a> .</p>
+		</div>
+		
+		
+		{% if open_and_solved %}
+		<div id="ticketsinfo" style="background: lightyellow;">
+			
+		     <p>&nbsp;</p>
+			<h2>Open and recently resolved tickets on Helpdesk:</h2>
+			<p>Key: <i>resolved</i> issues indicate work that's been completed but still requires some feedback and/or clarification. Once that happens the issue can be safely <i>closed</i>.</p>
+			<p>&nbsp;</p>
+			
+			{% for ticket in open_and_solved  %}
+				<p class="ticketentry">{{ticket.id}} : <a class="helpdesk" href="{% if user.is_authenticated %}/helpdesk/tickets/{{ticket.id}}/{% else %}/helpdesk/login/?next=/helpdesk/tickets/{{ticket.id}}/{% endif %}">{{ticket}}</a> ({% ifequal ticket.status 3 %}<span class="resolved">resolved</span>{% else %}<span class="open">open</span>{% endifequal %} on {{ticket.modified}})</p>
+			{% endfor %}
+			
+		</div>	
+		{% endif %}
+		
+		
+		
+	</body>
+</html>
+
+
+

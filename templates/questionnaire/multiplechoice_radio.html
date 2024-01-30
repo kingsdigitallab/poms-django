@@ -1,0 +1,12 @@
+{# in order to make it work, give the name the format: question_{{question.id}} #}
+
+<table border='0'>
+	{% for choice in question.get_choices %}
+	<tr>	
+		<td>
+			<input name='question_{{question.id}}' type='radio'
+			value='{{choice.nr}}'><label>{{choice.name}}</label>
+		</td>
+	</tr>
+	{% endfor %}
+</table>

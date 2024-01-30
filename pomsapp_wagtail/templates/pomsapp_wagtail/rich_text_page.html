@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags pomsapp_wagtail_tags%}
+
+  {% block tabs_titles  %}
+      <h2 class="float-left">{{ self.title }}</h2>
+    {% endblock %}
+
+{% block small_links %}
+{% get_menu_pages self %}
+    {% if title %}
+    <h3>{{ title }}</h3>
+    {% endif %}
+
+
+
+{% endblock %}
+
+
+{% block contents %}
+<div id="wagtail-content">
+    {{ self.content | richtext }}
+</div>
+    {% endblock %}

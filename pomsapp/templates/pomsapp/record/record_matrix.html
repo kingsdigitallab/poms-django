@@ -1,0 +1,68 @@
+{% extends "pomsapp/record/record_base.html" %}
+
+
+{% load extrafilters %}
+
+{% block permalink %}
+<ul class="utl m1">
+  <li class="i1"><a href="#" title="Permanent URL for this page, which will allow you to save a bookmark"><b>Permalink: {{permalink}}</b></a></li>
+</ul>
+{% endblock %}
+
+
+{% block contents %}
+<div class="recordSummary">
+    <div class="hdp">
+	
+	
+		{% include "pomsapp/record/snippet_buttons.html" %}
+		
+      <h1>Seal-Matrix: 
+		{% if user.is_staff %}
+			<a href="{{record.get_admin_url}}" target="_blank" title="Welcome administrator! Click to edit this item in the data entry section.">{{record.identifier}}</a>
+		{% else   %}
+			{{record.identifier}}
+		{% endif %}
+	</h1>
+    </div>
+
+
+    <div class="ct sealMatrix">
+
+
+			
+	
+      <dl class="m1">
+
+        <dt>Owner</dt>
+        	<dd><a class="no_extlink" href="{% url 'person_detail' record.owner.id %}"> {{record.owner}}</a></dd>
+        <dt>Matrix Shape</dt>
+        	<dd>{{record.shape}}</dd>
+        <dt>Image description (obverse)</dt>
+  		  	<dd>{{record.image_desc}}</dd>
+        <dt>Image description (reverse)</dt>
+        	<dd>{{record.image_desc_rev}}</dd>
+        <dt>Legend (obverse)</dt>
+  		  	<dd>{{record.legend_obv}}</dd>
+        <dt>Legend (reverse)</dt>
+        	<dd>{{record.legend_rev}}</dd>
+        <dt>Catalogue</dt>
+  		  	<dd>{{record.catalogue}}</dd>
+        <dt>Notes</dt>
+        	<dd>{{record.notes}}</dd>
+
+      </dl>
+<br />
+
+</div><!-- ends content ct -->
+</div><!-- record summary ends -->
+	
+
+
+		<div id="tabs" class="tsb recordTabs">
+			</div>
+
+
+
+{% endblock %}
+

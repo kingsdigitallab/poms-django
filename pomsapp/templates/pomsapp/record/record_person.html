@@ -1,0 +1,565 @@
+{% extends "pomsapp/record/record_base.html" %}
+
+{% load extrafilters %}
+
+{% block permalink %}
+<ul class="utl m1">
+        <li class="i1">
+            <a href="#" title="Permanent URL for this page, which will allow you to save a bookmark">
+            You can cite this record using this snippet: PoMS{{record|citation_format}} (<a href="{{permalink}}">https://{{permalink}}</a>; accessed {% now "d F Y" %})
+            </a>
+        </li>
+    </ul>
+
+
+
+{% endblock %}
+
+
+{% block contents %}
+
+
+{% block preview_contents %}
+
+    <!-- ######################### -->
+   <div class="recordSummary">
+    <div class="hdp">
+
+      <h1 class="record" {% if not preview %}{% if record.relatedplace.geom.y > 0 %}style="min-height:auto;"{% endif %}{% endif %}" ><!--<span class="{{record|determinePersonIcon}}">[{{record|determinePersonIcon}}] </span>-->
+        {% if user.is_staff %}
+            <a href="{{record.get_admin_url}}" target="_blank" title="Welcome administrator! Click to edit this item in the data entry section.">{{record.persondisplayname}}</a>
+        {% else   %}
+            {{record}}
+        {% endif %}
+
+        {# &nbsp;&nbsp;&nbsp;<small class="labslink" alt="{{record|generate_labslinks}}">&rarr; labs</small> #}
+    </h1>
+
+    </div>
+			{% if not preview %}{% if record.relatedplace.geom.y > 0 or witnessFact.object_list  %}
+	                <div id="map" style="border-style:solid;border-width:1px;width:auto;height:250px;margin-right:100px;margin-right:20px;margin-left:20px;">
+
+					</div>{% endif %}
+
+                    <div id='map-image'>
+                    </div>
+
+			{% endif %}
+			{% if preview %}{% if record.relatedplace.geom.y > 0 %}
+	                <div id="map-{{ record.id }}" style="border-style:solid;border-width:1px;width:auto;height:150px;margin-right:100px;margin-right:20px;">
+
+					</div>{% endif %}
+
+
+			{% endif %}
+    <div class="ct">
+        <dl class="m1">
+            {% if record.standardmedievalname %}
+                <dt>Medieval Name</dt>
+                <dd>{{record.standardmedievalname|default:"&nbsp;"}}</dd>
+            {% endif %}
+            {% if record.moderngaelicname %}
+                <dt>Modern Gaelic Name</dt>
+                <dd>{{record.moderngaelicname|default:"&nbsp;"}}</dd>
+            {% endif %}
+                {# gender only for M, F, M/F #}
+            {% if record.genderkey.id == "4" or record.genderkey.id == "3" or record.genderkey.id == "6" %}
+                <dt>Gender</dt>
+                <dd>{{record.genderkey|default:"&nbsp;"}}</dd>
+            {% endif %}
+            {% if record.persondescription %}
+                <dt>Biography</dt>
+                <dd>{{record.persondescription|poms_italic|safe|default:"&nbsp;"}}</dd>
+            {% endif %}
+        {% if record.floruitstartyr > 0 %}
+            <dt>Floruits</dt>
+            <dd>{{record.nice_floruits|safe}}</dd>
+        {% endif %}
+            {% if record.relatedplace %}
+                <dt>Related Place</dt>
+                <dd><a  href="{% url 'place_detail' record.relatedplace.id  %}" title="Show details">{{record.relatedplace.name}}</a></dd>
+            {% endif %}
+            {% if record.matrix_set.all %}
+            {% for m in record.matrix_set.all %}
+                <dt>Matrix</dt>
+                <dd><a href="{% url 'matrix_detail' m.id %}" class="seal" title="Show Matrix/Seal info">{{m.identifier}}</a></dd>
+
+            {% endfor %}
+            {% endif %}
+
+            {% if record.ponelink %}
+                <dt>PoNE</dt>
+                <dd>{{record.ponelink|urlize}}</dd>
+            {% endif %}
+
+            {% if record.has_family %}
+                <dt>Family connections</dt>
+                <dd><a href="/sna/{{ record.id }}"> &raquo; Gephi Visualisation</a></dd>
+            {% endif %}
+
+            {% if record.has_grantor %}
+                <dt>Grantor Beneficiary relationships </dt>
+                <dd><a href="/sna/grantor/{{ record.id }}"> &raquo; Gephi Visualisation</a></dd>
+            {% endif %}
+
+			{% if preview %}
+			<script>
+			{% if record.relatedplace.geom.y > 0 %}
+				var currLocation =	[ {{ record.relatedplace.geom.y }},{{ record.relatedplace.geom.x}}];
+			{% else %}
+				var currLocation = null;
+			{% endif %}
+
+			var layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',{attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'});
+
+			$(document).ready( function (){
+				if (currLocation){
+							map{{ record.id }} =  new L.map('map-{{ record.id }}',{maxZoom:12,zoomControl:false});
+							map{{ record.id }}.addLayer(layer);
+							map{{ record.id }}.setView(currLocation,14);
+							marker{{ record.id }} = new L.marker(currLocation).addTo(map{{ record.id }});
+				}
+			})
+
+
+
+			</script>
+			{% endif %}
+
+        </dl>
+
+{% endblock preview_contents %}
+
+
+
+
+    </div><!-- ends content ct -->
+    </div><!-- ends record summary -->
+
+     <h2>Total number of associated factoids: {{ record.how_many_factoids}}</h2>
+
+        <div id="tabs" class="tsb recordTabs">
+
+
+
+        <!-- Tab Headers -->
+        {% if transactionFact.object_list  %}
+        <input id="tab1" type="radio" name="tabs">
+        <label for="tab1">Transaction factoids <span>({{ transactionFact.tot}})</span></label>
+        {% endif %}
+
+        {% if relationshipFact.object_list  %}
+        <input id="tab2" type="radio" name="tabs">
+        <label for="tab2">Relationship factoids <span>({{ relationshipFact.tot }})</span></label>
+        {% endif %}
+
+        {% if titleFact.object_list  %}
+        <input id="tab3" type="radio" name="tabs">
+        <label for="tab3">Title factoids <span>({{ titleFact.tot}})</span></label>
+        {% endif %}
+
+        {% if possessionFact.object_list  %}
+        <input id="tab4" type="radio" name="tabs">
+        <label for="tab4">Possession factoids <span>({{ possessionFact.tot }})</span></label>
+        {% endif %}
+
+        {% if proanimaFact.object_list  %}
+        <input id="tab5" type="radio" name="tabs">
+        <label for="tab5">Pro-Anima factoids <span>({{ proanimaFact.tot }})</span></label>
+        {% endif %}
+
+        {% if witnessFact.object_list  %}
+        <input id="tab6" type="radio" name="tabs">
+        <label for="tab6">Witnesses factoids <span>({{ witnessFact.tot }})</span></label>
+        {% endif %}
+        <!-- end Tab Headers -->
+
+       {% include 'pomsapp/includes/person_tabs.html' %}
+
+
+
+
+
+        <!-- end Tab Content -->
+
+
+
+<!-- </section> -->
+
+
+<!-- final div ######################### -->
+</div>
+
+
+<script>
+
+
+geoArray = [
+ {% if record.relatedplace.geom.y > 0 %}
+ {"name":"{{ record.persondisplayname|safe }}",
+  "desc":"{{ record.persondescription|safe|strip_empty_lines }}",
+  "source":"",
+  "db_id":"{{ record.id }}",
+  "type":"{{ record.genderkey }}",
+  "record_type":"{{ result_typeObj.label }}",
+  "factoid_count":"{{ record.how_many_factoids }}",
+  "places":[{"name":"{{ record.relatedplace.name|safe }}","coordinates":"{{ record.relatedplace.geom.y}},{{record.relatedplace.geom.x}}"}],
+  "people":[{"name":"{{ record.persondisplayname|safe }}"}]
+ },
+ {% endif %}
+]
+
+
+
+
+	L.newCircleMarker = L.CircleMarker.extend({
+		setZIndexOffset: function (offset) {
+			this.options.zIndexOffset = offset;
+			this.update();
+			return this;
+		},
+		update: function () {
+			if (this._icon) {
+				var pos = this._map.latLngToLayerPoint(this._latlng).round();
+				this._setPos(pos);
+			}
+		return this;
+		}
+	});
+
+
+var minX,minY,maxX,maxY;
+
+
+	function getPeopleRows(peeps){
+		var str = "";
+		for (ps in peeps){
+			str += '<tr><td>'+ peeps[ps].name +'</td><td>'+ peeps[ps].role + '</td></tr>'
+		}
+		return str;
+	};
+
+var map;
+
+markerStyles = {'transaction': {'color':'blue','start':1,'stop':179},
+				'possession':{'color':'red','start':181,'stop':359},
+				'title/occupation':{'color':'red'},
+				'other':{'color':'yellow'},
+				'M':{'color':'blue','start':1,'stop':89},
+				'F':{'color':'pink','start':91,'stop':179},
+				'Institution':{'color':'green','start':181,'stop':269},
+                'M/F':{'color':'purple','start':271,'stop':359}
+				}
+
+markerCentreArray = []
+
+var personMarker;
+
+$(document).ready(function(){
+	if (geoArray.length > 0 ){
+		map =  new L.map('map',{maxZoom:12,zoomControl:true});
+		layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+		        {attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
+
+        modern  = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
+
+        switcher = new L.control.layers({'Modern':modern,'Topography':layer},{},{collapsed:false}).addTo(map);
+
+        $(".leaflet-control-layers-separator").css("display","block");
+
+        $(".leaflet-control-layers-separator").after("<br>"+
+
+                "<table>" +
+                "<tr>" +
+                    "<td>Person</td>" +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="blue" /></svg></td>' +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Transaction</td>"  +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="red" /></svg></td>' +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Source</td>" +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="green" /></svg></td>' +
+                "</tr>" +
+                "</table>"
+        );
+
+
+		for (r in geoArray){
+
+			// deal with each type of record - Factoids first
+
+				for (p in geoArray[r].places){
+					if ( markerCentreArray.indexOf(String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+								))==-1)
+						{
+							markerCentreArray.push(
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+								)
+							);
+						}
+					var m = new L.newCircleMarker(
+							[ parseFloat(geoArray[r].places[p].coordinates.split(',')[0]),
+							parseFloat(geoArray[r].places[p].coordinates.split(',')[1])]
+							,{	fillColor:markerStyles[geoArray[r].type].color  ,
+								radius:7,
+								fillOpacity:1,
+								color:'black',//markerStyles[geoArray[r].type].color,
+								weight:1,
+								opacity:0.9,
+								'name':geoArray[r].places[p].name,
+								'type':geoArray[r].type,
+								'db_id':geoArray[r].db_id,
+								startAngle:markerStyles[geoArray[r].type].start,
+								stopAngle:markerStyles[geoArray[r].type].stop
+							});
+
+                    personMarker = m;
+
+					m.bindPopup(
+					'<table class="simple headersX"><tbody>' +
+					'<tr><th colspan="2">'+ m.options.name +'</th></tr>' +
+                    			'<tr><th colspan="2">' + geoArray[r].type + '</th></tr>' +
+					'<tr><th colspan="2">' + geoArray[r].source + '</th></tr>' +
+					'<tr><td colspan="2">' + geoArray[r].desc + '</td></tr>' +
+					'<tr><th>Name</th><th>Role</th></tr>'
+					+ getPeopleRows(geoArray[r].people) +
+					'</tbody></table>'
+					);
+					map.addLayer(m);
+
+		// Use markerCentreArray values to create centre markers:
+		for (cms in markerCentreArray){
+			var cm = new L.CircleMarker(
+				[parseFloat(markerCentreArray[cms].split(',')[0]),
+				 parseFloat(markerCentreArray[cms].split(',')[1])],
+				{	fillColor:'gray',
+					radius:9,
+					fillOpacity:0,
+					color:'black',
+					weight:1,
+					opacity:0.85,
+					clickable:false,
+				})
+			.addTo(map);
+		};
+
+
+					if (p==0){
+						minX = m.getLatLng().lng;
+						minY = m.getLatLng().lat;
+						maxX = m.getLatLng().lng;
+						maxY = m.getLatLng().lat;
+					};
+					if (m.getLatLng().lng <=  minX ){
+						minX = m.getLatLng().lng;
+					}
+					else {
+						maxX = m.getLatLng().lng;
+					}
+                    if (m.getLatLng().lat <=  minY ){
+                        minY = m.getLatLng().lat;
+                    }
+                    else {
+                        maxY = m.getLatLng().lat;
+                    }
+				};
+
+		}
+
+
+		var ll = new L.LatLng(minY,minX);
+        var ur = new L.LatLng(maxY,maxX);
+		var b = new L.LatLngBounds(ll,ur);
+		map.fitBounds(b);
+
+
+	}
+
+    witnessMarkerStyle = {'placedate':'green','transaction':'red'}
+
+	if (witnessFactoids.length > 0 ){
+        if (typeof map === 'undefined'){
+            map =  new L.map('map',{maxZoom:12,zoomControl:true});
+            layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+		        {attribution:'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
+
+            modern  = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
+
+            switcher = new L.control.layers({'Modern':modern,'Topography':layer},{},{collapsed:false}).addTo(map);
+
+        $(".leaflet-control-layers-separator").css("display","block");
+
+        $(".leaflet-control-layers-separator").after("<br>"+
+
+                "<table>" +
+                "<tr>" +
+                    "<td>Person</td>" +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="blue" /></svg></td>' +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Transaction</td>"  +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="red" /></svg></td>' +
+                "</tr>" +
+                "<tr>" +
+                    "<td>Source</td>" +
+                    '<td><svg height="18" width="18"><circle cx="9" cy="9" r="6" fill="green" /></svg></td>' +
+                "</tr>" +
+                "</table>"
+        );
+
+
+        };
+
+		for (r in witnessFactoids){
+            try {
+			// deal with each type of record - Factoids first
+                        if ( markerCentreArray.indexOf(String(
+								parseFloat(witnessFactoids[r].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(witnessFactoids[r].coordinates.split(',')[1])
+								))==-1)
+						{
+							markerCentreArray.push(
+								String(
+								parseFloat(witnessFactoids[r].coordinates.split(',')[0]) )
+								+ ',' +
+								String(
+								parseFloat(witnessFactoids[r].coordinates.split(',')[1])
+								)
+							);
+						}
+					var m = new L.newCircleMarker(
+							[ parseFloat(witnessFactoids[r].coordinates.split(',')[0]),
+							parseFloat(witnessFactoids[r].coordinates.split(',')[1])]
+							,{	fillColor: witnessMarkerStyle[witnessFactoids[r]['type']], //'red'  ,
+								radius:7,
+								fillOpacity:1,
+								color:'black',
+								weight:1,
+								opacity:0.9,
+								'name':witnessFactoids[r].name,
+                                'source':witnessFactoids[r].source,
+							});
+					m.bindPopup(
+					'<table class="simple headersX"><tbody>' +
+					'<tr><th colspan="2">'+ m.options.name +'</th></tr>' +
+					'<tr><td colspan="2">'+ m.options.source +'</td></tr>' +
+					'</tbody></table>'
+					);
+					map.addLayer(m);
+
+                    if (r==0 ){
+                        if (typeof minX === 'undefined'){
+						minX = m.getLatLng().lng;
+						minY = m.getLatLng().lat;
+						maxX = m.getLatLng().lng;
+						maxY = m.getLatLng().lat;
+                        }
+					};
+					if (m.getLatLng().lng <=  minX ){
+						minX = m.getLatLng().lng;
+					}
+					else {
+						maxX = m.getLatLng().lng;
+					}
+                    if (m.getLatLng().lat <=  minY ){
+                        minY = m.getLatLng().lat;
+                    }
+                    else {
+                        maxY = m.getLatLng().lat;
+                    };
+            }
+            catch (err){
+            // noithing!!
+            }
+
+		}
+
+
+		var ll = new L.LatLng(minY,minX);
+        var ur = new L.LatLng(maxY,maxX);
+		var b = new L.LatLngBounds(ll,ur);
+		map.fitBounds(b);
+        if (geoArray.length > 0){
+            map.setView(personMarker.getLatLng(),6)
+        }
+        else{
+            map.setView(b.getCenter(),6)
+        }
+	}
+    else {
+        console.log('hiding map!');
+        if (geoArray.length == 0){
+            $('#map').hide();
+        }
+    };
+
+})
+
+// Not currently used ----
+
+function printMap() {
+	leafletImage(map, function(err, canvas) {
+		var img = document.createElement('img');
+		var dimensions = map.getSize();
+        img.width = (dimensions.x);
+        img.height = (dimensions.y);
+		img.src = canvas.toDataURL();
+
+		//document.getElementById('map-image').innerHTML = '';
+		//document.getElementById('map-image').appendChild(img);
+
+    // TO DO - Open this on another page?
+        $.ajax({
+            type: "POST",
+            url: '/map/map-image/',
+            data: {
+                    "image" : img.src,
+                    "csrfmiddlewaretoken": '{{ csrf_token }}'
+                  },
+            success: openMapImageInWindow
+        });
+	});
+};
+
+function openMapImageInWindow(data){
+        //window.open(data,'_blank');
+        var myWindow = window.open("", "Map Image");
+        myWindow.document.write(data);
+};
+witnessFactoids = [
+{% if witnessFact.object_list  %}
+
+    {% for a in witnessFact.object_list %}
+            {% if a.factoid.poss_lands.all.count > 0 %}
+                {% for land in a.factoid.poss_lands.all %}
+                    {% if land.place.geom %} {"source":"{{ a.factoid.sourcekey}}","type":"transaction","name":"{{land.place.name}}","coordinates":"{{land.place.geom.y}},{{land.place.geom.x}}"}  ,
+                    {% endif %}
+                {% endfor %}
+                {% if a.factoid.sourcekey.charter.placefk %}
+                    {"source":"{{ a.factoid.sourcekey}}","type":"placedate","name":"{{a.factoid.sourcekey.charter.placefk.name}}","coordinates":"{{a.factoid.sourcekey.charter.placefk.geom.y}},{{a.factoid.sourcekey.charter.placefk.geom.x}}"},
+                {% endif %}
+            {% endif %}
+    {% endfor %}
+
+{% endif %}
+]
+
+</script>
+
+{% endblock %}
+
+
+
+

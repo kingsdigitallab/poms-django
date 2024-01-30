@@ -1,0 +1,5 @@
+{{object.id}}
+{{object.hammondnumber}}
+{{object.description|truncatewords:500 }}
+{{object.helper_keywordsearch|truncatewords:500 }}
+{{object.source_tradid}}

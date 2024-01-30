@@ -10,11 +10,9 @@ https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 import getpass
 import logging
+
 import os
-
-
 from kdl_ldap.settings import *  # noqa
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
@@ -49,8 +47,10 @@ CACHES = {
     }
 }
 
-
 CSRF_COOKIE_SECURE = True
+
+# Django registration
+ACCOUNT_ACTIVATION_DAYS = 7
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -70,39 +70,48 @@ EMAIL_USE_TLS = False
 # Sender of error messages to ADMINS and MANAGERS
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+# labsapp currently not avtice as per SOW.
+# 'labsapp',
 INSTALLED_APPS = [
     'grappelli',
+    'registration',
     'django.contrib.admin',
+    'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'compressor',
-]
-
-INSTALLED_APPS += [    # your project apps here
-
     'django.contrib.gis',
+    'compressor',
     'kdl_ldap',
     'rest_framework',
-    'wagtail.wagtailcore',
-    'wagtail.wagtailadmin',
-    'wagtail.wagtaildocs',
-    'wagtail.wagtailsnippets',
-    'wagtail.wagtailusers',
-    'wagtail.wagtailimages',
-    'wagtail.wagtailembeds',
-    'wagtail.wagtailredirects',
-    'wagtail.wagtailforms',
-    'wagtail.wagtailsites',
-    'wagtail.contrib.wagtailapi',
-    'wagtail.contrib.wagtailroutablepage',
-    'wagtail.contrib.table_block',
-    'taggit',
     'modelcluster',
     'haystack',
+    'pomsapp',
+    'sna',
+
+]
+
+INSTALLED_APPS += [  # your project apps here
+    'pomsapp_wagtail',
+    'kdl_wordpress2wagtail',
+    'django_select2',
+    'wagtail.core',
+    'wagtail.admin',
+    'wagtail.documents',
+    'wagtail.snippets',
+    'wagtail.users',
+    'wagtail.images',
+    'wagtail.embeds',
+    'wagtail.contrib.redirects',
+    'wagtail.contrib.forms',
+    'wagtail.sites',
+    'wagtail.api',
+    'wagtail.contrib.routable_page',
+    'wagtail.contrib.table_block',
+    'taggit',
 ]
 
 INTERNAL_IPS = ['127.0.0.1']
@@ -168,20 +177,19 @@ LOGGING = {
     }
 }
 
+# 'wagtail.core.middleware.SiteMiddleware',
+# 'wagtail.redirects.middleware.RedirectMiddleware',
+
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-
-
-    'wagtail.wagtailcore.middleware.SiteMiddleware',
-    'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
 ]
 
@@ -203,11 +211,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.template.context_processors.static',
                 'django.contrib.messages.context_processors.messages',
-
-
-
-
-
+                'poms.context_processors.settings'
             ],
         },
     },
@@ -220,10 +224,10 @@ WSGI_APPLICATION = PROJECT_NAME + '.wsgi.application'
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth
 # -----------------------------------------------------------------------------
 
-if 'wagtail.wagtailcore' in INSTALLED_APPS:
-    LOGIN_URL = '/wagtail/login/'
-else:
-    LOGIN_URL = '/admin/login/'
+# if 'wagtail.core' in INSTALLED_APPS:
+#     LOGIN_URL = '/wagtail/login/'
+# else:
+#     LOGIN_URL = '/admin/login/'
 
 # -----------------------------------------------------------------------------
 # Sessions
@@ -298,13 +302,16 @@ FABRIC_USER = getpass.getuser()
 # Google Analytics ID
 GA_ID = ''
 
+# extra settings for FEINCMS media used by the admin-mptt tree visualizer...
+MPTTEXTRA_ADMIN_MEDIA = '/media/static/feincms/'
+#This may be legacy, could be removed if possible
+ADMIN_MEDIA_PREFIX = STATIC_URL + '/admin/'
+
 # -----------------------------------------------------------------------------
 # Automatically generated settings
 # -----------------------------------------------------------------------------
 
-# Check which db engine to use:
-db_engine = 'django.db.backends.mysql'
-
+db_engine = 'django.contrib.gis.db.backends.mysql'
 
 AUTH_LDAP_REQUIRE_GROUP = 'cn=poms,' + LDAP_BASE_OU
 WAGTAIL_SITE_NAME = PROJECT_TITLE
@@ -313,8 +320,15 @@ ITEMS_PER_PAGE = 10
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE':
-        'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            'haystack.backends.elasticsearch_backend'
+            '.ElasticsearchSearchEngine',
         'URL': 'http://127.0.0.1:9200/',
         'INDEX_NAME': 'poms_haystack',
     },
 }
+# Index only the first 500 objects of each type (for vagrant and debug)
+PARTIAL_INDEX = False
+HAYSTACK_SEARCH_RESULTS_PER_PAGE = 50
+
+# Added here for edge cases with very large records in admin
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000

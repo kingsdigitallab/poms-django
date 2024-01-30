@@ -4,6 +4,9 @@ DEBUG = True
 
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
+# todo added temporarily
+LOCAL_SERVER = True
+
 
 DATABASES = {
     'default': {
@@ -11,8 +14,8 @@ DATABASES = {
         'NAME': 'poms',
         'USER': 'app_poms',
         'PASSWORD': 'app_poms',
-        'ADMINUSER': 'postgres',
-        'HOST': 'localhost'
+        'HOST': 'localhost',
+        'STORAGE_ENGINE': 'INNODB'
     },
 }
 
@@ -22,6 +25,15 @@ INTERNAL_IPS = ['0.0.0.0', '127.0.0.1', '::1', '10.0.2.2']
 SECRET_KEY = '12345'
 
 FABRIC_USER = ''
+
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8983/solr/dev',
+        'ADMIN_URL': 'http://localhost:8983/solr/admin/cores'
+    },
+}
 
 # -----------------------------------------------------------------------------
 # Django Debug Toolbar

@@ -1,0 +1,24 @@
+
+{% if person.matrix_set.all %}
+
+<b>Person owns matrix:</b><hr></br />
+
+	<table>
+	  <tr>
+	    <th>Record ID</th>
+		<th>Identifier</th>
+	    <th>Shape</th>
+	  </tr>
+
+	{% for m in person.matrix_set.all %}
+	  <tr>
+	    <td><a href="{{m.get_admin_url}}" target="_blank" title="edit">{{m.id}}</a></td>
+		<td>{{m.identifier}}</td>
+	    <td>{{m.shape.name}}</td>
+	  </tr>
+	{% endfor %}
+
+	</table>
+	
+	<br /><hr><hr><br />
+{% endif %}	

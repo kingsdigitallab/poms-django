@@ -1,0 +1,151 @@
+{% extends "pomsapp/skeleton.html" %}
+
+
+{% block load_css  %}
+	<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}paul/c/a.css"/>
+	<link rel="stylesheet" type="text/css" media="screen, projection" href="{{ STATIC_URL }}paul/c/s.css"/>
+	<link rel="stylesheet" type="text/css" media="print" href="{{ STATIC_URL }}paul/c/p.css"/>
+	{# 2010-06-30 was trying this out with the TABS... #}
+	{# <link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}css/ui/jquery-ui-poms.css"/> #}
+	
+	<style type="text/css" media="screen">
+		#labs_mainmenu  li.active {background: #727c96; color: #fff; font-weight: 700 }
+		#labs_mainmenu  li.active a {color: #fff;}
+	</style>
+
+	
+{% endblock %}
+
+
+{% block load_js  %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery.overlabel.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}paul/s/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/functions_record.js"></script>
+{# <script type="text/javascript" src="{{ STATIC_URL }}paul/s/c_record.js"></script> #}
+
+{% endblock %}
+
+
+		{% block tabs_titles  %}
+	    <ul class="nvl">
+	      <li class="i1"><a href="/search">Search</a></li>
+	      <li class="i1"><a href="/browse">Browse</a></li>
+	      <li class="i1"><a href="/record/">Record</a></li>
+       <li class="i1"><a href="/sna/">Social Network Analysis</a></li>
+
+	      <li class="i1"><a href="/familytrees">Family Trees</a></li>
+	      <li class="s1"><a href="/labs">Labs</a></li>
+	    </ul>		
+		{% endblock %}
+
+
+		
+
+	{% block small_links %}
+    {# <ul class="utl"> #}
+      {# <li class="i1"><a href="#"><b>Help</b></a></li> #}
+      {# <li class="i2"><a href="#"><b>Register</b></a></li> #}
+      {# <li class="ix"><a href="#"><b>Login</b></a></li> #}
+    {# </ul>		 #}
+	{% endblock %}
+
+
+
+	{% block contents %}
+
+
+
+    <div class="cg n2 labspage">
+      <div class="m">
+        <div class="c c1">
+          <div class="r2 labs" id="results">
+
+
+			{% block labs_contents %}
+				
+			<dl>
+				
+				<h3>Introduction</h3>	
+
+				<p>The applications available in this section are 'quick hacks' and public previews of new features that haven't yet been fully developed. They are here mainly so to foster discussion and guide the development of further ideas.</p>
+
+				<p>In general, the concept behind these applications is to research alternative and more engaging ways to explore the vast range of materials the PoMS database makes available. For example, this can be achieved thanks to charts and diagrams that focus on some specific aspect of the data, or by using more interactive visualizations that allow moving from one record to another according to predefined <em>pathways</em>. <br />
+					Using a metaphor, we could say that we want our users to (re)discover the <em>stories</em> that make up the PoMS universe!</p>
+					<br />
+												
+				<h4>Browsers compatibility</h4>			
+	
+				<p>Currently the only platforms supported by this section of the site are desktop computers running the <u>latest versions</u> of <a href="http://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a>, <a href="https://www.google.com/chrome">Google Chrome</a> or <a href="http://www.apple.com/safari/">Apple Safari</a>.</p>
+				
+				<p>This is not a design decision but just a practical one: the experimental nature of these tools meant that in most cases we have not had any time to do any proper cross-browser testing, or make sure the software works on all platforms (e.g. mobile devices). Whenever we will decide to develop these applications further, we will make sure they get tested across a higher number of platforms and browsers.</p>	 
+					
+					
+				<p>In the meantime, we invite users to try out the Labs section using either <a href="http://www.mozilla.org/en-US/firefox/new/">Mozilla Firefox</a>, <a href="https://www.google.com/chrome">Google Chrome</a> or <a href="http://www.apple.com/safari/">Apple Safari</a>.</p>			
+				
+				
+				<img style="border: none; box-shadow: none;" src="{{ STATIC_URL }}/labs/img/supported_browsers.png" alt="supported browsers" height="100"/>
+				
+				
+				<h4>More info</h4>	
+								
+				<p>These tools have been designed and developed by <a href="http://www.michelepasin.org/research/bio/">Michele Pasin</a>.
+			 <br />A <a href="http://www.michelepasin.org/research/papers/40/">poster paper</a> at the Digital Humanities 2012 conference presents some of these experimental tools within a more academic context. 
+			<br />A more general introduction to the Labs idea can also be found on this <a href="http://www.michelepasin.org/techblog/2012/09/10/navigating-through-the-people-of-medieval-scotland/">blog post</a>. 
+			</p>	 
+				
+				
+			</dl>
+
+				
+				
+			{% endblock %}		
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="c c2" id="search">
+
+		{% block search %}	
+
+        <h3>
+	
+	PoMS Labs</h3>
+
+
+	
+
+
+		{# this is a subsection that needs to be styled!  #}
+
+		<ul id="labs_mainmenu">
+		<li {% if connectionscloud %}class="active"{% endif %}><a href="connectionscloud">People Connections {{request}}</a></li>
+		<li {% if peoplelives %}class="active"{% endif %}><a href="peoplelives">People Lives</a></li>
+		<li {% if peopleimportance %}class="active"{% endif %}><a href="peopleimportance">People Importance</a></li>
+		<li {% if witnesses %}class="active"{% endif %}><a href="witnesses">Transactions and Witnesses</a></li>
+
+
+		<p>&nbsp;</p>
+
+		{% endblock %}
+		
+		
+		{% block labs_extrainfo %}
+		
+			
+			
+		{% endblock %}
+		
+		
+
+
+      </div>
+    </div>
+
+
+
+
+	{% endblock %}

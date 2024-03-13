@@ -34,9 +34,9 @@ services:
       - ../volumes/poms_elasticsearch_data:/usr/share/elasticsearch/data
     env_file:
       - .env
-    ports:
-      - '9200:9200'
-      - '9300:9300'
+    expose:
+      - "9200"
+      - "9300"
     restart: unless-stopped
 
   django:
@@ -75,28 +75,3 @@ services:
       VIRTUAL_PATH: "~^/(static/|redist/|robots.txt)"
       VIRTUAL_PROTO: http
       VIRTUAL_PORT: 8001
-
-#       - ../volumes/django/static:/app/static
-    #  django:
-    #    container_name: poms_liv
-    #    build:
-    #      context: ../
-    #      dockerfile: ./compose/django/Dockerfile
-    #    command: /start
-    #    restart: always
-    #    ports:
-    #      - 8080:8080
-    #
-    #    environment:
-    #      VIRTUAL_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost"
-    #      LETSENCRYPT_HOST: "poms.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost"
-    #      VIRTUAL_PROTO: http
-    #      VIRTUAL_PORT: 8000
-    #volumes:
-    #  - ../testapp/config:/etc/testapp/config:ro
-
-networks:
-  default:
-    driver: bridge
-    driver_opts:
-      com.docker.network.driver.mtu: 1442

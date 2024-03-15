@@ -45,3 +45,4 @@ urllib3==1.23
 wagtail==2.4
 webencodings==0.5.1
 Willow==1.1
+django-environ==0.4.5

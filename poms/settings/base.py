@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 import getpass
 import logging
-
+import environ
 import os
 from kdl_ldap.settings import *  # noqa
 
@@ -24,6 +24,16 @@ PROJECT_TITLE = 'People of Medieval Scotland'
 # Core Settings
 # https://docs.djangoproject.com/en/dev/ref/settings/#id6
 # -----------------------------------------------------------------------------
+
+COMPOSE_DIR = os.path.join(BASE_DIR, "compose")
+
+env = environ.Env()
+
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+if READ_DOT_ENV_FILE:
+    # OS environment variables take precedence over variables from .env
+    #env.read_env(str(COMPOSE_DIR.path(".env")))
+    environ.Env.read_env(os.path.join(COMPOSE_DIR, '.env'))
 
 ADMINS = ()
 MANAGERS = ADMINS

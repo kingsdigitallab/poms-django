@@ -12,5 +12,16 @@ INTERNAL_IPS = ['0.0.0.0', '127.0.0.1', '::1', '10.0.2.2']
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {"default": env.db("DATABASE_URL")}
+#DATABASES = {"default": env.db("DATABASE_URL")}
+
+DATABASES = {
+    'default': {
+        'ENGINE': db_engine,
+        'NAME': env("MYSQL_DATABASE"),
+        'USER': env("MYSQL_USER"),
+        'PASSWORD': env("MYSQL_PASSWORD"),
+        'HOST': env("MYSQL_HOST")
+    },
+}
+
 

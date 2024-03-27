@@ -9,6 +9,21 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
 
+  nginx:
+    build:
+      context: ..
+      dockerfile: ./compose/nginx/Dockerfile
+    restart: unless-stopped
+    expose:
+      - "8001"
+    volumes:
+      - ../volumes/django/static:/usr/share/nginx/static:ro
+    environment:
+      VIRTUAL_HOST: "poms-os.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
+      VIRTUAL_PATH: "~^/(static/|redist/|robots.txt)"
+      VIRTUAL_PROTO: http
+      VIRTUAL_PORT: 8001
+
   db:
     image: library/mysql:5.7.35
     container_name: poms_mysql
@@ -19,11 +34,11 @@ services:
       - "3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-#      healthcheck:
-#        test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES;'
-#        timeout: 10s
-#        interval: 5s
-#        retries: 10
+    #      healthcheck:
+    #        test: mysql --user=root --password=$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES;'
+    #        timeout: 10s
+    #        interval: 5s
+    #        retries: 10
     env_file:
       - .env
 
@@ -49,6 +64,8 @@ services:
       - elasticsearch
     env_file:
       - .env
+    ports:
+      - "8000:8000"
     restart: unless-stopped
     volumes:
       - ../volumes/django/static:/app/static
@@ -60,17 +77,4 @@ services:
       VIRTUAL_PROTO: http
       VIRTUAL_PORT: 8000
 
-  nginx:
-    build:
-      context: ..
-      dockerfile: ./compose/nginx/Dockerfile
-    restart: unless-stopped
-    expose:
-      - "8001"
-    volumes:
-      - ../volumes/django/static:/usr/share/nginx/static:ro
-    environment:
-      VIRTUAL_HOST: "poms-os.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
-      VIRTUAL_PATH: "~^/(static/|redist/|robots.txt)"
-      VIRTUAL_PROTO: http
-      VIRTUAL_PORT: 8001
+

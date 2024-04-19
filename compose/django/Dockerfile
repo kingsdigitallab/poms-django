@@ -33,7 +33,7 @@ COPY --chown=django:django . /app
 #RUN python manage.py migrate
 #RUN python manage.py collectstatic --noinput
 #RUN python manage.py build_solr_schema --configure-directory=/app/solr_config/config
-
+#
 
 # fix solr 8 issue
 # docker cp ./solr/conf e7ee989cee93:/var/solr/data/pbw

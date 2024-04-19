@@ -1,0 +1,21 @@
+<layerGroup>
+  <id>LayerGroupInfoImpl-5280d2a:13ed317e1b3:-556d</id>
+  <name>PDE_simple_backdrop</name>
+  <layers>
+    <layer>
+      <id>LayerInfoImpl-5280d2a:13ed317e1b3:-557a</id>
+    </layer>
+  </layers>
+  <styles>
+    <style>
+      <id>StyleInfoImpl--2916a015:13e7eace9f5:-1a47</id>
+    </style>
+  </styles>
+  <bounds>
+    <minx>-2.003751E7</minx>
+    <maxx>2.003751E7</maxx>
+    <miny>-8283344.0</miny>
+    <maxy>1.8418384E7</maxy>
+    <crs class="projected">EPSG:900913</crs>
+  </bounds>
+</layerGroup>

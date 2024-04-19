@@ -1,0 +1,40 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--2d6909c8:1461f59d116:-7ffb</id>
+  <name>vw_pomsapp_place</name>
+  <nativeName>vw_pomsapp_place</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl--2d6909c8:1461f59d116:-7fff</id>
+  </namespace>
+  <title>vw_pomsapp_place</title>
+  <keywords>
+    <string>vw_pomsapp_place</string>
+    <string>features</string>
+  </keywords>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>-5.0</minx>
+    <maxx>5.0</maxx>
+    <miny>50.0</miny>
+    <maxy>60.0</maxy>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>-5.0</minx>
+    <maxx>5.0</maxx>
+    <miny>50.0</miny>
+    <maxy>60.0</maxy>
+    <crs>GEOGCS[&quot;WGS84(DD)&quot;, 
+  DATUM[&quot;WGS84&quot;, 
+    SPHEROID[&quot;WGS84&quot;, 6378137.0, 298.257223563]], 
+  PRIMEM[&quot;Greenwich&quot;, 0.0], 
+  UNIT[&quot;degree&quot;, 0.017453292519943295], 
+  AXIS[&quot;Geodetic longitude&quot;, EAST], 
+  AXIS[&quot;Geodetic latitude&quot;, NORTH]]</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl--2d6909c8:1461f59d116:-7ffe</id>
+  </store>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+</featureType>

@@ -1,0 +1,33 @@
+<layerGroup>
+  <id>LayerGroupInfoImpl-477f2f13:13b4d223bbb:-1903</id>
+  <name>PDE_National_Borders</name>
+  <layers>
+    <layer>
+      <id>LayerInfoImpl-477f2f13:13b4d223bbb:-1911</id>
+    </layer>
+    <layer>
+      <id>LayerInfoImpl-477f2f13:13b4d223bbb:-1906</id>
+    </layer>
+    <layer>
+      <id>LayerInfoImpl-477f2f13:13b4d223bbb:-191e</id>
+    </layer>
+  </layers>
+  <styles>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:-190e</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:-190e</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:-191b</id>
+    </style>
+  </styles>
+  <bounds>
+    <minx>-869247.617232317</minx>
+    <maxx>196496.41647667153</maxx>
+    <miny>6439122.218979859</miny>
+    <maxy>8592449.61879242</maxy>
+    <crs class="projected">EPSG:3857</crs>
+  </bounds>
+</layerGroup>

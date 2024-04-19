@@ -1,0 +1,21 @@
+<layerGroup>
+  <id>LayerGroupInfoImpl-1f1e5457:142c8b47f3b:-2066</id>
+  <name>koro_group</name>
+  <layers>
+    <layer>
+      <id>LayerInfoImpl-1f1e5457:142c8b47f3b:-3441</id>
+    </layer>
+  </layers>
+  <styles>
+    <style>
+      <id>StyleInfoImpl--570ae188:124761b8d78:-7fe2</id>
+    </style>
+  </styles>
+  <bounds>
+    <minx>22.92749718159964</minx>
+    <maxx>23.021809081715496</maxx>
+    <miny>38.34447193203627</miny>
+    <maxy>38.441596948484</maxy>
+    <crs>EPSG:4326</crs>
+  </bounds>
+</layerGroup>

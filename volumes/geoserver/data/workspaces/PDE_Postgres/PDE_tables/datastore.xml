@@ -1,0 +1,41 @@
+<dataStore>
+  <id>DataStoreInfoImpl--19e1b629:13c90fa1a61:-745e</id>
+  <name>PDE_tables</name>
+  <description>PDE_tables</description>
+  <type>PostGIS</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl--19e1b629:13c90fa1a61:-7463</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="schema">public</entry>
+    <entry key="Estimated extends">true</entry>
+    <entry key="Max open prepared statements">50</entry>
+    <entry key="fetch size">1000</entry>
+    <entry key="encode functions">false</entry>
+    <entry key="validate connections">true</entry>
+    <entry key="Expose primary keys">false</entry>
+    <entry key="Connection timeout">20</entry>
+    <entry key="preparedStatements">false</entry>
+    <entry key="database">app_pde_dev</entry>
+    <entry key="port">5432</entry>
+
+      <!--<entry key="user">app_pde</entry>
+    <entry key="passwd">crypt1:6Rr7fa4Yruxm6twy1Uihm31fZ/YGiFB3</entry>
+    <entry key="host">db-pggis-1.cch.kcl.ac.uk</entry>-->
+
+      <entry key="user">postgres</entry>
+<entry key="passwd">plain:l9fgjhsdlkcgjs4445yjds(($*))</entry>
+    <entry key="host">postgis</entry>
+
+      <entry key="min connections">1</entry>
+    <entry key="dbtype">postgis</entry>
+
+    <entry key="namespace">PDE_Postgres</entry>
+    <entry key="Loose bbox">true</entry>
+    <entry key="max connections">10</entry>
+
+  </connectionParameters>
+  <__default>false</__default>
+  <dateModified>2021-03-25 16:49:27.542 UTC</dateModified>
+</dataStore>

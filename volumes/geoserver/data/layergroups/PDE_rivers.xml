@@ -1,0 +1,27 @@
+<layerGroup>
+  <id>LayerGroupInfoImpl-5280d2a:13e7f815c72:-3a2</id>
+  <name>PDE_rivers</name>
+  <layers>
+    <layer>
+      <id>LayerInfoImpl--2916a015:13e65bc75a0:-683d</id>
+    </layer>
+    <layer>
+      <id>LayerInfoImpl-428cebf6:13b0a405481:-7e86</id>
+    </layer>
+  </layers>
+  <styles>
+    <style>
+      <id>StyleInfoImpl--2916a015:13e65bc75a0:-683c</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-428cebf6:13b0a405481:-7e81</id>
+    </style>
+  </styles>
+  <bounds>
+    <minx>-7.17760705947876</minx>
+    <maxx>1.9587481185632907</maxx>
+    <miny>49.9172897338867</miny>
+    <maxy>60.2491111755371</maxy>
+    <crs>EPSG:4326</crs>
+  </bounds>
+</layerGroup>

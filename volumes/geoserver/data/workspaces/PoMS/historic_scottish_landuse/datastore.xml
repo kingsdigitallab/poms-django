@@ -1,0 +1,38 @@
+<dataStore>
+  <id>DataStoreInfoImpl--37874acf:14f6e7934e2:-7b73</id>
+  <name>historic_scottish_landuse</name>
+  <description>historic_scottish_landuse</description>
+  <type>PostGIS</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl--2d6909c8:1461f59d116:-8000</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="schema">public</entry>
+    <entry key="Estimated extends">true</entry>
+    <entry key="fetch size">1000</entry>
+    <entry key="Max open prepared statements">50</entry>
+    <entry key="encode functions">false</entry>
+    <entry key="validate connections">true</entry>
+    <entry key="Expose primary keys">false</entry>
+    <entry key="Connection timeout">20</entry>
+    <entry key="preparedStatements">false</entry>
+    <entry key="database">kcl_ddh_geo_db</entry>
+    <entry key="port">5432</entry>
+    <!--  <entry key="user">app_geosrv</entry>
+    <entry key="passwd">crypt1:ewiwtJ7JYVk9nNbJhQ2p0klTGFPcVE/o</entry>
+    -->
+      <entry key="user">postgres</entry>
+<entry key="passwd">plain:l9fgjhsdlkcgjs4445yjds(($*))</entry>
+    <entry key="min connections">1</entry>
+    <entry key="dbtype">postgis</entry>
+      <entry key="host">postgis</entry>
+    <!--<entry key="host">db-pggis-1.cch.kcl.ac.uk</entry>-->
+    <entry key="namespace">POMS</entry>
+    <entry key="Loose bbox">true</entry>
+    <entry key="max connections">10</entry>
+
+  </connectionParameters>
+  <__default>false</__default>
+  <dateModified>2021-03-25 16:49:27.591 UTC</dateModified>
+</dataStore>

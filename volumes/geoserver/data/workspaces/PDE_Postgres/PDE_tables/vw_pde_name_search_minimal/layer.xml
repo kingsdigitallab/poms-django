@@ -1,0 +1,39 @@
+<layer>
+  <name>vw_pde_name_search_minimal</name>
+  <id>LayerInfoImpl--19e1b629:13c90fa1a61:-7069</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--570ae188:124761b8d78:-7fdf</id>
+  </defaultStyle>
+  <styles class="linked-hash-set">
+    <style>
+      <id>StyleInfoImpl--41ab65e8:13b727f81a1:-55a6</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:60e</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:60f</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:60c</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:60a</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:60b</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl-477f2f13:13b4d223bbb:60d</id>
+    </style>
+  </styles>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--19e1b629:13c90fa1a61:-706a</id>
+  </resource>
+  <enabled>true</enabled>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

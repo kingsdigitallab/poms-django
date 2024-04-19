@@ -1,0 +1,18 @@
+<settings>
+  <workspace>
+    <id>WorkspaceInfoImpl--19e1b629:13c90fa1a61:-7463</id>
+    <name>PDE_Postgres</name>
+  </workspace>
+  <contact>
+    <id>contact</id>
+    <contactEmail>neil.jakeman@kcl.ac.uk</contactEmail>
+    <contactOrganization>KCL DDH</contactOrganization>
+    <contactPerson>Neil Jakeman</contactPerson>
+    <contactPosition>Research Developer</contactPosition>
+  </contact>
+  <charset>UTF-8</charset>
+  <numDecimals>8</numDecimals>
+  <onlineResource>http://geoserver.org</onlineResource>
+  <verbose>false</verbose>
+  <verboseExceptions>false</verboseExceptions>
+</settings>

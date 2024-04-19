@@ -1,0 +1,27 @@
+<layerGroup>
+  <id>LayerGroupInfoImpl-5280d2a:14078322045:-688f</id>
+  <name>world_simple</name>
+  <layers>
+    <layer>
+      <id>LayerInfoImpl--2916a015:13e7eace9f5:-1a4d</id>
+    </layer>
+    <layer>
+      <id>LayerInfoImpl--2916a015:13e7eace9f5:-1a4f</id>
+    </layer>
+  </layers>
+  <styles>
+    <style>
+      <id>StyleInfoImpl--2916a015:13e7eace9f5:-1a46</id>
+    </style>
+    <style>
+      <id>StyleInfoImpl--2916a015:13e7eace9f5:-1a47</id>
+    </style>
+  </styles>
+  <bounds>
+    <minx>-179.999989387104</minx>
+    <maxx>180.0</maxx>
+    <miny>-89.9999325500059</miny>
+    <maxy>83.6341006528229</maxy>
+    <crs>EPSG:4326</crs>
+  </bounds>
+</layerGroup>

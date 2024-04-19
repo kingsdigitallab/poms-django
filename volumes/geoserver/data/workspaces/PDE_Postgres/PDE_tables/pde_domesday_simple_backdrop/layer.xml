@@ -1,0 +1,16 @@
+<layer>
+  <name>pde_domesday_simple_backdrop</name>
+  <id>LayerInfoImpl-5280d2a:13ed317e1b3:-557a</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--2916a015:13e7eace9f5:-1a47</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-5280d2a:13ed317e1b3:-557b</id>
+  </resource>
+  <enabled>true</enabled>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

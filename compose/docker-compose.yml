@@ -73,6 +73,11 @@ services:
     volumes:
       - ../volumes/geoserver/data:/opt/geoserver_data
     restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: "poms-os.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
+      VIRTUAL_PATH: "/geoserver"
+      VIRTUAL_PROTO: http
+      VIRTUAL_PORT: 8080
 
   django:
     build:

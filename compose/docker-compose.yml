@@ -26,7 +26,6 @@ services:
 
   db:
     image: library/mysql:5.7.35
-    container_name: poms_mysql
     volumes:
       - ../volumes/local_mysql_data:/var/lib/mysql
     restart: unless-stopped

@@ -18,6 +18,7 @@ services:
       - "8001"
     volumes:
       - ../volumes/django/static:/usr/share/nginx/static:ro
+
     environment:
       VIRTUAL_HOST: "poms-os.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
       VIRTUAL_PATH: "~^/(static/|redist/|robots.txt)"

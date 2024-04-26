@@ -15,27 +15,23 @@
     <entry key="encode functions">false</entry>
     <entry key="validate connections">true</entry>
     <entry key="Expose primary keys">false</entry>
+    <entry key="Support on the fly geometry simplification">false</entry>
     <entry key="Connection timeout">20</entry>
+    <entry key="create database">false</entry>
     <entry key="preparedStatements">false</entry>
     <entry key="database">app_pde_dev</entry>
     <entry key="port">5432</entry>
-
-      <!--<entry key="user">app_pde</entry>
-    <entry key="passwd">crypt1:6Rr7fa4Yruxm6twy1Uihm31fZ/YGiFB3</entry>
-    <entry key="host">db-pggis-1.cch.kcl.ac.uk</entry>-->
-
-      <entry key="user">postgres</entry>
-<entry key="passwd">plain:l9fgjhsdlkcgjs4445yjds(($*))</entry>
+    <entry key="passwd">crypt1:nuf4QwH5gv3YMEHD01EYSfRIPsAyVczC6cFFmyJf8ZH1I5YGCntgoA==</entry>
+    <entry key="min connections">1</entry>
     <entry key="host">postgis</entry>
-
-      <entry key="min connections">1</entry>
     <entry key="dbtype">postgis</entry>
-
     <entry key="namespace">PDE_Postgres</entry>
     <entry key="Loose bbox">true</entry>
     <entry key="max connections">10</entry>
-
+    <entry key="Test while idle">false</entry>
+    <entry key="user">postgres</entry>
   </connectionParameters>
   <__default>false</__default>
-  <dateModified>2021-03-25 16:49:27.542 UTC</dateModified>
+  <dateModified>2024-04-25 14:23:26.640 UTC</dateModified>
+  <disableOnConnFailure>false</disableOnConnFailure>
 </dataStore>

@@ -17,6 +17,9 @@ RUN apt-get update \
   #&& apt-get install -y python3-lxml \
   #gdal libraries
   && apt-get install -y binutils libproj-dev gdal-bin
+  # cleaning up unused files
+  && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 COPY ./requirements.txt /app

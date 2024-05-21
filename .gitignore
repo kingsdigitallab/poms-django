@@ -71,3 +71,4 @@ volumes/*
 data.sql.gz
 data.tar.gz
 compose/.env
+compose/.env64

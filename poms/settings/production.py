@@ -24,4 +24,13 @@ DATABASES = {
     },
 }
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE':
+            'haystack.backends.elasticsearch_backend'
+            '.ElasticsearchSearchEngine',
+        'URL': 'http://elasticsearch:9200/',
+        'INDEX_NAME': 'poms_haystack',
+    },
+}
 

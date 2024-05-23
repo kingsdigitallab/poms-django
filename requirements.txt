@@ -24,7 +24,7 @@ django-treebeard==4.3
 djangorestframework==3.9.1
 docutils==0.14
 draftjs-exporter==2.1.5
-elasticsearch==2.4.1
+elasticsearch==7.10.1
 html5lib==0.999999999
 idna==2.7
 libsass==0.14.5

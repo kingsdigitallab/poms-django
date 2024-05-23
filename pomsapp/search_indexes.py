@@ -91,7 +91,7 @@ def getDateRange(start_date, end_date=0):
 class PomsIndex(indexes.SearchIndex):
     """ Base object with fields common to all result types  """
 
-    #
+
     object_id = indexes.IntegerField(model_attr='id')
     index_type = indexes.CharField(faceted=True, )
     text = indexes.CharField(document=True, use_template=True)
@@ -218,18 +218,7 @@ class PomsIndex(indexes.SearchIndex):
         faceted=True,
         null=True
     )
-    # REMOVED
-    # factrelstartdate = indexes.IntegerField(
-    #     #model_attr='assoc_factoid_person__factrelationship__from_year',
-    #     faceted=True,
-    #     null=True
-    # )
-    # factreldaterange = indexes.CharField(
-    #
-    # #model_attr='assoc_factoid_person__factrelationship__helper_daterange',
-    #     faceted=True,
-    #     null=True
-    # )
+
     transactiontypes = indexes.MultiValueField(
         # model_attr='assoc_factoid_person__facttransaction__transactiontype__name',
         faceted=True,
@@ -277,28 +266,6 @@ class PomsIndex(indexes.SearchIndex):
         faceted=True,
         null=True
     )
-    # REMOVED
-    # facttrastartdate = indexes.IntegerField(
-    #     model_attr='assoc_factoid_person__facttransaction__from_year',
-    #     faceted=True,
-    #     null=True
-    # )
-    # factposstartdate = indexes.IntegerField(
-    #     #model_attr='assoc_factoid_person__factpossession__from_year',
-    #     faceted=True,
-    #     null=True
-    # )
-    # facttradaterange = indexes.CharField(
-    #
-    # #model_attr='assoc_factoid_person__facttransaction__helper_daterange',
-    #     faceted=True,
-    #     null=True
-    # )
-    # factposdaterange = indexes.CharField(
-    #     #model_attr='factoids__factpossession__helper_daterange',
-    #     faceted=True,
-    #     null=True
-    # )
 
     # model_attr='facttransaction__tenendas__name',
     tenendasoptions = indexes.MultiValueField(
@@ -346,15 +313,13 @@ class PomsIndex(indexes.SearchIndex):
         null=True
     )
 
-    def index_queryset(self, using=None):
-        """Used when the entire index for model is updated."""
-        if settings.PARTIAL_INDEX:
-            index_q = self.get_model().objects.filter(
-                id__lt=PARTIAL_INDEX_MAX_ID
-            ).order_by('pk')
-        else:
-            index_q = self.get_model().objects.all()
-        return index_q
+    def prepare(self, obj):
+        self.prepared_data = super().prepare(obj)
+        return self.prepared_data
+    #
+    # def index_queryset(self, using=None):
+    #     """Used when the entire index for model is updated."""
+    #     return None;
 
 
 class PersonIndex(PomsIndex, indexes.Indexable):
@@ -469,7 +434,8 @@ class PersonIndex(PomsIndex, indexes.Indexable):
                 if c.helper_tickboxes:
                     sourcesfeatures.append(c.helper_tickboxes.name)
 
-            self.prepared_data['documenttype'] = [d for d in set(documenttype)]
+            self.prepared_data['documenttype'] = [d for d in set(
+            documenttype)]
             self.prepared_data['documentcategory'] = [d for d in
                                                       set(documentcategory)]
             self.prepared_data['grantorcategory'] = [d for d in
@@ -603,7 +569,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         return poms_models.Person
 
 
-class FactoidIndex(PomsIndex, indexes.Indexable):
+class FactoidIndex(PomsIndex):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
@@ -692,7 +658,7 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
                 charter_id = indexes.IntegerField(null=True)
             source_tradid = indexes.CharField(null=True, default='')
             place_types = indexes.MultiValueField(
-                null=True) 
+                null=True)
                 """
 
         if charters.count() > 0:
@@ -715,7 +681,8 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
                 if c.helper_tickboxes:
                     sourcesfeatures.append(c.helper_tickboxes.name)
 
-            self.prepared_data['documenttype'] = [d for d in set(documenttype)]
+            self.prepared_data['documenttype'] = [d for d in set(
+            documenttype)]
             self.prepared_data['documentcategory'] = [d for d in
                                                       set(documentcategory)]
             self.prepared_data['grantorcategory'] = [d for d in
@@ -799,7 +766,8 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
             ).distinct().values_list('name', flat=True))
 
         self.prepared_data[
-            'transfeatures'] = list(poms_models.TransTickboxes.objects.filter(
+            'transfeatures'] = list(
+            poms_models.TransTickboxes.objects.filter(
             facttransaction=obj
         ).distinct().values_list('name', flat=True))
 
@@ -874,7 +842,10 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
     def prepare(self, obj):
         # force save of the object if auto_save
-        self.prepared_data = super(SourceIndex, self).prepare(obj)
+        self.prepared_data = super().prepare(obj)
+        print("Indexing SourceIndex: " + str(obj.pk) + "\n")
+        # import pdb;
+        # pdb.set_trace()
         self.prepared_data['index_type'] = 'source'
         self.prepared_data['calendar_number'] = obj.hammondnumber
         self.prepared_data['description'] = obj.description
@@ -911,18 +882,6 @@ class SourceIndex(PomsIndex, indexes.Indexable):
         ] = list(poms_models.ModernGaelicForename.objects.filter(
             person__factoids__sourcekey=obj
         ).distinct().values_list('name', flat=True))
-
-        # self.prepared_data[
-        #    'moderngaelicsurname'
-        # ] = list(poms_models.Person.objects.filter(
-        #   factoids__sourcekey=obj
-        # ).distinct().values_list('moderngaelicsurname', flat=True))
-
-        # self.prepared_data[
-        #   'moderngaelicsurname'
-        # ] = list(poms_models.Person.objects.filter(
-        #    factoids__sourcekey=obj
-        # ).distinct().values_list('moderngaelicsurname', flat=True))
 
         self.prepared_data[
             'startdate'] = obj.from_year
@@ -995,7 +954,6 @@ class SourceIndex(PomsIndex, indexes.Indexable):
 
             self.prepared_data['places'] = places
 
-
         self.prepared_data['possunfreepersons'] = list(
             poms_models.Poss_Unfree_persons.objects.filter(
                 factoid__sourcekey=obj
@@ -1025,11 +983,6 @@ class SourceIndex(PomsIndex, indexes.Indexable):
                 factoid__sourcekey=obj
             ).distinct().values_list('name', flat=True)
         )
-
-
-
-
-
 
         self.prepared_data['roles'] = list(
             poms_models.Role.objects.filter(

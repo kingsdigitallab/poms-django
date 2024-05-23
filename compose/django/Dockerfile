@@ -8,6 +8,7 @@ RUN apt-get update \
   && apt-get install -y build-essential \
   # curl for node
   && apt-get install -y curl \
+  && apt-get install -y nano \
   # mysql dependencies
   && apt-get install -y default-libmysqlclient-dev \
   #&& apt-get install -y python-mysqldb python-dev

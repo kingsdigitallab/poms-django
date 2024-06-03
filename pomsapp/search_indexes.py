@@ -1376,5 +1376,13 @@ class PlaceIndex(PomsIndex, indexes.Indexable):
 
         return self.prepared_data
 
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        queryset = self.get_model().objects.all()
+        if settings.PARTIAL_INDEX and (self.get_model().objects.all().count() > 500):
+            return queryset.filter(pk__lt=500)
+        else:
+            return queryset
+
     def get_model(self):
         return poms_models.Place

@@ -112,10 +112,12 @@ class PomsFacetedBrowse(FacetedSearchView):
             self.facet_group = kwargs['facet_group']
         if 'facet_name' in kwargs:
             self.facet_name = kwargs['facet_name']
-        min = SearchQuerySet().all().order_by('startdate')[0]
-        max = SearchQuerySet().all().order_by('-startdate')[0]
-        self.min_date = min.startdate
-        self.max_date = max.startdate
+        min = SearchQuerySet().all().order_by('startdate')
+        max = SearchQuerySet().all().order_by('-startdate')
+        if min:
+            self.min_date = min[0].startdate
+        if max:
+            self.max_date = max[0].startdate
 
         # if self.ajax and self.ajax_facet is not None:
         #     self.facet_fields = self.facet_fields + self.facet_group_fields[

@@ -127,9 +127,10 @@ class PomsFacetedBrowse(FacetedSearchView):
     @staticmethod
     def __facet_by_group(queryset, group):
         """Apply a list of fields as facets to queryset"""
+        # , sort='index', limit=-1, mincount=1
         for field_name in group:
             queryset = queryset.facet(
-                field_name, sort='index', limit=-1, mincount=1
+                field_name
             )
         return queryset
 

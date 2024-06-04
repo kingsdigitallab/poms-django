@@ -52,14 +52,14 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
                     sqs = sqs.narrow('text:{}'.format(q_query))
 
             # Don't apply dating to place
-            if 'min_date' in data and self.index_type != 'place':
-                # Don't apply if it's default dates
-                if (int(data['min_date']) != self.DATE_MINIMUM or
-                        int(data['max_date']) != self.DATE_MAXIMUM):
-                    sqs = sqs.narrow('startdate:[{0} TO {1}]'.format(
-                        data['min_date'],
-                        data['max_date']
-                    ))
+            # if 'min_date' in data and self.index_type != 'place':
+            #     # Don't apply if it's default dates
+            #     if (int(data['min_date']) != self.DATE_MINIMUM or
+            #             int(data['max_date']) != self.DATE_MAXIMUM):
+            #         sqs = sqs.narrow('startdate:[{0} TO {1}]'.format(
+            #             data['min_date'],
+            #             data['max_date']
+            #         ))
 
             facet_counts = sqs.facet_counts()
 

@@ -18,7 +18,7 @@ admin.autodiscover()
 prefix = ""
 
 urlpatterns = [
-    url(r'^accounts/', include('registration.backends.model_activation.urls')),
+    url(r'^accounts/',  include('django_registration.backends.activation.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
@@ -51,7 +51,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # REGISTRATION:  TESTING
-    url(r'^' + prefix + 'accounts/', include('registration.urls')),
+    url(r'^' + prefix + 'accounts/', include('django_registration.backends.activation.urls')),
     url(r'^' + prefix + 'overview/', admin_overview),
     url(r'^' + prefix + 'record/', include('pomsapp.urls_record')),
     url(r'^' + prefix + 'search/', include('pomsapp.urls_browse')),

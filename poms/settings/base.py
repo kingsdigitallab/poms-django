@@ -32,7 +32,7 @@ env = environ.Env()
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
-    #env.read_env(str(COMPOSE_DIR.path(".env")))
+    # env.read_env(str(COMPOSE_DIR.path(".env")))
     environ.Env.read_env(os.path.join(COMPOSE_DIR, '.env'))
 
 ADMINS = ()
@@ -84,7 +84,7 @@ SERVER_EMAIL = DEFAULT_FROM_EMAIL
 # 'labsapp',
 INSTALLED_APPS = [
     'grappelli',
-    'registration',
+    'django_registration',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
@@ -314,7 +314,7 @@ GA_ID = ''
 
 # extra settings for FEINCMS media used by the admin-mptt tree visualizer...
 MPTTEXTRA_ADMIN_MEDIA = '/media/static/feincms/'
-#This may be legacy, could be removed if possible
+# This may be legacy, could be removed if possible
 ADMIN_MEDIA_PREFIX = STATIC_URL + '/admin/'
 
 # -----------------------------------------------------------------------------
@@ -330,8 +330,7 @@ ITEMS_PER_PAGE = 10
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE':
-            'haystack.backends.elasticsearch_backend'
-            '.ElasticsearchSearchEngine',
+            'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
         'URL': 'http://127.0.0.1:9200/',
         'INDEX_NAME': 'poms_haystack',
     },

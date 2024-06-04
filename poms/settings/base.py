@@ -336,7 +336,7 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 # Index only the first 500 objects of each type (for vagrant and debug)
-PARTIAL_INDEX = True
+PARTIAL_INDEX = False
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 50
 
 # Added here for edge cases with very large records in admin

@@ -322,7 +322,8 @@ class PomsIndex(indexes.SearchIndex):
     #     return None;
 
 
-class PersonIndex(PomsIndex, indexes.Indexable):
+# , indexes.Indexable
+class PersonIndex(PomsIndex):
     """Index to replace DJFacet person result type    """
 
 
@@ -569,7 +570,7 @@ class PersonIndex(PomsIndex, indexes.Indexable):
         return poms_models.Person
 
 
-class FactoidIndex(PomsIndex):
+class FactoidIndex(PomsIndex, indexes.Indexable):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):
@@ -582,10 +583,11 @@ class FactoidIndex(PomsIndex):
             'description'] = obj.shortdesc
         self.prepared_data['inferred_type'] = obj.inferred_type
         source = obj.sourcekey
-        self.prepared_data['source'] = source
-        self.prepared_data['hammondnumber'] = source.hammondnumber
-        self.prepared_data['hammondnumb2'] = source.hammondnumb2
-        self.prepared_data['hammondnumb3'] = source.hammondnumb3
+        if source:
+            self.prepared_data['source'] = source.__str__()
+            self.prepared_data['hammondnumber'] = source.hammondnumber
+            self.prepared_data['hammondnumb2'] = source.hammondnumb2
+            self.prepared_data['hammondnumb3'] = source.hammondnumb3
 
         self.prepared_data[
             'surnames'
@@ -836,8 +838,8 @@ class FactoidIndex(PomsIndex):
     def get_model(self):
         return poms_models.Factoid
 
-
-class SourceIndex(PomsIndex, indexes.Indexable):
+# , indexes.Indexable
+class SourceIndex(PomsIndex):
     """Index to replace DJFacet person result type    """
 
     def prepare(self, obj):

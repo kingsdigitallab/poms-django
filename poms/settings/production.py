@@ -24,6 +24,9 @@ DATABASES = {
     },
 }
 
+# Set this to true to only index 500 records
+PARTIAL_INDEX = True
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE':

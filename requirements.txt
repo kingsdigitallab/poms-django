@@ -9,7 +9,7 @@ django-auth-ldap==1.7.0
 django-compressor==2.2
 django-extensions==2.1.5
 django-grappelli==2.12.2
-django-haystack==2.8.1
+django-haystack==3.2.1
 django-js-asset==1.1.0
 django-kdl-ldap==1.1
 django-libsass==0.7
@@ -24,7 +24,7 @@ django-treebeard==4.3
 djangorestframework==3.9.1
 docutils==0.14
 draftjs-exporter==2.1.5
-elasticsearch==2.4.1
+elasticsearch==7.10.1
 django-elasticsearch-dsl
 html5lib==0.999999999
 idna==2.7

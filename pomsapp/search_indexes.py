@@ -835,6 +835,18 @@ class FactoidIndex(PomsIndex, indexes.Indexable):
 
         return self.prepared_data
 
+    def index_queryset(self, using=None):
+        """Used when the entire index for model is updated."""
+        if settings.PARTIAL_INDEX:
+            index_q = self.get_model().objects.filter(
+                id__lt=PARTIAL_INDEX_MAX_ID
+            ).order_by('pk')
+        else:
+            index_q = self.get_model().objects.filter().order_by(
+                'pk'
+            )
+        return index_q
+
     def get_model(self):
         return poms_models.Factoid
 

@@ -30,8 +30,8 @@ services:
 
   db:
     image: library/mysql:5.7.35
-    volumes:
-      - ../volumes/local_mysql_data:/var/lib/mysql
+    #volumes:
+    #  - ../volumes/local_mysql_data:/var/lib/mysql
     restart: unless-stopped
     expose:
       - "3306"

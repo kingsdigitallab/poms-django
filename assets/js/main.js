@@ -109,7 +109,7 @@ $(function () {
             // Load the facet choices
             var selected_facets = $(this).data('selected_facets');
             var title = this;
-            var url = "/search/" + facet_group + "/" + facet_name + "/?"+$('#search_form').serialize();
+            var url = "/search/" + facet_group + "/" + facet_name + "/?" + $('#search_form').serialize();
             /*if (selected_facets && selected_facets.length > 0) {
                 url += selected_facets;
             }*/
@@ -141,16 +141,13 @@ $(function () {
     $('a.paginate').on("click", paginate);
 
 
-
     // This allows us to activate the first tab on the record pages:
-    if($('.recordTabs input[name="tabs"]'.length))
-    {
+    if ($('.recordTabs input[name="tabs"]'.length)) {
         $('.recordTabs input[name="tabs"]').first().attr("checked", "checked");
     }
 
     // Clear button on facets...
-    $('body').on('click', '.clear-icon', function(event)
-    {
+    $('body').on('click', '.clear-icon', function (event) {
         event.preventDefault();
         event.stopPropagation();
         $(this).siblings('input').val('').keyup();
@@ -247,25 +244,25 @@ function parseMapResults(data) {
 };
 
 function getPopup(props) {
-    var span="";
+    var span = "";
     // Use for debugging only
     //console.log(props);
     if (props.factoids && props.factoids.length > 0) {
         span = ' colspan="4"';
     }
-    str = '<table class="simple headersX"><tbody><tr><th'+span+'><a href="/record/place/' + props.id + '">' + props.name + '</a>, '+ props.parent +'</th></tr>';
+    str = '<table class="simple headersX"><tbody><tr><th' + span + '><a href="/record/place/' + props.id + '">' + props.name + '</a>, ' + props.parent + '</th></tr>';
 
     if (props.people && props.people.length > 0) {
         //str += '<tr><th>People:</th></tr>';
         for (p in props.people) {
-            str += '<tr><td><a href="/record/person/' + props.people[p].id + '">' + props.people[p].name + '</a> '+ props.people[p].floruit +'</td></tr>'
+            str += '<tr><td><a href="/record/person/' + props.people[p].id + '">' + props.people[p].name + '</a> ' + props.people[p].floruit + '</td></tr>'
         }
     }
     if (props.charters && props.charters.length > 0) {
         //str += '<tr><th>Source:</th></tr>';
         for (c in props.charters) {
             str += '<tr><td><a href="/record/source/' + props.charters[c].id + '">'
-                + props.charters[c].hammondnumber + '</a> ' + props.charters[c].firmdate +'</td></tr>'
+                + props.charters[c].hammondnumber + '</a> ' + props.charters[c].firmdate + '</td></tr>'
         }
     }
     if (props.factoids && props.factoids.length > 0) {
@@ -274,10 +271,10 @@ function getPopup(props) {
             str += '<td><a href="/record/factoid/' + props.factoids[f].id + '">'
                 + props.factoids[f].description + '</a></td><td>'
                 + props.factoids[f].inferred_type + '</td><td>'
-                + '<a href="/record/source/' + props.charter_id + '">'+ props.factoids[f].hammondnumber + '</a></td><td>'
-                + props.factoids[f].firmdate+'</td>';
-            if (f!=0){
-                str +="<hr/>"
+                + '<a href="/record/source/' + props.charter_id + '">' + props.factoids[f].hammondnumber + '</a></td><td>'
+                + props.factoids[f].firmdate + '</td>';
+            if (f != 0) {
+                str += "<hr/>"
             }
             str += "</td></tr>";
         }
@@ -305,9 +302,6 @@ function replaceType(filterString) {
 };
 
 
-
-
-
 function openMapImage(data) {
     $('.ui-tooltip-content').html(data)
     map.addLayer(oms)
@@ -323,8 +317,7 @@ function updateResults() {
                 map.spin(false);
             }
         });
-    }
-    else if (parentID != '') {
+    } else if (parentID != '') {
         $.ajax('search-by-parent/?id=' + parentID, {
             dataType: "jsonp",
             complete: function () {
@@ -336,8 +329,7 @@ function updateResults() {
 };
 
 // Init Function
-function initMap()
-{
+function initMap() {
     storedJSON = new Object();
     storedJSON.place = new Array();
     storedJSON.charter = new Array();
@@ -352,8 +344,7 @@ function initMap()
                     this._spinning = 0;
                 }
                 this._spinning++;
-            }
-            else {
+            } else {
                 this._spinning--;
                 if (this._spinning <= 0) {
                     // end spinning !
@@ -424,7 +415,7 @@ function initMap()
     map = new L.map('map', {crs: L.CRS.EPSG3857, scrollWheelZoom: false});
     //layer = new L.TileLayer('http://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
     //    {attribution: 'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'}).addTo(map);
-    modern = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}")
+    modern = new L.TileLayer("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map);
     regions = new L.tileLayer.wms('/geoserver/gwc/service/wms?', {
             layers: 'PDE_Postgres:scotland_regions_simple',
             format: 'image/png',
@@ -482,8 +473,7 @@ function initMap()
         if ($(this).next().html() == ' Bedrock (Zoom 13+)') {
             if ($(this).attr('checked')) {
                 map.on('click', getBGSBedrock)
-            }
-            else {
+            } else {
                 map.off('click', getBGSBedrock)
             }
         }
@@ -493,8 +483,7 @@ function initMap()
         if ($(this).next().html() == ' Superficial (Zoom 13+)') {
             if ($(this).attr('checked')) {
                 map.on('click', getBGSSuperficial)
-            }
-            else {
+            } else {
                 map.off('click', getBGSSuperficial)
             }
         }
@@ -545,8 +534,7 @@ function initMap()
                         geomQry = '';
                         parentID = $(this).data('place-id');
                         updateResults();
-                    }
-                    else {
+                    } else {
                         drawnItems.clearLayers()
                         parentID = ''
                         map.spin(false);
@@ -574,15 +562,13 @@ function initMap()
                         marker = new L.marker(latlng, {icon: personCharterMarker});
                         //marker = new L.circleMarker(latlng)
                     }
-                }
-                else if (feature.properties.charters && feature.properties.charters.length > 0) {
+                } else if (feature.properties.charters && feature.properties.charters.length > 0) {
                     marker = new L.marker(latlng, {icon: charterMarker});
                     feature.properties['style'] = 'charter'
-                }else if (feature.properties.factoids && feature.properties.factoids.length > 0) {
+                } else if (feature.properties.factoids && feature.properties.factoids.length > 0) {
                     marker = new L.marker(latlng, {icon: factoidMarker});
                     feature.properties['style'] = 'factoid'
-                }
-                else {
+                } else {
                     marker = new L.marker(latlng, {icon: plainMarker});
                     //marker = new L.circleMarker(latlng)
                     feature.properties['style'] = 'place'
@@ -597,10 +583,8 @@ function initMap()
 
 
 // Go!
-$(document).ready(function()
-{
-    if($('.browse-map').length)
-    {
+$(document).ready(function () {
+    if ($('.browse-map').length) {
         initMap();
     }
 });

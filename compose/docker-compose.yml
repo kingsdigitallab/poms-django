@@ -1,8 +1,5 @@
 name: 'poms_openstack'
 
-volumes:
-  local_elastic_data: {}
-
 services:
   nginx-proxy:
     image: nginxproxy/nginx-proxy:1.4
@@ -59,7 +56,7 @@ services:
   elasticsearch:
     image: elasticsearch:7.10.1
     volumes:
-      - ../volumes/local_elastic_data:/usr/share/elasticsearch/data
+      - ../volumes/elastic_data:/usr/share/elasticsearch/data
     env_file:
       - .env
     expose:

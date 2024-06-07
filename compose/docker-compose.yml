@@ -58,15 +58,15 @@ services:
 
   elasticsearch:
     image: elasticsearch:7.10.1
-#    volumes:
-#      - local_elastic_data:/usr/share/elasticsearch/data
+    volumes:
+      - ../volumes/local_elastic_data:/usr/share/elasticsearch/data
     env_file:
       - .env
-#    expose:
-#      - "9200"
-#      - "9300"
-    ports:
-      - "9200:9200"
+    expose:
+      - "9200"
+      - "9300"
+#    ports:
+#      - "9200:9200"
     restart: unless-stopped
 
   geoserver:

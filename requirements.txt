@@ -43,7 +43,7 @@ rjsmin==1.0.12
 six==1.11.0
 Unidecode==1.0.22
 urllib3==1.23
-wagtail==2.6.3
+wagtail<2.10
 webencodings==0.5.1
 Willow==1.1
 django-environ==0.4.5

@@ -55,8 +55,8 @@ services:
 
   elasticsearch:
     image: elasticsearch:7.10.1
-    volumes:
-      - ../volumes/elastic_data:/usr/share/elasticsearch/data
+#    volumes:
+#      - ../volumes/elastic_data:/usr/share/elasticsearch/data
     env_file:
       - .env
     expose:

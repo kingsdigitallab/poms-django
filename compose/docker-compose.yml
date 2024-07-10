@@ -18,9 +18,10 @@ services:
       - "8001"
     volumes:
       - ../volumes/django/static:/usr/share/nginx/static:ro
-
+    env_file:
+      - .env
     environment:
-      VIRTUAL_HOST: "poms-os.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
+      VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
       VIRTUAL_PATH: "~^/(static/|redist/|robots.txt)"
       VIRTUAL_PROTO: http
       VIRTUAL_PORT: 8001
@@ -78,7 +79,7 @@ services:
       - ../volumes/geoserver/data:/opt/geoserver_data
     restart: unless-stopped
     environment:
-      VIRTUAL_HOST: "poms-os.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
+      VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
       VIRTUAL_PATH: "/geoserver"
       VIRTUAL_PROTO: http
       VIRTUAL_PORT: 8080
@@ -102,7 +103,7 @@ services:
     expose:
       - 8000
     environment:
-      VIRTUAL_HOST: "poms-os.kdl.kcl.ac.uk,poms.app.cch.kcl.ac.uk,localhost,127.0.0.1"
+      VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
       VIRTUAL_PATH: "/"
       VIRTUAL_PROTO: http
       VIRTUAL_PORT: 8000

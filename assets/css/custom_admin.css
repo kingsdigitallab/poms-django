@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:033fb903f876415c63fb2ac14b44cedadb727111f99d207c8c5d1cc7ec08b3ee
-size 540
+/*
+Custom classes to tweak admin
+ */
+div.field-box.from_weekday div.c-1,div.field-box.from_day div.c-1,div.field-box.from_month div.c-1,div.field-box.from_season div.c-1,div.field-box.from_year div.c-1,div.field-box.from_modifier2 div.c-1 {
+    display: none !important;
+}
+
+div.field-box.to_weekday div.c-1,div.field-box.to_day div.c-1,div.field-box.to_month div.c-1,div.field-box.to_season div.c-1,div.field-box.to_year div.c-1,div.field-box.to_modifier2 div.c-1 {
+    display: none !important;
+}
+
+.ac_input{
+    width: 250px !important;
+}

@@ -1,3 +1,31 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7bd334233c00a5ebf834faa002bb719207802c0f4da9c463995ec250d7323307
-size 924
+{% load extrafilters %}
+
+{% if person.assocfactoidproanima_set.all %} 
+
+	<b>Person associated through pro-anima in factoids: {{person.assocfactoidproanima_set.all.count}} in total (only the latest 30 are shown below)</b><hr><hr>
+
+	<table>
+	  <tr>
+	    <th>Record ID</th>
+		<th>Type</th>
+	    <th>Short Summary</th>
+		<th>Role</th>
+	    <th>Source</th>
+		<th>Last updated</th>
+	  </tr>
+
+	{% for a in person.assocfactoidproanima_set.all|latest_updated|slice:":30" %}
+	  <tr>
+	    <td>{{a.factoidtrans.id}}</td>
+		<td>{{a.factoidtrans.get_right_subclass.0}}</td>
+	    <td><a href="{% url 'factoid_detail' a.factoidtrans.id %}" title="click to show">{{a.factoidtrans}}</a></td>
+	    <td>{{a.role}}</td>
+	    <td><a href="{% url 'source_detail' a.factoidtrans.sourcekey.id %}" title="click to show">{{a.factoidtrans.sourcekey}}</a></td>
+		<td>{{a.updated_at}}</td>
+	  </tr>
+	{% endfor %}
+
+	</table>
+
+	<br /><hr><br />
+{% endif %}

@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4898d8fd03adec2a7ba4c000cba3d9fc27098511c46c0f498ec513578507c36c
-size 235
+<table border='0'>
+<tr>
+{% for choice in question.get_choices %}
+<td>
+<input name='question_multiple_{{choice.nr}}_{{question.id}}' type='checkbox'
+value='{{choice.nr}}'><label>{{choice.name}}</label>
+</td>
+{% endfor %}
+</tr>
+</table>

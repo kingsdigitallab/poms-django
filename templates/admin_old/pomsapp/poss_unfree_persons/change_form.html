@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0baed824c77eb75fa8b87da57902d847bc14af1649bb85e341dfc2dc146b223b
-size 238
+{% extends "admin/change_form.html" %} 
+{% load myadmin_tags %} 
+{% block related_items_block %}
+<h2>Additional information:</h2><br />
+
+  	{% if object_id %}
+		{% display_possessionfactoids object_id %}
+	{% endif %} 
+	
+ {% endblock %}
+
+

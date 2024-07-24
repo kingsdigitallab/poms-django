@@ -1,3 +1,19 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dc8bae69fb2f91dfb46aced450265edfcf9c92c814af5d7e775cc865f1979d88
-size 567
+{% load staticfiles wagtailcore_tags pomsapp_wagtail_tags%}
+
+<nav class="primary-nav">
+  <ul>
+    {% comment %}
+    TODO: add class="active" when the url of the current page matches the menu item
+    {% endcomment %}
+  <li {% if current_page.url == root.url %} class="active"{% endif %}>
+        <a href="{% pageurl root %}">{{ root.title }}</a>
+    </li>
+
+    {% for page in menu_pages %}
+    <li {% if request.path|startswith:page.url %} class="active"{% endif %}>
+        <a href="{% pageurl page %}">{{ page.title }}</a>
+    </li>
+    {% endfor %}
+
+  </ul>
+</nav>

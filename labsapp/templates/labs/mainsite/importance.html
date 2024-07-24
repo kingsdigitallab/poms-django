@@ -1,3 +1,27 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d0d60b2e26a697ac60660c45ded668642efd1272b416ab7c5e1aecba0d0b3b36
-size 1343
+{% extends "labs/mainsite/indexLabs.html" %}
+
+
+
+{% block labs_contents %}
+	
+<dl>
+	<h3>People/Institutions Importance</h3>	
+	
+	<p>The PoMS database presents a considerable amount of variation in terms of the quantity of information available for each recorded historical person (or institution). Based on the evidence found in charters, some individuals ended up having a lot of associated information, while others almost none. 
+		<br />
+		In these experiments we attempt to represent visually and interactively this aspect of the data, that is, the 'popularity' of agents.</p>
+	
+	<br />
+	
+	<h4>Popularity Tag Cloud <a class="launch" href="popularitycloud/go" title="launch" target="_blank">launch</a></h4>
+	<p>This visualization creates a 'vertical' tag-cloud based on names of individuals and on the amount of information ('factoids') associated to each of them. The size of the names increases the more items of information about this person or institution is available in the database. This provides the user with an immediate feeling for the varying degrees of 'popularity' of these individuals.</p>
+	<a href="{{ STATIC_URL }}labs/img/screenshots/importance1.png" title="click to view the image in full size"><img src="{{ STATIC_URL }}labs/img/screenshots/importance1.png" alt="screenshot" height="350" /></a>
+	
+	
+
+
+	
+{% endblock %}		
+
+
+

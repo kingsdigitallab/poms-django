@@ -1,3 +1,5 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:dcb121f1f40a32d2f77e1f85e6e218f88933a01c198b8fe2032f112dd2b96923
-size 156
+{{object.id}}
+{{object.hammondnumber}}
+{{object.description|truncatewords:500 }}
+{{object.helper_keywordsearch|truncatewords:500 }}
+{{object.source_tradid}}

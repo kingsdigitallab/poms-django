@@ -1,3 +1,31 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7798b7474cd35a1139ebcf845e7831a741df7c3b69fc8f44cea0409ddef5ae8e
-size 627
+{% extends "base.html" %}
+{% load wagtailcore_tags pomsapp_wagtail_tags %}
+
+{% block tabs_titles %}
+    <h2 class="float-left">{{ self.title }}</h2>
+
+{% endblock %}
+
+{% block small_links %}
+    {% get_menu_pages self %}
+    {% if title %}
+        <h3>{{ title }}</h3>
+    {% endif %}
+    
+    <ul class="{% if class %}{{ class }}{% endif %}">
+    {% for page in menu_pages %}
+        <li>
+            <a href="{% pageurl page %}">{{ page.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
+
+
+{% block contents %}
+    <div id="wagtail-content">
+        {{ self.content | richtext }}
+    </div>
+{% endblock %}
+

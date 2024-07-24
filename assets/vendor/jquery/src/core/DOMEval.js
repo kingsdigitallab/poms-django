@@ -1,3 +1,30 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5c6b56ae65650fed3de1d236f7fd4cbb2cddb4cb2cb62a2205ef9017ab38e508
-size 516
+define( [
+	"../var/document"
+], function( document ) {
+	"use strict";
+
+	var preservedScriptAttributes = {
+		type: true,
+		src: true,
+		noModule: true
+	};
+
+	function DOMEval( code, doc, node ) {
+		doc = doc || document;
+
+		var i,
+			script = doc.createElement( "script" );
+
+		script.text = code;
+		if ( node ) {
+			for ( i in preservedScriptAttributes ) {
+				if ( node[ i ] ) {
+					script[ i ] = node[ i ];
+				}
+			}
+		}
+		doc.head.appendChild( script ).parentNode.removeChild( script );
+	}
+
+	return DOMEval;
+} );

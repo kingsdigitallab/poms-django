@@ -1,3 +1,11 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0b256062bfce4655095d3131837f1699785e5fbbb93142d39c50a8804c90d5e3
-size 368
+{% load staticfiles pomsapp_tags pomsapp_wagtail_tags wagtailcore_tags %}
+{% get_wagtail_page slug as wagtail_page %}
+<nav class="subnav">
+    <ul class="menu">
+    {% for page in menu_pages %}
+    <li class="{% if page.url == current_page.url %}active{% endif %}">
+        <a href="{% pageurl page %}">{{ page.title }}</a>
+    </li>
+    {% endfor %}
+    </ul>
+</nav>

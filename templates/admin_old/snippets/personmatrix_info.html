@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8057865b35e06770553990c9991c42eff7bb41705811198f290e8d41637dfaf7
-size 426
+
+{% if person.matrix_set.all %}
+
+<b>Person owns matrix:</b><hr></br />
+
+	<table>
+	  <tr>
+	    <th>Record ID</th>
+		<th>Identifier</th>
+	    <th>Shape</th>
+	  </tr>
+
+	{% for m in person.matrix_set.all %}
+	  <tr>
+	    <td><a href="{{m.get_admin_url}}" target="_blank" title="edit">{{m.id}}</a></td>
+		<td>{{m.identifier}}</td>
+	    <td>{{m.shape.name}}</td>
+	  </tr>
+	{% endfor %}
+
+	</table>
+	
+	<br /><hr><hr><br />
+{% endif %}	

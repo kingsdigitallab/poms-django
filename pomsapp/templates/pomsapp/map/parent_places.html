@@ -1,3 +1,13 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e1b0fe65438fe948070a1cd9a64f4cf6418d7efd940ee39df736df0d3c099a2e
-size 631
+<div class="leaflet-bottom leaflet-left">
+  <div class="leaflet-control-layers leaflet-control leaflet-control-layers-expanded" aria-haspopup="true">
+    <a class="leaflet-control-layers-toggle" href="#" title="Layers"></a>
+    <form class="leaflet-control-layers-list">
+      <div id="parent-places" class="leaflet-control-layers-overlays" style="height:400px;overflow:scroll;">
+	    {% for p in places %}
+        <label>
+          <input name="parent-place" data-place-id="{{ p.id }}" type="radio" class="leaflet-control-layers-selector"><span> {{ p }}</span></label>
+        {% endfor %}
+      </div>
+    </form>
+  </div>
+</div>

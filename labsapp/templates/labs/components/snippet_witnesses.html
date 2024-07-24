@@ -1,3 +1,264 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a345247424a14a94125560fb9838352b8a4e29a8ad89efbc6ed3602d4c3edc7d
-size 7711
+{# USED IN WITNESSES R GRAPH #}
+
+
+{% load extrafilters %}
+
+
+
+{% block infobox %}
+
+{% ifequal x_type "witness"  %}
+
+	<div class='tnum'>
+		Person: {{item|capfirst}} 
+		<span class='smalllinks'>
+				<a href="{{item.get_absolute_url}}" target="_blank" title="Open this PoMS record in a new tab">&rarr; PoMS</a></span>
+	</div>
+
+	<div class='infobox'>
+
+		<dl class="m1">
+	        {% if item.standardmedievalname %}
+	        	<dt>Medieval Name</dt>
+		        <dd>{{item.standardmedievalname|default:"&nbsp;"}}</dd>
+	        {% endif %}
+			{% if item.moderngaelicname %}
+		        <dt>Modern Gaelic Name</dt>
+		        <dd>{{item.moderngaelicname|default:"&nbsp;"}}</dd>			
+			{% endif %}
+				{# gender only for M, F, M/F #}
+			{% if item.genderkey.id == "4" or item.genderkey.id == "3" or item.genderkey.id == "6" %}
+		        <dt>Gender</dt>
+		        <dd>{{item.genderkey|default:"&nbsp;"}}</dd>
+			{% endif %}
+	        {% if item.itemdescription %}
+	        	<dt>Biography</dt>
+		        <dd>{{item.itemdescription|poms_italic|safe|default:"&nbsp;"}}</dd>
+	        {% endif %}
+	        <dt>Floruits</dt>
+	        <dd> {{item.nice_floruits|safe}}</dd>	
+	        {% if item.relatedplace %}
+	        	<dt>Related Place</dt>
+		        <dd>{{item.relatedplace.name}}<span class='smalllinks'><a href="{% url place_detail item.relatedplace.id  %}" target="_blank" title="Open this PoMS record in a new tab">&rarr; PoMS</a></span></dd>
+	        {% endif %}		
+		
+			
+			{# WITNESS-FACTOIDS #}
+			
+			
+			<dt>Witness in</dt>			
+
+				{% for a in ass_factoids %}
+				<dd>
+				{{a.factoid.firmdate|default:"date unavailable"}}<br />
+			    <span><a style="color: darkSlateBlue;" title="Click to center the graph on this transaction" href="javascript:focus_node('tr_{{a.factoid.id}}');">{{a.factoid}}</a></span>
+				
+				<span class='smalllinks'>
+										
+					<a href="{% url factoid_detail a.factoid.id %}" target="_blank" title="Open this PoMS record in a new tab">&rarr; PoMS</a>
+
+				</span>
+			  	</dd>
+				{% endfor %}
+
+			
+
+			
+			
+			
+      	</dl>
+
+
+
+	</div>
+
+
+
+{% else %}
+
+	{# ITs a TRANSACTION #}
+
+	<div class='tnum'>
+		{% ifnotequal main_transaction_id  item.id %}
+			<a href="?id={{item.id}}" class="graph_focus" title="Rebuild the graph by focusing on this transaction (e.g. in order to show all of its witnesses)" style="text-decoration: none;">&#164;</a>
+		{% endifnotequal %}
+		
+		Transaction: {{item.shortdesc}} 
+		<span class='smalllinks'>
+				<a href="{{item.get_absolute_url}}" target="_blank" title="Open this PoMS record in a new tab">&rarr; PoMS</a>
+		</span>
+	</div>
+
+	<div class='infobox'>
+
+		{% if item.transactiontype %}
+	    <dt>Type of Transaction</dt>
+	      	<dd>{{item.transactiontype|default:"&nbsp;"}}</dd>	
+		
+		{% endif %}
+	    <dt>From Source</dt>
+        	<dd>{{item.sourcekey|poms_italic|safe|default:"&nbsp;"}}<span class='smalllinks'><a href="{% url source_detail item.sourcekey.id %}" target="_blank" title="Open this PoMS record in a new tab">&rarr; PoMS</a></span></dd>
+ 
+       {% if item.firmdate %}
+        	<dt>Firm date</dt>
+	        	<dd>{{item.firmdate|default:"&nbsp;"}}</dd>
+        {% endif %}
+		{% if item.probabledate %}
+        <dt>Probable date</dt>
+        	<dd>{{item.probabledate|default:"&nbsp;"}}</dd>			
+		{% endif %}
+		{% if item.datingnotes %}
+        <dt>Dating Notes</dt>
+        	<dd>{{item.datingnotes|default:"&nbsp;"}}</dd>			
+		{% endif %}
+		{% if item.isprimary %}
+			<dt>Primary</dt>
+		      	<dd>{{item.isprimary|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+		{% endif %}
+		{% if item.isdare %}
+		<dt>Dare</dt>
+			<dd>{{item.isdare|yesno:"yes,no"|default:"&nbsp;"}}</dd>		
+		{% endif %}
+		{% if item.verbsnotspecified %}
+			<dt>Verbs not specified</dt>
+				<dd>{{item.verbsnotspecified|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+		{% endif %}
+		{% if item.isexchange %}
+		<dt>Exchange</dt>
+			<dd>{{item.isexchange|yesno:"yes,no"|default:"&nbsp;"}}</dd>		
+		{% endif %}
+		{% if item.conveth %}
+		<dt>Conveth</dt>
+			<dd>{{item.conveth|yesno:"yes,no"|default:"&nbsp;"}}</dd>		
+		{% endif %}
+		{% if item.tenendas.all %}
+			<dt>Tenendas</dt>
+				<dd> {{item.tenendas.all|printmany|default:"&nbsp;"}}		
+				</dd>
+		{% endif %}
+		{% if item.tenendasclauseolang %}
+			<dt>Tenendas original language</dt>
+				<dd>{{item.tenendasclauseolang|default:"&nbsp;"}}</dd>
+		{% endif %}	
+		{% if item.exemptions.all %}
+			<dt>Exemptions</dt>
+				<dd> {{item.exemptions.all|printmany|default:"&nbsp;"}}			
+				</dd>
+		{% endif %}
+		{% if item.exemptionclauseolang %}
+			<dt>Exemptions original language</dt>
+				<dd>{{item.exemptionclauseolang|default:"&nbsp;"}}</dd>
+		{% endif %}
+		{% if item.renderdates.all %}
+			<dt>Render dates</dt>
+				<dd>{{item.renderdates.all|printmany|default:"&nbsp;"}}			
+				</dd>
+		{% endif %}
+		{% if item.rendernominal.all %}
+			<dt>Nominal renders</dt>
+				<dd>{{item.rendernominal.all|printmany|default:"&nbsp;"}}			
+				</dd>
+		{% endif %}
+		{% if item.sicutclauses.all %}
+			<dt>Sicut clause</dt>
+				<dd>{{item.sicutclauses.all|printmany|default:"&nbsp;"}}			
+				</dd>
+		{% endif %}	
+		{% if item.legalpertinents.all %}
+			<dt>Legal Pertinents</dt>
+				<dd>{{item.legalpertinents.all|printmany|default:"&nbsp;"}}			
+				</dd>
+		{% endif %}
+		{% if item.returnsmilitary.all %}
+			<dt>Returns / Military</dt>
+				<dd>{{item.returnsmilitary.all|printmany|default:"&nbsp;"}}				
+				</dd>
+		{% endif %}	
+		{% if item.returnsrenders.all %}
+			<dt>Returns / Renders</dt>
+				<dd>{{item.returnsrenders.all|printmany|default:"&nbsp;"}}		
+				</dd>
+		{% endif %}
+		{% if item.commonburdens.all %}
+		<dt>Common burdens</dt>
+			<dd>{{item.commonburdens.all|printmany|default:"&nbsp;"}}		
+			</dd>		
+		{% endif %}		
+		{% if item.previouschartermention %}
+			<dt>Previous mentions of charter</dt>
+		      	<dd>{{item.previouschartermention|yesno:"yes,no"|default:"&nbsp;"}}</dd>	
+		{% endif %}
+		{% if item.previouschirographmention %}
+		<dt>Previous mention of chirograph</dt>
+			<dd>{{item.previouschirographmention|yesno:"yes,no"|default:"&nbsp;"}}</dd>	
+		{% endif %}
+		{% if item.perambulation %}
+			<dt>Perambulation</dt>
+				<dd>{{item.perambulation|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+		{% endif %}
+		{% if item.ismalediction %}
+			<dt>Malediction</dt>
+				<dd>{{item.ismalediction|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+		{% endif %}
+		{% if item.corroborationsealing %}
+			<dt>Corroboration / sealing</dt>
+				<dd>{{item.corroborationsealing|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+		{% endif %}
+		{% if  item.bothaddressorsmentioned %}
+			<dt>Both addressors mentioned</dt>
+				<dd>{{item.bothaddressorsmentioned|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+		{% endif %}		
+		{% if item.warrandice %}
+			<dt>Warrandice</dt>
+				<dd>{{item.warrandice|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+		{% endif %}
+		{% if item.spiritualbenefits.all %}
+			<dt>Spiritual Benefits</dt>
+				<dd>{{item.spiritualbenefits.all|printmany|default:"&nbsp;"}}
+				</dd>
+		{% endif %}
+		{% if item.notes %}
+			<dt>Notes</dt>
+				<dd>{{item.notes|default:"&nbsp;"}}
+				</dd>
+		{% endif %}
+		{% if item.genericwitnesses %}
+			<dt>Witnesses in original, but not copied into cartulary</dt>
+				<dd>{{item.genericwitnesses|yesno:"yes,no"}}
+				</dd>
+		{% endif %}
+		{% if item.testemeipso %}
+			<dt>Teste me Ipso</dt>
+				<dd>{{item.testemeipso|yesno:"yes,no"}}
+				</dd>
+		{% endif %}
+
+
+
+		{# WITNESSES PEOPL #}
+		
+		
+		<dt>Witnesses</dt>			
+
+			{% for a in item.assocfactoidwitness_set.all %}
+			<dd>
+		    <span>{{a.person}}</span><span class='smalllinks'><a href="{% url person_detail a.person.id %}" target="_blank" title="Open this PoMS record in a new tab">&rarr; PoMS</a></span>
+		  	</dd>
+			{% endfor %}
+
+
+
+	</div>
+
+
+
+
+
+{% endifequal %}
+
+
+
+
+	
+{% endblock %}
+

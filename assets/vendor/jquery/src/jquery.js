@@ -1,3 +1,40 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:d49fffdfb75415de0197c582136349c7c6219f8ffbeae7c867d0604657c189e7
-size 622
+define( [
+	"./core",
+	"./selector",
+	"./traversing",
+	"./callbacks",
+	"./deferred",
+	"./deferred/exceptionHook",
+	"./core/ready",
+	"./data",
+	"./queue",
+	"./queue/delay",
+	"./attributes",
+	"./event",
+	"./event/focusin",
+	"./manipulation",
+	"./manipulation/_evalUrl",
+	"./wrap",
+	"./css",
+	"./css/hiddenVisibleSelectors",
+	"./serialize",
+	"./ajax",
+	"./ajax/xhr",
+	"./ajax/script",
+	"./ajax/jsonp",
+	"./ajax/load",
+	"./event/ajax",
+	"./effects",
+	"./effects/animatedSelector",
+	"./offset",
+	"./dimensions",
+	"./deprecated",
+	"./exports/amd",
+	"./exports/global"
+], function( jQuery ) {
+
+"use strict";
+
+return jQuery;
+
+} );

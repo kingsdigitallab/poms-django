@@ -1,3 +1,6 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:689857dae26fe8074678ab2d8f14bfd1dba93085a8f49676768ae65c1d581f7f
-size 68
+-r requirements.txt
+django-debug-toolbar
+Fabric3
+flake8
+ipython
+tox

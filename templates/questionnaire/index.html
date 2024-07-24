@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:fdcdf05831ff447da9a1f49c21c2004ba5852b52ee0a27af8a9a78a7292bf550
-size 560
+{% load i18n %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+<title>{{vars.title}}</title>
+  <link rel="stylesheet" type="text/css" href="{{vars.media}}style.css" />
+  <link rel="stylesheet" type="text/css" href="{{vars.media}}login.css" />
+  <link rel="stylesheet" type="text/css" href="{{vars.media}}form.css" />
+	
+<script src="{{vars.media}}functions.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

@@ -1,3 +1,9 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:69e0a3ba73a317ed627a99d20955c93a47b56d5cf611548147128815e226d6bd
-size 240
+User-agent: *
+Disallow: /search/
+Disallow: /browse/
+Disallow: /labs/connectionscloud/
+Disallow: /labs/relationships/
+Disallow: /labs/peoplelives/
+Disallow: /labs/longevitychart/ 
+Disallow: /labs/popularitycloud/ 
+Disallow: /labs/witnesses/ 

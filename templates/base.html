@@ -1,3 +1,101 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:75cf2ad7ba95c1b0223225e4439f7b8e6d2e6b6e24ec8bbbca842be5e5dca89d
-size 2453
+{% load compress staticfiles pomsapp_wagtail_tags wagtailcore_tags pomsapp_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    {% block titlepage %}
+        <title>{{ PROJECT_TITLE }}</title>
+    {% endblock %}
+
+    {# Shared main CSS #}
+    {% compress css %}
+        <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/main.scss' %}">
+    {% endcompress %}
+
+    {% block load_css %}
+    {% endblock %}
+    <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="{% static 'js/jquery.overlabel.js' %}"></script>
+
+    {% block load_js %}
+    {% endblock %}
+    {% compress js %}
+        <script src="{% static 'js/main.js' %}"></script>
+    {% endcompress %}
+
+
+
+    {# FontAwesome #}
+    <script defer src="{% static 'fonts/FontAwesome/js/all.js' %}"></script>
+</head>
+<body{% if record_splash_page %} id="recordPage"{% endif %}>
+
+{% block header %}
+    {% include 'includes/header.html' %}
+{% endblock %}
+
+{% block navigation %}
+    {% get_site_root as site_root %}
+    {% main_menu root=site_root current_page=self %}
+{% endblock %}
+
+{% block subnav %}
+{% endblock %}
+
+{# Elliott, we should rename these <div> IDs for better semantic - Ginestra #}
+<div id="wagtail-wrapper"{% if djfacet_splashpage %} class="splash"{% endif %}>
+    {% block breadcrumbs %}
+        <div id="breadcrumbs">
+
+            {% breadcrumbs current_page=self %}
+
+        </div>
+    {% endblock %}
+    <div id="secondary-nav">
+
+        {% block small_links %}
+        {% endblock %}
+    </div>
+
+
+        {% block tabs_titles %}
+        {% endblock %}
+
+
+        {% block permalink %}
+        {% endblock %}
+
+        {% block contents %}
+        {% endblock %}
+
+</div>
+
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-68207578-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+{% block footer %}
+    {% include 'includes/footer.html' %}
+{% endblock %}
+
+{% block body_closing %}
+{% endblock %}
+
+
+</body>
+</html>

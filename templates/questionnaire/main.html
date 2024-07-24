@@ -1,3 +1,25 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:bb98418831d6808f823a3b75058b9e641ee83c07f59b3f5f6d01114e8a7026d6
-size 449
+{% extends "questionnaire/index.html" %}
+
+{% block content %}
+
+<div class='container'>
+
+	<div class='top_bar'>
+
+		<div class='title'><a href="{{vars.url}}">{{vars.title}}</a></div>
+
+		<div class='quick_bar'> {{ user.email }} | <a class='link' href='{{vars.url}}logout'>Logout</a></div> </div>
+
+		<div class='main'>
+
+			{% block main %}
+
+			{% endblock %}
+
+		</div>
+
+		<div class='footer' align='center'>{{vars.title}}</div>
+
+	</div>
+
+{% endblock %}

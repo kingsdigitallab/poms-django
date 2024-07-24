@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c79542d0f353fb449fb8879f402511cf796657fc34fdce6cee65b47d1f59e1f3
-size 292
+// Base Class Definition
+// -------------------------
+
+.#{$fa-css-prefix},
+.fas,
+.far,
+.fal,
+.fab {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}

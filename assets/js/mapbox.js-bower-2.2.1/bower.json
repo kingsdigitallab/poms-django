@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:9ea6f8ccf9a165b79b92c4486640bc0e3de821758a383aa4c9c6bef7df789e05
-size 421
+{
+  "name": "mapbox.js",
+  "main": [
+    "mapbox.css",
+    "mapbox.js",
+    "images/*"
+  ],
+  "version": "2.2.1",
+  "homepage": "https://github.com/mapbox/mapbox.js",
+  "authors": ["Mapbox"],
+  "description": "Mapbox Javascript API",
+  "keywords": ["mapbox", "leaflet", "maps", "map"],
+  "license": "See LICENSE.md",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "examples"
+  ]
+}

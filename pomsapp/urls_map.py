@@ -1,3 +1,16 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:a2ae22965dc84673209bb5ccdf4f1708f0330af3da15afba0a43ea557cdad864
-size 676
+import pomsapp.views_map as views_map
+from pomsapp.views import PomsFacetedBrowse
+from django.conf.urls import url
+# from django.views.generic.base import TemplateView
+
+urlpatterns = [
+    url(r'^$', views_map.map_view, name='map_view'),
+    url(r'^search/$', PomsFacetedBrowse.as_view(
+            template_name='pomsapp/map/map.html',
+        ), name='map_search'),
+    url(r'^search-by-parent/$', views_map.map_search_by_parent,
+        name='map_search_by_parent'),
+    url(r'^hierarchy/$', views_map.hierarchy, name='hierarchy'),
+    url(r'^map-image/$', views_map.map_image, name='map-image'),
+    # url(r'^$', TemplateView.as_view(template_name='preview_map.html')),
+]

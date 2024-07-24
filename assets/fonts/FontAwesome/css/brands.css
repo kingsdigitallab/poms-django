@@ -1,3 +1,5 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4b064009fba73f1119be53e3715e448778fd48cd871bcd67e282a35af8e19504
-size 599
+/*!
+ * Font Awesome Pro 5.1.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license (Commercial License)
+ */
+@font-face{font-family:"Font Awesome 5 Brands";font-style:normal;font-weight:normal;src:url(../webfonts/fa-brands-400.eot);src:url(../webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(../webfonts/fa-brands-400.woff2) format("woff2"),url(../webfonts/fa-brands-400.woff) format("woff"),url(../webfonts/fa-brands-400.ttf) format("truetype"),url(../webfonts/fa-brands-400.svg#fontawesome) format("svg")}.fab{font-family:"Font Awesome 5 Brands"}

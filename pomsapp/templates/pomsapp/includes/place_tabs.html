@@ -1,3 +1,290 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:13eda4cca79d43660259d260ea656d7f037a05f3582fb8c31e9361224a8be5ab
-size 6429
+{% load extrafilters %}
+<!-- Tab Content -->
+	{# ----------- #}
+	{# ASSOC PEOPLE #}
+	{# ----------- #}
+
+	{% if peopleAssoc.object_list %}
+	<section id="content1" class="tab-content">
+	    <div id="{{peopleAssoc.type}}">
+		
+
+			{% block peopleAssoc %}
+
+			{% with peopleAssoc as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+											
+			<br />				
+			
+			<table>
+			  <tr>
+			    <th>Name</th>
+			    <th>Floruits</th>
+			    <th>Related place</th>
+			  </tr>
+		
+
+			{% for a in peopleAssoc.object_list  %}
+			
+			  <tr>
+			    <td><a  href="{% url 'person_detail' a.id %}" title="click to show">{{a}}</a></td>
+			    <td>{{a.nice_floruits|safe}}</td>
+			    <td>{{a.relatedplace.name}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock peopleAssoc %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	</section>
+	{% endif %}
+
+
+
+
+
+
+	{# ----------- #}
+	{# ASSOC CHARTERS #}
+	{# ----------- #}
+
+	{% if documentAssoc.object_list %}
+	<section id="content2" class="tab-content">
+	    <div id="{{documentAssoc.type}}">
+		
+
+			{% block documentAssoc %}
+
+			{% with documentAssoc as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+											
+			<br />				
+			
+			<table>
+				<tr>
+				    <th>Title</th>
+				    <th>Related place</th>
+			  </tr>
+		
+
+			{% for a in documentAssoc.object_list  %}
+			
+			  <tr>
+			    <td><a  href="{% url 'source_detail' a.id %}" title="click to show">{{a|poms_italic|safe|default:"&nbsp;"}}</a></td>
+			    <td>{{a.placefk.name}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock documentAssoc %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	</section>
+	{% endif %}
+
+
+
+
+
+
+
+	{# ----------- #}
+	{# TRANSACTION #}
+	{# ----------- #}
+	
+	{% if transactionFact.object_list %}
+	<section id="content3" class="tab-content">
+	    <div id="{{transactionFact.type}}">
+		
+
+			{% block transactionFact %}
+
+			{% with transactionFact as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+											
+			<br />				
+			
+			<table>
+			  <tr>
+			    <th><a class="paginate" data-page="1" data-ordering="date1"
+                                       data-tab="{{ transactionFact.type }}">Date</a>
+                                </th>
+                                <th><a class="paginate" data-page="1" data-ordering="summary"
+                                       data-tab="{{ transactionFact.type }}">Short
+                                    Summary</a></th>
+                                <th><a class="paginate" data-page="1" data-ordering="primary"
+                                       data-tab="{{ transactionFact.type }}">Primary</a>
+                                </th>
+			    <th>Witnesses</th>
+			  </tr>
+
+			{% for a in transactionFact.object_list  %}
+			
+			  <tr>
+			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
+			    <td><a  href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+			    <td>{{a.isprimary|yesno:"yes,no"}}</td>
+				<td>{{a.witnesses.all|printmany_withabsoluteurl|safe}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock transactionFact %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	</section>
+	{% endif %}
+	
+	
+	
+	
+	{# ----------- #}
+	{# RELATIONSHIP #}
+	{# ----------- #}
+
+	{% if relationshipFact.object_list %}
+	<section id="content4" class="tab-content">	
+	    <div id="{{relationshipFact.type}}">
+		
+
+			{% block relationshipFact %}
+
+			{% with relationshipFact as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />
+											
+			<br />				
+			
+			<table>
+			  <tr>
+			    <th><a class="paginate" data-page="1" data-ordering="date1"
+                                       data-tab="{{ relationshipFact.type }}">Date</a></th>
+                                <th><a class="paginate" data-page="1" data-ordering="summary"
+                                       data-tab="{{ relationshipFact.type }}">Short Summary</a></th>
+				<th>Subject</th>
+				<th>Object</th>
+			  </tr>
+
+			{% for a in relationshipFact.object_list  %}
+			
+			  <tr>
+			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
+			    <td><a  href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+			    <td>{{a.get_secondaryPersons|printmany_withabsoluteurl|safe}}</td>
+				<td>{{a.get_primaryPersons|printmany_withabsoluteurl|safe}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock relationshipFact %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	</section>
+	{% endif %}
+
+
+
+
+
+
+	{# ----------- #}
+	{# POSSESSION FACTOID #}
+	{# ----------- #}
+
+	{% if possessionFact.object_list %}
+	<section id="content5" class="tab-content">	
+	    <div id="{{possessionFact.type}}">
+		
+
+			{% block possessionFact %}
+
+			{% with possessionFact as items %}
+				{% include "pomsapp/record/paginator_record.html" %}
+			{% endwith %}
+			
+			<input type="hidden" class="active_ordering" value="{{active_ordering}}" />								
+			
+			<br />				
+			
+			<table>
+				<tr>
+			    <th><a class="paginate" data-page="1" data-ordering="date1" data-tab="{{possessionFact.type}}">Date</a></th>
+                    <th><a class="paginate" data-page="1" data-ordering="summary" data-tab="{{possessionFact.type}}">Short Summary</a></th>
+				<th>Holder</th>
+				<th>Lord</th>
+			  </tr>
+
+			{% for a in possessionFact.object_list  %}
+			
+			  <tr>
+			    <td>{{a.firmdate|format_dates|default:"unavailable"}}</td>
+			    <td><a  href="{% url 'factoid_detail' a.id %}" title="click to show">{{a.shortdesc}}</a></td>
+				<td>{{a.get_primaryPersons|printmany_withabsoluteurl|safe}}</td>
+			    <td>{{a.get_secondaryPersons|printmany_withabsoluteurl|safe}}</td>
+			  </tr>
+			
+			{% endfor %}
+
+		
+			</table>
+			
+			
+			<br /><br />
+						
+			
+			{% endblock possessionFact %}
+			
+			
+	    </div>  
+		{# end of fragment1 #} 
+	</section>
+	{% endif %}
+<!-- end Tab Content -->

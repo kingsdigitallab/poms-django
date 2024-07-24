@@ -1,3 +1,78 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:af7963aab0bcfbf55adf0623578a407ea23d96cc5eb2bac2e9a1bea13d888644
-size 1591
+{% extends "base.html" %}
+{%  load static pomsapp_tags pomsapp_wagtail_tags %}
+
+{% block titlepage  %}
+	<title>POMS: record</title>
+{% endblock %}
+
+
+{% block load_css  %}
+
+	
+{% endblock %}
+
+
+{% block load_js  %}
+
+
+<script>
+	L_PREFER_CANVAS = true
+</script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/functions_record.js"></script>
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/mapbox.js-bower-2.2.1/mapbox.css"></link>
+
+<script type="text/javascript" src="{{ STATIC_URL }}/js/leaflet-image.js"></script>
+<!--
+<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-src.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}js/leaflet.css"></link>
+-->
+<script type="text/javascript" src="{{ STATIC_URL}}js/leaflet-overlap.js"></script>
+
+<script> 
+
+</script>
+{% endblock %}
+
+
+{% block small_links %}
+   {# <ul class="utl"> #}
+     {# <li class="i1"><a href="#"><b>Help</b></a></li> #}
+     {# <li class="i2"><a href="#"><b>Register</b></a></li> #}
+     {# <li class="ix"><a href="#"><b>Login</b></a></li> #}
+   {# </ul>		 #}
+{% endblock %}
+
+{% block subnav %}
+
+{% endblock %}
+
+
+{% block breadcrumbs %}
+        <div id="breadcrumbs">
+        {% get_wagtail_page 'search' as wagtail_page %}
+            {% breadcrumbs current_page=wagtail_page extra=record %}
+
+        </div>
+    {% endblock %}
+
+
+
+
+{% block contents %}
+
+	{% block preview_contents %}
+		
+	{% endblock %}
+	
+	
+{% endblock %}
+	
+	
+	
+{% block body_closing %}
+
+
+{% endblock %}	

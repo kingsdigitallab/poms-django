@@ -1,3 +1,24 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:02c453c1af467b75e2d8311808e48fb292c8de6bc03381d8f77c076f9bae8cd2
-size 961
+{% extends "labs/mainsite/labs_index.html" %}
+
+
+
+{% block labs_contents %}
+	
+<dl>
+	<h3>Roles in Transactions</h3>	
+	
+	<p>The individuals and institutions in PoMS are often interconnected by participating in the same transactions. In the database, the appearance of an agent in a transaction if always linked to the specific 'role' the agent plays. Can we then discover any interesting pattern by examining these roles? Do agents tend to appear always in the same role, of are there exceptions to this rule?</p>
+	
+	<h4>Explore People's Roles in Transactions <a href="roles/go" class="launch" target="_blank" title="launch">launch</a></h4>
+	
+	<p>This visualization tool allows you to compare the different roles two agents played in the context of all the transactions they have in common.</p>
+	
+	<a href="roles/go" target="_blank"><img src="{{ STATIC_URL }}labs/img/screenshots/roles1.png" alt="screenshot" height="250" /></a>
+	
+	
+	<br />	
+	
+{% endblock %}		
+
+
+

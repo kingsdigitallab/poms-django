@@ -1,3 +1,5 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:83c8e1208479f3eee84bcf1f530840a2ec50c85c52245bc2889d07f84c560456
-size 162
+<select name='question_{{question.id}}'>
+{% for choice in question.get_choices %}
+  <option value='{{choice.nr}}'>{{choice.name}}</option>
+{% endfor %}
+</select>

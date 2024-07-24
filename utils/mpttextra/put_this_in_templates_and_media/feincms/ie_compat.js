@@ -1,3 +1,60 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:33441fe0bc338d723c216826df7354d50beb5625b7958745a1dde2638e393c9b
-size 1498
+/* Re-implement some methods IE sadly does not */
+
+if(typeof(Array.prototype.indexOf) == 'undefined') {
+    // indexOf() function prototype for IE6/7/8 compatibility, taken from
+    // JavaScript Standard Library - http://www.devpro.it/JSL/
+    Array.prototype.indexOf=function(elm,i){
+        var j=this.length;
+        if(!i)i=0;
+        if(i>=0){while(i<j){if(this[i++]===elm){
+            i=i-1+j;j=i-j;
+        }}}
+        else
+            j=this.indexOf(elm,j+i);
+        return j!==this.length?j:-1;
+    }
+}
+
+if (!Array.prototype.filter)
+{
+    Array.prototype.filter = function(fun /*, thisp*/)
+    {
+        var len = this.length;
+        if (typeof fun != "function")
+            throw new TypeError();
+
+        var res = new Array();
+        var thisp = arguments[1];
+        for (var i = 0; i < len; i++)
+            {
+                if (i in this)
+                    {
+                        var val = this[i]; // in case fun mutates this
+                        if (fun.call(thisp, val, i, this))
+                            res.push(val);
+                    }
+            }
+
+        return res;
+    };
+}
+
+if (!Array.prototype.map)
+{
+  Array.prototype.map = function(fun /*, thisp*/)
+  {
+    var len = this.length;
+    if (typeof fun != "function")
+      throw new TypeError();
+
+    var res = new Array(len);
+    var thisp = arguments[1];
+    for (var i = 0; i < len; i++)
+    {
+      if (i in this)
+        res[i] = fun.call(thisp, this[i], i, this);
+    }
+
+    return res;
+  };
+}

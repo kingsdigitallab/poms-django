@@ -1,3 +1,33 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5f3703a39941953814f9844068038bbe88bead0515253e4070e587851ac3d012
-size 1858
+{% extends "labs/mainsite/indexLabs.html" %}
+
+
+
+{% block labs_contents %}
+	
+<dl>
+	<h3>Peoples Lives</h3>	
+	
+	<p>The large number of factoids included in the PoMS database allow us to deduce information circa the <em>active years</em> of a person or institution, that is, the period of time during which they were active (also known as <a href="http://en.wikipedia.org/wiki/Floruit">floruit dates</a>). 
+		
+		<br />From this data, could we get more insight into the average lifespan of (for example) a female person in medieval Scotland? Or of all individuals born within a specific time frame? 
+		<br /><br />
+		These apps aim at letting you explore this king of questions by providing mechanisms for querying and visualising the known active years of the individuals mentioned in the database.</p>
+	
+	<br />
+	
+	<h4>Browse people via their known active years<a href="peoplelives/go" class="launch" target="_blank" title="launch">launch</a></h4>
+	<p>An html-based rendering of people's known active years that can be queried by years-range, name and floruit start date.</p>
+	<a href="{{ STATIC_URL }}labs/img/screenshots/lives1.png" title="click to view the image in full size"><img src="{{ STATIC_URL }}labs/img/screenshots/lives1.png" alt="screenshot" height="350" /></a>
+	
+	
+
+	<h4>Chart of people's active years <a href="longevitychart/go"  class="launch" target="_blank" title="launch">launch</a></h4>
+	<p>An interactive chart that displays the total number of people for a given range of active years (p.s. this chart makes use of the freely available <a href="http://www.highcharts.com/">Highcharts JS</a> library).</p>
+	<a href="{{ STATIC_URL }}labs/img/screenshots/lives2.png" title="click to view the image in full size"><img src="{{ STATIC_URL }}labs/img/screenshots/lives2.png" alt="screenshot" height="350" /></a>
+	
+	<br />	
+	
+{% endblock %}		
+
+
+

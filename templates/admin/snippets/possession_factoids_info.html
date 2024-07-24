@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:debae53dea2add8e5e65b9c3f543095438761efc52d5256c7f09213fe686b4c9
-size 417
+{% if possession.factoid_set.all  %}
+
+	<h2>Related factoids :</h2>
+	<br />
+	<table>
+	  <tr>
+	    <th>Record ID</th>
+	    <th>Short Summary</th>
+		<th>Type</th>
+	  </tr>
+	
+	{% for f in possession.factoid_set.all %}
+	  <tr>
+	    <td>{{f.id}}</td>
+	    <td><a href="{% url "factoid_detail" f.id %}" title="click to show">{{f}}</a></td>
+		<td>{{f.get_right_subclass.0}}</td>
+	  </tr>
+	{% endfor %}
+	</table>
+	
+{% endif %}

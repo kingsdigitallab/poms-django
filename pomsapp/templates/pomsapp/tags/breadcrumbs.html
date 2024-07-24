@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:e10dcf451aaffc6297cccd71581b7b3c82d12b410ec223704856fff37699296d
-size 521
+{% load wagtailcore_tags pomsapp_tags%}
+<!-- Ecclesiastical Charter Witnesses > Priors of St Andrews (H2/97/) -->
+<ul class="breadcrumbs">
+    <li>
+        <a href="{% pageurl root %}">{{ root.title }}</a>
+    </li>
+
+    {% for page in pages %}
+    <li>
+        {% if forloop.last and not extra %}
+        > {{ page.title }}
+        {% else %}
+         > <a href="{% pageurl page %}">{{ page.title }}</a>
+        {% endif %}
+    </li>
+    {% endfor %}
+
+    {% if extra %}
+    <li> > {{ extra }}</li>
+    {% endif %}
+</ul>

@@ -1,3 +1,64 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:0eb096be8358498539f6decca5deb6ca0c85deec89ff600b212ad0a165cb9391
-size 2040
+{# USED IN POPULARITY TAG CLOUD #}
+
+
+{% load extrafilters %}
+
+
+
+{% block infobox %}
+
+
+	<div class='tnum'>
+		<h3>{{record|capfirst}}</h3> 
+	</div>
+
+	<div class='infobox'>
+      	<dl class="m1">
+	        {% if record.standardmedievalname %}
+	        	<dt>Medieval Name</dt>
+		        <dd>{{record.standardmedievalname|default:"&nbsp;"}}</dd>
+	        {% endif %}
+			{% if record.moderngaelicname %}
+		        <dt>Modern Gaelic Name</dt>
+		        <dd>{{record.moderngaelicname|default:"&nbsp;"}}</dd>			
+			{% endif %}
+				{# gender only for M, F, M/F #}
+			{% if record.genderkey.id == "4" or record.genderkey.id == "3" or record.genderkey.id == "6" %}
+		        <dt>Gender</dt>
+		        <dd>{{record.genderkey|default:"&nbsp;"}}</dd>
+			{% endif %}
+	        {% if record.persondescription %}
+	        	<dt>Biography</dt>
+		        <dd>{{record.persondescription|poms_italic|safe|default:"&nbsp;"}}</dd>
+	        {% endif %}
+	        {% if record.nice_floruits %}
+	        	<dt>Floruits</dt>
+		        <dd> {{record.nice_floruits|safe}}</dd>
+	        {% endif %}	
+	        {% if record.relatedplace %}
+	        	<dt>Related Place</dt>
+		        <dd><a class="no_extlink" href="{% url place_detail record.relatedplace.id  %}" title="Show details">{{record.relatedplace.name}}</a></dd>
+	        {% endif %}		
+			{% if record.matrix_set.all %}
+			{% for m in record.matrix_set.all %}
+				<dt>Matrix</dt>
+		        <dd><a href="{% url matrix_detail m.id %}" class="seal" title="Show Matrix/Seal info">{{m.identifier}}</a></dd>
+								
+			{% endfor %}
+			{% endif %}
+			
+			
+      	</dl>
+</div>
+	
+	
+	<h4>Total number of associated factoids: {{ record.how_many_factoids}}</h4>
+	
+	<div style="background: #ECD672;">
+		<li>&rarr; View this record using the <a target="_blank" href="/labs/connectionscloud/go?id={{record.id}}">Dynamic Connections Cloud tool</a></li>
+		<li>&rarr; View this record using the <a target="_blank" href="/labs/relationships/go?id={{record.id}}">Relationships Explorer tool</a></li>
+	</div>
+	
+	
+{% endblock %}
+          

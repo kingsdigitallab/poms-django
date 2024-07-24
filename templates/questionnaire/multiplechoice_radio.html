@@ -1,3 +1,12 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:806e5ec4bf695ad44bd2632cd65dd9a322e527f7d85fe1f9d07779c33bfbb22c
-size 308
+{# in order to make it work, give the name the format: question_{{question.id}} #}
+
+<table border='0'>
+	{% for choice in question.get_choices %}
+	<tr>	
+		<td>
+			<input name='question_{{question.id}}' type='radio'
+			value='{{choice.nr}}'><label>{{choice.name}}</label>
+		</td>
+	</tr>
+	{% endfor %}
+</table>

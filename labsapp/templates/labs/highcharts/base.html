@@ -1,3 +1,54 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:8749d7766a229b2e4c5099f57627eef841a16785289e52ef1384fb4f41402871
-size 1132
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		
+		{% block title %}
+			<title>Highcharts Example</title>
+		{% endblock %}
+	
+	
+		{% block main_css %}
+			<link rel="stylesheet" type="text/css" media="all" href="{{ STATIC_URL }}labs/css/navbar.css"/>
+		{% endblock %}
+		
+	
+		{% block custom_css %}
+
+		{% endblock %}
+	
+	
+		
+		{% block main_scripts %}
+			<!-- 1. Add these JavaScript inclusions in the head of your page -->
+			<script type="text/javascript" src="{{ STATIC_URL }}labs/js/jquery1.6/jquery.min.js"></script>
+			<script type="text/javascript" src="{{ STATIC_URL }}labs/js/highcharts/highcharts.js"></script>
+		
+			<!-- 1a) Optional: add a theme file -->
+			<!--
+				<script type="text/javascript" src="../js/themes/gray.js"></script>
+			-->
+		
+			<!-- 1b) Optional: the exporting module -->
+			<script type="text/javascript" src="{{ STATIC_URL }}labs/js/highcharts/modules/exporting.js"></script>
+		{% endblock %}
+
+		
+		
+		{% block custom_scripts %}
+			
+		{% endblock %}
+		
+
+	</head>
+	<body>
+		
+		
+		
+		{% block body %}
+			
+		{% endblock %}
+				
+				
+	</body>
+</html>

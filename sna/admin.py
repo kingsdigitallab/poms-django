@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:3fc4404b5e976bcf866792c81946abc4c069244521f89c135a22b5c083c6588a
-size 260
+from django.contrib import admin
+
+from sna.models import *  # noqa
+
+
+class LegendInline(admin.StackedInline):
+    model = LegendItem
+    extra = 1
+
+
+class BasicAdmin(admin.ModelAdmin):
+    inlines = [LegendInline, ]
+
+
+admin.site.register(GephiVis, BasicAdmin)

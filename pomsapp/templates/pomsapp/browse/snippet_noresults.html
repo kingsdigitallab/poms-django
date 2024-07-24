@@ -1,3 +1,14 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:1eb709878b5d4fd14ffa69343f5ad35f451256050619a5b3614ab7668e1fee62
-size 429
+{% if start_page %}
+{# if it is the start page, make sure you reload the results when the page has finished loading.. #}
+<script type="text/javascript">
+	$(function() {
+ 		reload_results();
+	});
+ </script>
+
+{% else %}
+	<p>No results... you might have accumulated inconsistent search terms.</p>
+    <p>Try removing some search terms, or start from scratch by clicking on 'remove all'</p>
+{% endif %}
+
+<p>&#8250;&#8250;DemoSite</p>

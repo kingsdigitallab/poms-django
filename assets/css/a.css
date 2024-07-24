@@ -1,3 +1,75 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:6bf2fc53f43a61c9f25d0b4026b3122eadde0d45634d26f94b163a9655689a16
-size 1101
+html, body, div, span, object, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+strike, strong, sub, sup, tt, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form,
+label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body, body * {
+
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+address, caption, cite, code, dfn, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+h3{
+    font-size: 1.3em;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+    content: '';
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+abbr, acronym {
+    border: 0;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+}
+
+b {
+    font-weight: normal;
+}
+
+i {
+    font-style: normal;
+}
+
+small{
+    font-size: smaller;
+}
+

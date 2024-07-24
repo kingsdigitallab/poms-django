@@ -1,3 +1,402 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:688072a5251fcb20b7d7bd4c4bd5eb3efe17fe0e2348a7f5035623bb1f334cf0
-size 15803
+{% extends "pomsapp/record/record_base.html" %}
+
+{% load extrafilters %}
+
+{% block permalink %}
+    <ul class="utl m1">
+        <li class="i1"><a href="#" title="Permanent URL for this page, which will allow you to save a bookmark"><b>Permalink: {{ permalink }}</b></a>
+        </li>
+    </ul>
+{% endblock %}
+
+
+{% block contents %}
+
+
+
+    {% block preview_contents %}
+        <div class="recordSummary">
+        <div class="hdp">
+
+            <h1 class="record"><!--<span class="sourceicon">[sourceicon]</span>-->
+                {% if user.is_staff %}
+                    <a href="{{ record.get_admin_url }}" target="_blank"
+                       title="Welcome administrator! Click to edit this item in the data entry section.">{{ record|poms_italic|safe }}</a>
+                {% else %}
+                    {{ record|poms_italic|safe }}
+                {% endif %}
+            </h1>
+        </div>
+
+
+
+
+        <div class="ct">
+        <dl class="m1">
+            {% if record.description %}
+                <dt>Description</dt>
+                <dd>{{ record.description|poms_italic|safe|default:"&nbsp;"}}</dd>
+            {% endif %}
+            {% if record.firmdate %}
+                <dt>Firm date</dt>
+                <dd>{{ record.firmdate|default:"&nbsp;"}}</dd>
+            {% endif %}
+            {% if record.probabledate %}
+                <dt>Probable date</dt>
+                <dd>{{ record.probabledate|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.datingnotes %}
+                <dt>Dating Notes</dt>
+                <dd>{{ record.datingnotes|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.placedatemodern %}
+                <dt>Place date (modern)</dt>
+                <dd>{{ record.placedatemodern|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.placedatedoc %}
+                <dt>Place date (document)</dt>
+                <dd>{{ record.placedatedoc|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.placefk %}
+                <dt>Related Place</dt>
+                <dd><a  href="{% url 'place_detail' record.placefk.id %}"
+                       title="Show details">{{ record.placefk.name }}</a></dd>
+            {% endif %}
+
+            {% if record.sourcefordataentry %}
+                <dt>Source for Data Entry</dt>
+                <dd>{{ record.sourcefordataentry|poms_italic|safe|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+
+            {% if record.source_tradid %}
+                <dt>Trad. ID</dt>
+                <dd>{{ record.source_tradid|poms_italic|safe|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.hammondnumber %}
+                <dt>Calendar number</dt>
+                <dd>{{ record.hammondnumber }}/{{ record.hammondnumb2 }}/{{ record.hammondnumb3 }}
+                    {% if record.hammondext %}/{{ record.hammondext }}{% endif %}
+                </dd>
+            {% endif %}
+
+            {% if record.chartertypekey %}
+                <dt>Charter type</dt>
+                <dd>{{ record.chartertypekey|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.ischirograph %}
+                <dt>Chirograph?</dt>
+                <dd>{{ record.ischirograph|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.letterpatent %}
+                <dt>Referred to as letter patent</dt>
+                <dd>{{ record.letterpatent|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.language %}
+                <dt>Language</dt>
+                <dd>{{ record.language|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.doctypenotes %}
+                <dt>Document type notes</dt>
+                <dd>{{ record.doctypenotes|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.origcontemp %}
+                <dt>Original (contemporary)</dt>
+                <dd>{{ record.origcontemp|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.duporigcontemp %}
+                <dt>Duplicate Original (contemporary)</dt>
+                <dd>{{ record.duporigcontemp|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.orignoncontemp %}
+                <dt>Original (non-contemporary)</dt>
+                <dd>{{ record.orignoncontemp|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.duporignoncontemp %}
+                <dt>Duplicate Original (non-contemporary)</dt>
+                <dd>{{ record.duporignoncontemp|yesno:"yes,no"|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.notes %}
+                <dt>Notes</dt>
+                <dd>{{ record.notes|poms_italic|safe|default:"&nbsp;"}}</dd>
+            {% endif %}
+
+            {% if record.mofa_flag %}
+                <dt>Document Image</dt>
+                <dd>
+                    <a href="http://www.modelsofauthority.ac.uk/digipal/catalogue/poms/document-{{ record.hammondnumber }}-{{ record.hammondnumb2 }}-{{ record.hammondnumb3 }}/">See
+                        the <em>Models of Authority</em> website for an image of this charter with transcription,
+                        translation, etc.</a></dd>
+            {% endif %}
+
+
+        </dl>
+
+    {% endblock %}
+
+</div><!-- ends content ct -->
+</div><!-- ends record summary -->
+
+    <div id="tabs" class="tsb recordTabs">
+        <h2>Total number of associated factoids: {{ record.get_factoids|length }}</h2>
+
+        <!-- Tab Headers -->
+        {% if transactionFact.object_list %}
+            <input id="tab1" type="radio" name="tabs">
+            <label for="tab1">Transaction factoids <span>({{ transactionFact.tot }})</span></label>
+        {% endif %}
+
+        {% if relationshipFact.object_list %}
+            <input id="tab2" type="radio" name="tabs">
+            <label for="tab2">Relationship factoids <span>({{ relationshipFact.tot }})</span></label>
+        {% endif %}
+
+        {% if titleFact.object_list %}
+            <input id="tab3" type="radio" name="tabs">
+            <label for="tab3">Title factoids <span>({{ titleFact.tot }})</span></label>
+        {% endif %}
+
+        {% if possessionFact.object_list %}
+            <input id="tab4" type="radio" name="tabs">
+            <label for="tab4">Possession factoids <span>({{ possessionFact.tot }})</span></label>
+        {% endif %}
+        <!-- end Tab Headers -->
+
+       {% include 'pomsapp/includes/source_tabs.html' %}
+
+    </div>
+
+    <script>
+
+        geoArray = [
+            {% if record.get_factoids.count > 0 %}{% for f in record.get_factoids %}{% if f.poss_lands.all %}
+            {
+                "db_id": "{{ record.id }}",
+                "source": "{{ record.source_tradid }}",
+                "type": "Sources",
+                "desc": "",
+                "record_type": "{{ result_typeObj.label }}",
+                "places": [{% for land in f.poss_lands.all %}{% if land.place.geom %} {
+                    "name": "{{land.place.name}}, {{ land.place.parent}}",
+                    "coordinates": "{{land.place.geom.y}},{{land.place.geom.x}}"
+                }, {% endif %}  {% endfor %}],
+            },
+            {% endif %}{% endfor %}{% endif %}
+        ]
+
+
+        geoArray = [
+            {% if record.charter.placefk %}
+                {
+                    "db_id": "{{ record.id }}",
+                    "source": "{{ record.source_tradid }}",
+                    "type": "Sources",
+                    "desc": "",
+                    "record_type": "{{ result_typeObj.label }}",
+                    "places": [{
+                        "name": "{{record.charter.placefk.name}}, {{ record.charter.placefk.parent}}",
+                        "coordinates": "{{ record.charter.placefk.geom.y}},{{record.charter.placefk.geom.x }}",
+                        "placetypes": [{% for p in record.charter.placefk.place_types.all %}"{{ p }}"{% if forloop.last %}{% else %}, {% endif %}{% endfor %}]
+                    }]
+                },
+            {% endif %}
+        ]
+
+
+        var sourceIcon = L.divIcon({className: 'sourceicon'})
+
+        L.newCircleMarker = L.CircleMarker.extend({
+            setZIndexOffset: function (offset) {
+                this.options.zIndexOffset = offset;
+                this.update();
+                return this;
+            },
+            update: function () {
+                if (this._icon) {
+                    var pos = this._map.latLngToLayerPoint(this._latlng).round();
+                    this._setPos(pos);
+                }
+                return this;
+            }
+        });
+
+
+        var minX, minY, maxX, maxY;
+
+
+        function getPeopleRows(peeps) {
+            var str = "";
+            for (p in peeps) {
+                str += '<tr><td>' + peeps[p].name + '</td><td>' + peeps[p].role + '</td></tr>'
+            }
+            return str;
+        };
+
+
+        markerStyles = {
+            'transaction': {'color': 'blue', 'start': 1, 'stop': 179},
+            'possession': {'color': 'red', 'start': 181, 'stop': 359},
+            'title/occupation': {'color': 'red'},
+            'other': {'color': 'yellow'},
+            'M': {'color': 'blue', 'start': 1, 'stop': 89},
+            'F': {'color': 'pink', 'start': 91, 'stop': 179},
+            'Institution': {'color': 'green', 'start': 181, 'stop': 269},
+            'M/F': {'color': 'purple', 'start': 271, 'stop': 359},
+            'Sources': {'color': 'red', 'start': 271, 'stop': 359}
+        }
+
+        markerCentreArray = []
+
+        $(document).ready(function () {
+            if (geoArray.length > 0) {
+                // Add the map element
+                $('.hdp').after('<div id="map" style="border-style:solid;border-width:1px;width:auto;height:250px;margin-right:100px;margin-right:20px;margin-left:20px;"></div>');
+
+                map = new L.map('map', {maxZoom: 12, zoomControl: true});
+                layer = new L.TileLayer('https://{s}.tiles.mapbox.com/v3/isawnyu.map-knmctlkh/{z}/{x}/{y}.png',
+                    {attribution: 'Map base by <a href="http://awmc.unc.edu/">AWMC</a>'})//.addTo(map);
+                modern = new L.TileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}").addTo(map)
+
+                switcher = new L.control.layers({'Modern': modern, 'Topography': layer}, {}).addTo(map);
+
+                for (r in geoArray) {
+
+                    // deal with each type of record - Factoids first
+
+                    for (p in geoArray[r].places) {
+                        if (markerCentreArray.indexOf(String(
+                            parseFloat(geoArray[r].places[p].coordinates.split(',')[0]))
+                            + ',' +
+                            String(
+                                parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+                            )) == -1 && geoArray[r].places[p].coordinates.length > 8) {
+                            markerCentreArray.push(
+                                String(
+                                    parseFloat(geoArray[r].places[p].coordinates.split(',')[0]))
+                                + ',' +
+                                String(
+                                    parseFloat(geoArray[r].places[p].coordinates.split(',')[1])
+                                )
+                            );
+                        }
+
+                        var m;
+                        try {
+                            m = new L.newCircleMarker(
+                                [parseFloat(geoArray[r].places[p].coordinates.split(',')[0]),
+                                    parseFloat(geoArray[r].places[p].coordinates.split(',')[1])]
+                                , {
+                                    fillColor: markerStyles[geoArray[r].type].color,
+                                    radius: 7,
+                                    fillOpacity: 1,
+                                    color: 'black',//markerStyles[geoArray[r].type].color,
+                                    weight: 1,
+                                    opacity: 0.9,
+                                    'name': geoArray[r].places[p].name,
+                                    'type': geoArray[r].type,
+                                    'db_id': geoArray[r].db_id/*,
+                                         startAngle:markerStyles[geoArray[r].type].start,
+                                         stopAngle:markerStyles[geoArray[r].type].stop*/
+                                }
+                            );
+                        }
+                        catch (err) {
+                            /// Don't bother then..
+                        }
+
+                        /*
+                         var m = new L.marker([ parseFloat(geoArray[r].places[p].coordinates.split(',')[0]),
+                         parseFloat(geoArray[r].places[p].coordinates.split(',')[1])],{icon:sourceIcon,'name':geoArray[r].places[p].name,
+                         'type':geoArray[r].type,
+                         'db_id':geoArray[r].db_id})
+                         */
+
+                        m.bindPopup(
+                            '<table class="simple headersX"><tbody>' +
+                            '<tr><th colspan="2">' + m.options.name + '</th></tr>' +
+                            '<tr><th colspan="2">' + geoArray[r].type + '</th></tr>' +
+                            '<tr><td colspan="2">' + geoArray[r].source + '</td></tr>' +
+                            '<tr><td colspan="2">' + geoArray[r].desc + '</td></tr>'
+                            + getPeopleRows(geoArray[r].people) +
+                            '</tbody></table>'
+                        );
+                        map.addLayer(m);
+
+                        // Use markerCentreArray values to create centre markers:
+                        for (cms in markerCentreArray) {
+                            var cm = new L.CircleMarker(
+                                [parseFloat(markerCentreArray[cms].split(',')[0]),
+                                    parseFloat(markerCentreArray[cms].split(',')[1])],
+                                {
+                                    fillColor: 'gray',
+                                    radius: 9,
+                                    fillOpacity: 0,
+                                    color: 'black',
+                                    weight: 1,
+                                    opacity: 0.85,
+                                    clickable: false,
+                                })
+                                .addTo(map);
+                        }
+                        ;
+
+
+                        if (p == 0) {
+                            minX = m.getLatLng().lng;
+                            minY = m.getLatLng().lat;
+                            maxX = m.getLatLng().lng;
+                            maxY = m.getLatLng().lat;
+                        }
+                        ;
+                        if (m.getLatLng().lng <= minX) {
+                            minX = m.getLatLng().lng;
+                        }
+                        else {
+                            maxX = m.getLatLng().lng;
+                        }
+                        if (m.getLatLng().lat <= minY) {
+                            minY = m.getLatLng().lat;
+                        }
+                        else {
+                            maxY = m.getLatLng().lat;
+                        }
+
+
+                    }
+                    ;
+
+                }
+
+
+            }
+
+            var ll = new L.LatLng(minY, minX);
+            var ur = new L.LatLng(maxY, maxX);
+            var b = new L.LatLngBounds(ll, ur);
+            map.fitBounds(b);
+
+
+        })
+
+
+    </script>
+
+
+
+
+{% endblock %}
+

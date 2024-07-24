@@ -1,3 +1,15 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:68f2154304189fb08fe0d188284da228501a5fb3d9c919417fd99eb71992b439
-size 456
+Dear {{ user }},
+
+This is your invitation to answer a quick questionnaire.
+
+In order to do so, please go to http://{{ questionnaire_url }} and use the
+data below to login, after which you can answer the questions.
+
+- emailaddress: {{ user.email }}
+- password: {{ user.password }}
+
+If there are any questions, please contact {{ admin_name }} via {{ admin_email }} or simply reply to this email.
+
+Thank you in advance for your cooperation,
+
+{{ admin_name }}

@@ -1,3 +1,46 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:5b6b2c0de0cf015bb390070abc092601a6557b17892590e33237a082ae26935a
-size 3459
+{% extends "labs/mainsite/indexLabs.html" %}
+
+
+
+{% block labs_contents %}
+	
+<dl>
+	<h3>Navigating people/institutions connections</h3>	
+	
+	<p>The PoMS database contains more than 80000 facts about 20000 people/institutions active in medieval Scotland. 
+	How were these people connected? Can we explore this network in a more interactive, game-like manner than the classic database-like structures?</p>
+	
+	<br />
+	
+	<h4>Dynamic Connections Cloud<a href="connectionscloud/go" class="launch" title="launch" target="_blank">launch</a></h4>
+	<p>	This experimental app lets you browse incrementally the network of relationships linking persons/institutions to other persons/institutions.
+		<br />
+		Since each of them is normally participating in more than one event or situation (e.g., a transaction or a relationship factoid), we can attempt to reconstruct the network of interconnections by examining the appearance of individuals within the same event or situation. 
+		</p>
+		
+		<p>To this end, this tool lets you choose an individual and start building a 'chain of connections' departing from him/her/it. Each name in the resulting connections-cloud is rendered using a different font and color, depending on the sex and on the number of common factoids being shared with the previously selected items.
+			<br />At any time it is possible to go back to the main PoMS database pages in order to find out more about the individuals or factoids emerging from the connections-cloud exploration. Just click on the individual icons, or move the mouse over the links provided in order to discover more options.</p>
+		
+
+	<br />
+	<a href="{{ STATIC_URL }}labs/img/screenshots/Labs_ConnectionsCloud_Help.jpg" title="click to view the image in full size"><img src="{{ STATIC_URL }}labs/img/screenshots/Labs_ConnectionsCloud_Help.jpg" alt="screenshot" width="350" /></a>
+	
+	<br />
+	
+	
+	<h4>Relationships Explorer <a href="relationships/go" class="launch" target="_blank" title="launch">launch</a></h4>
+	
+	<p>The individuals and institutions in the PoMS database are often interconnected by participating to the same events (e.g. transactions or relationships). In particular, the database contains detailed information circa the varying 'roles' agents are playing within events. Can we discover any interesting pattern by examining these roles? For example, do agents tend to appear always in the same role, of are there exceptions to this rule?</p>
+		
+	<p>This visualization tool allows you to compare the different roles played by two agents played in the context of their common events.</p>
+	
+	<p>The visualization makes use of the <a href="http://bost.ocks.org/mike/sankey/">D3 Sankey diagrams</a> plugin, kindly made available by Mike Bostock. <a href="http://en.wikipedia.org/wiki/Sankey_diagram">Sankey diagrams</a> are designed to show flows through a network (and are sometimes called flow diagrams). In this case the network is always composed by three steps (person role, event, person role) and is relatively simple, so the Sankey diagram is mainly used in order to group nodes of the same type (e.g. person roles) and provide an overview of relationships between persons and events (i.e. the 'flow')</p>
+	
+	<a href="{{ STATIC_URL }}labs/img/screenshots/Labs_rel_explorer.jpg" title="click to view the image in full size"><img src="{{ STATIC_URL }}labs/img/screenshots/Labs_rel_explorer.jpg" alt="screenshot" width="350" /></a>
+	
+		<br />
+	
+{% endblock %}		
+
+
+

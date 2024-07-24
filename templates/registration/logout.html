@@ -1,3 +1,8 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:7b8d20bed8a78da9c32db510fe7622108a7b57da0443bb9cb430831f9e529f85
-size 262
+{% extends "registration/base.html" %}
+
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+<h1>You've been logged out.</h1>
+<p>Thanks for stopping by; when you come back, don't forget to <a href="/accounts/login/">log in</a> again.</p>
+{% endblock %}

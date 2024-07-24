@@ -1,3 +1,10 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:575e762cba299299e64f05fc68545c5b53d49d59d24be7411614f30f3a48fc08
-size 264
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ title }} | {% trans 'POMS' %}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">{% trans 'P o m s * *  Administrative Interface' %}</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

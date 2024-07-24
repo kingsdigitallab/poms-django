@@ -1,3 +1,29 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:ddb7a59239e89d1f40899a7c66237e9be1ce404da678a7bf55e304b7f510ad42
-size 593
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>people for robbie [1]</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Mac">
+	<!-- Date: 2011-03-22 -->
+</head>
+<body>
+
+
+	
+		{% for p in people  %}
+
+
+		<p><b>{{p.persondisplayname}}</b> [<a href="http://poms.cch.kcl.ac.uk/db/record/person/{{p.id}}/" target="_blank">id:{{p.id}}</a>]</p>
+		
+
+		{% endfor %}
+		
+
+
+
+
+</body>
+</html>

@@ -1,3 +1,4 @@
+*.dat filter=lfs diff=lfs merge=lfs -text
 *.bowerrc filter=lfs diff=lfs merge=lfs -text
 *.dockerignore filter=lfs diff=lfs merge=lfs -text
 *.gitignore filter=lfs diff=lfs merge=lfs -text
@@ -63,7 +64,6 @@
 *.log filter=lfs diff=lfs merge=lfs -text
 *.ttl filter=lfs diff=lfs merge=lfs -text
 *.data filter=lfs diff=lfs merge=lfs -text
-*.dat filter=lfs diff=lfs merge=lfs -text
 *.ver filter=lfs diff=lfs merge=lfs -text
 *.alloc filter=lfs diff=lfs merge=lfs -text
 *.prop filter=lfs diff=lfs merge=lfs -text

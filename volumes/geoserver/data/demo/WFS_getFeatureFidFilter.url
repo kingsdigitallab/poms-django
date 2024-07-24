@@ -1,1 +1,3 @@
-wfs?request=GetFeature&version=1.1.0&typeName=topp:states&outputFormat=GML2&FILTER=%3CFilter%20xmlns=%22http://www.opengis.net/ogc%22%3E%3CFeatureId%20fid=%22states.23%22/%3E%3C/Filter%3E
+version https://git-lfs.github.com/spec/v1
+oid sha256:02caea0920d7593b8addfe45ec02d157748c6e6165f5cf751554a7faf2fca55f
+size 188

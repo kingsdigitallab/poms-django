@@ -1,28 +1,3 @@
-<layer>
-  <name>poly_landmarks</name>
-  <id>LayerInfoImpl--570ae188:124761b8d78:-7fce</id>
-  <path>/</path>
-  <type>VECTOR</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7feb</id>
-  </defaultStyle>
-  <styles>
-    <style>
-      <id>StyleInfoImpl--570ae188:124761b8d78:-7fe0</id>
-    </style>
-    <style>
-      <id>StyleInfoImpl--570ae188:124761b8d78:-7fed</id>
-    </style>
-    <style>
-      <id>StyleInfoImpl--570ae188:124761b8d78:-7fe1</id>
-    </style>
-  </styles>
-  <resource class="featureType">
-    <id>FeatureTypeInfoImpl--570ae188:124761b8d78:-7fcf</id>
-  </resource>
-  <enabled>true</enabled>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:c777185bab6cebdda11c1e4e573db85a50863df9b6bb249263df737e6c8ec969
+size 724

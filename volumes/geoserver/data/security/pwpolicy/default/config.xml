@@ -1,10 +1,3 @@
-<passwordPolicy>
-  <id>52857278:13c7ffd66a8:-7fff</id>
-  <name>default</name>
-  <className>org.geoserver.security.validation.PasswordValidatorImpl</className>
-  <uppercaseRequired>false</uppercaseRequired>
-  <lowercaseRequired>false</lowercaseRequired>
-  <digitRequired>false</digitRequired>
-  <minLength>0</minLength>
-  <maxLength>-1</maxLength>
-</passwordPolicy>
+version https://git-lfs.github.com/spec/v1
+oid sha256:8f5509f0fc82444e41ee7a883092bdbb3c7544107ab1b8fc39972ca89264dbcc
+size 364

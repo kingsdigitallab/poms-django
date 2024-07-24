@@ -1,12 +1,3 @@
-<coverageStore>
-  <id>CoverageStoreInfoImpl--570ae188:124761b8d78:-7fd5</id>
-  <name>arcGridSample</name>
-  <description>Sample ASCII GRID coverage of Global rainfall.</description>
-  <type>ArcGrid</type>
-  <enabled>true</enabled>
-  <workspace>
-    <id>WorkspaceInfoImpl--570ae188:124761b8d78:-7ff7</id>
-  </workspace>
-  <__default>false</__default>
-  <url>file:coverages/arc_sample/precip30min.asc</url>
-</coverageStore>
+version https://git-lfs.github.com/spec/v1
+oid sha256:d99c5cd016323d81c3db2c391d89a1e8231c88185d107e2bb3356ce6c614b8bc
+size 421

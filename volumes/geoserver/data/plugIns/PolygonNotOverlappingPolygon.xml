@@ -1,5 +1,3 @@
-<plugin xmlns:gml = "http://www.opengis.net/gml" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc = "http://www.opengis.net/ogc" xmlns = "pluginSchema" xsi:schemaLocation = "pluginSchema /data/capabilities/validate/pluginSchema.xsd" >
-<name>Polygon Not Overlapping Polygon</name>
-<description>One polygon cannot overlap the other polygon.</description>
-<class>org.geotools.validation.spatial.PolygonNotOverlappingPolygonValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:11ad7555b4080eabd045fb6cc727f1d21f3f7f8f59c824f4057a8cdf082e1b3c
+size 466

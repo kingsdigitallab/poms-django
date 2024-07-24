@@ -1,21 +1,3 @@
-<layerGroup>
-  <id>LayerGroupInfoImpl--771d836c:13d21c21411:22c5</id>
-  <name>Scrapbook test</name>
-  <layers>
-    <layer>
-      <id>LayerInfoImpl-477f2f13:13b4d223bbb:-191c</id>
-    </layer>
-  </layers>
-  <styles>
-    <style>
-      <id>StyleInfoImpl-477f2f13:13b4d223bbb:-191b</id>
-    </style>
-  </styles>
-  <bounds>
-    <minx>-5.71597671508789</minx>
-    <maxx>55.7826347351074</maxx>
-    <miny>-5.07017421722412</miny>
-    <maxy>55.8116683959961</maxy>
-    <crs>EPSG:4326</crs>
-  </bounds>
-</layerGroup>
+version https://git-lfs.github.com/spec/v1
+oid sha256:1f470c89c79270960e749e494a89b11112c535b45e54fe8bb2cf28e023a0ef22
+size 507

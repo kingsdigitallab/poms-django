@@ -1,17 +1,3 @@
-<layer>
-  <name>Img_Sample</name>
-  <id>LayerInfoImpl--570ae188:124761b8d78:-7fae</id>
-  <path>/</path>
-  <type>RASTER</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7fe2</id>
-  </defaultStyle>
-  <resource class="coverage">
-    <id>CoverageInfoImpl--570ae188:124761b8d78:-7faf</id>
-  </resource>
-  <enabled>true</enabled>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:d5bacb76d9584e9caa8853fb3a173338aba99dff6665e996271c9f0e46e73d41
+size 445

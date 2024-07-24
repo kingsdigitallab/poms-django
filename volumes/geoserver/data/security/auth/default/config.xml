@@ -1,6 +1,3 @@
-<usernamePassword>
-  <id>52857278:13c7ffd66a8:-7ff0</id>
-  <name>default</name>
-  <className>org.geoserver.security.auth.UsernamePasswordAuthenticationProvider</className>
-  <userGroupServiceName>default</userGroupServiceName>
-</usernamePassword>
+version https://git-lfs.github.com/spec/v1
+oid sha256:163bb9e188e7dd4d712e565d65f2901597d21f259928fb969d3281942e0f462a
+size 246

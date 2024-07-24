@@ -1,9 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<GetCapabilities
-  version="2.0.1"
-  service="WCS"
-  xmlns="http://www.opengis.net/wcs/2.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.opengis.net/wcs/2.0 http://schemas.opengis.net/wcs/2.0/wcsGetCapabilities.xsd" />
-		
-
+version https://git-lfs.github.com/spec/v1
+oid sha256:8c3d68b74fcd65adb19634e9993fc2d0f21a815b583039d398a3061348672d8a
+size 306

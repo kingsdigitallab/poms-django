@@ -1,29 +1,3 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
-VAGRANTFILE_API_VERSION = "2"
-
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "bento/ubuntu-16.04"
-
-  config.vm.define "poms" do |poms|
-  end
-
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
-  config.vm.network "forwarded_port", guest: 5432, host: 5432
-  config.vm.network "forwarded_port", guest: 9200, host: 9200
-  config.vm.network "forwarded_port", guest: 8983, host: 8983
-
-  config.vm.network "private_network", ip: "192.168.20.17"
-
-  config.vm.provider "virtualbox" do |provider|
-    provider.customize ["modifyvm", :id, "--memory", "2048"]
-    provider.name = "poms"
-  end
-
-  config.vm.provision "ansible" do |ansible|
-    ansible.playbook = ".vagrant_provisioning/playbook.yml"
-    # ansible.tags = ""
-    # ansible.verbose = "vvv"
-  end
-end
+version https://git-lfs.github.com/spec/v1
+oid sha256:479f3d8145f19dc447108026f74970ac0403398acb8212dcadb6a76731e4e2a3
+size 832

@@ -1,19 +1,3 @@
-
-TREE_EDITOR.HTML
-
-this template file was originally part of feincms
-
-it is needed for displaying the tree properly in the admin
-
-it needs to be put under your /templates directory, or in /templates/admin
-(you could customize this position by looking at the source code of feincms_tree_editor.py)
-
-
-FEINCMS MEDIA
-
-this dir should go in the media directory
-
-A setting needs to be added too:
-
-# settings for FEINCMS media used by the admin-mptt tree visualizer...
-MPTTEXTRA_ADMIN_MEDIA = '/dj_app_media/feincms/'
+version https://git-lfs.github.com/spec/v1
+oid sha256:d06bf62745196b0106fe06e58443926f7f7edb0024ca7cbe2f5e0140fe56a9c0
+size 510

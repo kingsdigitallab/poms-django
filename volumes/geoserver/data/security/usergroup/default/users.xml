@@ -1,7 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?><userRegistry xmlns="http://www.geoserver.org/security/users" version="1.0">
-<users>
-<user enabled="true" name="admin" password="digest1:D9miJH/hVgfxZJscMafEtbtliG0ROxhLfsznyWfG38X2pda2JOSV4POi55PQI4tw"/>
-<user enabled="true" name="iUTTY4534" password="digest1:fVxmEkVq/QgMyE+w9olzfGw8MzYEDTW9ollYgWnOTF12GL4jdiiakqsYLdVj06it"/>
-</users>
-<groups/>
-</userRegistry>
+version https://git-lfs.github.com/spec/v1
+oid sha256:6f3c2f08e075637f997786a87d0875556c31c237f95e2f149b68e101647945b5
+size 402

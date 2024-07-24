@@ -1,22 +1,3 @@
-<layer>
-  <name>streams</name>
-  <id>LayerInfoImpl--570ae188:124761b8d78:-7fc2</id>
-  <path>/</path>
-  <type>VECTOR</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7fef</id>
-  </defaultStyle>
-  <styles>
-    <style>
-      <id>StyleInfoImpl--570ae188:124761b8d78:-7fe3</id>
-    </style>
-  </styles>
-  <resource class="featureType">
-    <id>FeatureTypeInfoImpl--570ae188:124761b8d78:-7fc3</id>
-  </resource>
-  <enabled>true</enabled>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:1881911de6c07d76807ff7381186260a6306cbfcec6d28fe081ae0668b2a03aa
+size 553

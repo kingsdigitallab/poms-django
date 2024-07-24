@@ -1,27 +1,3 @@
-<layerGroup>
-  <id>LayerGroupInfoImpl-5280d2a:13ed317e1b3:-4b76</id>
-  <name>PDE_style_test</name>
-  <layers>
-    <layer>
-      <id>LayerInfoImpl-5280d2a:13ed317e1b3:-557a</id>
-    </layer>
-    <layer>
-      <id>LayerInfoImpl-5280d2a:13ed317e1b3:-5877</id>
-    </layer>
-  </layers>
-  <styles>
-    <style>
-      <id>StyleInfoImpl--2916a015:13e7eace9f5:-1a47</id>
-    </style>
-    <style>
-      <id>StyleInfoImpl-5280d2a:13ed317e1b3:-5097</id>
-    </style>
-  </styles>
-  <bounds>
-    <minx>-2.003751E7</minx>
-    <maxx>2.003751E7</maxx>
-    <miny>-8283344.0</miny>
-    <maxy>1.8418384E7</maxy>
-    <crs class="projected">EPSG:900913</crs>
-  </bounds>
-</layerGroup>
+version https://git-lfs.github.com/spec/v1
+oid sha256:8e0684b9b32ad082b3c3f83bfceb1c584592be2ace465ba54e3d385b9dc16e86
+size 662

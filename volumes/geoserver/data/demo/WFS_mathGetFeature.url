@@ -1,1 +1,3 @@
-wfs?request=GetFeature&version=1.1.0&typeName=topp:states&formatName=GML2&FILTER=%3Cogc:Filter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%3E%3Cogc:PropertyIsGreaterThan%3E%3Cogc:Div%3E%3Cogc:PropertyName%3EMANUAL%3C/ogc:PropertyName%3E%3Cogc:PropertyName%3EWORKERS%3C/ogc:PropertyName%3E%3C/ogc:Div%3E%3Cogc:Literal%3E0.25%3C/ogc:Literal%3E%3C/ogc:PropertyIsGreaterThan%3E%3C/ogc:Filter%3E
+version https://git-lfs.github.com/spec/v1
+oid sha256:9af07fdb6dca579b34ee00a9aab3742073d7a87d838525a5acbc6515f6997840
+size 391

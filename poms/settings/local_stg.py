@@ -1,21 +1,3 @@
-from .base import *  # noqa
-
-ALLOWED_HOSTS = ['poms-stg.kdl.kcl.ac.uk']
-
-CACHE_REDIS_DATABASE = '1'
-CACHES['default']['LOCATION'] = '127.0.0.1:6379:' + CACHE_REDIS_DATABASE
-
-INTERNAL_IPS = INTERNAL_IPS + ['']
-ALLOWED_HOSTS = ['']
-
-DATABASES = {
-    'default': {
-        'ENGINE': db_engine,
-        'NAME': 'app_poms_stg',
-        'USER': 'app_poms',
-        'PASSWORD': '',
-        'HOST': ''
-    },
-}
-
-SECRET_KEY = ''
+version https://git-lfs.github.com/spec/v1
+oid sha256:a0b88dae3a3b35bc48d43bc4e678e89f096c2354e4104907a0d2deb199312a98
+size 420

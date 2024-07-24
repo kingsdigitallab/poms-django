@@ -1,1 +1,3 @@
-wfs?request=GetFeature&version=1.1.0&typeName=topp:states&propertyName=STATE_NAME,LAND_KM,the_geom&outputFormat=GML2&FILTER=%3CFilter%20xmlns=%22http://www.opengis.net/ogc%22%3E%3CPropertyIsBetween%3E%3CPropertyName%3Etopp:LAND_KM%3C/PropertyName%3E%3CLowerBoundary%3E%3CLiteral%3E100000%3C/Literal%3E%3C/LowerBoundary%3E%3CUpperBoundary%3E%3CLiteral%3E150000%3C/Literal%3E%3C/UpperBoundary%3E%3C/PropertyIsBetween%3E%3C/Filter%3E
+version https://git-lfs.github.com/spec/v1
+oid sha256:bec3a9592f6bb1617379f9d5d931efc5af0d015fce1de296d2cd58ff4bd14cbe
+size 431

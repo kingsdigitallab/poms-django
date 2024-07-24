@@ -1,5 +1,3 @@
-<plugin xmlns:gml = "http://www.opengis.net/gml" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc = "http://www.opengis.net/ogc" xmlns = "pluginSchema" xsi:schemaLocation = "pluginSchema /data/capabilities/validate/pluginSchema.xsd" >
-<name>Is Valid Geometry</name>
-<description>Is this a valid GML geometry for geoserver.</description>
-<class>org.geotools.validation.spatial.IsValidGeometryValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:7bb0de68f98b703c273df07abc602a2ac7153ccec037650b7746119a43550b0d
+size 437

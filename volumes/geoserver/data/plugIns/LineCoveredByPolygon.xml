@@ -1,10 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="pluginSchema" 
-xmlns:gml="http://www.opengis.net/gml" 
-xmlns:ogc="http://www.opengis.net/ogc" 
-xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
-xs:schemaLocation="pluginSchema /data/capabilities/validate/pluginSchema.xsd">
-  <name>Polygon Covers Line</name>
-  <description> A line is covered by a polygon.</description>
-  <class>org.geotools.validation.spatial.LineCoveredByPolygonValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:50d2b7cd6f1a6073d7e0bc63a1123e34390979bca4a4aa6098612b8ad382bbe7
+size 469

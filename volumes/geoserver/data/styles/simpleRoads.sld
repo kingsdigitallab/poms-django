@@ -1,28 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<StyledLayerDescriptor version="1.0.0" xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd"
-  xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <NamedLayer>
-    <Name>Simple Roads</Name>
-    <UserStyle>
-
-      <Title>Red Line</Title>
-      <Abstract>Light red line, 2px wide</Abstract>
-      <FeatureTypeStyle>
-        <Rule>
-          <Title>Roads</Title>
-          <LineSymbolizer>
-            <Stroke>
-              <CssParameter name="stroke">
-                <ogc:Literal>#AA3333</ogc:Literal>
-              </CssParameter>
-              <CssParameter name="stroke-width">
-                <ogc:Literal>2</ogc:Literal>
-              </CssParameter>
-            </Stroke>
-          </LineSymbolizer>
-        </Rule>
-      </FeatureTypeStyle>
-    </UserStyle>
-  </NamedLayer>
-</StyledLayerDescriptor>
+version https://git-lfs.github.com/spec/v1
+oid sha256:52154445dbd913211f2aaa6c2ec37c9c5055d92e13d2c1b28d66a4e508134d6d
+size 988

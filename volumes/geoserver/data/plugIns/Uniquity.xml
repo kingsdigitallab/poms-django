@@ -1,5 +1,3 @@
-<plugin xmlns:gml = "http://www.opengis.net/gml" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc = "http://www.opengis.net/ogc" xmlns = "pluginSchema" xsi:schemaLocation = "pluginSchema /data/capabilities/validate/pluginSchema.xsd" >
-<name>Uniquity</name>
-<description>Check for uniqueness.</description>
-<class>org.geotools.validation.attributes.UniquityValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:b682cb8163c2325f762281a887c9fcb65ea7c0f6a8e1cb6b6dde8e750877f3a1
+size 402

@@ -1,12 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="pluginSchema" 
-xmlns:gml="http://www.opengis.net/gml" 
-xmlns:ogc="http://www.opengis.net/ogc" 
-xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
-xs:schemaLocation="pluginSchema /data/capabilities/validate/pluginSchema.xsd">
-	<name>Geometry Intersects Geometry</name>
-	<description> A Geometry Intersects another Geometry.</description>
-	<class>
-		org.geotools.validation.spatial.relate.IntersectsIntegrity
-	</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:9d766dbdf68ee5addb8622bc30b4575467fca0374c083da480173fc5b7bd6682
+size 484

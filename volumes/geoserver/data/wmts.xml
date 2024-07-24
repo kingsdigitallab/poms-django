@@ -1,19 +1,3 @@
-<wmts>
-  <id>WMTSInfoImpl--288a2c05:1786a499f45:-7ff2</id>
-  <enabled>true</enabled>
-  <name>WMTS</name>
-  <title>GeoServer Web Map Tile Service</title>
-  <maintainer>http://geoserver.org/com</maintainer>
-  <abstrct>A compliant implementation of WMTS service.</abstrct>
-  <accessConstraints>NONE</accessConstraints>
-  <fees>NONE</fees>
-  <versions>
-    <org.geotools.util.Version>
-      <version>1.0.0</version>
-    </org.geotools.util.Version>
-  </versions>
-  <citeCompliant>false</citeCompliant>
-  <onlineResource>http://geoserver.org</onlineResource>
-  <schemaBaseURL>http://schemas.opengis.net</schemaBaseURL>
-  <verbose>false</verbose>
-</wmts>
+version https://git-lfs.github.com/spec/v1
+oid sha256:6633f4e666bc72e4f9e1ad8782d1dc3b778bcceadd17583bde5e512871308c29
+size 648

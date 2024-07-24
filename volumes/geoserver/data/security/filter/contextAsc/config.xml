@@ -1,6 +1,3 @@
-<contextPersistence>
-  <id>52857278:13c7ffd66a8:-7ff9</id>
-  <name>contextAsc</name>
-  <className>org.geoserver.security.filter.GeoServerSecurityContextPersistenceFilter</className>
-  <allowSessionCreation>true</allowSessionCreation>
-</contextPersistence>
+version https://git-lfs.github.com/spec/v1
+oid sha256:83e9d5ec349d859d77e72e64a7289ed94ec75ee78f477c9da337b84481204c12
+size 255

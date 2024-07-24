@@ -1,12 +1,3 @@
-<dataStore>
-  <id>DataStoreInfoImpl--570ae188:124761b8d78:-7fd9</id>
-  <name>states_shapefile</name>
-  <enabled>true</enabled>
-  <workspace>
-    <id>WorkspaceInfoImpl--570ae188:124761b8d78:-7ffd</id>
-  </workspace>
-  <connectionParameters>
-    <entry key="namespace">http://www.openplans.org/topp</entry>
-    <entry key="url">file:data/shapefiles/states.shp</entry>
-  </connectionParameters>
-</dataStore>
+version https://git-lfs.github.com/spec/v1
+oid sha256:27b67b34873a5722d9cc7078ca223ce1272399031e5eff45b1e000086d88f7a5
+size 404

@@ -1,34 +1,3 @@
-# DATABROWSE setup
-from django.contrib import databrowse
-from pomsapp.models import *  # noqa
-
-
-# authority lists
-
-auth_lists = [Role, Gender, Floruit, Chartertype, TitleType,
-              Relationshiptype, Occupationtype, Exemptiontype,
-              Nominalrendertype, Proanimagenerictypes, Renderdate,
-              Sicutclausetype, Tenendasclauseoptions,
-              Transactiontype, LegalPertinents, Returns_military,
-              Returns_renders, CommonBurdens, Language]
-
-
-def func(x):
-    return databrowse.site.register(x)
-
-
-map(func, auth_lists)
-
-
-# now the main models
-
-databrowse.site.register(Person)
-databrowse.site.register(Charter)
-# databrowse.site.register(Possession)
-# databrowse.site.register(Place)
-databrowse.site.register(FactTitle)
-databrowse.site.register(FactRelationship)
-# databrowse.site.register(FactOccupation)
-databrowse.site.register(FactPossession)
-# databrowse.site.register(FactReference)
-databrowse.site.register(FactTransaction)
+version https://git-lfs.github.com/spec/v1
+oid sha256:b844ef5287de35966479306dac8d6ae80389751b34071e918ebbdfe4ce02951a
+size 972

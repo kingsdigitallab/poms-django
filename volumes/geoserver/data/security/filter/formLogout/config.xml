@@ -1,6 +1,3 @@
-<logoutFilter>
-  <id>52857278:13c7ffd66a8:-7ff3</id>
-  <name>formLogout</name>
-  <className>org.geoserver.security.filter.GeoServerLogoutFilter</className>
-  <redirectURL>/web/</redirectURL>
-</logoutFilter>
+version https://git-lfs.github.com/spec/v1
+oid sha256:89ec8eed7b31454658e0e1f200b20b4df56ca819223881ad10e925a23bb047c4
+size 206

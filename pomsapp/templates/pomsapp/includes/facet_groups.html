@@ -1,30 +1,3 @@
-{% load extrafilters pomsapp_tags pomsapp_wagtail_tags %}
-
-    <li class="u {% cycle 'm0' 'm1' 'm2' 'm3' 'm4'  'm5' %}">
-        <h4 id="{{ facet_group_names }}"
-            class="to_collapse {{ facet_group_names }}_tip">{{ facet_group_label }}</h4>
-        {# the facetgroup #}
-        <ul>
-            {% for facet_name in facet_group_facets %}
-                {% with facets.fields|get_item:facet_name as facet_terms %}
-                    {% if facet_terms %}
-                        <li id="{{ facet.id }}" class="s6">
-                            <h5>
-                                <a href="#" class="async"
-                                   data-facet_group="{{ facet_group_names }}"
-                                   data-selected_facets="{% for selected_facet in selected_facets %}selected_facets={{ selected_facet }}&{% endfor %}"
-
-                                   data-facet_name="{{ facet_name }}"
-                                   data-index_type="{{ index_type }}">
-                                    <strong
-                                            class="{{ facet_name }}_tip">&#9656; {{ facet_name|facet_display_name|capfirst }}
-                                        ({{ facet_terms|length }})</strong>
-                                </a>
-                            </h5>
-                            <div class="g n2 {{ facet_group_names }}__{{ facet_name }}"></div>
-                        </li>
-                    {% endif %}
-                {% endwith %}
-            {% endfor %}
-        </ul>
-    </li>
+version https://git-lfs.github.com/spec/v1
+oid sha256:423172e7eed161476c2c274b104b70af7285cfdf6c2e8d899eadc8b5ddb88c30
+size 1540

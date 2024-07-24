@@ -1,16 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?><roleRegistry xmlns="http://www.geoserver.org/security/roles" version="1.0">
-<roleList>
-<role id="ADMIN"/>
-<role id="GROUP_ADMIN"/>
-</roleList>
-<userList>
-<userRoles username="admin">
-<roleRef roleID="ADMIN"/>
-</userRoles>
-<userRoles username="iUTTY4534">
-<roleRef roleID="ADMIN"/>
-<roleRef roleID="GROUP_ADMIN"/>
-</userRoles>
-</userList>
-<groupList/>
-</roleRegistry>
+version https://git-lfs.github.com/spec/v1
+oid sha256:f432e4803fa5d48b1268944c7fbb81ed81e42e520366ec79020bd59c7b3d8e66
+size 406

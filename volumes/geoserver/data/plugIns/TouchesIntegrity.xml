@@ -1,12 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="pluginSchema" 
-xmlns:gml="http://www.opengis.net/gml" 
-xmlns:ogc="http://www.opengis.net/ogc" 
-xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
-xs:schemaLocation="pluginSchema /data/capabilities/validate/pluginSchema.xsd">
-	<name>Geometry Touches Geometry</name>
-	<description> A Geometry touches another Ggeometry.</description>
-	<class>
-		org.geotools.validation.spatial.relate.TouchesIntegrity
-	</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:723df0d1269ecf8927b59806d8db652f090854eeb1e1ac631d23e30be5f1129d
+size 475

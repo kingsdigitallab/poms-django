@@ -1,4 +1,3 @@
-{{object.id}}
-{{object.persondisplayname}}
-{{object.standardmedievalname}}
-{{object.moderngaelicname}}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d974cdaf0e90fc3a1e0235f98755d9592310684333f7cd7262637e83cc02b8d3
+size 102

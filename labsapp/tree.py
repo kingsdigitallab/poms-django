@@ -1,22 +1,3 @@
-
-from django.http import HttpResponse
-from django.shortcuts import render_to_response
-# needed for passing the conf details
-from django.template import RequestContext
-
-import datetime
-
-from pomsapp.models import *
-from utils import myutils
-
-
-def tree1(request):
-    """
-    Experiment with trees
-    """
-
-    context = {'items': None}
-
-    return render_to_response('labs/tree1.html',
-                              context,
-                              context_instance=RequestContext(request))
+version https://git-lfs.github.com/spec/v1
+oid sha256:cea2fbf37bed89c4e207589f73aced51dfd88e4d8159e10b00cc92c5d044a952
+size 496

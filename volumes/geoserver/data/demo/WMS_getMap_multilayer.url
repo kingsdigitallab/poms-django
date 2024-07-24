@@ -1,1 +1,3 @@
-wms?request=GetMap&layers=tiger:poly_landmarks,tiger:tiger_roads&styles=,&bbox=-74.05,40.68,-73.91,40.88&Format=image/png&width=344&height=500&srs=EPSG:4326
+version https://git-lfs.github.com/spec/v1
+oid sha256:946707f5a476fe55df291d0fab0c2317886d40f98bb4f106087e1fbb4934fbce
+size 156

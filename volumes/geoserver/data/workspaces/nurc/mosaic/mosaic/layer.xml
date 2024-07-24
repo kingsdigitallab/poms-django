@@ -1,15 +1,3 @@
-<layer>
-  <name>mosaic</name>
-  <id>LayerInfoImpl--4a9eec43:132d48aac79:-7fff</id>
-  <type>RASTER</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7fe2</id>
-  </defaultStyle>
-  <resource class="coverage">
-    <id>CoverageInfoImpl--4a9eec43:132d48aac79:-8000</id>
-  </resource>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:81419dd5597cdf783371e0dc65452cba688cef0ed265f7651467d8224932145b
+size 398

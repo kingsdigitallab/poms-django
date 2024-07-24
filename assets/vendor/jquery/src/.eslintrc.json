@@ -1,5 +1,3 @@
-{
-	"root": true,
-
-	"extends": "../.eslintrc-browser.json"
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:d3963b57f430c60a2d7c342bd29cfd7e8ce27fc744cebca1b6d38e06f5046674
+size 60

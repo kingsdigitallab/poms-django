@@ -1,25 +1,3 @@
-<layer>
-  <name>tiger_roads</name>
-  <id>LayerInfoImpl--570ae188:124761b8d78:-7fcc</id>
-  <path>/</path>
-  <type>VECTOR</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7fec</id>
-  </defaultStyle>
-  <styles>
-    <style>
-      <id>StyleInfoImpl--570ae188:124761b8d78:-7fe8</id>
-    </style>
-    <style>
-      <id>StyleInfoImpl--570ae188:124761b8d78:-7fe3</id>
-    </style>
-  </styles>
-  <resource class="featureType">
-    <id>FeatureTypeInfoImpl--570ae188:124761b8d78:-7fcd</id>
-  </resource>
-  <enabled>true</enabled>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:40ee8a1375c664d530c6a506ddff60e6aa38fc70785f4f8beabcc198c83c4d33
+size 639

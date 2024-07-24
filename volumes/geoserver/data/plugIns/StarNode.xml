@@ -1,5 +1,3 @@
-<plugin xmlns:gml = "http://www.opengis.net/gml" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc = "http://www.opengis.net/ogc" xmlns = "pluginSchema" xsi:schemaLocation = "pluginSchema /data/capabilities/validate/pluginSchema.xsd" >
-<name>Star Node</name>
-<description>Does this have a star node.</description>
-<class>org.geotools.validation.network.StarNodeValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:d8e37939b3017debeb1d07bd3dbbbfc1e9ac132519bb83ea23dfa4db9a760d0d
+size 406

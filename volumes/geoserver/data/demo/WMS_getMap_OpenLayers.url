@@ -1,1 +1,3 @@
-wms?bbox=-130,24,-66,50&styles=population&Format=application/openlayers&request=GetMap&layers=topp:states&width=550&height=250&srs=EPSG:4326
+version https://git-lfs.github.com/spec/v1
+oid sha256:a0236c91c476f1b8e8eb8340b97f609e6d1989cd11b3a8b0aa86a117dbd9f527
+size 141

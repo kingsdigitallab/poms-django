@@ -1,5 +1,3 @@
-<plugin xmlns:gml = "http://www.opengis.net/gml" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc = "http://www.opengis.net/ogc" xmlns = "pluginSchema" xsi:schemaLocation = "pluginSchema /data/capabilities/validate/pluginSchema.xsd" >
-<name>Address Gap</name>
-<description>Do the addresses have gaps.</description>
-<class>org.geotools.validation.network.AddressGapValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:3bdb02259d0d876d54c6357829521ed1c162f8733464a8ae9f2012b95eed6588
+size 410

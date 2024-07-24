@@ -1,1 +1,3 @@
-Activate your djangoproject.com account - you have {{ expiration_days }} days!
+version https://git-lfs.github.com/spec/v1
+oid sha256:6409dd4cadda7ff83a169010ae578dbdae0de0bbee04740197927255f1b65267
+size 79

@@ -1,16 +1,3 @@
-<layer>
-  <name>historic_scottish_lu_from_tab_2015_08</name>
-  <id>LayerInfoImpl--37874acf:14f6e7934e2:-7b71</id>
-  <type>VECTOR</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7fe0</id>
-  </defaultStyle>
-  <resource class="featureType">
-    <id>FeatureTypeInfoImpl--37874acf:14f6e7934e2:-7b72</id>
-  </resource>
-  <enabled>true</enabled>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:8384db0e4826b842bdfa8fc539678a8d9214fc640c2322c1f734db906889fc29
+size 461

@@ -1,1 +1,3 @@
-wcs?SERVICE=WCS&REQUEST=GetCoverage&VERSION=2.0.1&CoverageId=nurc__mosaic&RANGESUBSET=RED_BAND:GREEN_BAND
+version https://git-lfs.github.com/spec/v1
+oid sha256:e7da8ebcdd2d986e6ceae87e1119bdaac1dc8a93b1f3a30d2da78c617c8f3ca9
+size 105

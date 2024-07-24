@@ -1,16 +1,3 @@
-{
-    "name": "poms",
-    "version": "0.1",
-    "dependencies": {
-        "jquery": null
-
-    },
-    "main": "assets/js/main.js",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ]
-}
+version https://git-lfs.github.com/spec/v1
+oid sha256:335321ae1589f65d5de2e899ed8f4f46d7b343daa3e9804d0f4da83bb60d909a
+size 255

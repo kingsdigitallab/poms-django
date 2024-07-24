@@ -1,6 +1,3 @@
-{% load humanize %}
-Someone, hopefully you, signed up for a new account at djangoproject.com using this email address. If it was you, and you'd like to activate and use your account, click the link below or copy and paste it into your web browser's address bar:
-
-http://127.0.0.1:8000/accounts/activate/{{ activation_key }}/
-
-If you didn't request this, you don't need to do anything; you won't receive any more email from us, and the account will expire automatically in {{ expiration_days|apnumber }} days.
+version https://git-lfs.github.com/spec/v1
+oid sha256:c8876c07222bd2003f26331dc9b023faf7f2d5ec870c3a1f36beeced307a5824
+size 509

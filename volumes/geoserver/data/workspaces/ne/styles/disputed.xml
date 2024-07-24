@@ -1,14 +1,3 @@
-<style>
-  <id>StyleInfoImpl--72884701:185db6cdd61:-7ffd</id>
-  <name>disputed</name>
-  <workspace>
-    <id>WorkspaceInfoImpl-1c443fee:182c0f3f209:-7ffe</id>
-  </workspace>
-  <format>sld</format>
-  <languageVersion>
-    <version>1.0.0</version>
-  </languageVersion>
-  <filename>disputed.sld</filename>
-  <dateCreated>2023-01-22 21:47:44.965 UTC</dateCreated>
-  <dateModified>2023-01-23 06:08:24.685 UTC</dateModified>
-</style>
+version https://git-lfs.github.com/spec/v1
+oid sha256:59b73bb416eae181a25a221fba7e1e3095aee12a84a1132c7a6b7db4c9807034
+size 425

@@ -1,16 +1,3 @@
-<layer>
-  <name>sfdem</name>
-  <id>LayerInfoImpl--570ae188:124761b8d78:-7fb0</id>
-  <path>/</path>
-  <type>RASTER</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7fe6</id>
-  </defaultStyle>
-  <resource class="coverage">
-    <id>CoverageInfoImpl--570ae188:124761b8d78:-7fb1</id>
-  </resource>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:6262daf71ad29d3f6bec9b3ec15c5bc3d205cbb27a120a31d8b54224d2b609b8
+size 414

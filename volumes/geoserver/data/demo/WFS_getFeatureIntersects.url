@@ -1,2 +1,3 @@
-wfs?request=GetFeature&version=1.0.0&typeName=topp:states&outputFormat=GML2&FILTER=%3CFilter%20xmlns=%22http://www.opengis.net/ogc%22%20xmlns:gml=%22http://www.opengis.net/gml%22%3E%3CIntersects%3E%3CPropertyName%3Ethe_geom%3C/PropertyName%3E%3Cgml:Point%20srsName=%22EPSG:4326%22%3E%3Cgml:coordinates%3E-74.817265,40.5296504%3C/gml:coordinates%3E%3C/gml:Point%3E%3C/Intersects%3E%3C/Filter%3E
- 
+version https://git-lfs.github.com/spec/v1
+oid sha256:edb4570f08fb3aa8ea0fc95091238ae1b7be1efdc4dfd73655d6e6d6f0b9536e
+size 396

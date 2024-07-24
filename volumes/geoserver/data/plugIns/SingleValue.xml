@@ -1,5 +1,3 @@
-<plugin xmlns:gml = "http://www.opengis.net/gml" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc = "http://www.opengis.net/ogc" xmlns = "pluginSchema" xsi:schemaLocation = "pluginSchema /data/capabilities/validate/pluginSchema.xsd" >
-<name>Single Value</name>
-<description>Checks for a single value.</description>
-<class>org.geotools.validation.attributes.SingleValueValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:1a8690e5bb1c7fd140f76ac9ad8bb01650da09bc4accf2a157aa700d2cafd0db
+size 414

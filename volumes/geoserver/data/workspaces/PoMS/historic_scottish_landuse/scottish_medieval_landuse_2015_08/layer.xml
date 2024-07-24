@@ -1,16 +1,3 @@
-<layer>
-  <name>scottish_medieval_landuse_2015_08</name>
-  <id>LayerInfoImpl--1ba8411e:14fd108b223:-7ffa</id>
-  <type>VECTOR</type>
-  <defaultStyle>
-    <id>StyleInfoImpl-588e3856:14fd58d1177:61fe</id>
-  </defaultStyle>
-  <resource class="featureType">
-    <id>FeatureTypeInfoImpl--1ba8411e:14fd108b223:-7ffb</id>
-  </resource>
-  <enabled>true</enabled>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:69025aa808c3dba30a75e7bf5f88f09f5fc21479ff211dd3ec1c8d75c01a0454
+size 455

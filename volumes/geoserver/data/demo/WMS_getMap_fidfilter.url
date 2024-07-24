@@ -1,1 +1,3 @@
-wms?bbox=-130,24,-66,50&styles=population&Format=image/png&request=GetMap&layers=topp:states&width=550&height=250&srs=EPSG:4326&filter=%3CFilter%20xmlns=%22http://www.opengis.net/ogc%22%3E%3CFeatureId%20fid=%22states.1%22/%3E%3C/Filter%3E
+version https://git-lfs.github.com/spec/v1
+oid sha256:5e4ceba671cf0d908886e91f7f50474e4678a0aae6d5f7d71fe3e5d8e5865231
+size 239

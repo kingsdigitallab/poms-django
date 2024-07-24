@@ -1,1 +1,3 @@
-wfs?request=GetFeature&version=1.1.0&typeName=topp:states,tiger:tiger_roads&outputFormat=GML2&FILTER=(%3CFilter%20xmlns=%22http://www.opengis.net/ogc%22%3E%3CFeatureId%20fid=%22states.3%22/%3E%3C/Filter%3E)(%3CFilter%20xmlns=%22http://www.opengis.net/ogc%22%3E%3CFeatureId%20fid=%22tiger_roads.3%22/%3E%3C/Filter%3E)
+version https://git-lfs.github.com/spec/v1
+oid sha256:d4fff139ab04f93ed902061227082605ba0b107d15ee50b5408fb1f36515e848
+size 317

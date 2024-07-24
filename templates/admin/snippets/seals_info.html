@@ -1,27 +1,3 @@
-
-{% if record.seal_set.all  %}
-
-	<h2>Related seals :</h2>
-	<br />
-	<table>
-	  <tr>
-	    <th>Record ID</th>
-	    <th>Color</th>
-		<th>Two sided</th>
-		<th>Archive</th>
-	  </tr>
-	{# MODIFY THIS: problem was that the pro-anima set has a different link 'factoidtrans' to factoids..#}
-	{#- maybe change the DB/model? if the db fk doesn't break..#}
-	{#- or create a custom method for detecting what assfactoidperson isntance we're dealing with? #}
-	
-	{% for s in record.seal_set.all %}
-	  <tr>
-	    <td><a href={{s.get_admin_url}}>{{s.id}}</a></td>
-	    <td>{{s.color}}</td>
-		<td>{{s.twosided|yesno}}</td>
-		<td>{{s.archive}}</td>
-	  </tr>
-	{% endfor %}
-	</table>
-	
-{% endif %}
+version https://git-lfs.github.com/spec/v1
+oid sha256:0a869e98feeb5159159385269e679aa44a774af6002df900bfd424aa53ddecaf
+size 672

@@ -1,28 +1,3 @@
-{% load pomsapp_tags %}
-{% for facet in facet_group_fields %}
-    {% with facets.fields|get_item:facet as facet_terms %}
-        <span class="text-filter">
-        Text filter <input type="text" name="focus" required class="text-box" data-facet="{{ facet }}"
-                           id="{{ facet }}_facetfilter"/>
-        <button class="clear-icon" type="reset"></button>
-    </span>
-        <div class="chioce_container">
-        <ul class="u u1 {{ facet }}_choices">
-            {% for term in facet_terms %}
-                {% with value=term.0 count=term.1 %}
-                    {% if count > 0 %}
-                        <li>
-
-                            <a href="
-                                    {% url 'search' %}{% add_facet_link querydict facet value %}&index_type={{ index_type }}">{{ value|facet_display_name }}
-                                ({{ count }})</a>
-                        </li>
-
-                    {% endif %}
-
-                {% endwith %}
-            {% endfor %}
-        </ul>
-</div>
-    {% endwith %}
-{% endfor %}
+version https://git-lfs.github.com/spec/v1
+oid sha256:a5c3e42ca57e02fa7148b406f704755b1360f3f3fafa1ce4aa590e1795db18fb
+size 1051

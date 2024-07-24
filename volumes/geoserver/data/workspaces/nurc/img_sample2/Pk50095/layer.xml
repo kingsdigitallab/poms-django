@@ -1,16 +1,3 @@
-<layer>
-  <name>Pk50095</name>
-  <id>LayerInfoImpl--570ae188:124761b8d78:-7fb4</id>
-  <path>/</path>
-  <type>RASTER</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7fe2</id>
-  </defaultStyle>
-  <resource class="coverage">
-    <id>CoverageInfoImpl--570ae188:124761b8d78:-7fb5</id>
-  </resource>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:76765d848c6063db4f55e686780f2dc46eeadf94c308e5b92e4808238a3642b7
+size 416

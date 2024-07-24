@@ -1,36 +1,3 @@
-<dataStore>
-  <id>DataStoreInfoImpl--5798cef1:147c5895640:-3326</id>
-  <name>Scotland</name>
-  <type>PostGIS</type>
-  <enabled>true</enabled>
-  <workspace>
-    <id>WorkspaceInfoImpl--19e1b629:13c90fa1a61:-7463</id>
-  </workspace>
-  <connectionParameters>
-    <entry key="schema">public</entry>
-    <entry key="Estimated extends">true</entry>
-    <entry key="fetch size">1000</entry>
-    <entry key="Max open prepared statements">50</entry>
-    <entry key="encode functions">false</entry>
-    <entry key="validate connections">true</entry>
-    <entry key="Expose primary keys">false</entry>
-    <entry key="Support on the fly geometry simplification">false</entry>
-    <entry key="Connection timeout">20</entry>
-    <entry key="create database">false</entry>
-    <entry key="preparedStatements">false</entry>
-    <entry key="database">kcl_ddh_geo_db</entry>
-    <entry key="port">5432</entry>
-    <entry key="passwd">crypt1:HJIUYo1ojZIqV1FnUyBlBjKgTeJnmhZFxkesn4YYwLVdRw+BNE7SqQ==</entry>
-    <entry key="min connections">1</entry>
-    <entry key="host">postgis</entry>
-    <entry key="dbtype">postgis</entry>
-    <entry key="namespace">PDE_Postgres</entry>
-    <entry key="Loose bbox">true</entry>
-    <entry key="max connections">10</entry>
-    <entry key="Test while idle">false</entry>
-    <entry key="user">postgres</entry>
-  </connectionParameters>
-  <__default>false</__default>
-  <dateModified>2024-04-25 14:24:24.259 UTC</dateModified>
-  <disableOnConnFailure>false</disableOnConnFailure>
-</dataStore>
+version https://git-lfs.github.com/spec/v1
+oid sha256:aa962fce14232d419f0afcf346764ceecac80e7e2cca73b96f06c65f7478f97b
+size 1509

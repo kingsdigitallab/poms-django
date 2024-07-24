@@ -1,1 +1,3 @@
-wms?request=GetMap&layers=tiger:poly_landmarks,tiger:tiger_roads&styles=,&bbox=-73.97,40.74,-73.93,40.78&Format=image/png&width=344&height=500&srs=EPSG:4326&cql_Filter=LANAME%20=%20%27East%20River%27;NAME%20=%20%27West%20Rd%27
+version https://git-lfs.github.com/spec/v1
+oid sha256:06cddb6f0b5a0d92308989d80c7d17f0c6469c13f79f5ffe6413969b048fc746
+size 227

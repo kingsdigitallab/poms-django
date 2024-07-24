@@ -1,7 +1,3 @@
-<securityInterceptor>
-  <id>52857278:13c7ffd66a8:-7ff4</id>
-  <name>restInterceptor</name>
-  <className>org.geoserver.security.filter.GeoServerSecurityInterceptorFilter</className>
-  <allowIfAllAbstainDecisions>false</allowIfAllAbstainDecisions>
-  <securityMetadataSource>restFilterDefinitionMap</securityMetadataSource>
-</securityInterceptor>
+version https://git-lfs.github.com/spec/v1
+oid sha256:a1059b191f41881202b5a3f4b6ab118edfa85b27408c4c9346315cb2e7081723
+size 343

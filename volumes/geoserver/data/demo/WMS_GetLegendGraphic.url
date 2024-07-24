@@ -1,1 +1,3 @@
-wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=topp:states
+version https://git-lfs.github.com/spec/v1
+oid sha256:dad6fe8967166b695b999422ca188802ba64a1bc1ddb305e0068569003619fb6
+size 97

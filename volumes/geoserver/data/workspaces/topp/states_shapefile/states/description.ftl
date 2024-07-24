@@ -1,7 +1,3 @@
-This is the state of ${STATE_NAME.value}.  
-${PERSONS.value} people live in an area of ${LAND_KM.value} square 
-kilometers, and only ${PUBTRANS.value} take public transportation.
-<br>
-<br>
-
-Map by:<br> <a href="http://opengeo.org"><img alt="OpenGeo" src="http://files.opengeo.org/OpenGeoLogo-201x50.png"></a>
+version https://git-lfs.github.com/spec/v1
+oid sha256:4b43c859dd9d7cc4904fcc93c91d58374f23289524d5e0f2b2d118d74e2c3b36
+size 309

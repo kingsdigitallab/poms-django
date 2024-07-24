@@ -1,25 +1,3 @@
-<layer>
-  <name>archsites</name>
-  <id>LayerInfoImpl--570ae188:124761b8d78:-7fca</id>
-  <path>/</path>
-  <type>VECTOR</type>
-  <defaultStyle>
-    <id>StyleInfoImpl--570ae188:124761b8d78:-7fdf</id>
-  </defaultStyle>
-  <styles>
-    <style>
-      <id>StyleInfoImpl--570ae188:124761b8d78:-7ff2</id>
-    </style>
-    <style>
-      <id>StyleInfoImpl--570ae188:124761b8d78:-7ff0</id>
-    </style>
-  </styles>
-  <resource class="featureType">
-    <id>FeatureTypeInfoImpl--570ae188:124761b8d78:-7fcb</id>
-  </resource>
-  <enabled>true</enabled>
-  <attribution>
-    <logoWidth>0</logoWidth>
-    <logoHeight>0</logoHeight>
-  </attribution>
-</layer>
+version https://git-lfs.github.com/spec/v1
+oid sha256:5dc0621e90558d4ec2f401a468d99f870722b72ef3baf5a4c2ab56e182187227
+size 637

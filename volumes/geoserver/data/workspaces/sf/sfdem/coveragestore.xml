@@ -1,12 +1,3 @@
-<coverageStore>
-  <id>CoverageStoreInfoImpl--570ae188:124761b8d78:-7fd8</id>
-  <name>sfdem</name>
-  <description>Digital elevation model for Spearfish City in Lawrence County, South Dakota. The area covered by the data set is in the vicinity of Spearfish and includes a majority of the Black Hills National Forest (i.e., Mount Rushmore).</description>
-  <type>GeoTIFF</type>
-  <enabled>true</enabled>
-  <workspace>
-    <id>WorkspaceInfoImpl--570ae188:124761b8d78:-7fff</id>
-  </workspace>
-  <__default>false</__default>
-  <url>file:data/sf/sfdem.tif</url>
-</coverageStore>
+version https://git-lfs.github.com/spec/v1
+oid sha256:2b42a3e8b62a542e9cd9cb215f069bbc1ebcb2fa2af5907bdc621212d1f493af
+size 572

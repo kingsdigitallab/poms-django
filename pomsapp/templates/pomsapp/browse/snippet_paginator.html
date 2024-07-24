@@ -1,22 +1,3 @@
-{% load pomsapp_tags %}
-{# PAGINATOR #}
-<div class="results-nav">
-  <p>Listing items <strong>{{ page_obj.start_index }}</strong> to <strong>{{ page_obj.end_index }}</strong>, page <strong>{{ page_obj.number }}</strong> of <strong>{{ paginator.num_pages }}</strong></p>
-  <ul class="pagination">
-	{% if page_obj.has_previous %}
-		{# <li><a onClick="reload_results('1')">&#8249;&#8249; First</a></li> #}
-		<li><a href="{% url 'search' %}{% add_facet_link querydict 'page' '1' %}"><i class="far fa-angle-double-left"></i> First</a></li>
-        <li><a href="{% url 'search' %}{% add_facet_link querydict 'page' page_obj.previous_page_number %}"><i class="far fa-angle-left"></i> Previous</a></li>
-
-    {% endif %}
-
-
-
-
-	{% if page_obj.has_next %}
-		<li><a href="{% url 'search' %}{% add_facet_link querydict 'page' page_obj.next_page_number %}" >Next <i class="far fa-angle-right"></i></a></li>
-		<li><a href="{% url 'search' %}{% add_facet_link querydict 'page' page_obj.paginator.num_pages %}">Last <i class="far fa-angle-double-right"></i></a></li>
-    {% endif %}
-  </ul>
-</div>	
-{# END PAGINATOR #}
+version https://git-lfs.github.com/spec/v1
+oid sha256:e1bd141c9ae402ee011a58189466a5e00aa65ebf9d2f9e41aecfd70e89b5e100
+size 1099

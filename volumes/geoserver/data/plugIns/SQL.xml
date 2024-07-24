@@ -1,5 +1,3 @@
-<plugin xmlns:gml = "http://www.opengis.net/gml" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc = "http://www.opengis.net/ogc" xmlns = "pluginSchema" xsi:schemaLocation = "pluginSchema /data/capabilities/validate/pluginSchema.xsd" >
-<name>SQL</name>
-<description>Checks that the SQL presented has results.</description>
-<class>org.geotools.validation.attributes.SQLValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:773e13c60e177a234072ae41a4e00c2b35c2d5cc228fa81d0cd4ff9ef8eefcee
+size 413

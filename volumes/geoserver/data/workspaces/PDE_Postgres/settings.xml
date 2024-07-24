@@ -1,18 +1,3 @@
-<settings>
-  <workspace>
-    <id>WorkspaceInfoImpl--19e1b629:13c90fa1a61:-7463</id>
-    <name>PDE_Postgres</name>
-  </workspace>
-  <contact>
-    <id>contact</id>
-    <contactEmail>neil.jakeman@kcl.ac.uk</contactEmail>
-    <contactOrganization>KCL DDH</contactOrganization>
-    <contactPerson>Neil Jakeman</contactPerson>
-    <contactPosition>Research Developer</contactPosition>
-  </contact>
-  <charset>UTF-8</charset>
-  <numDecimals>8</numDecimals>
-  <onlineResource>http://geoserver.org</onlineResource>
-  <verbose>false</verbose>
-  <verboseExceptions>false</verboseExceptions>
-</settings>
+version https://git-lfs.github.com/spec/v1
+oid sha256:4854feebd967dcd53e6138062d9d5bb67687608febc54695739993cce6909c05
+size 591

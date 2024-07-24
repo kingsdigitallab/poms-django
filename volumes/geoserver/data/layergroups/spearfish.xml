@@ -1,22 +1,3 @@
-<layerGroup>
-  <id>LayerGroupInfoImpl--570ae188:124761b8d78:-7fab</id>
-  <name>spearfish</name>
-  <layers>
-    <layer>
-      <id>LayerInfoImpl--570ae188:124761b8d78:-7fb0</id>
-    </layer>
-  </layers>
-  <styles>
-    <style/>
-  </styles>
-  <bounds>
-    <minx>589425.9342365642</minx>
-    <maxx>609518.6719560538</maxx>
-    <miny>4913959.224611808</miny>
-    <maxy>4928082.949945881</maxy>
-    <crs class="projected">EPSG:26713</crs>
-  </bounds>
-  <metadata>
-    <entry key="rawStyleList"></entry>
-  </metadata>
-</layerGroup>
+version https://git-lfs.github.com/spec/v1
+oid sha256:07a43453584911d203bf18f907f0033c44e80cf8a03aa760ba77c6caea69f79d
+size 523

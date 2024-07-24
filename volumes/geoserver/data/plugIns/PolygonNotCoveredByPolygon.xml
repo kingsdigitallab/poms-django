@@ -1,10 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plugin xmlns="pluginSchema" 
-xmlns:gml="http://www.opengis.net/gml" 
-xmlns:ogc="http://www.opengis.net/ogc" 
-xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" 
-xs:schemaLocation="pluginSchema /data/capabilities/validate/pluginSchema.xsd">
-  <name>Polygon Not Overlapping Line</name>
-  <description>One polygon not covered by the other polygon.</description>
-  <class>org.geotools.validation.spatial.PolygonNotCoveredByPolygonValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:40408c550e3031dfbbd291de47b2fb60fa3f9dbd93863bf6dd9fe399f50777e9
+size 497

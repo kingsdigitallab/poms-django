@@ -1,5 +1,3 @@
-<plugin xmlns:gml = "http://www.opengis.net/gml" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc = "http://www.opengis.net/ogc" xmlns = "pluginSchema" xsi:schemaLocation = "pluginSchema /data/capabilities/validate/pluginSchema.xsd" >
-<name>Point Inside Polygon</name>
-<description>The point is inside the polygon.</description>
-<class>org.geotools.validation.spatial.PointInsidePolygonValidation</class>
-</plugin>
+version https://git-lfs.github.com/spec/v1
+oid sha256:ebce30a589c1daf3e55bb57530f85e2c0e6d82117587ad77392c5d896b52f17c
+size 432

@@ -1,5 +1,3 @@
-<logging>
-  <level>DEFAULT_LOGGING.properties</level>
-  <location>logs/geoserver.log</location>
-  <stdOutLogging>true</stdOutLogging>
-</logging>
+version https://git-lfs.github.com/spec/v1
+oid sha256:65ce3d54668b6f291420594582bba5fae6b94e41151e998dfa19824cc8a3846d
+size 144

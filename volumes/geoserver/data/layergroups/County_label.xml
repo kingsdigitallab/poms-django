@@ -1,21 +1,3 @@
-<layerGroup>
-  <id>LayerGroupInfoImpl--771d836c:13d21c21411:226c</id>
-  <name>County_label</name>
-  <layers>
-    <layer>
-      <id>LayerInfoImpl-477f2f13:13b4d223bbb:-191e</id>
-    </layer>
-  </layers>
-  <styles>
-    <style>
-      <id>StyleInfoImpl-ce6deb9:13d213a376c:-f37</id>
-    </style>
-  </styles>
-  <bounds>
-    <minx>-5.71597671508789</minx>
-    <maxx>1.76515734195709</maxx>
-    <miny>49.9586753845215</miny>
-    <maxy>55.8116683959961</maxy>
-    <crs>EPSG:4326</crs>
-  </bounds>
-</layerGroup>
+version https://git-lfs.github.com/spec/v1
+oid sha256:e9ae6b1c519b818e2c6cd7d4e406a1381a7c5a4bbbed44ce17e26cd4117f1542
+size 502

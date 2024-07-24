@@ -56,15 +56,15 @@ services:
 
   elasticsearch:
     image: elasticsearch:7.10.1
-#    volumes:
-#      - ../volumes/elastic_data:/usr/share/elasticsearch/data
+    #    volumes:
+    #      - ../volumes/elastic_data:/usr/share/elasticsearch/data
     env_file:
       - .env
     expose:
       - "9200"
       - "9300"
-#    ports:
-#      - "9200:9200"
+    #    ports:
+    #      - "9200:9200"
     restart: unless-stopped
 
   geoserver:
@@ -111,16 +111,15 @@ services:
   # Original repositories located at: /vol/poms3/webroot/rdf/repositories
   # files will be added manually to volumes on server
   rdf:
-      image: tomcat:9
-      ports:
-        - "8180:8080"
-      volumes:
-        #- ../volumes/tomcat/logs:/usr/local/tomcat/logs/
-        - ../volumes/tomcat/webapps:/usr/local/tomcat/webapps
-        - ../volumes/tomcat/rdf/repositories:/usr/local/etc/rdf4j/repositories
-      environment:
-        VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
-        VIRTUAL_PATH: "/rdf"
-        VIRTUAL_PROTO: http
-        VIRTUAL_PORT: 8080
-
+    image: tomcat:9
+    ports:
+      - "8180:8080"
+    volumes:
+      #- ../volumes/tomcat/logs:/usr/local/tomcat/logs/
+      - ../volumes/tomcat/webapps:/usr/local/tomcat/webapps
+      - ../volumes/tomcat/rdf/repositories:/usr/local/etc/rdf4j/repositories
+    environment:
+      VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
+      VIRTUAL_PATH: "/rdf"
+      VIRTUAL_PROTO: http
+      VIRTUAL_PORT: 8080

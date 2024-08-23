@@ -112,6 +112,7 @@ services:
   # files will be added manually to volumes on server
   rdf:
     image: tomcat:9
+    restart: unless-stopped
     ports:
       - "8180:8080"
     volumes:

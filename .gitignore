@@ -74,3 +74,4 @@ data.tar.gz
 compose/.env
 compose/.env64
 files.txt
+node_modules

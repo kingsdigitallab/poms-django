@@ -56,8 +56,6 @@ services:
 
   elasticsearch:
     image: elasticsearch:7.10.1
-    #    volumes:
-    #      - ../volumes/elastic_data:/usr/share/elasticsearch/data
     env_file:
       - .env
     expose:
@@ -118,7 +116,7 @@ services:
     volumes:
       #- ../volumes/tomcat/logs:/usr/local/tomcat/logs/
       - ../volumes/tomcat/webapps:/usr/local/tomcat/webapps
-      - ../volumes/tomcat/rdf/repositories:/usr/local/etc/rdf4j/repositories
+      #- ../volumes/tomcat/rdf/repositories:/usr/local/etc/rdf4j/repositories
     environment:
       VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
       VIRTUAL_PATH: "/rdf"

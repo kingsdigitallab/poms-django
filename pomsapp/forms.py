@@ -39,7 +39,7 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
             data = self.data
 
             if 'q' in data:
-                q = data['q']
+                q = data['q'].strip()
 
                 if len(q) > 0:
                     m = re.search(r'(\d+/\d*/?\d*)', q)
@@ -48,7 +48,7 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
                         q = q.replace(hNumber, r'"{}"'.format(hNumber))
 
                     # Force text search to an all keywords behaviour
-                    q_query = ' AND '.join(q.split(' '))
+                    q_query = ' AND '.join(q.split())
                     sqs = sqs.narrow('text:{}'.format(q_query))
 
             # Don't apply dating to place

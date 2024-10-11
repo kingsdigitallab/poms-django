@@ -75,3 +75,6 @@ compose/.env
 compose/.env64
 files.txt
 node_modules
+
+.env
+.env64

@@ -15,6 +15,42 @@ This project uses the technologies outlined in our [Technology Stack](https://st
 - postgis: The backing database container for the geoserver above.
 - rdf: This container is an encapsulation of a Tomcat server running John Bradley's modified [RDF4J](https://rdf4j.org/) to provide the dataset as linked open data.  For more information, see the  at [documentation](https://poms.ac.uk/rdf/doc/index.html)
 
+## ENV file
+
+The compose file will look for deployment variables in a compose/.env file.  Below is a sample file:
+
+```
+#Django
+DJANGO_READ_DOT_ENV_FILE=True
+DJANGO_ALLOWED_HOSTS=
+DJANGO_SECRET_KEY=
+DJANGO_DEBUG=False
+
+# Elasticsearch
+# ------------------------------------------------------------------------------
+discovery.type=single-node
+
+
+# MySQL
+# ------------------------------------------------------------------------------
+DATABASE_URL=
+MYSQL_ROOT_PASSWORD=
+MYSQL_DATABASE=
+MYSQL_USER=
+MYSQL_PASSWORD=
+MYSQL_HOST=db
+
+# PostGIS
+# ------------------------------------------------------------------------------
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+
+# GEOSERVER
+geoserver_admin_user=
+geoserver_admin_password=
+```
+
+Fill in the database credentials and Django variables.  If deploying via a CI pipeling such as Gitlab, this file will need to be included in its variables (in the KDL setup, we encode this in base64 and add it to the CI/CD variables in the repository settings.)
 
 ## Getting started
 1. Enter the project directory: `cd poms-django`

@@ -43,3 +43,5 @@ RUN chmod +x /start
 # docker cp ./solr/conf e7ee989cee93:/var/solr/data/pbw
 # docker cp ./solr/solr_backend.py f57deb978d4b:/usr/local/lib/python3.6/site-packages/haystack/backends/
 #COPY ./solr/solr_backend.py /usr/local/lib/python3.6/site-packages/haystack/backends/
+
+ENTRYPOINT ["/start"]

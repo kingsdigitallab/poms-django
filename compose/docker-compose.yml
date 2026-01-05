@@ -34,7 +34,15 @@ services:
     build:
       context: ../
       dockerfile: ./compose/django/Dockerfile
-    command: /start
+    command:
+      [
+        "/usr/local/bin/gunicorn",
+        "poms.wsgi",
+        "--bind", "0.0.0.0:8000",
+        "--chdir=/app",
+        "--timeout", "180",
+        "--forwarded-allow-ips='*'",
+      ]
     container_name: poms_liv
     env_file:
       - .env

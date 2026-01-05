@@ -63,7 +63,7 @@ CSRF_COOKIE_SECURE = True
 ACCOUNT_ACTIVATION_DAYS = 7
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # -----------------------------------------------------------------------------
 # EMAIL SETTINGS
@@ -266,7 +266,8 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-MEDIA_URL = STATIC_URL + 'media/'
+# MEDIA_URL = STATIC_URL + 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL.strip('/'))
 
 if not os.path.exists(MEDIA_ROOT):

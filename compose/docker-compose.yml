@@ -26,9 +26,12 @@ services:
       - .env
     environment:
       VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
-      VIRTUAL_PATH: "~^/(static/|redist/|robots.txt)"
+      VIRTUAL_PATH: "~^/(media/|static/|redist/|robots.txt)"
       VIRTUAL_PROTO: http
       VIRTUAL_PORT: 8001
+    depends_on:
+      django:
+        condition: service_started
 
   django:
     build:
@@ -46,8 +49,6 @@ services:
     container_name: poms_liv
     env_file:
       - .env
-    ports:
-      - "8000:8000"
     restart: unless-stopped
     volumes:
       - ..:/app
@@ -128,9 +129,9 @@ services:
     expose:
       - "9200"
       - "9300"
-    #    ports:
-    #      - "9200:9200"
-    restart: unless-stopped
+    volumes:
+      - ../volumes/elasticsearch:/usr/share/elasticsearch/data
+    # restart: unless-stopped
 
   # Original repositories located at: /vol/poms3/webroot/rdf/repositories
   # files will be added manually to volumes on server

@@ -8,6 +8,9 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      nginx:
+        condition: service_started
 
   nginx:
     build:
@@ -17,7 +20,8 @@ services:
     expose:
       - "8001"
     volumes:
-      - ../volumes/django/static:/usr/share/nginx/static:ro
+      - ../static:/usr/share/nginx/static:ro
+      - ../media:/usr/share/nginx/media:ro
     env_file:
       - .env
     environment:
@@ -26,12 +30,43 @@ services:
       VIRTUAL_PROTO: http
       VIRTUAL_PORT: 8001
 
+  django:
+    build:
+      context: ../
+      dockerfile: ./compose/django/Dockerfile
+    command: /start
+    container_name: poms_liv
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    volumes:
+      - ..:/app
+    expose:
+      - 8000
+    environment:
+      VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
+      VIRTUAL_PATH: "/"
+      VIRTUAL_PROTO: http
+      VIRTUAL_PORT: 8000
+    healthcheck:
+      test: "cat /proc/net/tcp | grep 1F40 > /dev/null"
+      interval: 3s
+      timeout: 3s
+      retries: 100
+    depends_on:
+      - db
+      - elasticsearch
+      - rdf
+      - geoserver
 
   db:
     image: mysql:5.7.35
     volumes:
       - ../volumes/local_mysql_data:/var/lib/mysql
     restart: unless-stopped
+    command: --max-allowed-packet=67108864
     expose:
       - "3306"
     environment:
@@ -41,8 +76,32 @@ services:
     #        timeout: 10s
     #        interval: 5s
     #        retries: 10
+    healthcheck:
+      test: "mysql --user=root --password=$$MYSQL_ROOT_PASSWORD --execute='SHOW DATABASES;'"
+      interval: 3s
+      timeout: 3s
+      retries: 100
     env_file:
       - .env
+
+  geoserver:
+    build:
+      context: ../
+      dockerfile: ./compose/geoserver/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../volumes/geoserver/data:/opt/geoserver_data
+    restart: unless-stopped
+    environment:
+      VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
+      VIRTUAL_PATH: "/geoserver"
+      VIRTUAL_PROTO: http
+      VIRTUAL_PORT: 8080
+    depends_on:
+      - postgis
 
   postgis:
     image: postgis/postgis:12-3.4
@@ -64,47 +123,6 @@ services:
     #    ports:
     #      - "9200:9200"
     restart: unless-stopped
-
-  geoserver:
-    build:
-      context: ../
-      dockerfile: ./compose/geoserver/Dockerfile
-    env_file:
-      - .env
-    ports:
-      - "8080:8080"
-    volumes:
-      - ../volumes/geoserver/data:/opt/geoserver_data
-    restart: unless-stopped
-    environment:
-      VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
-      VIRTUAL_PATH: "/geoserver"
-      VIRTUAL_PROTO: http
-      VIRTUAL_PORT: 8080
-
-  django:
-    build:
-      context: ../
-      dockerfile: ./compose/django/Dockerfile
-    command: /start
-    container_name: poms_liv
-    depends_on:
-      - db
-      - elasticsearch
-    env_file:
-      - .env
-    ports:
-      - "8000:8000"
-    restart: unless-stopped
-    volumes:
-      - ../volumes/django/static:/app/static
-    expose:
-      - 8000
-    environment:
-      VIRTUAL_HOST: ${DJANGO_ALLOWED_HOSTS}
-      VIRTUAL_PATH: "/"
-      VIRTUAL_PROTO: http
-      VIRTUAL_PORT: 8000
 
   # Original repositories located at: /vol/poms3/webroot/rdf/repositories
   # files will be added manually to volumes on server

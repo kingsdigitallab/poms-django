@@ -35,7 +35,7 @@ services:
 
   django:
     build:
-      context: ../
+      context: ../volumes/django
       dockerfile: ./compose/django/Dockerfile
     command:
       [
@@ -51,7 +51,7 @@ services:
       - .env
     restart: unless-stopped
     volumes:
-      - ..:/app
+      - ../volumes/django:/app
     expose:
       - 8000
     environment:

@@ -78,3 +78,8 @@ node_modules
 
 .env
 .env64
+
+volumes/django/media
+server
+logs
+.python-env

@@ -44,7 +44,7 @@ services:
         "--bind", "0.0.0.0:8000",
         "--chdir=/app",
         "--timeout", "180",
-        "--forwarded-allow-ips='*'",
+        "--forwarded-allow-ips='*'"
       ]
     container_name: poms_liv
     env_file:

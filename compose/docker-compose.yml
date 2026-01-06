@@ -20,8 +20,8 @@ services:
     expose:
       - "8001"
     volumes:
-      - ../static:/usr/share/nginx/static:ro
-      - ../media:/usr/share/nginx/media:ro
+      - ../volumes/django/static:/usr/share/nginx/static:ro
+      - ../volumes/django/media:/usr/share/nginx/media:ro
     env_file:
       - .env
     environment:

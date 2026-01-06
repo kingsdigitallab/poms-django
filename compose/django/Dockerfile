@@ -29,7 +29,7 @@ COPY ./requirements.txt /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY --chown=django:django ./compose/django/start /start
+COPY --chown=django:django ./start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 # COPY --chown=django:django . /app

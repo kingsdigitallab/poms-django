@@ -10,7 +10,7 @@ python /app/manage.py collectstatic --noinput
 
 if [[ $1 == *gunicorn ]]; then
     if [[ "$DJANGO_DEBUG" == "True" ]]; then
-        exec "$@ --reload --log-level=debug"
+        exec "$@ --reload --reload-engine=poll --log-level=debug"
     else
         exec "$@"
     fi

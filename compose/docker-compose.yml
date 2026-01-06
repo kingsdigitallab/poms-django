@@ -35,8 +35,8 @@ services:
 
   django:
     build:
-      context: ../volumes/django
-      dockerfile: ./compose/django/Dockerfile
+      context: ./django
+      dockerfile: ./Dockerfile
     command:
       [
         "/usr/local/bin/gunicorn",

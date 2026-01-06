@@ -66,7 +66,7 @@ local.py
 logs/
 static/
 playbook.retry
-volumes/*
+# volumes/*
 
 # Data
 data.sql.gz
@@ -80,6 +80,12 @@ node_modules
 .env64
 
 volumes/django/media
+volumes/django/static
+volumes/elasticsearch
+volumes/tomcat
+volumes/local_mysql_data
+volumes/geoserver
+volumes/postgres_data
 server
-logs
+**/logs
 .python-env

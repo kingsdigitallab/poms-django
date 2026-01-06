@@ -63,8 +63,15 @@ class PomsFacetedBrowseForm(FacetedSearchForm):
 
             facet_counts = sqs.facet_counts()
 
+        # GN 26Q1, fix: when results are empty, the counts for each type of index came from the last results
+        # Now we reset to 0 each time first
+        for result_type in RESULT_TYPES:
+            self.index_type_counts[result_type[0]] = 0
+
         # Get index counts for all types
         if 'fields' in facet_counts and 'index_type' in facet_counts['fields']:
+            # e.g. [('factoid', 101531), ('person', 22571), ('source', 10072), ('place', 4559)]
+            # empty list when no results at all
             for type_count in facet_counts['fields']['index_type']:
                 self.index_type_counts[type_count[0]] = type_count[1]
 

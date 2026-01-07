@@ -331,7 +331,8 @@ ITEMS_PER_PAGE = 10
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE':
-            'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+            ## 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+            'search_app.backends.CustomElasticsearchEngine',
         'URL': 'http://127.0.0.1:9200/',
         'INDEX_NAME': 'poms_haystack',
     },
@@ -342,3 +343,17 @@ HAYSTACK_SEARCH_RESULTS_PER_PAGE = 50
 
 # Added here for edge cases with very large records in admin
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 2000
+
+ELASTICSEARCH_INDEX_SETTINGS = {
+    "settings": {
+        "analysis": {
+            "analyzer": {
+                "keywords_search_analyzer": {
+                    "type": "custom",
+                    "tokenizer": "standard",
+                    "filter": ["lowercase"]  # Exclude stop word filter
+                }
+            }
+        }
+    }
+}

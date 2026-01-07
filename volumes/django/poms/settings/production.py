@@ -29,7 +29,8 @@ PARTIAL_INDEX = False
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE':
-            'haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine',
+            #'haystack.backends.elasticsearch7_backend.Elasticsearch7SearchEngine',
+            'pomsapp.backends.CustomElasticsearchEngine',
         'URL': 'http://elasticsearch:9200/',
         'INDEX_NAME': 'poms_haystack',
     },

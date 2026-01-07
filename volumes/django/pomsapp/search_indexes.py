@@ -95,6 +95,7 @@ class PomsIndex(indexes.SearchIndex):
     object_id = indexes.IntegerField(model_attr='id')
     index_type = indexes.CharField(faceted=True, )
     text = indexes.CharField(document=True, use_template=True)
+    # text = indexes.CharField(document=True, use_template=True, analyzer="keywords_search_analyzer")
     # these are single fields used in different result types
     # so that they can be sorted
 
@@ -857,7 +858,7 @@ class SourceIndex(PomsIndex, indexes.Indexable):
     def prepare(self, obj):
         # force save of the object if auto_save
         self.prepared_data = super().prepare(obj)
-        print("Indexing SourceIndex: " + str(obj.pk) + "\n")
+        # print("Indexing SourceIndex: " + str(obj.pk) + "\n")
         # import pdb;
         # pdb.set_trace()
         self.prepared_data['index_type'] = 'source'

@@ -131,7 +131,7 @@ services:
       - "9300"
     volumes:
       - ../volumes/elasticsearch:/usr/share/elasticsearch/data
-    # restart: unless-stopped
+    restart: unless-stopped
 
   # Original repositories located at: /vol/poms3/webroot/rdf/repositories
   # files will be added manually to volumes on server
